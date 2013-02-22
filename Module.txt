@@ -1,0 +1,22 @@
+﻿Name: Helpful Extensions
+AntiForgery: enabled
+Author: Piedone
+Website: http://helpfulextensions.codeplex.com/
+Version: 1.0
+OrchardVersion: 1.6
+Description: Contains some handy extensions (e.g. filters for Projector).
+Features:
+    Piedone.HelpfulExtensions:
+		Name: Helpful Extensions
+        Description: Contains some handy extensions (e.g. filters for Projector).
+		Category: Content
+    Piedone.HelpfulExtensions.Projections:
+		Name: Projector Extensions
+        Description: Adds Projector filters.
+		Category: Content
+		Dependencies:  Piedone.HelpfulExtensions, Orchard.Alias, Orchard.Forms, Orchard.Projections, Orchard.Tokens
+    Piedone.HelpfulExtensions.Tokens:
+		Name: Tokens Extensions
+        Description: Adds some tokens.
+		Category: Content
+		Dependencies:  Piedone.HelpfulExtensions, Orchard.Alias, Orchard.Forms, Orchard.Projections, Orchard.Tokens
