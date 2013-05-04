@@ -12,15 +12,11 @@ namespace Piedone.HelpfulExtensions.Projections
     [OrchardFeature("Piedone.HelpfulExtensions.Projections")]
     public class ContainedByFilter : Orchard.Projections.Services.IFilterProvider
     {
-        private readonly ITokenizer _tokenizer;
-
         public Localizer T { get; set; }
 
 
-        public ContainedByFilter(ITokenizer tokenizer)
+        public ContainedByFilter()
         {
-            _tokenizer = tokenizer;
-
             T = NullLocalizer.Instance;
         }
 
@@ -37,8 +33,9 @@ namespace Piedone.HelpfulExtensions.Projections
 
         public void ApplyFilter(FilterContext context)
         {
-            var id = _tokenizer.Replace(context.State.ContainerId, null, new ReplaceOptions { Encoding = ReplaceOptions.NoEncode });
-            context.Query.Where(a => a.ContentPartRecord<CommonPartRecord>(), p => p.Eq("Container.Id", id));
+            if (string.IsNullOrEmpty((string)context.State.ContainerId)) return;
+
+            context.Query.Where(a => a.ContentPartRecord<CommonPartRecord>(), p => p.Eq("Container.Id", context.State.ContainerId));
         }
 
         public LocalizedString DisplayFilter(FilterContext context)
@@ -47,7 +44,7 @@ namespace Piedone.HelpfulExtensions.Projections
         }
     }
 
-    [OrchardFeature("Piedone.HelpfulExtensions.Contents")]
+    [OrchardFeature("Piedone.HelpfulExtensions.Projections")]
     public class ContentTypesFilterForms : IFormProvider
     {
         private readonly dynamic _shapeFactory;

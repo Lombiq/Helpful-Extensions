@@ -13,14 +13,10 @@ namespace Piedone.HelpfulExtensions.Projections
     [OrchardFeature("Piedone.HelpfulExtensions.Projections")]
     public class IdsInFilter : Orchard.Projections.Services.IFilterProvider
     {
-        private readonly ITokenizer _tokenizer;
-
         public Localizer T { get; set; }
 
-        public IdsInFilter(ITokenizer tokenizer)
+        public IdsInFilter()
         {
-            _tokenizer = tokenizer;
-
             T = NullLocalizer.Instance;
         }
 
@@ -38,9 +34,10 @@ namespace Piedone.HelpfulExtensions.Projections
         {
             if (context.State.ContentIds == null) return;
 
-            var ids = (string)_tokenizer.Replace(context.State.ContentIds, null, new ReplaceOptions { Encoding = ReplaceOptions.NoEncode });
-            var idsArray = ids.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
+            var idsArray = ((string)context.State.ContentIds).Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
             idsArray = (from p in idsArray select p.Trim()).ToArray();
+
+            if (idsArray.Length == 0) return;
 
             context.Query.Where(a => a.ContentPartRecord<CommonPartRecord>(), p => p.In("Id", idsArray));
         }
@@ -51,7 +48,7 @@ namespace Piedone.HelpfulExtensions.Projections
         }
     }
 
-    [OrchardFeature("Piedone.HelpfulExtensions.Contents")]
+    [OrchardFeature("Piedone.HelpfulExtensions.Projections")]
     public class IdsInFilterForms : IFormProvider
     {
         private readonly dynamic _shapeFactory;
