@@ -6,7 +6,6 @@ using Orchard.Environment.Extensions;
 using Orchard.Forms.Services;
 using Orchard.Localization;
 using Orchard.Projections.Descriptors.Filter;
-using Orchard.Tokens;
 
 namespace Piedone.HelpfulExtensions.Projections
 {
