@@ -24,13 +24,13 @@ namespace Piedone.HelpfulExtensions.Libraries.Contents.Tokens
                 {
                     var itemRoute = _aliasService.Get(_workContextAccessor.GetContext().HttpContext.Request.AppRelativeCurrentExecutionFilePath.Substring(1).Trim('/'));
                     if (itemRoute == null) _currentContent = _contentManager.New("Dummy"); // _currentContent isn't null so chained tokens don't throw a NE
-                    else  _currentContent = _contentManager.Get(Convert.ToInt32(itemRoute["Id"]));
+                    else _currentContent = _contentManager.Get(Convert.ToInt32(itemRoute["Id"]));
                 }
 
                 return _currentContent;
             }
         }
-        
+
         public Localizer T { get; set; }
 
 
@@ -55,7 +55,8 @@ namespace Piedone.HelpfulExtensions.Libraries.Contents.Tokens
 
         public void Evaluate(EvaluateContext context)
         {
-            context.For<IContent>("Content")
+            // Dummy item as workaround for this: https://orchard.codeplex.com/workitem/19693
+            context.For("Content", () => (IContent)new ContentItem())
                 .Token("Current", content => string.Empty)
                 .Chain("Current", "Content", content => CurrentContent);
         }
