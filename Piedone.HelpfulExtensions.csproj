@@ -99,6 +99,7 @@
     <Compile Include="Extensions\Projections\ContainedByFilter.cs" />
     <Compile Include="Extensions\Projections\IdsInFilter.cs" />
     <Compile Include="Extensions\Tokens\ContentTokens.cs" />
+    <Compile Include="Extensions\Tokens\TextTokens.cs" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
