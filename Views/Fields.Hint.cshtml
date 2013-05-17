@@ -1,1 +1,1 @@
-﻿@Html.Raw(Model.Hint)
+﻿<p>@Html.Raw(((string)Model.Hint).Replace(Environment.NewLine, "</p><p>"))</p>
