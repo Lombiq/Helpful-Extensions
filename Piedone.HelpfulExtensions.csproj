@@ -94,12 +94,28 @@
       <Name>Orchard.Tokens</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
+    <Compile Include="Extensions\Contents\Drivers\HintFieldDriver.cs" />
+    <Compile Include="Extensions\Contents\Models\HintField.cs" />
+    <Compile Include="Extensions\Contents\Settings\HintFieldSettings.cs" />
     <Compile Include="Extensions\Projections\ContainedByFilter.cs" />
     <Compile Include="Extensions\Projections\IdsInFilter.cs" />
     <Compile Include="Extensions\Tokens\ContentTokens.cs" />
     <Compile Include="Extensions\Tokens\TextTokens.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Fields.Hint.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Web.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\DefinitionTemplates\HintFieldSettings.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Placement.info">
+      <SubType>Designer</SubType>
+    </Content>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

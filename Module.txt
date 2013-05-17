@@ -10,6 +10,11 @@ Features:
 		Name: Helpful Extensions
         Description: Contains some handy extensions (e.g. filters for Projector).
 		Category: Content
+    Piedone.HelpfulExtensions.Contents:
+		Name: Contents Extensions
+        Description: Adds the Hint Field content field.
+		Category: Content
+		Dependencies:  Piedone.HelpfulExtensions
     Piedone.HelpfulExtensions.Projections:
 		Name: Projector Extensions
         Description: Adds Projector filters.
