@@ -25,16 +25,21 @@ namespace Piedone.HelpfulExtensions.Contents.Drivers
 
         protected override DriverResult Display(ContentPart part, HintField field, string displayType, dynamic shapeHelper)
         {
-            return ContentShape("Fields_Hint",
-                GetDifferentiator(field, part),
-                () => shapeHelper.Fields_Hint(Hint: field.PartFieldDefinition.Settings.GetModel<HintFieldSettings>().Hint));
+            return CreateResult("Fields_Hint", part, field, shapeHelper);
         }
 
         protected override DriverResult Editor(ContentPart part, HintField field, dynamic shapeHelper)
         {
-            return Display(part, field, string.Empty, shapeHelper);
+            return CreateResult("Fields_Hint_Edit", part, field, shapeHelper);
         }
 
+
+        private DriverResult CreateResult(string shapeType, ContentPart part, HintField field, dynamic shapeHelper)
+        {
+            return ContentShape(shapeType,
+                GetDifferentiator(field, part),
+                () => shapeHelper.Fields_Hint(Hint: field.PartFieldDefinition.Settings.GetModel<HintFieldSettings>().Hint));
+        }
 
         private static string GetPrefix(ContentField field, ContentPart part)
         {

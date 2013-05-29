@@ -1,4 +1,5 @@
 ﻿<Placement>
   <!-- Contents Extensions -->
-  <Place Fields_Hint="Content:5"/>
+  <Place Fields_Hint_Edit="Content:5"/>
+  <!-- Fields_Hint is not displayed by default. -->
 </Placement>
