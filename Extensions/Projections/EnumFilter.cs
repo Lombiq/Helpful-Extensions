@@ -27,7 +27,7 @@ namespace Piedone.HelpfulExtensions.Projections
 
         public bool CanHandle(Type type)
         {
-            return type.BaseType == typeof(Enum);
+            return type.IsEnum;
         }
 
         public Action<IHqlExpressionFactory> Filter(string property, dynamic formState)
