@@ -37,7 +37,7 @@ namespace Piedone.HelpfulExtensions.Projections
 
         public LocalizedString Display(string property, dynamic formState)
         {
-            return T("The enum {0} is equal to {1}", property, formState.Value);
+            return T("The enum {0} is equal to '{1}'", property, formState.Value);
         }
     }
 
