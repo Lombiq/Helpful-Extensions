@@ -99,8 +99,8 @@
     <Compile Include="Extensions\Contents\Models\HintField.cs" />
     <Compile Include="Extensions\Contents\Settings\HintFieldSettings.cs" />
     <Compile Include="Extensions\Projections\ContainedByFilter.cs" />
-    <Compile Include="Extensions\Projections\EnumFilter.cs" />
-    <Compile Include="Extensions\Projections\ForeignKeyFilter.cs" />
+    <Compile Include="Extensions\Projections\EnumFilterEditor.cs" />
+    <Compile Include="Extensions\Projections\ForeignKeyFilterEditor.cs" />
     <Compile Include="Extensions\Projections\IdsInFilter.cs" />
     <Compile Include="Extensions\Tokens\ContentTokens.cs" />
     <Compile Include="Extensions\Tokens\TextTokens.cs" />
