@@ -19,7 +19,12 @@ Features:
 		Name: Projector Helpful Extensions
         Description: Adds Projector filters.
 		Category: Content
-		Dependencies:  Piedone.HelpfulExtensions, Orchard.Alias, Orchard.Forms, Orchard.Projections
+		Dependencies:  Piedone.HelpfulExtensions, Orchard.Projections
+    Piedone.HelpfulExtensions.Projections.Search:
+		Name: Projector Helpful Extensions - Search
+        Description: Adds Projector filters to be used with Search.
+		Category: Content
+		Dependencies:  Piedone.HelpfulExtensions, Orchard.Projections, Orchard.Search, Piedone.HelpfulLibraries.Utilities
     Piedone.HelpfulExtensions.Tokens:
 		Name: Tokens Helpful Extensions
         Description: Adds some tokens.

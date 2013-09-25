@@ -89,9 +89,17 @@
       <Project>{5531e894-d259-45a3-aa61-26dbe720c1ce}</Project>
       <Name>Orchard.Projections</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Orchard.Search\Orchard.Search.csproj">
+      <Project>{4be4eb01-ac56-4048-924e-2ca77f509aba}</Project>
+      <Name>Orchard.Search</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Orchard.Tokens\Orchard.Tokens.csproj">
       <Project>{6f759635-13d7-4e94-bcc9-80445d63f117}</Project>
       <Name>Orchard.Tokens</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Piedone.HelpfulLibraries\Piedone.HelpfulLibraries.csproj">
+      <Project>{ea61ad10-39d6-41a9-b12b-227f50c54158}</Project>
+      <Name>Piedone.HelpfulLibraries</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
@@ -102,6 +110,7 @@
     <Compile Include="Extensions\Projections\EnumFilterEditor.cs" />
     <Compile Include="Extensions\Projections\ForeignKeyFilterEditor.cs" />
     <Compile Include="Extensions\Projections\IdsInFilter.cs" />
+    <Compile Include="Extensions\Projections\SearchFilter.cs" />
     <Compile Include="Extensions\Tokens\ContentTokens.cs" />
     <Compile Include="Extensions\Tokens\TextTokens.cs" />
   </ItemGroup>
