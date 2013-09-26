@@ -46,6 +46,9 @@ namespace Piedone.HelpfulExtensions.Extensions.Projections
         public void ApplyFilter(FilterContext context)
         {
             string query = context.State.SearchQuery;
+
+            if (string.IsNullOrEmpty(query)) return;
+
             var settings = _wca.GetContext().CurrentSite.As<SearchSettingsPart>();
 
             var hits = _searchService.Query(query, 0, null, settings.FilterCulture, settings.SearchIndex, settings.SearchedFields, hit => hit);
