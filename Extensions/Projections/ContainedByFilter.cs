@@ -43,6 +43,7 @@ namespace Piedone.HelpfulExtensions.Projections
         }
     }
 
+
     [OrchardFeature("Piedone.HelpfulExtensions.Projections")]
     public class ContentTypesFilterForms : IFormProvider
     {
