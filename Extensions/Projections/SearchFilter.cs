@@ -12,6 +12,8 @@ using Orchard.Search.Services;
 using Piedone.HelpfulLibraries.Utilities;
 using Orchard.ContentManagement;
 using Orchard.Search.Models;
+using Orchard.Indexing;
+using System.Web.Mvc;
 
 namespace Piedone.HelpfulExtensions.Extensions.Projections
 {
@@ -50,8 +52,9 @@ namespace Piedone.HelpfulExtensions.Extensions.Projections
             if (string.IsNullOrEmpty(query)) return;
 
             var settings = _wca.GetContext().CurrentSite.As<SearchSettingsPart>();
+            string index = context.State.Index;
 
-            var hits = _searchService.Query(query, 0, null, settings.FilterCulture, settings.SearchIndex, settings.SearchedFields, hit => hit);
+            var hits = _searchService.Query(query, 0, null, settings.FilterCulture, index, settings.SearchedFields, hit => hit);
             if (hits.Any())
             {
                 context.Query.WhereIdIn(hits.Select(hit => hit.ContentItemId));
@@ -64,21 +67,24 @@ namespace Piedone.HelpfulExtensions.Extensions.Projections
 
         public LocalizedString DisplayFilter(FilterContext context)
         {
-            return T("Content items matched by the search query {0} in the site search index.", context.State.SearchQuery);
+            return T("Content items matched by the search query {0} in the search index \"{1}\".", context.State.SearchQuery, context.State.Index);
         }
     }
+
 
     [OrchardFeature("Piedone.HelpfulExtensions.Projections.Search")]
     public class ContentTypesFilterForms : IFormProvider
     {
+        private readonly IIndexProvider _indexProvider;
         private readonly dynamic _shapeFactory;
 
         public Localizer T { get; set; }
 
 
-        public ContentTypesFilterForms(IShapeFactory shapeFactory)
+        public ContentTypesFilterForms(IShapeFactory shapeFactory, IIndexProvider indexProvider)
         {
             _shapeFactory = shapeFactory;
+            _indexProvider = indexProvider;
 
             T = NullLocalizer.Instance;
         }
@@ -91,12 +97,24 @@ namespace Piedone.HelpfulExtensions.Extensions.Projections
                 {
                     var f = _shapeFactory.Form(
                         Id: "SearchFilterForm",
+                        _Index: _shapeFactory.SelectList(
+                            Id: "Index", Name: "Index",
+                            Title: T("Index"),
+                            Description: T("The selected index will be queried."),
+                            Size: 5,
+                            Multiple: false
+                            ),
                         _Parts: _shapeFactory.Textbox(
                             Id: "SearchQuery", Name: "SearchQuery",
                             Title: T("Search query"),
                             Description: T("The search query to match against."),
                             Classes: new[] { "tokenized" })
                         );
+
+                    foreach (var index in _indexProvider.List())
+                    {
+                        f._Index.Add(new SelectListItem { Value = index, Text = index });
+                    }
 
 
                     return f;
