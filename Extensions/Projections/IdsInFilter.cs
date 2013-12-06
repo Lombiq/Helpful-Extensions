@@ -6,6 +6,7 @@ using Orchard.Environment.Extensions;
 using Orchard.Forms.Services;
 using Orchard.Localization;
 using Orchard.Projections.Descriptors.Filter;
+using Piedone.HelpfulLibraries.Utilities;
 
 namespace Piedone.HelpfulExtensions.Projections
 {
@@ -33,12 +34,12 @@ namespace Piedone.HelpfulExtensions.Projections
         {
             if (context.State.ContentIds == null) return;
 
-            var idsArray = ((string)context.State.ContentIds).Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
-            idsArray = (from p in idsArray select p.Trim()).ToArray();
+            var ids = ((string)context.State.ContentIds).Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
+            var idsArray = (from p in ids select int.Parse(p.Trim())).ToArray();
 
             if (idsArray.Length == 0) return;
 
-            context.Query.Where(a => a.ContentPartRecord<CommonPartRecord>(), p => p.In("Id", idsArray));
+            context.Query.WhereIdIn(idsArray);
         }
 
         public LocalizedString DisplayFilter(FilterContext context)
