@@ -95,6 +95,10 @@
       <Project>{5531e894-d259-45a3-aa61-26dbe720c1ce}</Project>
       <Name>Orchard.Projections</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Orchard.Roles\Orchard.Roles.csproj">
+      <Project>{d10ad48f-407d-4db5-a328-173ec7cb010f}</Project>
+      <Name>Orchard.Roles</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Orchard.Search\Orchard.Search.csproj">
       <Project>{4be4eb01-ac56-4048-924e-2ca77f509aba}</Project>
       <Name>Orchard.Search</Name>
@@ -109,6 +113,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Extensions\Commands\PermissionCommands.cs" />
     <Compile Include="Extensions\Contents\Drivers\HintFieldDriver.cs" />
     <Compile Include="Extensions\Contents\Models\HintField.cs" />
     <Compile Include="Extensions\Contents\Settings\HintFieldSettings.cs" />
