@@ -28,7 +28,7 @@ namespace Piedone.HelpfulExtensions.Commands
         {
             if (SetAccess(false))
             {
-                Context.Output.WriteLine(T("Unauthenticated access to the frontend is now disabled.")); 
+                Context.Output.WriteLine(T("Unauthenticated access to the frontend is now disabled. Remember to restart the app for the change to take effect if you're running the command from the command line.")); 
             }
         }
 
@@ -38,7 +38,7 @@ namespace Piedone.HelpfulExtensions.Commands
         {
             if (SetAccess(true))
             {
-                Context.Output.WriteLine(T("Anonymous access to the frontend is now enabled.")); 
+                Context.Output.WriteLine(T("Anonymous access to the frontend is now enabled. Remember to restart the app for the change to take effect if you're running the command from the command line.")); 
             }
         }
 
