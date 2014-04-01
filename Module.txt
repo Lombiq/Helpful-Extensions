@@ -10,6 +10,11 @@ Features:
 		Name: Helpful Extensions
         Description: Contains some handy extensions (e.g. filters for Projector).
 		Category: Content
+    Piedone.HelpfulExtensions.Commands:
+		Name: Commands Helpful Extensions
+        Description: Adds some useful command line commands.
+		Category: Content
+		Dependencies:  Piedone.HelpfulExtensions, Orchard.Roles
     Piedone.HelpfulExtensions.Contents:
 		Name: Contents Helpful Extensions
         Description: Adds the Hint Field content field.
