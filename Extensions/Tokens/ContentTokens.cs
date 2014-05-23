@@ -22,9 +22,20 @@ namespace Piedone.HelpfulExtensions.Libraries.Contents.Tokens
             {
                 if (_currentContent == null)
                 {
-                    var itemRoute = _aliasService.Get(_workContextAccessor.GetContext().HttpContext.Request.AppRelativeCurrentExecutionFilePath.Substring(1).Trim('/'));
-                    if (itemRoute == null) _currentContent = _contentManager.New("Dummy"); // _currentContent isn't null so chained tokens don't throw a NE
-                    else _currentContent = _contentManager.Get(Convert.ToInt32(itemRoute["Id"]));
+                    var request = _workContextAccessor.GetContext().HttpContext.Request;
+                    var path = request.AppRelativeCurrentExecutionFilePath.Substring(1).Trim('/');
+                    
+                    var itemRoute = _aliasService.Get(path);
+
+                    if (itemRoute != null) _currentContent = _contentManager.Get(Convert.ToInt32(itemRoute["Id"]));
+                    else
+                    {
+                        if (path.StartsWith("Contents/Item/Display/"))
+                        {
+                            _currentContent = _contentManager.Get(Convert.ToInt32(request.RequestContext.RouteData.Values["Id"]));
+                        }
+                        else _currentContent = _contentManager.New("Dummy"); // _currentContent isn't null so chained tokens don't throw a NE
+                    }
                 }
 
                 return _currentContent;
