@@ -30,7 +30,7 @@ namespace Piedone.HelpfulExtensions.Libraries.Contents.Tokens
                     if (itemRoute != null) _currentContent = _contentManager.Get(Convert.ToInt32(itemRoute["Id"]));
                     else
                     {
-                        if (path.StartsWith("Contents/Item/Display/"))
+                        if (path.StartsWith("Contents/Item/Display/") || path.StartsWith("Contents/Item/Preview/"))
                         {
                             _currentContent = _contentManager.Get(Convert.ToInt32(request.RequestContext.RouteData.Values["Id"]));
                         }
