@@ -6,32 +6,32 @@ Version: 1.0
 OrchardVersion: 1.6
 Description: Contains some handy extensions (e.g. filters for Projector).
 Features:
-    Piedone.HelpfulExtensions:
+	Piedone.HelpfulExtensions:
 		Name: Helpful Extensions
-        Description: Contains some handy extensions (e.g. filters for Projector).
+		Description: Contains some handy extensions (e.g. filters for Projector).
 		Category: Content
-    Piedone.HelpfulExtensions.Commands:
+	Piedone.HelpfulExtensions.Commands:
 		Name: Commands Helpful Extensions
-        Description: Adds some useful command line commands.
+		Description: Adds some useful command line commands.
 		Category: Content
 		Dependencies:  Piedone.HelpfulExtensions, Orchard.Roles
-    Piedone.HelpfulExtensions.Contents:
+	Piedone.HelpfulExtensions.Contents:
 		Name: Contents Helpful Extensions
-        Description: Adds the Hint Field content field.
+		Description: Adds the Hint Field content field.
 		Category: Content
 		Dependencies:  Piedone.HelpfulExtensions
-    Piedone.HelpfulExtensions.Projections:
+	Piedone.HelpfulExtensions.Projections:
 		Name: Projector Helpful Extensions
-        Description: Adds Projector filters.
+		Description: Adds Projector filters.
 		Category: Content
 		Dependencies:  Piedone.HelpfulExtensions, Orchard.Projections
-    Piedone.HelpfulExtensions.Projections.Search:
+	Piedone.HelpfulExtensions.Projections.Search:
 		Name: Projector Helpful Extensions - Search
-        Description: Adds Projector filters to be used with Search.
+		Description: Adds Projector filters to be used with Search.
 		Category: Content
 		Dependencies:  Piedone.HelpfulExtensions, Orchard.Projections, Orchard.Search, Piedone.HelpfulLibraries.Utilities
-    Piedone.HelpfulExtensions.Tokens:
+	Piedone.HelpfulExtensions.Tokens:
 		Name: Tokens Helpful Extensions
-        Description: Adds some tokens.
+		Description: Adds some tokens.
 		Category: Content
 		Dependencies:  Piedone.HelpfulExtensions, Orchard.Alias, Orchard.Forms, Orchard.Tokens
