@@ -55,7 +55,10 @@ namespace Piedone.HelpfulExtensions.Extensions.Projections
             var settings = _siteService.GetSiteSettings().As<SearchSettingsPart>();
             string index = context.State.Index;
 
-            var hits = _searchService.Query(query, 0, null, settings.FilterCulture, index, settings.SearchedFields, hit => hit);
+            var hitCountLimit = 0;
+            int.TryParse(context.State.HitCountLimit.ToString(), out hitCountLimit);
+
+            var hits = _searchService.Query(query, 0, hitCountLimit != 0 ? new Nullable<int>(hitCountLimit) : null, settings.FilterCulture, index, settings.SearchedFields, hit => hit);
             if (hits.Any())
             {
                 context.Query.WhereIdIn(hits.Select(hit => hit.ContentItemId));
@@ -103,13 +106,16 @@ namespace Piedone.HelpfulExtensions.Extensions.Projections
                             Title: T("Index"),
                             Description: T("The selected index will be queried."),
                             Size: 5,
-                            Multiple: false
-                            ),
+                            Multiple: false),
                         _SearchQuery: _shapeFactory.Textbox(
                             Id: "SearchQuery", Name: "SearchQuery",
                             Title: T("Search query"),
                             Description: T("The search query to match against."),
-                            Classes: new[] { "tokenized" })
+                            Classes: new[] { "tokenized" }),
+                        _HitCountLimit: _shapeFactory.Textbox(
+                            Id: "HitCountLimit", Name: "HitCountLimit",
+                            Title: T("Hit count limit"),
+                            Description: T("For performance reasons you can limit the maximal number of search hits used in the query. Having thousands of search hits will result in poor performance and increased load on the database server."))
                         );
 
                     foreach (var index in _indexProvider.List())
