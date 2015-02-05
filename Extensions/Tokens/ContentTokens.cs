@@ -4,6 +4,7 @@ using Orchard.Alias;
 using Orchard.ContentManagement;
 using Orchard.Environment.Extensions;
 using Orchard.Localization;
+using Orchard.Mvc;
 using Orchard.Tokens;
 
 namespace Piedone.HelpfulExtensions.Libraries.Contents.Tokens
@@ -12,7 +13,7 @@ namespace Piedone.HelpfulExtensions.Libraries.Contents.Tokens
     public class ContentTokens : ITokenProvider
     {
         private readonly IContentManager _contentManager;
-        private readonly IWorkContextAccessor _workContextAccessor;
+        private readonly IHttpContextAccessor _hca;
         private readonly IAliasService _aliasService;
 
         private IContent _currentContent = null;
@@ -22,7 +23,7 @@ namespace Piedone.HelpfulExtensions.Libraries.Contents.Tokens
             {
                 if (_currentContent == null)
                 {
-                    var request = _workContextAccessor.GetContext().HttpContext.Request;
+                    var request = _hca.Current().Request;
                     var path = request.AppRelativeCurrentExecutionFilePath.Substring(1).Trim('/');
                     
                     var itemRoute = _aliasService.Get(path);
@@ -47,11 +48,11 @@ namespace Piedone.HelpfulExtensions.Libraries.Contents.Tokens
 
         public ContentTokens(
             IContentManager contentManager,
-            IWorkContextAccessor workContextAccessor,
+            IHttpContextAccessor hca,
             IAliasService aliasService)
         {
             _contentManager = contentManager;
-            _workContextAccessor = workContextAccessor;
+            _hca = hca;
             _aliasService = aliasService;
 
             T = NullLocalizer.Instance;
