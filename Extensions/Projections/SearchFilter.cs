@@ -14,6 +14,7 @@ using Orchard.ContentManagement;
 using Orchard.Search.Models;
 using Orchard.Indexing;
 using System.Web.Mvc;
+using Orchard.Settings;
 
 namespace Piedone.HelpfulExtensions.Extensions.Projections
 {
@@ -21,15 +22,15 @@ namespace Piedone.HelpfulExtensions.Extensions.Projections
     public class SearchFilter : Orchard.Projections.Services.IFilterProvider
     {
         private readonly ISearchService _searchService;
-        private readonly IWorkContextAccessor _wca;
+        private readonly ISiteService _siteService;
 
         public Localizer T { get; set; }
 
 
-        public SearchFilter(ISearchService searchService, IWorkContextAccessor wca)
+        public SearchFilter(ISearchService searchService, ISiteService siteService)
         {
             _searchService = searchService;
-            _wca = wca;
+            _siteService = siteService;
 
             T = NullLocalizer.Instance;
         }
@@ -51,7 +52,7 @@ namespace Piedone.HelpfulExtensions.Extensions.Projections
 
             if (string.IsNullOrEmpty(query)) return;
 
-            var settings = _wca.GetContext().CurrentSite.As<SearchSettingsPart>();
+            var settings = _siteService.GetSiteSettings().As<SearchSettingsPart>();
             string index = context.State.Index;
 
             var hits = _searchService.Query(query, 0, null, settings.FilterCulture, index, settings.SearchedFields, hit => hit);
