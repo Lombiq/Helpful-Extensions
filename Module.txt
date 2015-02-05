@@ -34,4 +34,4 @@ Features:
 		Name: Tokens Helpful Extensions
 		Description: Adds some tokens.
 		Category: Content
-		Dependencies:  Piedone.HelpfulExtensions, Orchard.Alias, Orchard.Forms, Orchard.Tokens
+		Dependencies:  Piedone.HelpfulExtensions, Orchard.Alias, Orchard.Forms, Orchard.Tokens, Piedone.HelpfulLibraries.Contents

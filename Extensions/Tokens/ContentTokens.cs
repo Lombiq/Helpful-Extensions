@@ -6,6 +6,7 @@ using Orchard.Environment.Extensions;
 using Orchard.Localization;
 using Orchard.Mvc;
 using Orchard.Tokens;
+using Piedone.HelpfulLibraries.Libraries.Contents;
 
 namespace Piedone.HelpfulExtensions.Libraries.Contents.Tokens
 {
@@ -13,8 +14,7 @@ namespace Piedone.HelpfulExtensions.Libraries.Contents.Tokens
     public class ContentTokens : ITokenProvider
     {
         private readonly IContentManager _contentManager;
-        private readonly IHttpContextAccessor _hca;
-        private readonly IAliasService _aliasService;
+        private readonly ICurrentContentIdAccessor _currentContentIdAccessor;
 
         private IContent _currentContent = null;
         private IContent CurrentContent
@@ -23,20 +23,10 @@ namespace Piedone.HelpfulExtensions.Libraries.Contents.Tokens
             {
                 if (_currentContent == null)
                 {
-                    var request = _hca.Current().Request;
-                    var path = request.AppRelativeCurrentExecutionFilePath.Substring(1).Trim('/');
-                    
-                    var itemRoute = _aliasService.Get(path);
+                    var currentContentId = _currentContentIdAccessor.GetCurrentContentId();
 
-                    if (itemRoute != null) _currentContent = _contentManager.Get(Convert.ToInt32(itemRoute["Id"]));
-                    else
-                    {
-                        if (path.StartsWith("Contents/Item/Display/") || path.StartsWith("Contents/Item/Preview/"))
-                        {
-                            _currentContent = _contentManager.Get(Convert.ToInt32(request.RequestContext.RouteData.Values["Id"]));
-                        }
-                        else _currentContent = _contentManager.New("Dummy"); // _currentContent isn't null so chained tokens don't throw a NE
-                    }
+                    if (currentContentId != 0) _currentContent = _contentManager.Get(currentContentId);
+                    else _currentContent = _contentManager.New("Dummy"); // _currentContent isn't null so chained tokens don't throw a NE
                 }
 
                 return _currentContent;
@@ -48,12 +38,10 @@ namespace Piedone.HelpfulExtensions.Libraries.Contents.Tokens
 
         public ContentTokens(
             IContentManager contentManager,
-            IHttpContextAccessor hca,
-            IAliasService aliasService)
+            ICurrentContentIdAccessor currentContentIdAccessor)
         {
             _contentManager = contentManager;
-            _hca = hca;
-            _aliasService = aliasService;
+            _currentContentIdAccessor = currentContentIdAccessor;
 
             T = NullLocalizer.Instance;
         }
