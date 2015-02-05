@@ -105,7 +105,7 @@ namespace Piedone.HelpfulExtensions.Extensions.Projections
                             Size: 5,
                             Multiple: false
                             ),
-                        _Parts: _shapeFactory.Textbox(
+                        _SearchQuery: _shapeFactory.Textbox(
                             Id: "SearchQuery", Name: "SearchQuery",
                             Title: T("Search query"),
                             Description: T("The search query to match against."),
