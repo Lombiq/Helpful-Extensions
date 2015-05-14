@@ -12,6 +12,7 @@ using Orchard.Search.Services;
 using Piedone.HelpfulLibraries.Utilities;
 using Orchard.ContentManagement;
 using Orchard.Search.Models;
+using Orchard.Search.Helpers;
 using Orchard.Indexing;
 using System.Web.Mvc;
 using Orchard.Settings;
@@ -58,7 +59,9 @@ namespace Piedone.HelpfulExtensions.Extensions.Projections
             var hitCountLimit = 0;
             int.TryParse(context.State.HitCountLimit.ToString(), out hitCountLimit);
 
-            var hits = _searchService.Query(query, 0, hitCountLimit != 0 ? new Nullable<int>(hitCountLimit) : null, settings.FilterCulture, index, settings.SearchedFields, hit => hit);
+            var hits = _searchService.Query(query, 0, hitCountLimit != 0 ? new Nullable<int>(hitCountLimit) : null, 
+                                            settings.FilterCulture, index, SearchSettingsHelper.GetSearchFields(settings), 
+                                            hit => hit);
             if (hits.Any())
             {
                 context.Query.WhereIdIn(hits.Select(hit => hit.ContentItemId));
