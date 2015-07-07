@@ -10,6 +10,11 @@ Features:
 		Name: Helpful Extensions
 		Description: Contains some handy extensions (e.g. filters for Projector).
 		Category: Content
+	Piedone.HelpfulExtensions.CodeGeneration:
+		Name: Code Generation Helpful Extensions
+		Description: Generates migrations from content type definitions.
+		Category: Developer
+		Dependencies:  Piedone.HelpfulExtensions
 	Piedone.HelpfulExtensions.Commands:
 		Name: Commands Helpful Extensions
 		Description: Adds some useful command line commands.

@@ -8,7 +8,7 @@ using Orchard.Mvc;
 using Orchard.Tokens;
 using Piedone.HelpfulLibraries.Libraries.Contents;
 
-namespace Piedone.HelpfulExtensions.Libraries.Contents.Tokens
+namespace Piedone.HelpfulExtensions.Contents.Tokens
 {
     [OrchardFeature("Piedone.HelpfulExtensions.Tokens")]
     public class ContentTokens : ITokenProvider
