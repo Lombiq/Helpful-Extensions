@@ -60,7 +60,7 @@ namespace Piedone.HelpfulExtensions.Extensions.Projections
             int.TryParse(context.State.HitCountLimit.ToString(), out hitCountLimit);
 
             var hits = _searchService.Query(query, 0, hitCountLimit != 0 ? new Nullable<int>(hitCountLimit) : null, 
-                                            settings.FilterCulture, index, SearchSettingsHelper.GetSearchFields(settings), 
+                                            settings.FilterCulture, index, SearchSettingsHelper.GetSearchFields(settings, index), 
                                             hit => hit);
             if (hits.Any())
             {
