@@ -68,6 +68,8 @@ Wraps the text if it's not empty from left and optionally from right with the sp
 
 You can use these extensions as described on the above pages.
 
+The module is also available for [DotNest](http://dotnest.com/) sites.
+
 The module's source is available in two public source repositories, automatically mirrored in both directions with [Git-hg Mirror](https://githgmirror.com):
 
 - [https://bitbucket.org/Lombiq/helpful-extensions](https://bitbucket.org/Lombiq/helpful-extensions) (Mercurial repository)
