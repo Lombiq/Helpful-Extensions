@@ -4,6 +4,6 @@
     <legend>@T("Hint field settings")</legend>
     <label for="@Html.FieldIdFor(m => m.Hint)">@T("Hint text")</label>
     @Html.TextAreaFor(m => m.Hint, new { @class = "html tinymce" })
-    <span class="hint">@T("This text will be dislayed any time the item is displayed or edited.")</span>
+    @Html.Hint(T("This text will be dislayed any time the item is displayed or edited."))
     @Html.ValidationMessageFor(m => m.Hint)
 </fieldset>
