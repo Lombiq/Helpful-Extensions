@@ -3,7 +3,7 @@ AntiForgery: enabled
 Author: Piedone
 Website: https://github.com/Lombiq/Helpful-Extensions
 Version: 1.0
-OrchardVersion: 1.9.3
+OrchardVersion: 1.10
 Description: Contains some handy extensions (e.g. filters for Projector).
 Features:
 	Piedone.HelpfulExtensions:
