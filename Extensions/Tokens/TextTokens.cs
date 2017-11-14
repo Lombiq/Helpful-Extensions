@@ -28,7 +28,7 @@ namespace Piedone.HelpfulExtensions.Extensions.Tokens
 
         public void Evaluate(EvaluateContext context)
         {
-            context.For<String>("Text", () => "")
+            context.For("Text", () => "")
                 .Token( // {WrapNotEmpty:<left wrapper>[,<right wrapper>]}
                     token =>
                     {
@@ -40,7 +40,7 @@ namespace Piedone.HelpfulExtensions.Extensions.Tokens
                     },
                     (param, token) =>
                     {
-                        if (String.IsNullOrEmpty(token)) return String.Empty;
+                        if (string.IsNullOrEmpty(token)) return string.Empty;
 
                         var index = param.IndexOf(',');
 
