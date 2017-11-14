@@ -55,7 +55,7 @@ namespace Piedone.HelpfulExtensions.Contents.Tokens
 
         public void Evaluate(EvaluateContext context)
         {
-            // Dummy item as workaround for this: https://orchard.codeplex.com/workitem/19693
+            // Dummy item as workaround for this: https://github.com/OrchardCMS/Orchard/issues/3522
             context.For("Content", () => (IContent)new ContentItem())
                 .Token("Current", content => string.Empty)
                 .Chain("Current", "Content", content => CurrentContent);
