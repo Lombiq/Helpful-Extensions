@@ -8,8 +8,9 @@ Description: Contains some handy extensions (e.g. filters for Projector).
 Features:
 	Piedone.HelpfulExtensions:
 		Name: Helpful Extensions
-		Description: Contains some handy extensions (e.g. filters for Projector).
+		Description: Extension methods to add and configure content fields in Migrations more easily.
 		Category: Content
+		Dependencies: Orchard.Indexing, Orchard.Fields
 	Piedone.HelpfulExtensions.CodeGeneration:
 		Name: Code Generation Helpful Extensions
 		Description: Generates migrations from content type definitions.
@@ -40,3 +41,8 @@ Features:
 		Description: Adds some tokens.
 		Category: Content
 		Dependencies:  Piedone.HelpfulExtensions, Orchard.Alias, Orchard.Forms, Orchard.Tokens, Piedone.HelpfulLibraries.Contents
+	Piedone.HelpfulExtensions.Taxonomies:
+		Name: Taxonomies Helpful Extensions
+		Description: Extension methods and services for creating Taxonomies and TaxonomyFields in Migrations.
+		Category: Content
+		Dependencies: Piedone.HelpfulExtensions, Orchard.Taxonomies

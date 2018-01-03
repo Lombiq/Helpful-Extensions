@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
@@ -14,7 +14,8 @@
     <AssemblyName>Piedone.HelpfulExtensions</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <MvcBuildViews Condition=" '$(BuildViews)' == 'true' ">true</MvcBuildViews>
-    <FileUpgradeFlags></FileUpgradeFlags>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
     <OldToolsVersion>4.0</OldToolsVersion>
     <UpgradeBackupLocation />
     <TargetFrameworkProfile />
@@ -133,6 +134,18 @@
       <Project>{6f759635-13d7-4e94-bcc9-80445d63f117}</Project>
       <Name>Orchard.Tokens</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Orchard.Fields\Orchard.Fields.csproj">
+      <Project>{3787dde5-e5c8-4841-bda7-dcb325388064}</Project>
+      <Name>Orchard.Fields</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Orchard.Indexing\Orchard.Indexing.csproj">
+      <Project>{ea2b9121-ef54-40a6-a53e-6593c86ee696}</Project>
+      <Name>Orchard.Indexing</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Orchard.Taxonomies\Orchard.Taxonomies.csproj">
+      <Project>{e649ea64-d213-461b-87f7-d67035801443}</Project>
+      <Name>Orchard.Taxonomies</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Piedone.HelpfulLibraries\Piedone.HelpfulLibraries.csproj">
       <Project>{ea61ad10-39d6-41a9-b12b-227f50c54158}</Project>
       <Name>Piedone.HelpfulLibraries</Name>
@@ -142,6 +155,8 @@
     <Compile Include="Extensions\CodeGeneration\ContentTypeEditorEvents.cs" />
     <Compile Include="Extensions\CodeGeneration\ContentTypeMigrationsViewModel.cs" />
     <Compile Include="Extensions\Commands\PermissionCommands.cs" />
+    <Compile Include="Extensions\ContentPartDefinitionBuilderExtensions.cs" />
+    <Compile Include="Extensions\ContentPartFieldDefinitionBuilderExtensions.cs" />
     <Compile Include="Extensions\Contents\Drivers\HintFieldDriver.cs" />
     <Compile Include="Extensions\Contents\Models\HintField.cs" />
     <Compile Include="Extensions\Contents\Settings\HintFieldSettings.cs" />
@@ -150,6 +165,11 @@
     <Compile Include="Extensions\Projections\ForeignKeyFilterEditor.cs" />
     <Compile Include="Extensions\Projections\IdsInFilter.cs" />
     <Compile Include="Extensions\Projections\SearchFilter.cs" />
+    <Compile Include="Extensions\Taxonomies\ContentPartDefinitionBuilderExtensions.cs" />
+    <Compile Include="Extensions\Taxonomies\ContentPartFieldDefinitionBuilderExtensions.cs" />
+    <Compile Include="Extensions\Taxonomies\ITaxonomySetupHandler.cs" />
+    <Compile Include="Extensions\Taxonomies\TaxonomySetupService.cs" />
+    <Compile Include="Extensions\Taxonomies\ITaxonomySetupService.cs" />
     <Compile Include="Extensions\Tokens\ContentTokens.cs" />
     <Compile Include="Extensions\Tokens\TextTokens.cs" />
   </ItemGroup>
@@ -201,7 +221,8 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>45979</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl></IISUrl>
+          <IISUrl>
+          </IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>True</UseCustomServer>
           <CustomServerUrl>http://orchard.codeplex.com</CustomServerUrl>
@@ -213,4 +234,5 @@
   <ItemGroup>
     <Content Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
 </Project>
