@@ -4,6 +4,7 @@
     {
         private const string Prefix = "Piedone.HelpfulExtensions.";
 
+        public const string Autoroute = Prefix + nameof(Autoroute);
         public const string CodeGeneration = Prefix + nameof(CodeGeneration);
         public const string Commands = Prefix + nameof(Commands);
         public const string Contents = Prefix + nameof(Contents);

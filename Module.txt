@@ -11,6 +11,11 @@ Features:
         Description: Extension methods to add and configure content fields in Migrations more easily.
         Category: Content
         Dependencies: Orchard.Indexing, Orchard.Fields
+    Piedone.HelpfulExtensions.Autoroute:
+        Name: Helpful Extensions
+        Description: Extension methods for configuring AutoroutePart in Migrations more easily.
+        Category: Content
+        Dependencies: Orchard.Autoroute, Piedone.HelpfulExtensions
     Piedone.HelpfulExtensions.CodeGeneration:
         Name: Code Generation Helpful Extensions
         Description: Generates migrations from content type definitions.
