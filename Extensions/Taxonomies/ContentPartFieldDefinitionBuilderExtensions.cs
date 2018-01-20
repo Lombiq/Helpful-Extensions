@@ -4,7 +4,7 @@ using Orchard.Taxonomies.Settings;
 
 namespace Piedone.HelpfulExtensions.Taxonomies
 {
-    [OrchardFeature("Piedone.HelpfulExtensions.Taxonomies")]
+    [OrchardFeature(Constants.FeatureNames.Taxonomies)]
     public static class ContentPartFieldDefinitionBuilderExtensions
     {
         public static ContentPartFieldDefinitionBuilder WithTaxonomyFieldSettings(

@@ -1,24 +1,21 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using Orchard.ContentManagement;
+﻿using Orchard.ContentManagement;
 using Orchard.ContentManagement.MetaData;
 using Orchard.ContentManagement.MetaData.Builders;
 using Orchard.ContentManagement.MetaData.Models;
 using Orchard.ContentManagement.ViewModels;
 using Orchard.Environment.Extensions;
 using Piedone.HelpfulExtensions.Contents.Models;
+using System.Collections.Generic;
 
 namespace Piedone.HelpfulExtensions.Contents.Settings
 {
-    [OrchardFeature("Piedone.HelpfulExtensions.Contents")]
+    [OrchardFeature(Constants.FeatureNames.Contents)]
     public class HintFieldSettings
     {
         public string Hint { get; set; }
     }
 
-    [OrchardFeature("Piedone.HelpfulExtensions.Contents")]
+    [OrchardFeature(Constants.FeatureNames.Contents)]
     public class HintFieldEditorEvents : ContentDefinitionEditorEventsBase
     {
         public override IEnumerable<TemplateViewModel> PartFieldEditor(ContentPartFieldDefinition definition)

@@ -1,19 +1,18 @@
-﻿using System;
+﻿using Orchard.ContentManagement.MetaData;
+using Orchard.ContentManagement.MetaData.Models;
+using Orchard.ContentManagement.ViewModels;
+using Orchard.Core.Contents.Settings;
+using Orchard.Environment.Extensions;
+using System;
 using System.CodeDom;
 using System.CodeDom.Compiler;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Web;
-using Orchard.ContentManagement.MetaData;
-using Orchard.ContentManagement.MetaData.Models;
-using Orchard.ContentManagement.ViewModels;
-using Orchard.Core.Contents.Settings;
-using Orchard.Environment.Extensions;
 
 namespace Piedone.HelpfulExtensions.CodeGeneration
 {
-    [OrchardFeature("Piedone.HelpfulExtensions.CodeGeneration")]
+    [OrchardFeature(Constants.FeatureNames.CodeGeneration)]
     public class ContentTypeEditorEvents : ContentDefinitionEditorEventsBase, IDisposable
     {
         private CodeDomProvider _codeDomProvider;

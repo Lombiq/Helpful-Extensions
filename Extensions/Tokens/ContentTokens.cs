@@ -1,16 +1,12 @@
-﻿using System;
-using Orchard;
-using Orchard.Alias;
-using Orchard.ContentManagement;
+﻿using Orchard.ContentManagement;
 using Orchard.Environment.Extensions;
 using Orchard.Localization;
-using Orchard.Mvc;
 using Orchard.Tokens;
 using Piedone.HelpfulLibraries.Libraries.Contents;
 
 namespace Piedone.HelpfulExtensions.Contents.Tokens
 {
-    [OrchardFeature("Piedone.HelpfulExtensions.Tokens")]
+    [OrchardFeature(Constants.FeatureNames.Tokens)]
     public class ContentTokens : ITokenProvider
     {
         private readonly IContentManager _contentManager;

@@ -5,7 +5,7 @@ using System;
 
 namespace Piedone.HelpfulExtensions.Taxonomies
 {
-    [OrchardFeature("Piedone.HelpfulExtensions.Taxonomies")]
+    [OrchardFeature(Constants.FeatureNames.Taxonomies)]
     public static class ContentPartDefinitionBuilderExtensions
     {
         public static ContentPartDefinitionBuilder WithTaxonomyField(

@@ -152,6 +152,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Constants\FeatureNames.cs" />
     <Compile Include="Extensions\CodeGeneration\ContentTypeEditorEvents.cs" />
     <Compile Include="Extensions\CodeGeneration\ContentTypeMigrationsViewModel.cs" />
     <Compile Include="Extensions\Commands\PermissionCommands.cs" />
