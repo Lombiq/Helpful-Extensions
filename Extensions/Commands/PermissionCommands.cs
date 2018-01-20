@@ -1,15 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using Orchard.Commands;
+﻿using Orchard.Commands;
 using Orchard.Environment.Extensions;
 using Orchard.Roles.Services;
 using Orchard.Security;
+using System.Collections.Generic;
 
 namespace Piedone.HelpfulExtensions.Commands
 {
-    [OrchardFeature("Piedone.HelpfulExtensions.Commands")]
+    [OrchardFeature(Constants.FeatureNames.CodeGeneration)]
     public class PermissionCommands : DefaultOrchardCommandHandler
     {
         private readonly IRoleService _roleService;

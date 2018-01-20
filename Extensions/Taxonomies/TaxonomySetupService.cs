@@ -12,7 +12,7 @@ using System.Collections.Generic;
 
 namespace Piedone.HelpfulExtensions.Taxonomies
 {
-    [OrchardFeature("Piedone.HelpfulExtensions.Taxonomies")]
+    [OrchardFeature(Constants.FeatureNames.Taxonomies)]
     public class TaxonomySetupService : ITaxonomySetupService, ITaxonomySetupHandler
     {
         private readonly ShellSettings _shellSettings;

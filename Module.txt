@@ -6,43 +6,48 @@ Version: 1.0
 OrchardVersion: 1.10.1
 Description: Contains some handy extensions (e.g. filters for Projector).
 Features:
-	Piedone.HelpfulExtensions:
-		Name: Helpful Extensions
-		Description: Extension methods to add and configure content fields in Migrations more easily.
-		Category: Content
-		Dependencies: Orchard.Indexing, Orchard.Fields
-	Piedone.HelpfulExtensions.CodeGeneration:
-		Name: Code Generation Helpful Extensions
-		Description: Generates migrations from content type definitions.
-		Category: Developer
-		Dependencies:  Piedone.HelpfulExtensions
-	Piedone.HelpfulExtensions.Commands:
-		Name: Commands Helpful Extensions
-		Description: Adds some useful command line commands.
-		Category: Content
-		Dependencies:  Piedone.HelpfulExtensions, Orchard.Roles
-	Piedone.HelpfulExtensions.Contents:
-		Name: Contents Helpful Extensions
-		Description: Adds the Hint Field content field.
-		Category: Content
-		Dependencies:  Piedone.HelpfulExtensions
-	Piedone.HelpfulExtensions.Projections:
-		Name: Projector Helpful Extensions
-		Description: Adds Projector filters.
-		Category: Content
-		Dependencies:  Piedone.HelpfulExtensions, Orchard.Projections
-	Piedone.HelpfulExtensions.Projections.Search:
-		Name: Projector Helpful Extensions - Search
-		Description: Adds Projector filters to be used with Search.
-		Category: Content
-		Dependencies:  Piedone.HelpfulExtensions, Orchard.Projections, Orchard.Search, Piedone.HelpfulLibraries.Utilities
-	Piedone.HelpfulExtensions.Tokens:
-		Name: Tokens Helpful Extensions
-		Description: Adds some tokens.
-		Category: Content
-		Dependencies:  Piedone.HelpfulExtensions, Orchard.Alias, Orchard.Forms, Orchard.Tokens, Piedone.HelpfulLibraries.Contents
-	Piedone.HelpfulExtensions.Taxonomies:
-		Name: Taxonomies Helpful Extensions
-		Description: Extension methods and services for creating Taxonomies and TaxonomyFields in Migrations.
-		Category: Content
-		Dependencies: Piedone.HelpfulExtensions, Orchard.Taxonomies
+    Piedone.HelpfulExtensions:
+        Name: Helpful Extensions
+        Description: Extension methods to add and configure content fields in Migrations more easily.
+        Category: Content
+        Dependencies: Orchard.Indexing, Orchard.Fields
+    Piedone.HelpfulExtensions.Autoroute:
+        Name: Helpful Extensions
+        Description: Extension methods for configuring AutoroutePart in Migrations more easily.
+        Category: Content
+        Dependencies: Orchard.Autoroute, Piedone.HelpfulExtensions
+    Piedone.HelpfulExtensions.CodeGeneration:
+        Name: Code Generation Helpful Extensions
+        Description: Generates migrations from content type definitions.
+        Category: Developer
+        Dependencies:  Piedone.HelpfulExtensions
+    Piedone.HelpfulExtensions.Commands:
+        Name: Commands Helpful Extensions
+        Description: Adds some useful command line commands.
+        Category: Content
+        Dependencies:  Piedone.HelpfulExtensions, Orchard.Roles
+    Piedone.HelpfulExtensions.Contents:
+        Name: Contents Helpful Extensions
+        Description: Adds the Hint Field content field.
+        Category: Content
+        Dependencies:  Piedone.HelpfulExtensions
+    Piedone.HelpfulExtensions.Projections:
+        Name: Projector Helpful Extensions
+        Description: Adds Projector filters.
+        Category: Content
+        Dependencies:  Piedone.HelpfulExtensions, Orchard.Projections
+    Piedone.HelpfulExtensions.Projections.Search:
+        Name: Projector Helpful Extensions - Search
+        Description: Adds Projector filters to be used with Search.
+        Category: Content
+        Dependencies:  Piedone.HelpfulExtensions, Orchard.Projections, Orchard.Search, Piedone.HelpfulLibraries.Utilities
+    Piedone.HelpfulExtensions.Tokens:
+        Name: Tokens Helpful Extensions
+        Description: Adds some tokens.
+        Category: Content
+        Dependencies:  Piedone.HelpfulExtensions, Orchard.Alias, Orchard.Forms, Orchard.Tokens, Piedone.HelpfulLibraries.Contents
+    Piedone.HelpfulExtensions.Taxonomies:
+        Name: Taxonomies Helpful Extensions
+        Description: Extension methods and services for creating Taxonomies and TaxonomyFields in Migrations.
+        Category: Content
+        Dependencies: Piedone.HelpfulExtensions, Orchard.Taxonomies

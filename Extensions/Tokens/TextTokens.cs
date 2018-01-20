@@ -1,14 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using Orchard.Environment.Extensions;
+﻿using Orchard.Environment.Extensions;
 using Orchard.Localization;
 using Orchard.Tokens;
+using System;
 
 namespace Piedone.HelpfulExtensions.Extensions.Tokens
 {
-    [OrchardFeature("Piedone.HelpfulExtensions.Tokens")]
+    [OrchardFeature(Constants.FeatureNames.Taxonomies)]
     public class TextTokens : ITokenProvider
     {
         public Localizer T { get; set; }
