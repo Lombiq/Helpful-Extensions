@@ -30,5 +30,11 @@ namespace Piedone.HelpfulExtensions
             string fieldName,
             Action<ContentPartFieldDefinitionBuilder> configuration = null) =>
             builder.WithField(nameof(TextField), fieldName, configuration);
+
+        public static ContentPartDefinitionBuilder WithBooleanField(
+            this ContentPartDefinitionBuilder builder,
+            string fieldName,
+            Action<ContentPartFieldDefinitionBuilder> configuration = null) =>
+            builder.WithField(nameof(BooleanField), fieldName, configuration);
     }
 }

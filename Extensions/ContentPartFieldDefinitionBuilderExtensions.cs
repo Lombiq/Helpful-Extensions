@@ -29,5 +29,21 @@ namespace Piedone.HelpfulExtensions
                 .WithSetting(prefix + nameof(InputFieldSettings.Title), settings.Title)
                 .WithSetting(prefix + nameof(InputFieldSettings.Type), settings.Type.ToString());
         }
+
+        public static ContentPartFieldDefinitionBuilder WithBooleanFieldSettings(
+            this ContentPartFieldDefinitionBuilder builder,
+            BooleanFieldSettings settings)
+        {
+            var prefix = $"{nameof(BooleanFieldSettings)}.";
+
+            return builder
+                .WithSetting(prefix + nameof(BooleanFieldSettings.DefaultValue), settings.DefaultValue.ToString())
+                .WithSetting(prefix + nameof(BooleanFieldSettings.Hint), settings.Hint)
+                .WithSetting(prefix + nameof(BooleanFieldSettings.NotSetLabel), settings.NotSetLabel)
+                .WithSetting(prefix + nameof(BooleanFieldSettings.OffLabel), settings.OffLabel)
+                .WithSetting(prefix + nameof(BooleanFieldSettings.OnLabel), settings.OnLabel)
+                .WithSetting(prefix + nameof(BooleanFieldSettings.Optional), settings.Optional.ToString())
+                .WithSetting(prefix + nameof(BooleanFieldSettings.SelectionMode), settings.SelectionMode.ToString());
+        }
     }
 }
