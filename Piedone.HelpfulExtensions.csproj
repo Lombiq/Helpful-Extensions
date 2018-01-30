@@ -172,6 +172,7 @@
     <Compile Include="Extensions\Projections\ForeignKeyFilterEditor.cs" />
     <Compile Include="Extensions\Projections\IdsInFilter.cs" />
     <Compile Include="Extensions\Projections\SearchFilter.cs" />
+    <Compile Include="Extensions\ResourceManifestExtensions.cs" />
     <Compile Include="Extensions\Taxonomies\ContentPartDefinitionBuilderExtensions.cs" />
     <Compile Include="Extensions\Taxonomies\ContentPartFieldDefinitionBuilderExtensions.cs" />
     <Compile Include="Extensions\Taxonomies\ITaxonomySetupHandler.cs" />
