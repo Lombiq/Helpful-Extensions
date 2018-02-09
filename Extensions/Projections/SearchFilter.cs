@@ -37,7 +37,7 @@ namespace Piedone.HelpfulExtensions.Extensions.Projections
         public void Describe(DescribeFilterContext describe)
         {
             describe.For("Search", T("Search"), T("Search"))
-                .Element("SearchFilter", T("Search filter"), T("Filters for items matching a search query in the site search index."),
+                .Element(nameof(SearchFilter), T("Search filter"), T("Filters for items matching a search query in the site search index."),
                     ApplyFilter,
                     DisplayFilter,
                     nameof(SearchFilter)
@@ -46,18 +46,14 @@ namespace Piedone.HelpfulExtensions.Extensions.Projections
 
         public void ApplyFilter(FilterContext context)
         {
-            string query = context.State.SearchQuery;
+            var values = new SearchFilterFormElements(context.State);
 
-            if (string.IsNullOrEmpty(query)) return;
+            if (string.IsNullOrEmpty(values.SearchQuery)) return;
 
             var settings = _siteService.GetSiteSettings().As<SearchSettingsPart>();
-            string index = context.State.Index;
 
-            var hitCountLimit = 0;
-            int.TryParse(context.State.HitCountLimit.ToString(), out hitCountLimit);
-
-            var hits = _searchService.Query(query, 0, hitCountLimit != 0 ? new int?(hitCountLimit) : null, 
-                                            settings.FilterCulture, index, SearchSettingsHelper.GetSearchFields(settings, index), 
+            var hits = _searchService.Query(values.SearchQuery, 0, values.HitCountLimit == 0 ? null : new int?(values.HitCountLimit), 
+                                            settings.FilterCulture, values.Index, SearchSettingsHelper.GetSearchFields(settings, values.Index), 
                                             hit => hit);
 
             if (hits.Any()) context.Query.WhereIdIn(hits.Select(hit => hit.ContentItemId));
@@ -66,6 +62,25 @@ namespace Piedone.HelpfulExtensions.Extensions.Projections
 
         public LocalizedString DisplayFilter(FilterContext context) =>
             T("Content items matched by the search query {0} in the search index \"{1}\".", context.State.SearchQuery, context.State.Index);
+    }
+
+
+    internal class SearchFilterFormElements
+    {
+        public string Index { get; set; }
+        public string SearchQuery { get; set; }
+        public int HitCountLimit { get; set; }
+
+
+        public SearchFilterFormElements(dynamic formState)
+        {
+            Index = formState[nameof(Index)];
+            SearchQuery = formState[nameof(SearchQuery)];
+
+            var hitCountLimit = 0;
+            int.TryParse(formState[nameof(HitCountLimit)].ToString(), out hitCountLimit);
+            HitCountLimit = hitCountLimit;
+        }
     }
 
 
@@ -94,18 +109,18 @@ namespace Piedone.HelpfulExtensions.Extensions.Projections
                 var f = _shapeFactory.Form(
                     Id: nameof(SearchFilterForm),
                     _Index: _shapeFactory.SelectList(
-                        Id: "Index", Name: "Index",
+                        Id: nameof(SearchFilterFormElements.Index), Name: nameof(SearchFilterFormElements.Index),
                         Title: T("Index"),
                         Description: T("The selected index will be queried."),
                         Size: 5,
                         Multiple: false),
                     _SearchQuery: _shapeFactory.Textbox(
-                        Id: "SearchQuery", Name: "SearchQuery",
+                        Id: nameof(SearchFilterFormElements.SearchQuery), Name: nameof(SearchFilterFormElements.SearchQuery),
                         Title: T("Search query"),
                         Description: T("The search query to match against."),
                         Classes: new[] { "tokenized" }),
                     _HitCountLimit: _shapeFactory.Textbox(
-                        Id: "HitCountLimit", Name: "HitCountLimit",
+                        Id: nameof(SearchFilterFormElements.HitCountLimit), Name: nameof(SearchFilterFormElements.HitCountLimit),
                         Title: T("Hit count limit"),
                         Description: T("For performance reasons you can limit the maximal number of search hits used in the query. Having thousands of search hits will result in poor performance and increased load on the database server."))
                     );
