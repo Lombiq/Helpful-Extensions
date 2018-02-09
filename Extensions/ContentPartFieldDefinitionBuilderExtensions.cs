@@ -1,4 +1,5 @@
 ﻿using Orchard.ContentManagement.MetaData.Builders;
+using Orchard.Core.Common.Settings;
 using Orchard.Fields.Settings;
 using Orchard.Indexing.Settings;
 
@@ -28,6 +29,20 @@ namespace Piedone.HelpfulExtensions
                 .WithSetting(prefix + nameof(InputFieldSettings.Required), settings.Required.ToString())
                 .WithSetting(prefix + nameof(InputFieldSettings.Title), settings.Title)
                 .WithSetting(prefix + nameof(InputFieldSettings.Type), settings.Type.ToString());
+        }
+
+        public static ContentPartFieldDefinitionBuilder WithTextFieldSettings(
+            this ContentPartFieldDefinitionBuilder builder,
+            TextFieldSettings settings)
+        {
+            var prefix = $"{nameof(TextFieldSettings)}.";
+
+            return builder
+                .WithSetting(prefix + nameof(TextFieldSettings.Flavor), settings.Flavor)
+                .WithSetting(prefix + nameof(TextFieldSettings.Required), settings.Required.ToString())
+                .WithSetting(prefix + nameof(TextFieldSettings.Hint), settings.Hint)
+                .WithSetting(prefix + nameof(TextFieldSettings.Placeholder), settings.Placeholder)
+                .WithSetting(prefix + nameof(TextFieldSettings.DefaultValue), settings.DefaultValue);
         }
 
         public static ContentPartFieldDefinitionBuilder WithBooleanFieldSettings(
