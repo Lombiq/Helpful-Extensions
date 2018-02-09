@@ -10,7 +10,6 @@ using Orchard.Search.Models;
 using Orchard.Search.Services;
 using Orchard.Settings;
 using Piedone.HelpfulLibraries.Utilities;
-using System;
 using System.Linq;
 using System.Web.Mvc;
 
@@ -80,12 +79,10 @@ namespace Piedone.HelpfulExtensions.Extensions.Projections
             Index = formState[nameof(Index)];
             SearchQuery = formState[nameof(SearchQuery)];
 
-            bool exactMatch;
-            ExactMatch = bool.TryParse(formState[nameof(ExactMatch)]?.ToString(), out exactMatch);
+            bool.TryParse(formState[nameof(ExactMatch)]?.ToString(), out bool exactMatch);
             ExactMatch = exactMatch;
 
-            var hitCountLimit = 0;
-            int.TryParse(formState[nameof(HitCountLimit)].ToString(), out hitCountLimit);
+            int.TryParse(formState[nameof(HitCountLimit)].ToString(), out int hitCountLimit);
             HitCountLimit = hitCountLimit;
         }
     }
@@ -111,7 +108,7 @@ namespace Piedone.HelpfulExtensions.Extensions.Projections
 
         public void Describe(DescribeContext context)
         {
-            Func<IShapeFactory, object> form = shape =>
+            object form(IShapeFactory shape)
             {
                 var f = _shapeFactory.Form(
                     Id: nameof(SearchFilterForm),
@@ -141,7 +138,7 @@ namespace Piedone.HelpfulExtensions.Extensions.Projections
                     f._Index.Add(new SelectListItem { Value = index, Text = index });
 
                 return f;
-            };
+            }
 
             context.Form(nameof(SearchFilter), form);
         }
