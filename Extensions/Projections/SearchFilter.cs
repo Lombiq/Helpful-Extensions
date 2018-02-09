@@ -1,21 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using Orchard;
+﻿using Orchard.ContentManagement;
 using Orchard.DisplayManagement;
 using Orchard.Environment.Extensions;
 using Orchard.Forms.Services;
+using Orchard.Indexing;
 using Orchard.Localization;
 using Orchard.Projections.Descriptors.Filter;
-using Orchard.Search.Services;
-using Piedone.HelpfulLibraries.Utilities;
-using Orchard.ContentManagement;
-using Orchard.Search.Models;
 using Orchard.Search.Helpers;
-using Orchard.Indexing;
-using System.Web.Mvc;
+using Orchard.Search.Models;
+using Orchard.Search.Services;
 using Orchard.Settings;
+using Piedone.HelpfulLibraries.Utilities;
+using System;
+using System.Linq;
+using System.Web.Mvc;
 
 namespace Piedone.HelpfulExtensions.Extensions.Projections
 {
@@ -43,7 +40,7 @@ namespace Piedone.HelpfulExtensions.Extensions.Projections
                 .Element("SearchFilter", T("Search filter"), T("Filters for items matching a search query in the site search index."),
                     ApplyFilter,
                     DisplayFilter,
-                    "SearchFilter"
+                    nameof(SearchFilter)
                 );
         }
 
@@ -59,28 +56,21 @@ namespace Piedone.HelpfulExtensions.Extensions.Projections
             var hitCountLimit = 0;
             int.TryParse(context.State.HitCountLimit.ToString(), out hitCountLimit);
 
-            var hits = _searchService.Query(query, 0, hitCountLimit != 0 ? new Nullable<int>(hitCountLimit) : null, 
+            var hits = _searchService.Query(query, 0, hitCountLimit != 0 ? new int?(hitCountLimit) : null, 
                                             settings.FilterCulture, index, SearchSettingsHelper.GetSearchFields(settings, index), 
                                             hit => hit);
-            if (hits.Any())
-            {
-                context.Query.WhereIdIn(hits.Select(hit => hit.ContentItemId));
-            }
-            else
-            {
-                context.Query.WhereIdIn(new[] { 0 });
-            }
+
+            if (hits.Any()) context.Query.WhereIdIn(hits.Select(hit => hit.ContentItemId));
+            else context.Query.WhereIdIn(new[] { 0 });
         }
 
-        public LocalizedString DisplayFilter(FilterContext context)
-        {
-            return T("Content items matched by the search query {0} in the search index \"{1}\".", context.State.SearchQuery, context.State.Index);
-        }
+        public LocalizedString DisplayFilter(FilterContext context) =>
+            T("Content items matched by the search query {0} in the search index \"{1}\".", context.State.SearchQuery, context.State.Index);
     }
 
 
     [OrchardFeature("Piedone.HelpfulExtensions.Projections.Search")]
-    public class ContentTypesFilterForms : IFormProvider
+    public class SearchFilterForm : IFormProvider
     {
         private readonly IIndexProvider _indexProvider;
         private readonly dynamic _shapeFactory;
@@ -88,7 +78,7 @@ namespace Piedone.HelpfulExtensions.Extensions.Projections
         public Localizer T { get; set; }
 
 
-        public ContentTypesFilterForms(IShapeFactory shapeFactory, IIndexProvider indexProvider)
+        public SearchFilterForm(IShapeFactory shapeFactory, IIndexProvider indexProvider)
         {
             _shapeFactory = shapeFactory;
             _indexProvider = indexProvider;
@@ -97,40 +87,36 @@ namespace Piedone.HelpfulExtensions.Extensions.Projections
         }
 
 
-        public void Describe(Orchard.Forms.Services.DescribeContext context)
+        public void Describe(DescribeContext context)
         {
-            Func<IShapeFactory, object> form =
-                shape =>
-                {
-                    var f = _shapeFactory.Form(
-                        Id: "SearchFilterForm",
-                        _Index: _shapeFactory.SelectList(
-                            Id: "Index", Name: "Index",
-                            Title: T("Index"),
-                            Description: T("The selected index will be queried."),
-                            Size: 5,
-                            Multiple: false),
-                        _SearchQuery: _shapeFactory.Textbox(
-                            Id: "SearchQuery", Name: "SearchQuery",
-                            Title: T("Search query"),
-                            Description: T("The search query to match against."),
-                            Classes: new[] { "tokenized" }),
-                        _HitCountLimit: _shapeFactory.Textbox(
-                            Id: "HitCountLimit", Name: "HitCountLimit",
-                            Title: T("Hit count limit"),
-                            Description: T("For performance reasons you can limit the maximal number of search hits used in the query. Having thousands of search hits will result in poor performance and increased load on the database server."))
-                        );
+            Func<IShapeFactory, object> form = shape =>
+            {
+                var f = _shapeFactory.Form(
+                    Id: nameof(SearchFilterForm),
+                    _Index: _shapeFactory.SelectList(
+                        Id: "Index", Name: "Index",
+                        Title: T("Index"),
+                        Description: T("The selected index will be queried."),
+                        Size: 5,
+                        Multiple: false),
+                    _SearchQuery: _shapeFactory.Textbox(
+                        Id: "SearchQuery", Name: "SearchQuery",
+                        Title: T("Search query"),
+                        Description: T("The search query to match against."),
+                        Classes: new[] { "tokenized" }),
+                    _HitCountLimit: _shapeFactory.Textbox(
+                        Id: "HitCountLimit", Name: "HitCountLimit",
+                        Title: T("Hit count limit"),
+                        Description: T("For performance reasons you can limit the maximal number of search hits used in the query. Having thousands of search hits will result in poor performance and increased load on the database server."))
+                    );
 
-                    foreach (var index in _indexProvider.List())
-                    {
-                        f._Index.Add(new SelectListItem { Value = index, Text = index });
-                    }
+                foreach (var index in _indexProvider.List())
+                    f._Index.Add(new SelectListItem { Value = index, Text = index });
 
+                return f;
+            };
 
-                    return f;
-                };
-
-            context.Form("SearchFilter", form);
+            context.Form(nameof(SearchFilter), form);
         }
     }
 }
