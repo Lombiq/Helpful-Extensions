@@ -50,6 +50,8 @@ namespace Piedone.HelpfulExtensions.Extensions.Projections
 
             if (string.IsNullOrEmpty(values.SearchQuery)) return;
 
+            if (values.ExactMatch) values.SearchQuery = values.SearchQuery.Replace(" ", "+");
+
             var settings = _siteService.GetSiteSettings().As<SearchSettingsPart>();
 
             var hits = _searchService.Query(values.SearchQuery, 0, values.HitCountLimit == 0 ? null : new int?(values.HitCountLimit), 
@@ -69,6 +71,7 @@ namespace Piedone.HelpfulExtensions.Extensions.Projections
     {
         public string Index { get; set; }
         public string SearchQuery { get; set; }
+        public bool ExactMatch { get; set; }
         public int HitCountLimit { get; set; }
 
 
@@ -76,6 +79,10 @@ namespace Piedone.HelpfulExtensions.Extensions.Projections
         {
             Index = formState[nameof(Index)];
             SearchQuery = formState[nameof(SearchQuery)];
+
+            bool exactMatch;
+            ExactMatch = bool.TryParse(formState[nameof(ExactMatch)]?.ToString(), out exactMatch);
+            ExactMatch = exactMatch;
 
             var hitCountLimit = 0;
             int.TryParse(formState[nameof(HitCountLimit)].ToString(), out hitCountLimit);
@@ -119,6 +126,11 @@ namespace Piedone.HelpfulExtensions.Extensions.Projections
                         Title: T("Search query"),
                         Description: T("The search query to match against."),
                         Classes: new[] { "tokenized" }),
+                    _ExactMatch: _shapeFactory.Checkbox(
+                        Id: nameof(SearchFilterFormElements.ExactMatch), Name: nameof(SearchFilterFormElements.ExactMatch),
+                        Title: T("Exact match"),
+                        Checked: false, Value: "true",
+                        Description: T("When checked, words in the search query will be processed exactly in order instead of word-by-word.")),
                     _HitCountLimit: _shapeFactory.Textbox(
                         Id: nameof(SearchFilterFormElements.HitCountLimit), Name: nameof(SearchFilterFormElements.HitCountLimit),
                         Title: T("Hit count limit"),
