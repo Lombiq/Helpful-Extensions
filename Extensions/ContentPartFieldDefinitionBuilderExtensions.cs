@@ -60,5 +60,20 @@ namespace Piedone.HelpfulExtensions
                 .WithSetting(prefix + nameof(BooleanFieldSettings.Optional), settings.Optional.ToString())
                 .WithSetting(prefix + nameof(BooleanFieldSettings.SelectionMode), settings.SelectionMode.ToString());
         }
+
+        public static ContentPartFieldDefinitionBuilder WithDateTimeFieldSettings(
+            this ContentPartFieldDefinitionBuilder builder,
+            DateTimeFieldSettings settings)
+        {
+            var prefix = $"{nameof(DateTimeFieldSettings)}.";
+
+            return builder
+                .WithSetting(prefix + nameof(DateTimeFieldSettings.DefaultValue), settings.DefaultValue.ToString())
+                .WithSetting(prefix + nameof(DateTimeFieldSettings.Hint), settings.Hint)
+                .WithSetting(prefix + nameof(DateTimeFieldSettings.Display), settings.Display.ToString())
+                .WithSetting(prefix + nameof(DateTimeFieldSettings.Required), settings.Required.ToString())
+                .WithSetting(prefix + nameof(DateTimeFieldSettings.DatePlaceholder), settings.DatePlaceholder)
+                .WithSetting(prefix + nameof(DateTimeFieldSettings.TimePlaceholder), settings.TimePlaceholder);
+        }
     }
 }
