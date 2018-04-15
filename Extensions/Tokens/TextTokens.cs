@@ -5,7 +5,7 @@ using System;
 
 namespace Piedone.HelpfulExtensions.Extensions.Tokens
 {
-    [OrchardFeature(Constants.FeatureNames.Taxonomies)]
+    [OrchardFeature(Constants.FeatureNames.Tokens)]
     public class TextTokens : ITokenProvider
     {
         public Localizer T { get; set; }
