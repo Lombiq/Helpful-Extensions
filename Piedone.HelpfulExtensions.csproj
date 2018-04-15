@@ -184,6 +184,8 @@
     <Compile Include="Extensions\Taxonomies\TaxonomySetupService.cs" />
     <Compile Include="Extensions\Taxonomies\ITaxonomySetupService.cs" />
     <Compile Include="Extensions\Tokens\ContentTokens.cs" />
+    <Compile Include="Extensions\Tokens\IdentityResolverTokens.cs" />
+    <Compile Include="Extensions\Tokens\RequestTokens.cs" />
     <Compile Include="Extensions\Tokens\TextTokens.cs" />
   </ItemGroup>
   <ItemGroup>
