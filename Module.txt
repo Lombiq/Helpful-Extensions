@@ -20,32 +20,37 @@ Features:
         Name: Code Generation Helpful Extensions
         Description: Generates migrations from content type definitions.
         Category: Developer
-        Dependencies:  Piedone.HelpfulExtensions
+        Dependencies: Piedone.HelpfulExtensions
     Piedone.HelpfulExtensions.Commands:
         Name: Commands Helpful Extensions
         Description: Adds some useful command line commands.
         Category: Content
-        Dependencies:  Piedone.HelpfulExtensions, Orchard.Roles
+        Dependencies: Piedone.HelpfulExtensions, Orchard.Roles
     Piedone.HelpfulExtensions.Contents:
         Name: Contents Helpful Extensions
         Description: Adds the Hint Field content field.
         Category: Content
-        Dependencies:  Piedone.HelpfulExtensions
+        Dependencies: Piedone.HelpfulExtensions
     Piedone.HelpfulExtensions.Projections:
         Name: Projector Helpful Extensions
         Description: Adds Projector filters.
         Category: Content
-        Dependencies:  Piedone.HelpfulExtensions, Orchard.Projections
+        Dependencies: Piedone.HelpfulExtensions, Orchard.Projections
     Piedone.HelpfulExtensions.Projections.Search:
         Name: Projector Helpful Extensions - Search
         Description: Adds Projector filters to be used with Search.
         Category: Content
-        Dependencies:  Piedone.HelpfulExtensions, Orchard.Projections, Orchard.Search, Piedone.HelpfulLibraries.Utilities
+        Dependencies: Piedone.HelpfulExtensions, Orchard.Projections, Orchard.Search, Piedone.HelpfulLibraries.Utilities
     Piedone.HelpfulExtensions.Tokens:
         Name: Tokens Helpful Extensions
         Description: Adds some tokens.
         Category: Content
-        Dependencies:  Piedone.HelpfulExtensions, Orchard.Alias, Orchard.Forms, Orchard.Tokens, Piedone.HelpfulLibraries.Contents
+        Dependencies: Piedone.HelpfulExtensions, Orchard.Alias, Orchard.Forms, Orchard.Tokens, Piedone.HelpfulLibraries.Contents
+    Piedone.HelpfulExtensions.Tokens.Layouts:
+        Name: Layout Tokens Helpful Extensions
+        Description: Adds some Layout tokens.
+        Category: Content
+        Dependencies: Piedone.HelpfulExtensions.Tokens, Orchard.Layouts
     Piedone.HelpfulExtensions.Taxonomies:
         Name: Taxonomies Helpful Extensions
         Description: Extension methods and services for creating Taxonomies and TaxonomyFields in Migrations.

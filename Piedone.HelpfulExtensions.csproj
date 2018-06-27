@@ -151,6 +151,10 @@
       <Project>{ea2b9121-ef54-40a6-a53e-6593c86ee696}</Project>
       <Name>Orchard.Indexing</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Orchard.Layouts\Orchard.Layouts.csproj">
+      <Project>{6BD8B2FA-F2E3-4AC8-A4C3-2925A653889A}</Project>
+      <Name>Orchard.Layouts</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Orchard.Taxonomies\Orchard.Taxonomies.csproj">
       <Project>{e649ea64-d213-461b-87f7-d67035801443}</Project>
       <Name>Orchard.Taxonomies</Name>
@@ -166,6 +170,7 @@
     <Compile Include="Extensions\CodeGeneration\ContentTypeEditorEvents.cs" />
     <Compile Include="Extensions\CodeGeneration\ContentTypeMigrationsViewModel.cs" />
     <Compile Include="Extensions\Commands\PermissionCommands.cs" />
+    <Compile Include="Extensions\ContentManagerExtensions.cs" />
     <Compile Include="Extensions\ContentPartDefinitionBuilderExtensions.cs" />
     <Compile Include="Extensions\ContentPartDriverExtensions.cs" />
     <Compile Include="Extensions\ContentPartFieldDefinitionBuilderExtensions.cs" />
@@ -184,8 +189,14 @@
     <Compile Include="Extensions\Taxonomies\TaxonomyFieldExtensions.cs" />
     <Compile Include="Extensions\Taxonomies\TaxonomySetupService.cs" />
     <Compile Include="Extensions\Taxonomies\ITaxonomySetupService.cs" />
+    <Compile Include="Extensions\Tokens\ContentBasedTokensBase.cs" />
     <Compile Include="Extensions\Tokens\ContentTokens.cs" />
+    <Compile Include="Extensions\Tokens\Drivers\CustomTokenDataPartDriver.cs" />
+    <Compile Include="Extensions\Tokens\Extensions\EvaluateContextExtensions.cs" />
+    <Compile Include="Extensions\Tokens\Extensions\TokenContentExtensions.cs" />
+    <Compile Include="Extensions\Tokens\Filters\TokensFilter.cs" />
     <Compile Include="Extensions\Tokens\IdentityResolverTokens.cs" />
+    <Compile Include="Extensions\Tokens\Models\CustomTokenDataPart.cs" />
     <Compile Include="Extensions\Tokens\RequestTokens.cs" />
     <Compile Include="Extensions\Tokens\TextTokens.cs" />
   </ItemGroup>
