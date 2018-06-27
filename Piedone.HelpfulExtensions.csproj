@@ -167,6 +167,7 @@
     <Compile Include="Extensions\CodeGeneration\ContentTypeMigrationsViewModel.cs" />
     <Compile Include="Extensions\Commands\PermissionCommands.cs" />
     <Compile Include="Extensions\ContentPartDefinitionBuilderExtensions.cs" />
+    <Compile Include="Extensions\ContentPartDriverExtensions.cs" />
     <Compile Include="Extensions\ContentPartFieldDefinitionBuilderExtensions.cs" />
     <Compile Include="Extensions\Contents\Drivers\HintFieldDriver.cs" />
     <Compile Include="Extensions\Contents\Models\HintField.cs" />
