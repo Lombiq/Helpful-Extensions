@@ -1,4 +1,5 @@
-﻿using Orchard.Taxonomies.Fields;
+﻿using Orchard.ContentManagement;
+using Orchard.Taxonomies.Fields;
 using Orchard.Taxonomies.Models;
 using System.Linq;
 
@@ -14,5 +15,20 @@ namespace Piedone.HelpfulExtensions.Taxonomies
 
         public static string GetTermNames(this TaxonomyField field) =>
             field?.Terms?.Any() ?? false ? string.Join(", ", TermPart.Sort(field.Terms).Select(term => term.Name)) : "";
+
+        // Use this method to correctly fetch the first Term's name immediately after updating the content item.
+        public static TermPart GetFirstTermByRecord(
+            this TaxonomyField field,
+            IContent content,
+            IContentManager contentManager) =>
+            contentManager.Get<TermPart>(
+                content.As<TermsPart>()?.Terms.FirstOrDefault(term => term.Field == field.Name)?.TermRecord.Id ?? 0);
+
+        // Use this method to correctly fetch the first Term immediately after updating the content item.
+        public static string GetFirstTermNameByRecord(
+            this TaxonomyField field,
+            IContent content,
+            IContentManager contentManager) =>
+            GetFirstTermByRecord(field, content, contentManager)?.Name;
     }
 }
