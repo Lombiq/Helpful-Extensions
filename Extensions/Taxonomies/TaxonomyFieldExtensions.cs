@@ -38,7 +38,7 @@ namespace Piedone.HelpfulExtensions.Taxonomies
             IContent content,
             IContentManager contentManager) =>
             contentManager.GetMany<TermPart>(
-                content.As<TermsPart>()?.Terms.Where(term => term.Field == field.Name).Select(term => term.Id) ?? Enumerable.Empty<int>(),
+                content.As<TermsPart>()?.Terms.Where(term => term.Field == field.Name).Select(term => term.TermRecord.Id) ?? Enumerable.Empty<int>(),
                 VersionOptions.Published,
                 QueryHints.Empty);
     }
