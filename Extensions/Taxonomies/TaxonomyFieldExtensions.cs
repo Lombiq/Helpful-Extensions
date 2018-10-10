@@ -1,6 +1,7 @@
 ﻿using Orchard.ContentManagement;
 using Orchard.Taxonomies.Fields;
 using Orchard.Taxonomies.Models;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace Piedone.HelpfulExtensions.Taxonomies
@@ -30,5 +31,15 @@ namespace Piedone.HelpfulExtensions.Taxonomies
             IContent content,
             IContentManager contentManager) =>
             GetFirstTermByRecord(field, content, contentManager)?.Name;
+
+        // Use this method to correctly fetch each Term immediately after updating the content item.
+        public static IEnumerable<TermPart> GetTermsByRecord(
+            this TaxonomyField field,
+            IContent content,
+            IContentManager contentManager) =>
+            contentManager.GetMany<TermPart>(
+                content.As<TermsPart>()?.Terms.Where(term => term.Field == field.Name).Select(term => term.Id) ?? Enumerable.Empty<int>(),
+                VersionOptions.Published,
+                QueryHints.Empty);
     }
 }
