@@ -1,15 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
-using Orchard.ContentManagement;
+﻿using Orchard.ContentManagement;
 using Orchard.DisplayManagement;
 using Orchard.Environment.Extensions;
 using Orchard.Forms.Services;
 using Orchard.Localization;
 using Orchard.Projections.FilterEditors;
-using Orchard.Projections.ModelBinding;
+using System;
+using System.Web.Mvc;
 
 namespace Piedone.HelpfulExtensions.Projections
 {
@@ -35,6 +31,9 @@ namespace Piedone.HelpfulExtensions.Projections
         {
             string op = formState.Operator.ToString();
             string value = formState.Value.ToString();
+            bool.TryParse(formState.DoNotFilterIfEmpty?.ToString(), out bool doNotfilterIfEmpty);
+
+            if (doNotfilterIfEmpty && string.IsNullOrEmpty(value)) return e => e.Not(inner => inner.Eq(property, value));
 
             if (op == "NotEquals") return e => e.Not(inner => inner.Eq(property, value));
             return e => e.Eq(property, value);
@@ -83,7 +82,13 @@ namespace Piedone.HelpfulExtensions.Projections
                                     Id: "value", Name: "Value",
                                     Title: T("Value"),
                                     Classes: new[] { "textMedium", "tokenized" },
-                                    Description: T("The value will be parsed to the enum."))
+                                    Description: T("The value will be parsed to the enum.")),
+                            _DoNotFilterIfEmpty: _shapeFactory.Checkbox(
+                                    Id: "doNotfilterIfEmpty", Name: "DoNotFilterIfEmpty",
+                                    Title: T("Do not filter if empty"),
+                                    Checked: false, Value: "true",
+                                    Description: T("When checked, do not filter if no value provided.")
+                                )
                         );
 
                     f._Operator.Add(new SelectListItem { Value = "Equals", Text = T("Equals").Text });
