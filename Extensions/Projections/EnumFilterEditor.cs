@@ -87,9 +87,7 @@ namespace Piedone.HelpfulExtensions.Projections
                                     Id: "doNotfilterIfEmpty", Name: "DoNotFilterIfEmpty",
                                     Title: T("Do not filter if empty"),
                                     Checked: false, Value: "true",
-                                    Description: T("When checked, do not filter if no value provided.")
-                                )
-                        );
+                                    Description: T("When checked, do not filter if no value provided.")));
 
                     f._Operator.Add(new SelectListItem { Value = "Equals", Text = T("Equals").Text });
                     f._Operator.Add(new SelectListItem { Value = "NotEquals", Text = T("Not Equals").Text });
