@@ -46,7 +46,7 @@ namespace Piedone.HelpfulExtensions.Taxonomies
         public static IEnumerable<TermPart> GetTermsUnderParent(this TaxonomyField field, TermPart parent) =>
             parent == null ?
                 Enumerable.Empty<TermPart>() :
-                field.Terms.Where(term => term.As<CommonPart>().Container?.Id == parent?.Id);
+                field.Terms.Where(term => term.Container?.Id == parent?.Id);
 
         public static TermPart GetFirstTermUnderParent(this TaxonomyField field, TermPart parent) =>
             GetTermsUnderParent(field, parent).FirstOrDefault();
@@ -58,7 +58,7 @@ namespace Piedone.HelpfulExtensions.Taxonomies
             TermPart parent) =>
             parent == null ?
                 Enumerable.Empty<TermPart>() :
-                GetTermsByRecord(field, content, contentManager).Where(term => term.As<CommonPart>().Container?.Id == parent.Id);
+                GetTermsByRecord(field, content, contentManager).Where(term => term.Container?.Id == parent.Id);
 
         public static TermPart GetFirstTermByRecordUnderParent(
             this TaxonomyField field,

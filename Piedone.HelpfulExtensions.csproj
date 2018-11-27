@@ -188,6 +188,7 @@
     <Compile Include="Extensions\Taxonomies\ContentPartFieldDefinitionBuilderExtensions.cs" />
     <Compile Include="Extensions\Taxonomies\ITaxonomySetupHandler.cs" />
     <Compile Include="Extensions\Taxonomies\TaxonomyFieldExtensions.cs" />
+    <Compile Include="Extensions\Taxonomies\TaxonomyServiceExtensions.cs" />
     <Compile Include="Extensions\Taxonomies\TaxonomySetupService.cs" />
     <Compile Include="Extensions\Taxonomies\ITaxonomySetupService.cs" />
     <Compile Include="Extensions\Tokens\ContentBasedTokensBase.cs" />
