@@ -1,4 +1,5 @@
 ﻿using Orchard.ContentManagement;
+using Orchard.Core.Common.Models;
 using Orchard.Taxonomies.Fields;
 using Orchard.Taxonomies.Models;
 using System.Collections.Generic;
@@ -41,5 +42,28 @@ namespace Piedone.HelpfulExtensions.Taxonomies
                 content.As<TermsPart>()?.Terms.Where(term => term.Field == field.Name).Select(term => term.TermRecord.Id) ?? Enumerable.Empty<int>(),
                 VersionOptions.Published,
                 QueryHints.Empty);
+
+        public static IEnumerable<TermPart> GetTermsUnderParent(this TaxonomyField field, TermPart parent) =>
+            parent == null ?
+                Enumerable.Empty<TermPart>() :
+                field.Terms.Where(term => term.As<CommonPart>().Container?.Id == parent?.Id);
+
+        public static TermPart GetFirstTermUnderParent(this TaxonomyField field, TermPart parent) =>
+            GetTermsUnderParent(field, parent).FirstOrDefault();
+
+        public static IEnumerable<TermPart> GetTermsByRecordUnderParent(
+            this TaxonomyField field,
+            IContent content,
+            IContentManager contentManager,
+            TermPart parent) =>
+            parent == null ?
+                Enumerable.Empty<TermPart>() :
+                GetTermsByRecord(field, content, contentManager).Where(term => term.As<CommonPart>().Container?.Id == parent.Id);
+
+        public static TermPart GetFirstTermByRecordUnderParent(
+            this TaxonomyField field,
+            IContent content,
+            IContentManager contentManager,
+            TermPart parent) => GetTermsByRecordUnderParent(field, content, contentManager, parent).FirstOrDefault();
     }
 }
