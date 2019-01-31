@@ -75,5 +75,19 @@ namespace Piedone.HelpfulExtensions
                 .WithSetting(prefix + nameof(DateTimeFieldSettings.DatePlaceholder), settings.DatePlaceholder)
                 .WithSetting(prefix + nameof(DateTimeFieldSettings.TimePlaceholder), settings.TimePlaceholder);
         }
+
+        public static ContentPartFieldDefinitionBuilder WithEnumerationFieldSettings(
+            this ContentPartFieldDefinitionBuilder builder,
+            EnumerationFieldSettings settings)
+        {
+            var prefix = $"{nameof(EnumerationFieldSettings)}.";
+
+            return builder
+                .WithSetting(prefix + nameof(EnumerationFieldSettings.DefaultValue), settings.DefaultValue.ToString())
+                .WithSetting(prefix + nameof(EnumerationFieldSettings.Hint), settings.Hint)
+                .WithSetting(prefix + nameof(EnumerationFieldSettings.Required), settings.Required.ToString())
+                .WithSetting(prefix + nameof(EnumerationFieldSettings.ListMode), settings.ListMode.ToString())
+                .WithSetting(prefix + nameof(EnumerationFieldSettings.Options), settings.Options);
+        }
     }
 }

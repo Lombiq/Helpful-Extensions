@@ -42,5 +42,11 @@ namespace Piedone.HelpfulExtensions
             string fieldName,
             Action<ContentPartFieldDefinitionBuilder> configuration = null) =>
             builder.WithField(nameof(DateTimeField), fieldName, configuration);
+
+        public static ContentPartDefinitionBuilder WithEnumerationField(
+            this ContentPartDefinitionBuilder builder,
+            string fieldName,
+            Action<ContentPartFieldDefinitionBuilder> configuration = null) =>
+            builder.WithField(nameof(EnumerationField), fieldName, configuration);
     }
 }
