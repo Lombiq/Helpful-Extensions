@@ -82,6 +82,10 @@
       <HintPath>..\..\..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Newtonsoft.Json, Version=7.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Newtonsoft.Json.7.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System.Web.Helpers">
       <HintPath>..\..\..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.Helpers.dll</HintPath>
       <Private>True</Private>
@@ -177,6 +181,7 @@
     <Compile Include="Extensions\Contents\Drivers\HintFieldDriver.cs" />
     <Compile Include="Extensions\Contents\Models\HintField.cs" />
     <Compile Include="Extensions\Contents\Settings\HintFieldSettings.cs" />
+    <Compile Include="Extensions\JsonConverterExtensions.cs" />
     <Compile Include="Extensions\Projections\ContainedByFilter.cs" />
     <Compile Include="Extensions\Projections\EnumFilterEditor.cs" />
     <Compile Include="Extensions\Projections\ForeignKeyFilterEditor.cs" />
