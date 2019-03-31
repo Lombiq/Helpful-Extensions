@@ -1,6 +1,7 @@
 ﻿using Orchard.ContentManagement.MetaData.Builders;
 using Orchard.Core.Common.Fields;
 using Orchard.Fields.Fields;
+using Orchard.MediaLibrary.Fields;
 using System;
 
 namespace Piedone.HelpfulExtensions
@@ -48,5 +49,11 @@ namespace Piedone.HelpfulExtensions
             string fieldName,
             Action<ContentPartFieldDefinitionBuilder> configuration = null) =>
             builder.WithField(nameof(EnumerationField), fieldName, configuration);
+
+        public static ContentPartDefinitionBuilder WithMediaLibraryPickerField(
+            this ContentPartDefinitionBuilder builder,
+            string fieldName,
+            Action<ContentPartFieldDefinitionBuilder> configuration = null) =>
+            builder.WithField(nameof(MediaLibraryPickerField), fieldName, configuration);
     }
 }

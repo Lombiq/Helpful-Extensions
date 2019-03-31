@@ -2,6 +2,7 @@
 using Orchard.Core.Common.Settings;
 using Orchard.Fields.Settings;
 using Orchard.Indexing.Settings;
+using Orchard.MediaLibrary.Settings;
 
 namespace Piedone.HelpfulExtensions
 {
@@ -52,7 +53,7 @@ namespace Piedone.HelpfulExtensions
             var prefix = $"{nameof(BooleanFieldSettings)}.";
 
             return builder
-                .WithSetting(prefix + nameof(BooleanFieldSettings.DefaultValue), settings.DefaultValue.ToString())
+                .WithSetting(prefix + nameof(BooleanFieldSettings.DefaultValue), settings.DefaultValue?.ToString())
                 .WithSetting(prefix + nameof(BooleanFieldSettings.Hint), settings.Hint)
                 .WithSetting(prefix + nameof(BooleanFieldSettings.NotSetLabel), settings.NotSetLabel)
                 .WithSetting(prefix + nameof(BooleanFieldSettings.OffLabel), settings.OffLabel)
@@ -68,7 +69,7 @@ namespace Piedone.HelpfulExtensions
             var prefix = $"{nameof(DateTimeFieldSettings)}.";
 
             return builder
-                .WithSetting(prefix + nameof(DateTimeFieldSettings.DefaultValue), settings.DefaultValue.ToString())
+                .WithSetting(prefix + nameof(DateTimeFieldSettings.DefaultValue), settings.DefaultValue?.ToString())
                 .WithSetting(prefix + nameof(DateTimeFieldSettings.Hint), settings.Hint)
                 .WithSetting(prefix + nameof(DateTimeFieldSettings.Display), settings.Display.ToString())
                 .WithSetting(prefix + nameof(DateTimeFieldSettings.Required), settings.Required.ToString())
@@ -83,11 +84,24 @@ namespace Piedone.HelpfulExtensions
             var prefix = $"{nameof(EnumerationFieldSettings)}.";
 
             return builder
-                .WithSetting(prefix + nameof(EnumerationFieldSettings.DefaultValue), settings.DefaultValue.ToString())
+                .WithSetting(prefix + nameof(EnumerationFieldSettings.DefaultValue), settings.DefaultValue)
                 .WithSetting(prefix + nameof(EnumerationFieldSettings.Hint), settings.Hint)
                 .WithSetting(prefix + nameof(EnumerationFieldSettings.Required), settings.Required.ToString())
                 .WithSetting(prefix + nameof(EnumerationFieldSettings.ListMode), settings.ListMode.ToString())
                 .WithSetting(prefix + nameof(EnumerationFieldSettings.Options), settings.Options);
+        }
+
+        public static ContentPartFieldDefinitionBuilder WithMediaLibraryPickerFieldSettings(
+            this ContentPartFieldDefinitionBuilder builder,
+            MediaLibraryPickerFieldSettings settings)
+        {
+            var prefix = $"{nameof(MediaLibraryPickerFieldSettings)}.";
+
+            return builder
+                .WithSetting(prefix + nameof(MediaLibraryPickerFieldSettings.Hint), settings.Hint)
+                .WithSetting(prefix + nameof(MediaLibraryPickerFieldSettings.Required), settings.Required.ToString())
+                .WithSetting(prefix + nameof(MediaLibraryPickerFieldSettings.Multiple), settings.Multiple.ToString())
+                .WithSetting(prefix + nameof(MediaLibraryPickerFieldSettings.DisplayedContentTypes), settings.DisplayedContentTypes);
         }
     }
 }
