@@ -1,5 +1,4 @@
 ﻿using Newtonsoft.Json;
-using Orchard.Services;
 
 namespace Orchard.Services
 {
@@ -8,6 +7,8 @@ namespace Orchard.Services
         public static bool TryDeserialize<T>(this IJsonConverter jsonConverter, string jsonString, out T result)
         {
             result = default(T);
+
+            if (string.IsNullOrEmpty(jsonString)) return false;
 
             try
             {
