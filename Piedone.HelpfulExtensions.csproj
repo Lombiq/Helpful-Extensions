@@ -204,7 +204,7 @@
     <Compile Include="Extensions\Tokens\ContentTokens.cs" />
     <Compile Include="Extensions\Tokens\Drivers\CustomTokenDataPartDriver.cs" />
     <Compile Include="Extensions\Tokens\Extensions\EvaluateContextExtensions.cs" />
-    <Compile Include="Extensions\Tokens\Extensions\EvaluateForExtensions.cs" />
+    <Compile Include="Extensions\Tokens\Extensions\TokenProviderExtensions.cs" />
     <Compile Include="Extensions\Tokens\Extensions\TokenContentExtensions.cs" />
     <Compile Include="Extensions\Tokens\Filters\TokensFilter.cs" />
     <Compile Include="Extensions\Tokens\IdentityResolverTokens.cs" />
