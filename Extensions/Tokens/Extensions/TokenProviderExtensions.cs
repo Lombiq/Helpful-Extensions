@@ -1,6 +1,5 @@
 ﻿using Orchard.ContentManagement;
 using Orchard.Localization;
-using Piedone.HelpfulLibraries.Contents;
 using System;
 
 namespace Orchard.Tokens
@@ -18,6 +17,6 @@ namespace Orchard.Tokens
             this EvaluateFor<IContent> evaluateFor,
             string tokenName,
             Func<TPart, object> tokenValue) where TPart : ContentPart =>
-            evaluateFor.Token($"{typeof(TPart).Name}.{tokenName}", content => tokenValue(content.AsOrThrow<TPart>()));
+            evaluateFor.Token($"{typeof(TPart).Name}.{tokenName}", content => content.Has<TPart>() ? tokenValue(content.As<TPart>()) : "");
     }
 }
