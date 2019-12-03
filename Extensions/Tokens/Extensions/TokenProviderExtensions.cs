@@ -16,7 +16,17 @@ namespace Orchard.Tokens
         public static EvaluateFor<IContent> ContentPartToken<TPart>(
             this EvaluateFor<IContent> evaluateFor,
             string tokenName,
-            Func<TPart, object> tokenValue) where TPart : ContentPart =>
-            evaluateFor.Token($"{typeof(TPart).Name}.{tokenName}", content => content.Has<TPart>() ? tokenValue(content.As<TPart>()) : "");
+            Func<TPart, object> tokenValue,
+            string chainTarget = null) where TPart : ContentPart
+        {
+            var token = $"{typeof(TPart).Name}.{tokenName}";
+
+            evaluateFor.Token(token, content => content.Has<TPart>() ? tokenValue(content.As<TPart>()) : new object());
+
+            if (!string.IsNullOrWhiteSpace(chainTarget))
+                evaluateFor.Chain(token, chainTarget, content => content.Has<TPart>() ? tokenValue(content.As<TPart>()) : new object());
+
+            return evaluateFor;
+        }
     }
 }
