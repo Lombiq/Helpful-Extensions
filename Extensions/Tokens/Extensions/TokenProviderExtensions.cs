@@ -21,10 +21,10 @@ namespace Orchard.Tokens
         {
             var token = $"{typeof(TPart).Name}.{tokenName}";
 
-            evaluateFor.Token(token, content => content.Has<TPart>() ? tokenValue(content.As<TPart>()) : new object());
+            evaluateFor.Token(token, content => tokenValue(content.As<TPart>()));
 
             if (!string.IsNullOrWhiteSpace(chainTarget))
-                evaluateFor.Chain(token, chainTarget, content => content.Has<TPart>() ? tokenValue(content.As<TPart>()) : new object());
+                evaluateFor.Chain(token, chainTarget, content => tokenValue(content.As<TPart>()));
 
             return evaluateFor;
         }
