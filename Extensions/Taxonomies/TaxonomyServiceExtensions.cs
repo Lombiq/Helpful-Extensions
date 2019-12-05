@@ -22,7 +22,7 @@ namespace Orchard.Taxonomies.Services
             if (taxonomy == null || parent == null) return Enumerable.Empty<TermPart>();
 
             return taxonomyService.GetTermsQuery(taxonomy.Id)
-                .Where<CommonPartRecord>(common => common.Container != null && common.Container.Id == taxonomy.Id)
+                .Where<CommonPartRecord>(common => common.Container != null && common.Container.Id == parent.Id)
                 .List();
         }
 
