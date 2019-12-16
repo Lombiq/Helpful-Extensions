@@ -185,6 +185,7 @@
     <Compile Include="Extensions\Contents\Drivers\HintFieldDriver.cs" />
     <Compile Include="Extensions\Contents\Models\HintField.cs" />
     <Compile Include="Extensions\Contents\Settings\HintFieldSettings.cs" />
+    <Compile Include="Extensions\DateTimeExtensions.cs" />
     <Compile Include="Extensions\JsonConverterExtensions.cs" />
     <Compile Include="Extensions\Projections\ContainedByFilter.cs" />
     <Compile Include="Extensions\Projections\EnumFilterEditor.cs" />
@@ -193,6 +194,7 @@
     <Compile Include="Extensions\Projections\SearchFilter.cs" />
     <Compile Include="Extensions\QueryStringExtensions.cs" />
     <Compile Include="Extensions\ResourceManifestExtensions.cs" />
+    <Compile Include="Extensions\StringExtensions.cs" />
     <Compile Include="Extensions\Taxonomies\ContentPartDefinitionBuilderExtensions.cs" />
     <Compile Include="Extensions\Taxonomies\ContentPartFieldDefinitionBuilderExtensions.cs" />
     <Compile Include="Extensions\Taxonomies\ITaxonomySetupHandler.cs" />
