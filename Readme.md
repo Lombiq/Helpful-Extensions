@@ -10,6 +10,10 @@ Orchard Core module containing some handy extensions (e.g. filters for Projector
 
 The module consists of the following independent extensions (all in their own features):
 
+### Flows Helpful Extensions
+
+Adds additional styling capabilities to OrchardCore.Flows feature by making it possible to add classes to widgets in the FlowPart editor.
+
 The module's source is available in two public source repositories, automatically mirrored in both directions with [Git-hg Mirror](https://githgmirror.com):
 
 - [https://bitbucket.org/Lombiq/helpful-extensions](https://bitbucket.org/Lombiq/helpful-extensions) (Mercurial repository)
