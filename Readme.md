@@ -1,4 +1,4 @@
-# Helpful Extensions Orchard module Readme
+# Helpful Extensions for Orchard Core
 
 
 
