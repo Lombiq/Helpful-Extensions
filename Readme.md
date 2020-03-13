@@ -14,6 +14,14 @@ The module consists of the following independent extensions (all in their own fe
 
 Adds additional styling capabilities to OrchardCore.Flows feature by making it possible to add classes to widgets in the FlowPart editor.
 
+### Helpful Widgets
+
+Adds multiple helpful widget content types. These include ContainerWidget (with a FlowPart attached to it), HtmlWidget and LiquidWidget.
+
+### Helpful Content Types
+
+Adds Page content type with FlowPart attached to it.
+
 The module's source is available in two public source repositories, automatically mirrored in both directions with [Git-hg Mirror](https://githgmirror.com):
 
 - [https://bitbucket.org/Lombiq/helpful-extensions](https://bitbucket.org/Lombiq/helpful-extensions) (Mercurial repository)
