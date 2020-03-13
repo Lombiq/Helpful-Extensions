@@ -1,6 +1,6 @@
 ﻿using OrchardCore.ContentManagement;
 
-namespace Lombiq.HelpfulExtensions.Flows.Models
+namespace Lombiq.HelpfulExtensions.Extensions.Flows.Models
 {
     public class AdditionalStylingPart : ContentPart
     {

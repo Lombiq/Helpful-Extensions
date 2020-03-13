@@ -1,11 +1,11 @@
-﻿using Lombiq.HelpfulExtensions.Flows.Models;
+﻿using Lombiq.HelpfulExtensions.Extensions.Flows.Models;
 using OrchardCore.ContentManagement;
 using OrchardCore.ContentManagement.Display.ContentDisplay;
 using OrchardCore.DisplayManagement.ModelBinding;
 using OrchardCore.DisplayManagement.Views;
 using System.Threading.Tasks;
 
-namespace Lombiq.HelpfulExtensions.Flows.Drivers
+namespace Lombiq.HelpfulExtensions.Extensions.Flows.Drivers
 {
     public class AdditionalStylingPartDisplay : ContentDisplayDriver
     {

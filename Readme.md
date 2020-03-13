@@ -6,6 +6,7 @@
 
 Orchard Core module containing some handy extensions (e.g. filters for Projector).
 
+
 ## Extensions
 
 The module consists of the following independent extensions (all in their own features):

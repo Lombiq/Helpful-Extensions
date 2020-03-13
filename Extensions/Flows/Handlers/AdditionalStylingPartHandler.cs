@@ -1,11 +1,11 @@
 ﻿using System.Threading.Tasks;
-using Lombiq.HelpfulExtensions.Flows.Models;
+using Lombiq.HelpfulExtensions.Extensions.Flows.Models;
 using OrchardCore.ContentManagement;
 using OrchardCore.ContentManagement.Handlers;
 using OrchardCore.ContentManagement.Metadata;
 using OrchardCore.ContentManagement.Metadata.Settings;
 
-namespace Lombiq.HelpfulExtensions.Flows.Handlers
+namespace Lombiq.HelpfulExtensions.Extensions.Flows.Handlers
 {
     public class AdditionalStylingPartHandler : ContentHandlerBase
     {
