@@ -8,11 +8,11 @@ using OrchardCore.ContentManagement.Display.ContentDisplay;
 using OrchardCore.ContentManagement.Handlers;
 using OrchardCore.DisplayManagement.Descriptors;
 using OrchardCore.Modules;
-using static Lombiq.HelpfulExtensions.FeatureIds;
+using Lombiq.HelpfulExtensions;
 
 namespace Piedone.HelpfulExtensions.Extensions.Flows
 {
-    [Feature(Lombiq_HelpfulExtensions_Flows)]
+    [Feature(FeatureIds.Flows)]
     public class Startup : StartupBase
     {
         override public void ConfigureServices(IServiceCollection services)

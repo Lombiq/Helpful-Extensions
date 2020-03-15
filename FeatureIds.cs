@@ -4,8 +4,8 @@
     {
         private const string FeatureIdPrefix = "Lombiq.HelpfulExtensions.";
 
-        public const string Lombiq_HelpfulExtensions_Flows = FeatureIdPrefix + "Flows";
-        public const string Lombiq_HelpfulExtensions_Widgets = FeatureIdPrefix + "Widgets";
-        public const string Lombiq_HelpfulExtensions_ContentTypes = FeatureIdPrefix + "ContentTypes";
+        public const string Flows = FeatureIdPrefix + nameof(Flows);
+        public const string Widgets = FeatureIdPrefix + nameof(Widgets);
+        public const string ContentTypes = FeatureIdPrefix + nameof(ContentTypes);
     }
 }

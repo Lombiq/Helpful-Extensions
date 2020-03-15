@@ -8,7 +8,7 @@ using static Lombiq.HelpfulExtensions.FeatureIds;
 )]
 
 [assembly: Feature(
-    Id = Lombiq_HelpfulExtensions_Flows,
+    Id = Flows,
     Name = "Flows Helpful Extensions",
     Category = "Content",
     Description = "Adds additional styling capabilities to Flows.",
@@ -19,7 +19,7 @@ using static Lombiq.HelpfulExtensions.FeatureIds;
 )]
 
 [assembly: Feature(
-    Id = Lombiq_HelpfulExtensions_Widgets,
+    Id = Widgets,
     Name = "Helpful Widgets",
     Category = "Content",
     Description = "Adds helpful widgets such as Container or Liquid widgets.",
@@ -31,7 +31,7 @@ using static Lombiq.HelpfulExtensions.FeatureIds;
 )]
 
 [assembly: Feature(
-    Id = Lombiq_HelpfulExtensions_ContentTypes,
+    Id = ContentTypes,
     Name = "Helpful Content Types",
     Category = "Content",
     Description = "Adds helpful content types such as Page.",
