@@ -1,0 +1,30 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Razor">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <AddRazorSupportForMvc>true</AddRazorSupportForMvc>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Remove=".git" />
+    <EmbeddedResource Remove=".gitattributes" />
+    <EmbeddedResource Remove=".gitignore" />
+    <EmbeddedResource Remove=".hgignore" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <FrameworkReference Include="Microsoft.AspNetCore.App" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="OrchardCore.Autoroute" Version="1.0.0-rc1-12128" />
+    <PackageReference Include="OrchardCore.ContentManagement" Version="1.0.0-rc1-12128" />
+    <PackageReference Include="OrchardCore.Contents" Version="1.0.0-rc1-12128" />
+    <PackageReference Include="OrchardCore.DisplayManagement" Version="1.0.0-rc1-12128" />
+    <PackageReference Include="OrchardCore.Flows" Version="1.0.0-rc1-12128" />
+    <PackageReference Include="OrchardCore.Html" Version="1.0.0-rc1-12128" />
+    <PackageReference Include="OrchardCore.Module.Targets" Version="1.0.0-rc1-12128" />
+    <PackageReference Include="OrchardCore.ResourceManagement" Version="1.0.0-rc1-12128" />
+  </ItemGroup>
+
+</Project>
