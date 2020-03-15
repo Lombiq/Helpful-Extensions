@@ -13,7 +13,7 @@ The module consists of the following independent extensions (all in their own fe
 
 ### Flows Helpful Extensions
 
-Adds additional styling capabilities to OrchardCore.Flows feature by making it possible to add classes to widgets in the FlowPart editor.
+Adds additional styling capabilities to the OrchardCore.Flows feature by making it possible to add classes to widgets in the FlowPart editor.
 
 ### Helpful Widgets
 
