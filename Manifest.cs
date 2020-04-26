@@ -38,6 +38,7 @@ using static Lombiq.HelpfulExtensions.FeatureIds;
     Dependencies = new[]
     {
         "OrchardCore.Autoroute",
-        "OrchardCore.Flows"
+        "OrchardCore.Flows",
+        "OrchardCore.Title"
     }
 )]
