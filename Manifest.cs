@@ -1,4 +1,4 @@
-﻿using OrchardCore.Modules.Manifest;
+using OrchardCore.Modules.Manifest;
 using static Lombiq.HelpfulExtensions.FeatureIds;
 
 [assembly: Module(
@@ -26,7 +26,8 @@ using static Lombiq.HelpfulExtensions.FeatureIds;
     Dependencies = new[]
     {
         "OrchardCore.Html",
-        "OrchardCore.Liquid"
+        "OrchardCore.Liquid",
+        "OrchardCore.Title"
     }
 )]
 

@@ -1,4 +1,4 @@
-﻿using OrchardCore.ContentManagement.Metadata;
+using OrchardCore.ContentManagement.Metadata;
 using OrchardCore.ContentManagement.Metadata.Settings;
 using OrchardCore.Data.Migration;
 using static Lombiq.HelpfulExtensions.Extensions.Widgets.WidgetTypes;
@@ -23,7 +23,8 @@ namespace Lombiq.HelpfulExtensions.Extensions.Widgets
                 .Versionable()
                 .Securable()
                 .Stereotype("Widget")
-                .WithPart("FlowPart")
+                .WithPart("TitlePart", part => part.WithPosition("0"))
+                .WithPart("FlowPart", part => part.WithPosition("1"))
             );
 
             _contentDefinitionManager.AlterTypeDefinition(HtmlWidget, builder => builder
@@ -50,7 +51,17 @@ namespace Lombiq.HelpfulExtensions.Extensions.Widgets
                 )
             );
 
-            return 1;
+            return 2;
+        }
+
+        public int UpdateFrom1()
+        {
+            _contentDefinitionManager.AlterTypeDefinition(ContainerWidget, builder => builder
+                .WithPart("TitlePart", part => part.WithPosition("0"))
+                .WithPart("FlowPart", part => part.WithPosition("1"))
+            );
+
+            return 2;
         }
     }
 }
