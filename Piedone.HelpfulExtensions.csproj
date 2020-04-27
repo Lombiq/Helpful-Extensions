@@ -214,6 +214,7 @@
     <Compile Include="Extensions\Tokens\Models\CustomTokenDataPart.cs" />
     <Compile Include="Extensions\Tokens\RequestTokens.cs" />
     <Compile Include="Extensions\Tokens\TextTokens.cs" />
+    <Compile Include="Extensions\UserExtensions.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Fields.Hint.cshtml" />
