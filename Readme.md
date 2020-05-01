@@ -2,7 +2,7 @@
 
 
 
-## Project Description
+## About
 
 Orchard Core module containing some handy extensions (e.g. filters for Projector).
 
@@ -38,7 +38,9 @@ The module's source is available in two public source repositories, automaticall
 - [https://bitbucket.org/Lombiq/helpful-extensions](https://bitbucket.org/Lombiq/helpful-extensions) (Mercurial repository)
 - [https://github.com/Lombiq/Helpful-Extensions](https://github.com/Lombiq/Helpful-Extensions) (Git repository)
 
-Bug reports, feature requests and comments are warmly welcome, **please do so via GitHub**.
-Feel free to send pull requests too, no matter which source repository you choose for this purpose.
 
-This project is developed by [Lombiq Technologies Ltd](http://lombiq.com/). Commercial-grade support is available through Lombiq.
+## Contribution and support
+
+Bug reports, feature requests, comments, questions, code contributions, and love letters are warmly welcome, please do so via GitHub issues and pull requests. Please adhere to our [open-source guidelines](https://lombiq.com/open-source-guidelines) while doing so.
+
+This project is developed by [Lombiq Technologies](https://lombiq.com/). Commercial-grade support is available through Lombiq.
