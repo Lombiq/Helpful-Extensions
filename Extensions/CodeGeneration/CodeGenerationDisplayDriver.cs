@@ -18,11 +18,13 @@ namespace Lombiq.HelpfulExtensions.Extensions.CodeGeneration
                 {
                     var codeBuilder = new StringBuilder();
 
-                    void AddSettings(IEnumerable<KeyValuePair<string, JToken>> settings, int depth)
+                    void AddSettingsWithout<T>(JObject settings, int indentationDepth)
                     {
-                        var indentation = string.Join("", Enumerable.Repeat(" ", depth));
+                        var indentation = string.Join("", Enumerable.Repeat(" ", indentationDepth));
 
-                        foreach (var setting in settings)
+                        var filteredSettings = ((IEnumerable<KeyValuePair<string, JToken>>)settings)
+                            .Where(setting => setting.Key != typeof(T).Name);
+                        foreach (var setting in filteredSettings)
                         {
                             codeBuilder.AppendLine($"{indentation}.WithSettings(new {setting.Key}");
                             codeBuilder.AppendLine(indentation + "{");
@@ -65,9 +67,7 @@ namespace Lombiq.HelpfulExtensions.Extensions.CodeGeneration
                         codeBuilder.AppendLine($"    .Stereotype(\"{contentTypeSettings.Stereotype}\")");
                     }
 
-                    var typeLevelSettings = ((IEnumerable<KeyValuePair<string, JToken>>)contentTypeDefinition.Settings)
-                        .Where(setting => setting.Key != nameof(ContentTypeSettings));
-                    AddSettings(typeLevelSettings, 4);
+                    AddSettingsWithout<ContentTypeSettings>(contentTypeDefinition.Settings, 4);
 
                     foreach (var part in contentTypeDefinition.Parts)
                     {
@@ -75,7 +75,7 @@ namespace Lombiq.HelpfulExtensions.Extensions.CodeGeneration
 
                         codeBuilder.AppendLine($"    .WithPart(\"{part.Name}\", part => part");
 
-                        var startingLength = codeBuilder.Length;
+                        var partStartingLength = codeBuilder.Length;
 
                         if (!string.IsNullOrEmpty(partSettings.DisplayName))
                         {
@@ -98,12 +98,10 @@ namespace Lombiq.HelpfulExtensions.Extensions.CodeGeneration
                             codeBuilder.AppendLine($"        .WithEditor(\"{partSettings.Editor}\")");
                         }
 
-                        var partLevelSettings = ((IEnumerable<KeyValuePair<string, JToken>>)part.Settings)
-                            .Where(setting => setting.Key != nameof(ContentTypePartSettings));
-                        AddSettings(partLevelSettings, 8);
+                        AddSettingsWithout<ContentTypePartSettings>(part.Settings, 8);
 
                         // Checking if anything was added to the part's settings.
-                        if (codeBuilder.Length == startingLength)
+                        if (codeBuilder.Length == partStartingLength)
                         {
                             // Remove ", part => part" and the line break.
                             codeBuilder.Length -= 16;
@@ -113,6 +111,68 @@ namespace Lombiq.HelpfulExtensions.Extensions.CodeGeneration
                     }
 
                     codeBuilder.AppendLine(");");
+
+                    // Building those parts that have fields separately (fields can't be configured inline in types).
+                    var partDefinitions = contentTypeDefinition.Parts
+                        .Where(part => part.PartDefinition.Fields.Any())
+                        .Select(part => part.PartDefinition);
+                    foreach (var part in partDefinitions)
+                    {
+                        codeBuilder.AppendLine($"_contentDefinitionManager.AlterPartDefinition(\"{part.Name}\", part => part");
+
+                        var partSettings = part.GetSettings<ContentPartSettings>();
+                        if (partSettings.Attachable) codeBuilder.AppendLine("    .Attachable()");
+                        if (partSettings.Reusable) codeBuilder.AppendLine("    .Reusable()");
+                        if (!string.IsNullOrEmpty(partSettings.DisplayName))
+                        {
+                            codeBuilder.AppendLine($"    .WithDisplayName(\"{partSettings.DisplayName}\")");
+                        }
+                        if (!string.IsNullOrEmpty(partSettings.Description))
+                        {
+                            codeBuilder.AppendLine($"    .WithDescription(\"{partSettings.Description}\")");
+                        }
+                        if (!string.IsNullOrEmpty(partSettings.DefaultPosition))
+                        {
+                            codeBuilder.AppendLine($"    .WithDefaultPosition(\"{partSettings.DefaultPosition}\")");
+                        }
+
+                        AddSettingsWithout<ContentPartSettings>(part.Settings, 4);
+
+                        foreach (var field in part.Fields)
+                        {
+                            codeBuilder.AppendLine($"    .WithField(\"{field.Name}\", field => field");
+
+                            codeBuilder.AppendLine($"        .OfType(\"{field.FieldDefinition.Name}\")");
+
+                            var fieldSettings = field.GetSettings<ContentPartFieldSettings>();
+                            if (!string.IsNullOrEmpty(fieldSettings.DisplayName))
+                            {
+                                codeBuilder.AppendLine($"        .WithDisplayName(\"{fieldSettings.DisplayName}\")");
+                            }
+                            if (!string.IsNullOrEmpty(fieldSettings.Description))
+                            {
+                                codeBuilder.AppendLine($"        .WithDescription(\"{fieldSettings.Description}\")");
+                            }
+                            if (!string.IsNullOrEmpty(fieldSettings.Editor))
+                            {
+                                codeBuilder.AppendLine($"        .WithEditor(\"{fieldSettings.Editor}\")");
+                            }
+                            if (!string.IsNullOrEmpty(fieldSettings.DisplayMode))
+                            {
+                                codeBuilder.AppendLine($"        .WithDisplayMode(\"{fieldSettings.DisplayMode}\")");
+                            }
+                            if (!string.IsNullOrEmpty(fieldSettings.Position))
+                            {
+                                codeBuilder.AppendLine($"        .WithPosition(\"{fieldSettings.Position}\")");
+                            }
+
+                            AddSettingsWithout<ContentPartFieldSettings>(field.Settings, 8);
+
+                            codeBuilder.AppendLine("    )");
+                        }
+
+                        codeBuilder.AppendLine(");");
+                    }
 
                     return codeBuilder.ToString();
                 }))
