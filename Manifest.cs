@@ -8,6 +8,17 @@ using static Lombiq.HelpfulExtensions.FeatureIds;
 )]
 
 [assembly: Feature(
+    Id = CodeGeneration,
+    Name = "Code Generation Helpful Extensions",
+    Category = "Development",
+    Description = "Generates migrations from content type definitions.",
+    Dependencies = new[]
+    {
+        "OrchardCore.Resources"
+    }
+)]
+
+[assembly: Feature(
     Id = Flows,
     Name = "Flows Helpful Extensions",
     Category = "Content",
@@ -15,19 +26,6 @@ using static Lombiq.HelpfulExtensions.FeatureIds;
     Dependencies = new[]
     {
         "OrchardCore.Flows"
-    }
-)]
-
-[assembly: Feature(
-    Id = Widgets,
-    Name = "Helpful Widgets",
-    Category = "Content",
-    Description = "Adds helpful widgets such as Container or Liquid widgets.",
-    Dependencies = new[]
-    {
-        "OrchardCore.Html",
-        "OrchardCore.Liquid",
-        "OrchardCore.Title"
     }
 )]
 
@@ -40,6 +38,19 @@ using static Lombiq.HelpfulExtensions.FeatureIds;
     {
         "OrchardCore.Autoroute",
         "OrchardCore.Flows",
+        "OrchardCore.Title"
+    }
+)]
+
+[assembly: Feature(
+    Id = Widgets,
+    Name = "Helpful Widgets",
+    Category = "Content",
+    Description = "Adds helpful widgets such as Container or Liquid widgets.",
+    Dependencies = new[]
+    {
+        "OrchardCore.Html",
+        "OrchardCore.Liquid",
         "OrchardCore.Title"
     }
 )]
