@@ -49,12 +49,15 @@ namespace Lombiq.HelpfulExtensions.Extensions.CodeGeneration
                             .Where(setting => setting.Key != typeof(T).Name);
                         foreach (var setting in filteredSettings)
                         {
+                            var properties = setting.Value.Where(property => property is JProperty).Cast<JProperty>().ToArray();
+
+                            if (properties.Length == 0) continue;
+
                             codeBuilder.AppendLine($"{indentation}.WithSettings(new {setting.Key}");
                             codeBuilder.AppendLine(indentation + "{");
 
                             // This doesn't support multi-level object hierarchies for settings but come on, who uses
                             // complex settings objects?
-                            var properties = setting.Value.Where(property => property is JProperty).Cast<JProperty>().ToArray();
                             for (int i = 0; i < properties.Length; i++)
                             {
                                 var property = properties[i];
