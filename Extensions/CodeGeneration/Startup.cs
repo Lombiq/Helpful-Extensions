@@ -7,9 +7,7 @@ namespace Lombiq.HelpfulExtensions.Extensions.CodeGeneration
     [Feature(FeatureIds.CodeGeneration)]
     public class Startup : StartupBase
     {
-        override public void ConfigureServices(IServiceCollection services)
-        {
+        override public void ConfigureServices(IServiceCollection services) =>
             services.AddScoped<IContentTypeDefinitionDisplayDriver, CodeGenerationDisplayDriver>();
-        }
     }
 }
