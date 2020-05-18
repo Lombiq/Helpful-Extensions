@@ -135,6 +135,8 @@ namespace Lombiq.HelpfulExtensions.Extensions.CodeGeneration
                         .Select(part => part.PartDefinition);
                     foreach (var part in partDefinitions)
                     {
+                        codeBuilder.AppendLine();
+
                         codeBuilder.AppendLine($"_contentDefinitionManager.AlterPartDefinition(\"{part.Name}\", part => part");
 
                         var partSettings = part.GetSettings<ContentPartSettings>();
