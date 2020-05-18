@@ -18,6 +18,29 @@ namespace Lombiq.HelpfulExtensions.Extensions.CodeGeneration
                 {
                     var codeBuilder = new StringBuilder();
 
+                    static string ConvertJToken(JToken jToken)
+                    {
+                        if (jToken is JValue jValue)
+                        {
+                            var value = jValue.Value;
+                            return value switch
+                            {
+                                bool _ => value.ToString().ToLowerInvariant(),
+                                string _ => $"\"{value}\"",
+                                _ => value.ToString().Replace(',', '.') // Replace decimal commas.
+                            };
+
+                        }
+                        else if (jToken is JArray jArray)
+                        {
+                            return "new[] { " + string.Join(", ", jArray.Select(item => ConvertJToken(item))) + " }";
+                        }
+                        else
+                        {
+                            throw new NotSupportedException($"Settings values of type {jToken.GetType()} are not supported.");
+                        }
+                    }
+
                     void AddSettingsWithout<T>(JObject settings, int indentationDepth)
                     {
                         var indentation = string.Join("", Enumerable.Repeat(" ", indentationDepth));
@@ -35,16 +58,7 @@ namespace Lombiq.HelpfulExtensions.Extensions.CodeGeneration
                             for (int i = 0; i < properties.Length; i++)
                             {
                                 var property = properties[i];
-                                var value = ((JValue)property.Value).Value;
-                                var valueString = value switch
-                                {
-                                    bool _ => value.ToString().ToLowerInvariant(),
-                                    string _ => $"\"{value}\"",
-                                    _ => value.ToString().Replace(',', '.') // Replace decimal commas.
-                                };
-
-                                codeBuilder.AppendLine($"{indentation}    {property.Name} = {valueString}{(i != properties.Length - 1 ? "," : string.Empty)}");
-                                if (i == properties.Length) codeBuilder.Length--; // Removing the trailing comma.
+                                codeBuilder.AppendLine($"{indentation}    {property.Name} = {ConvertJToken(property.Value)}{(i != properties.Length - 1 ? "," : string.Empty)}");
                             }
 
                             codeBuilder.AppendLine(indentation + "})");
