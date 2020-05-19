@@ -1,3 +1,4 @@
+using Microsoft.Extensions.Localization;
 using Newtonsoft.Json.Linq;
 using OrchardCore.ContentManagement.Metadata.Models;
 using OrchardCore.ContentManagement.Metadata.Settings;
@@ -12,13 +13,22 @@ namespace Lombiq.HelpfulExtensions.Extensions.CodeGeneration
 {
     public class CodeGenerationDisplayDriver : ContentTypeDefinitionDisplayDriver
     {
+        private readonly IStringLocalizer T;
+
+
+        public CodeGenerationDisplayDriver(IStringLocalizer<CodeGenerationDisplayDriver> stringLocalizer)
+        {
+            T = stringLocalizer;
+        }
+
+
         public override IDisplayResult Edit(ContentTypeDefinition contentTypeDefinition) =>
             Initialize<ContentTypeMigrationsViewModel>("ContentTypeMigrations_Edit", model =>
                 model.MigrationCodeLazy = new Lazy<string>(() =>
                 {
                     var codeBuilder = new StringBuilder();
 
-                    static string ConvertJToken(JToken jToken)
+                    string ConvertJToken(JToken jToken)
                     {
                         if (jToken is JValue jValue)
                         {
@@ -34,6 +44,12 @@ namespace Lombiq.HelpfulExtensions.Extensions.CodeGeneration
                         else if (jToken is JArray jArray)
                         {
                             return "new[] { " + string.Join(", ", jArray.Select(item => ConvertJToken(item))) + " }";
+                        }
+                        else if (jToken is JObject jObject)
+                        {
+                            // Using a quoted string so it doesn't mess up the syntax highlighting of the rest of the
+                            // code.
+                            return T["\"FIX ME! Couldn't determine the actual type to instantiate.\" {0}", jObject.ToString()];
                         }
                         else
                         {
