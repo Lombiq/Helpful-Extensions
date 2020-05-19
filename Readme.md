@@ -1,4 +1,4 @@
-# Helpful Extensions for Orchard Core
+# Lombiq Helpful Extensions for Orchard Core
 
 
 
