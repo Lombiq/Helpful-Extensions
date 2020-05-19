@@ -9,6 +9,17 @@ using static Lombiq.HelpfulExtensions.FeatureIds;
 )]
 
 [assembly: Feature(
+    Id = CodeGeneration,
+    Name = "Code Generation Helpful Extensions - Lombiq Helpful Extensions",
+    Category = "Development",
+    Description = "Generates migrations from content type definitions.",
+    Dependencies = new[]
+    {
+        "OrchardCore.Resources"
+    }
+)]
+
+[assembly: Feature(
     Id = Flows,
     Name = "Flows Helpful Extensions - Lombiq Helpful Extensions",
     Category = "Content",
