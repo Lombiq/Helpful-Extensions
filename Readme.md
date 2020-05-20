@@ -13,7 +13,7 @@ The module consists of the following independent extensions (all in their own fe
 
 ### Code Generation Helpful Extensions
 
-#### Content type code generation
+#### Content definition code generation
 Generates migration code from content definitions. You can use this to create (or edit) a content type on the admin and then move its creation to a migration class. Generated migration code is displayed under the content types' editors, just enable the feature.
 
 ### Flows Helpful Extensions
