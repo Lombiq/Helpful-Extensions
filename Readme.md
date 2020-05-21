@@ -4,7 +4,7 @@
 
 ## Project Description
 
-Orchard module containing some handy extensions (e.g. filters for Projector).
+Orchard module containing some handy extensions (e.g. filters for Projector). Note that this module has an Orchard Core version in the [dev branch](https://github.com/Lombiq/Helpful-Extensions/tree/dev).
 
 ## Extensions
 
