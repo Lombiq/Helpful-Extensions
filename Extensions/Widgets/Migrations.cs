@@ -7,13 +7,11 @@ namespace Lombiq.HelpfulExtensions.Extensions.Widgets
 {
     public class Migrations : DataMigration
     {
-        IContentDefinitionManager _contentDefinitionManager;
+        private readonly IContentDefinitionManager _contentDefinitionManager;
 
 
-        public Migrations(IContentDefinitionManager contentDefinitionManager)
-        {
+        public Migrations(IContentDefinitionManager contentDefinitionManager) =>
             _contentDefinitionManager = contentDefinitionManager;
-        }
 
 
         public int Create()
