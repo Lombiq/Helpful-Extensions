@@ -23,7 +23,7 @@ using static Lombiq.HelpfulExtensions.FeatureIds;
     Id = Flows,
     Name = "Flows Helpful Extensions - Lombiq Helpful Extensions",
     Category = "Content",
-    Description = "Adds additional styling capabilities to Flow.",
+    Description = "Adds additional styling capabilities to Flow Part.",
     Dependencies = new[]
     {
         "OrchardCore.Flows"

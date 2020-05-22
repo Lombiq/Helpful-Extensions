@@ -16,9 +16,13 @@ The module consists of the following independent extensions (all in their own fe
 #### Content definition code generation
 Generates migration code from content definitions. You can use this to create (or edit) a content type on the admin and then move its creation to a migration class. Generated migration code is displayed under the content types' editors, just enable the feature.
 
+![Content definition code generation textbox on the admin, showing generated migration code for the Page content type.](Docs/Attachments/ContentTypeCodeGeneration.png)
+
 ### Flows Helpful Extensions
 
-Adds additional styling capabilities to the OrchardCore.Flows feature by making it possible to add classes to widgets in the FlowPart editor.
+Adds additional styling capabilities to the OrchardCore.Flows feature by making it possible to add classes to widgets in the Flow Part editor.
+
+![Custom classes editor on a widget contained in Flow Part.](Docs/Attachments/FlowPartCustomClasses.png)
 
 ### Helpful Widgets
 
