@@ -7,11 +7,8 @@ using OrchardCore.Modules;
 namespace Piedone.HelpfulExtensions.Extensions.ContentTypes
 {
     [Feature(FeatureIds.ContentTypes)]
-    public class Startup : StartupBase
+    public class Startup
     {
-        override public void ConfigureServices(IServiceCollection services)
-        {
-            services.AddScoped<IDataMigration, Migrations>();
-        }
+        public void ConfigureServices(IServiceCollection services) => services.AddScoped<IDataMigration, Migrations>();
     }
 }
