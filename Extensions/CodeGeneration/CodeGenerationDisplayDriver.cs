@@ -59,7 +59,7 @@ namespace Lombiq.HelpfulExtensions.Extensions.CodeGeneration
 
                     void AddSettingsWithout<T>(JObject settings, int indentationDepth)
                     {
-                        var indentation = string.Join("", Enumerable.Repeat(" ", indentationDepth));
+                        var indentation = string.Join(string.Empty, Enumerable.Repeat(" ", indentationDepth));
 
                         var filteredSettings = ((IEnumerable<KeyValuePair<string, JToken>>)settings)
                             .Where(setting => setting.Key != typeof(T).Name);
