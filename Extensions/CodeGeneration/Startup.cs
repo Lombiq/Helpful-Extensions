@@ -5,9 +5,9 @@ using OrchardCore.Modules;
 namespace Lombiq.HelpfulExtensions.Extensions.CodeGeneration
 {
     [Feature(FeatureIds.CodeGeneration)]
-    public class Startup : StartupBase
+    public class Startup
     {
-        override public void ConfigureServices(IServiceCollection services) =>
+        public void ConfigureServices(IServiceCollection services) =>
             services.AddScoped<IContentTypeDefinitionDisplayDriver, CodeGenerationDisplayDriver>();
     }
 }
