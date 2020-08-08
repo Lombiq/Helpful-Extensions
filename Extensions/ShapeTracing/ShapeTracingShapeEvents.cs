@@ -1,25 +1,12 @@
 using Microsoft.AspNetCore.Html;
 using Newtonsoft.Json.Linq;
-using OrchardCore;
 using OrchardCore.DisplayManagement.Implementation;
-using System.Text.Encodings.Web;
 using System.Threading.Tasks;
 
 namespace Lombiq.HelpfulExtensions.Extensions.ShapeTracing
 {
     internal class ShapeTracingShapeEvents : IShapeDisplayEvents
     {
-        private readonly IOrchardHelper _orchardHelper;
-        private readonly HtmlEncoder _htmlEncoder;
-
-
-        public ShapeTracingShapeEvents(IOrchardHelper orchardHelper, HtmlEncoder htmlEncoder)
-        {
-            _orchardHelper = orchardHelper;
-            _htmlEncoder = htmlEncoder;
-        }
-
-
         public Task DisplayedAsync(ShapeDisplayContext context)
         {
             // We could also use _orchardHelper.ConsoleLog(context.Shape) here but that causes an OutOfMemoryException.
