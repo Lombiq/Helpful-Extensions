@@ -42,11 +42,6 @@ Includes:
 
 - Page: Highly customizable page content type with FlowPart and AutoroutePart.
 
-The module's source is available in two public source repositories, automatically mirrored in both directions with [Git-hg Mirror](https://githgmirror.com):
-
-- [https://bitbucket.org/Lombiq/helpful-extensions](https://bitbucket.org/Lombiq/helpful-extensions) (Mercurial repository)
-- [https://github.com/Lombiq/Helpful-Extensions](https://github.com/Lombiq/Helpful-Extensions) (Git repository)
-
 
 ## Contributing and support
 
