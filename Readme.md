@@ -42,6 +42,10 @@ Includes:
 
 - Page: Highly customizable page content type with FlowPart and AutoroutePart.
 
+### Shape Tracing Helpful Extensions
+
+Adds a dump of metadata to the output about every shape. This will help you understand how a shape is displayed and how you can override it. Just check out the HTML output.
+
 
 ## Contributing and support
 
