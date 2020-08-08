@@ -1,10 +1,7 @@
 using Microsoft.AspNetCore.Html;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Serialization;
 using OrchardCore.DisplayManagement.Implementation;
 using OrchardCore.DisplayManagement.Shapes;
 using System.Linq;
-using System.Reflection;
 using System.Threading.Tasks;
 
 namespace Lombiq.HelpfulExtensions.Extensions.ShapeTracing
@@ -74,17 +71,5 @@ namespace Lombiq.HelpfulExtensions.Extensions.ShapeTracing
         public Task DisplayingAsync(ShapeDisplayContext context) => Task.CompletedTask;
 
         public Task DisplayingFinalizedAsync(ShapeDisplayContext context) => Task.CompletedTask;
-
-
-        // Taken from: https://stackoverflow.com/a/37954657/220230
-        private class JsonIgnoreAttributeIgnorerContractResolver : DefaultContractResolver
-        {
-            protected override JsonProperty CreateProperty(MemberInfo member, MemberSerialization memberSerialization)
-            {
-                var property = base.CreateProperty(member, memberSerialization);
-                property.Ignored = false; // Here is the magic
-                return property;
-            }
-        }
     }
 }
