@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Html;
+using Microsoft.AspNetCore.Http;
 using OrchardCore.DisplayManagement.Implementation;
 using OrchardCore.DisplayManagement.Shapes;
 using System.Linq;
@@ -8,8 +9,16 @@ namespace Lombiq.HelpfulExtensions.Extensions.ShapeTracing
 {
     internal class ShapeTracingShapeEvents : IShapeDisplayEvents
     {
+        private readonly IHttpContextAccessor _hca;
+
+
+        public ShapeTracingShapeEvents(IHttpContextAccessor hca) => _hca = hca;
+
+
         public Task DisplayedAsync(ShapeDisplayContext context)
         {
+            if (!_hca.HttpContext.IsDevelopment()) return Task.CompletedTask;
+
             // We could also use _orchardHelper.ConsoleLog(context.Shape) here but that causes an OutOfMemoryException.
 
             var builder = new HtmlContentBuilder(6);
