@@ -26,4 +26,8 @@
     <PackageReference Include="OrchardCore.ResourceManagement" Version="1.0.0-rc2-13929" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\..\Libraries\Lombiq.HelpfulLibraries\Lombiq.HelpfulLibraries.csproj" />
+  </ItemGroup>
+
 </Project>
