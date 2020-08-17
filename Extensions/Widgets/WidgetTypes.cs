@@ -1,4 +1,4 @@
-﻿namespace Lombiq.HelpfulExtensions.Extensions.Widgets
+namespace Lombiq.HelpfulExtensions.Extensions.Widgets
 {
     public static class WidgetTypes
     {

@@ -1,4 +1,4 @@
-﻿namespace Lombiq.HelpfulExtensions.Extensions.ContentTypes
+namespace Lombiq.HelpfulExtensions.Extensions.ContentTypes
 {
     public static class ContentTypes
     {

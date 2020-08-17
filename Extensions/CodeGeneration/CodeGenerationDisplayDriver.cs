@@ -16,15 +16,13 @@ namespace Lombiq.HelpfulExtensions.Extensions.CodeGeneration
         private readonly IStringLocalizer T;
 
 
-        public CodeGenerationDisplayDriver(IStringLocalizer<CodeGenerationDisplayDriver> stringLocalizer)
-        {
-            T = stringLocalizer;
-        }
+        public CodeGenerationDisplayDriver(IStringLocalizer<CodeGenerationDisplayDriver> stringLocalizer) => T = stringLocalizer;
 
 
-        public override IDisplayResult Edit(ContentTypeDefinition contentTypeDefinition) =>
-            Initialize<ContentTypeMigrationsViewModel>("ContentTypeMigrations_Edit", model =>
-                model.MigrationCodeLazy = new Lazy<string>(() =>
+        public override IDisplayResult Edit(ContentTypeDefinition model) =>
+            Initialize<ContentTypeMigrationsViewModel>(
+                "ContentTypeMigrations_Edit",
+                viewModel => viewModel.MigrationCodeLazy = new Lazy<string>(() =>
                 {
                     var codeBuilder = new StringBuilder();
 
@@ -35,11 +33,13 @@ namespace Lombiq.HelpfulExtensions.Extensions.CodeGeneration
                             var value = jValue.Value;
                             return value switch
                             {
+                                // Should be ToLowerInvariant() as the value will generate C#.
+#pragma warning disable CA1308 // Normalize strings to uppercase
                                 bool _ => value.ToString().ToLowerInvariant(),
+#pragma warning restore CA1308 // Normalize strings to uppercase
                                 string _ => $"\"{value}\"",
                                 _ => value.ToString().Replace(',', '.') // Replace decimal commas.
                             };
-
                         }
                         else if (jToken is JArray jArray)
                         {
@@ -85,11 +85,11 @@ namespace Lombiq.HelpfulExtensions.Extensions.CodeGeneration
                     }
 
                     // Building the code for the type.
-                    codeBuilder.AppendLine($"_contentDefinitionManager.AlterTypeDefinition(\"{contentTypeDefinition.Name}\", type => type");
+                    codeBuilder.AppendLine($"_contentDefinitionManager.AlterTypeDefinition(\"{model.Name}\", type => type");
 
-                    codeBuilder.AppendLine($"    .DisplayedAs(\"{contentTypeDefinition.DisplayName}\")");
+                    codeBuilder.AppendLine($"    .DisplayedAs(\"{model.DisplayName}\")");
 
-                    var contentTypeSettings = contentTypeDefinition.GetSettings<ContentTypeSettings>();
+                    var contentTypeSettings = model.GetSettings<ContentTypeSettings>();
                     if (contentTypeSettings.Creatable) codeBuilder.AppendLine("    .Creatable()");
                     if (contentTypeSettings.Listable) codeBuilder.AppendLine("    .Listable()");
                     if (contentTypeSettings.Draftable) codeBuilder.AppendLine("    .Draftable()");
@@ -100,9 +100,9 @@ namespace Lombiq.HelpfulExtensions.Extensions.CodeGeneration
                         codeBuilder.AppendLine($"    .Stereotype(\"{contentTypeSettings.Stereotype}\")");
                     }
 
-                    AddSettingsWithout<ContentTypeSettings>(contentTypeDefinition.Settings, 4);
+                    AddSettingsWithout<ContentTypeSettings>(model.Settings, 4);
 
-                    foreach (var part in contentTypeDefinition.Parts)
+                    foreach (var part in model.Parts)
                     {
                         var partSettings = part.GetSettings<ContentTypePartSettings>();
 
@@ -114,18 +114,22 @@ namespace Lombiq.HelpfulExtensions.Extensions.CodeGeneration
                         {
                             codeBuilder.AppendLine($"        .WithDisplayName(\"{partSettings.DisplayName}\")");
                         }
+
                         if (!string.IsNullOrEmpty(partSettings.Description))
                         {
                             codeBuilder.AppendLine($"        .WithDescription(\"{partSettings.Description}\")");
                         }
+
                         if (!string.IsNullOrEmpty(partSettings.Position))
                         {
                             codeBuilder.AppendLine($"        .WithPosition(\"{partSettings.Position}\")");
                         }
+
                         if (!string.IsNullOrEmpty(partSettings.DisplayMode))
                         {
                             codeBuilder.AppendLine($"        .WithDisplayMode(\"{partSettings.DisplayMode}\")");
                         }
+
                         if (!string.IsNullOrEmpty(partSettings.Editor))
                         {
                             codeBuilder.AppendLine($"        .WithEditor(\"{partSettings.Editor}\")");
@@ -140,13 +144,16 @@ namespace Lombiq.HelpfulExtensions.Extensions.CodeGeneration
                             codeBuilder.Length -= 16;
                             codeBuilder.Append(")" + Environment.NewLine);
                         }
-                        else codeBuilder.AppendLine("    )");
+                        else
+                        {
+                            codeBuilder.AppendLine("    )");
+                        }
                     }
 
                     codeBuilder.AppendLine(");");
 
                     // Building those parts that have fields separately (fields can't be configured inline in types).
-                    var partDefinitions = contentTypeDefinition.Parts
+                    var partDefinitions = model.Parts
                         .Where(part => part.PartDefinition.Fields.Any())
                         .Select(part => part.PartDefinition);
                     foreach (var part in partDefinitions)
@@ -162,10 +169,12 @@ namespace Lombiq.HelpfulExtensions.Extensions.CodeGeneration
                         {
                             codeBuilder.AppendLine($"    .WithDisplayName(\"{partSettings.DisplayName}\")");
                         }
+
                         if (!string.IsNullOrEmpty(partSettings.Description))
                         {
                             codeBuilder.AppendLine($"    .WithDescription(\"{partSettings.Description}\")");
                         }
+
                         if (!string.IsNullOrEmpty(partSettings.DefaultPosition))
                         {
                             codeBuilder.AppendLine($"    .WithDefaultPosition(\"{partSettings.DefaultPosition}\")");
@@ -184,18 +193,22 @@ namespace Lombiq.HelpfulExtensions.Extensions.CodeGeneration
                             {
                                 codeBuilder.AppendLine($"        .WithDisplayName(\"{fieldSettings.DisplayName}\")");
                             }
+
                             if (!string.IsNullOrEmpty(fieldSettings.Description))
                             {
                                 codeBuilder.AppendLine($"        .WithDescription(\"{fieldSettings.Description}\")");
                             }
+
                             if (!string.IsNullOrEmpty(fieldSettings.Editor))
                             {
                                 codeBuilder.AppendLine($"        .WithEditor(\"{fieldSettings.Editor}\")");
                             }
+
                             if (!string.IsNullOrEmpty(fieldSettings.DisplayMode))
                             {
                                 codeBuilder.AppendLine($"        .WithDisplayMode(\"{fieldSettings.DisplayMode}\")");
                             }
+
                             if (!string.IsNullOrEmpty(fieldSettings.Position))
                             {
                                 codeBuilder.AppendLine($"        .WithPosition(\"{fieldSettings.Position}\")");

@@ -34,7 +34,7 @@ namespace Lombiq.HelpfulExtensions.Extensions.Widgets
                     .WithDisplayName("HTML Body")
                     .WithSettings(new ContentTypePartSettings
                     {
-                        Editor = "Trumbowyg"
+                        Editor = "Trumbowyg",
                     })
                 )
             );
