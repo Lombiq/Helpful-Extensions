@@ -15,7 +15,7 @@ using static Lombiq.HelpfulExtensions.FeatureIds;
     Description = "Generates migrations from content type definitions.",
     Dependencies = new[]
     {
-        "OrchardCore.Resources"
+        "OrchardCore.Resources",
     }
 )]
 
@@ -26,7 +26,7 @@ using static Lombiq.HelpfulExtensions.FeatureIds;
     Description = "Adds additional styling capabilities to Flow Part.",
     Dependencies = new[]
     {
-        "OrchardCore.Flows"
+        "OrchardCore.Flows",
     }
 )]
 
@@ -39,7 +39,7 @@ using static Lombiq.HelpfulExtensions.FeatureIds;
     {
         "OrchardCore.Html",
         "OrchardCore.Liquid",
-        "OrchardCore.Title"
+        "OrchardCore.Title",
     }
 )]
 
@@ -52,6 +52,6 @@ using static Lombiq.HelpfulExtensions.FeatureIds;
     {
         "OrchardCore.Autoroute",
         "OrchardCore.Flows",
-        "OrchardCore.Title"
+        "OrchardCore.Title",
     }
 )]

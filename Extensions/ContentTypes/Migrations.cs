@@ -29,7 +29,7 @@ namespace Lombiq.HelpfulExtensions.Extensions.ContentTypes
                     .WithSettings(new AutoroutePartSettings
                     {
                         ShowHomepageOption = true,
-                        AllowCustomPath = true
+                        AllowCustomPath = true,
                     })
                 )
                 .WithPart("FlowPart", part => part.WithPosition("2"))
