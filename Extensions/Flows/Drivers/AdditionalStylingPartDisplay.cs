@@ -35,7 +35,7 @@ namespace Lombiq.HelpfulExtensions.Extensions.Flows.Drivers
 
             await model.AlterAsync<AdditionalStylingPart>(model => updater.TryUpdateModelAsync(model, Prefix));
 
-            return Edit(model, updater);
+            return await EditAsync(model, updater);
         }
     }
 }
