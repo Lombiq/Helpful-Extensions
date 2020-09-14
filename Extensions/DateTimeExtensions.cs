@@ -85,5 +85,20 @@ namespace System
             IClock clock,
             IDateLocalizationServices dateLocalizationServices) =>
             (dateLocalizationServices.ConvertToSiteTimeZone(dateTime ?? clock.UtcNow) as DateTime?).ConvertToUsaTimeFormat();
+
+        public static int? CalculateAgeInYears(
+            this DateTime? dateTimeUtc,
+            IClock clock)
+        {
+            if (!dateTimeUtc.HasValue) return null;
+
+            var utcNow = clock.UtcNow;
+            var age = utcNow.Year - dateTimeUtc.Value.Year;
+
+            // Go back to the year in which the person was born in case of a leap year.
+            if (dateTimeUtc.Value.Date > utcNow.AddYears(-age)) age--;
+
+            return age;
+        }
     }
 }
