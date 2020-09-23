@@ -38,7 +38,7 @@ namespace Lombiq.HelpfulExtensions.Extensions.CodeGeneration
                                 bool _ => value.ToString().ToLowerInvariant(),
 #pragma warning restore CA1308 // Normalize strings to uppercase
                                 string _ => $"\"{value}\"",
-                                _ => value.ToString().Replace(',', '.') // Replace decimal commas.
+                                _ => value.ToString().Replace(',', '.'), // Replace decimal commas.
                             };
                         }
                         else if (jToken is JArray jArray)
