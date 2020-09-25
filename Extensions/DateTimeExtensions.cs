@@ -105,5 +105,8 @@ namespace System
 
             return years;
         }
+
+        public static DateTime? TryParseToNullableDateTime(this string text) =>
+            DateTime.TryParse(text, out var date) ? date : (DateTime?)null;
     }
 }
