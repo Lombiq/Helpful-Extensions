@@ -26,64 +26,6 @@ namespace Lombiq.HelpfulExtensions.Extensions.CodeGeneration
                 {
                     var codeBuilder = new StringBuilder();
 
-                    string ConvertJToken(JToken jToken)
-                    {
-                        if (jToken is JValue jValue)
-                        {
-                            var value = jValue.Value;
-                            return value switch
-                            {
-                                // Should be ToLowerInvariant() as the value will generate C#.
-#pragma warning disable CA1308 // Normalize strings to uppercase
-                                bool _ => value.ToString().ToLowerInvariant(),
-#pragma warning restore CA1308 // Normalize strings to uppercase
-                                string _ => $"\"{value}\"",
-                                _ => value.ToString().Replace(',', '.'), // Replace decimal commas.
-                            };
-                        }
-                        else if (jToken is JArray jArray)
-                        {
-                            return "new[] { " + string.Join(", ", jArray.Select(item => ConvertJToken(item))) + " }";
-                        }
-                        else if (jToken is JObject jObject)
-                        {
-                            // Using a quoted string so it doesn't mess up the syntax highlighting of the rest of the
-                            // code.
-                            return T["\"FIX ME! Couldn't determine the actual type to instantiate.\" {0}", jObject.ToString()];
-                        }
-                        else
-                        {
-                            throw new NotSupportedException($"Settings values of type {jToken.GetType()} are not supported.");
-                        }
-                    }
-
-                    void AddSettingsWithout<T>(JObject settings, int indentationDepth)
-                    {
-                        var indentation = string.Join(string.Empty, Enumerable.Repeat(" ", indentationDepth));
-
-                        var filteredSettings = ((IEnumerable<KeyValuePair<string, JToken>>)settings)
-                            .Where(setting => setting.Key != typeof(T).Name);
-                        foreach (var setting in filteredSettings)
-                        {
-                            var properties = setting.Value.Where(property => property is JProperty).Cast<JProperty>().ToArray();
-
-                            if (properties.Length == 0) continue;
-
-                            codeBuilder.AppendLine($"{indentation}.WithSettings(new {setting.Key}");
-                            codeBuilder.AppendLine(indentation + "{");
-
-                            // This doesn't support multi-level object hierarchies for settings but come on, who uses
-                            // complex settings objects?
-                            for (int i = 0; i < properties.Length; i++)
-                            {
-                                var property = properties[i];
-                                codeBuilder.AppendLine($"{indentation}    {property.Name} = {ConvertJToken(property.Value)}{(i != properties.Length - 1 ? "," : string.Empty)}");
-                            }
-
-                            codeBuilder.AppendLine(indentation + "})");
-                        }
-                    }
-
                     // Building the code for the type.
                     codeBuilder.AppendLine($"_contentDefinitionManager.AlterTypeDefinition(\"{model.Name}\", type => type");
 
@@ -100,7 +42,7 @@ namespace Lombiq.HelpfulExtensions.Extensions.CodeGeneration
                         codeBuilder.AppendLine($"    .Stereotype(\"{contentTypeSettings.Stereotype}\")");
                     }
 
-                    AddSettingsWithout<ContentTypeSettings>(model.Settings, 4);
+                    AddSettingsWithout<ContentTypeSettings>(codeBuilder, model.Settings, 4);
 
                     foreach (var part in model.Parts)
                     {
@@ -110,32 +52,13 @@ namespace Lombiq.HelpfulExtensions.Extensions.CodeGeneration
 
                         var partStartingLength = codeBuilder.Length;
 
-                        if (!string.IsNullOrEmpty(partSettings.DisplayName))
-                        {
-                            codeBuilder.AppendLine($"        .WithDisplayName(\"{partSettings.DisplayName}\")");
-                        }
+                        AddWithLine(codeBuilder, nameof(partSettings.DisplayName), partSettings.DisplayName);
+                        AddWithLine(codeBuilder, nameof(partSettings.Description), partSettings.Description);
+                        AddWithLine(codeBuilder, nameof(partSettings.Position), partSettings.Position);
+                        AddWithLine(codeBuilder, nameof(partSettings.DisplayMode), partSettings.DisplayMode);
+                        AddWithLine(codeBuilder, nameof(partSettings.Editor), partSettings.Editor);
 
-                        if (!string.IsNullOrEmpty(partSettings.Description))
-                        {
-                            codeBuilder.AppendLine($"        .WithDescription(\"{partSettings.Description}\")");
-                        }
-
-                        if (!string.IsNullOrEmpty(partSettings.Position))
-                        {
-                            codeBuilder.AppendLine($"        .WithPosition(\"{partSettings.Position}\")");
-                        }
-
-                        if (!string.IsNullOrEmpty(partSettings.DisplayMode))
-                        {
-                            codeBuilder.AppendLine($"        .WithDisplayMode(\"{partSettings.DisplayMode}\")");
-                        }
-
-                        if (!string.IsNullOrEmpty(partSettings.Editor))
-                        {
-                            codeBuilder.AppendLine($"        .WithEditor(\"{partSettings.Editor}\")");
-                        }
-
-                        AddSettingsWithout<ContentTypePartSettings>(part.Settings, 8);
+                        AddSettingsWithout<ContentTypePartSettings>(codeBuilder, part.Settings, 8);
 
                         // Checking if anything was added to the part's settings.
                         if (codeBuilder.Length == partStartingLength)
@@ -159,62 +82,31 @@ namespace Lombiq.HelpfulExtensions.Extensions.CodeGeneration
                     foreach (var part in partDefinitions)
                     {
                         codeBuilder.AppendLine();
-
                         codeBuilder.AppendLine($"_contentDefinitionManager.AlterPartDefinition(\"{part.Name}\", part => part");
 
                         var partSettings = part.GetSettings<ContentPartSettings>();
                         if (partSettings.Attachable) codeBuilder.AppendLine("    .Attachable()");
                         if (partSettings.Reusable) codeBuilder.AppendLine("    .Reusable()");
-                        if (!string.IsNullOrEmpty(partSettings.DisplayName))
-                        {
-                            codeBuilder.AppendLine($"    .WithDisplayName(\"{partSettings.DisplayName}\")");
-                        }
 
-                        if (!string.IsNullOrEmpty(partSettings.Description))
-                        {
-                            codeBuilder.AppendLine($"    .WithDescription(\"{partSettings.Description}\")");
-                        }
+                        AddWithLine(codeBuilder, nameof(partSettings.DisplayName), partSettings.DisplayName);
+                        AddWithLine(codeBuilder, nameof(partSettings.Description), partSettings.Description);
+                        AddWithLine(codeBuilder, nameof(partSettings.DefaultPosition), partSettings.DefaultPosition);
 
-                        if (!string.IsNullOrEmpty(partSettings.DefaultPosition))
-                        {
-                            codeBuilder.AppendLine($"    .WithDefaultPosition(\"{partSettings.DefaultPosition}\")");
-                        }
-
-                        AddSettingsWithout<ContentPartSettings>(part.Settings, 4);
+                        AddSettingsWithout<ContentPartSettings>(codeBuilder, part.Settings, 4);
 
                         foreach (var field in part.Fields)
                         {
                             codeBuilder.AppendLine($"    .WithField(\"{field.Name}\", field => field");
-
                             codeBuilder.AppendLine($"        .OfType(\"{field.FieldDefinition.Name}\")");
 
                             var fieldSettings = field.GetSettings<ContentPartFieldSettings>();
-                            if (!string.IsNullOrEmpty(fieldSettings.DisplayName))
-                            {
-                                codeBuilder.AppendLine($"        .WithDisplayName(\"{fieldSettings.DisplayName}\")");
-                            }
+                            AddWithLine(codeBuilder, nameof(fieldSettings.DisplayName), fieldSettings.DisplayName);
+                            AddWithLine(codeBuilder, nameof(fieldSettings.Description), fieldSettings.Description);
+                            AddWithLine(codeBuilder, nameof(fieldSettings.Editor), fieldSettings.Editor);
+                            AddWithLine(codeBuilder, nameof(fieldSettings.DisplayMode), fieldSettings.DisplayMode);
+                            AddWithLine(codeBuilder, nameof(fieldSettings.Position), fieldSettings.Position);
 
-                            if (!string.IsNullOrEmpty(fieldSettings.Description))
-                            {
-                                codeBuilder.AppendLine($"        .WithDescription(\"{fieldSettings.Description}\")");
-                            }
-
-                            if (!string.IsNullOrEmpty(fieldSettings.Editor))
-                            {
-                                codeBuilder.AppendLine($"        .WithEditor(\"{fieldSettings.Editor}\")");
-                            }
-
-                            if (!string.IsNullOrEmpty(fieldSettings.DisplayMode))
-                            {
-                                codeBuilder.AppendLine($"        .WithDisplayMode(\"{fieldSettings.DisplayMode}\")");
-                            }
-
-                            if (!string.IsNullOrEmpty(fieldSettings.Position))
-                            {
-                                codeBuilder.AppendLine($"        .WithPosition(\"{fieldSettings.Position}\")");
-                            }
-
-                            AddSettingsWithout<ContentPartFieldSettings>(field.Settings, 8);
+                            AddSettingsWithout<ContentPartFieldSettings>(codeBuilder, field.Settings, 8);
 
                             codeBuilder.AppendLine("    )");
                         }
@@ -225,5 +117,68 @@ namespace Lombiq.HelpfulExtensions.Extensions.CodeGeneration
                     return codeBuilder.ToString();
                 }))
             .Location("Content:7");
+
+        private string ConvertJToken(JToken jToken)
+        {
+            switch (jToken)
+            {
+                case JValue jValue:
+                {
+                    var value = jValue.Value;
+                    return value switch
+                    {
+                        // Should be ToLowerInvariant() as the value will generate C#.
+#pragma warning disable CA1308 // Normalize strings to uppercase
+                        bool boolValue => boolValue.ToString().ToLowerInvariant(),
+#pragma warning restore CA1308 // Normalize strings to uppercase
+                        string _ => $"\"{value}\"",
+                        _ => value?.ToString()?.Replace(',', '.'), // Replace decimal commas.
+                    };
+                }
+
+                case JArray jArray:
+                    return $"new[] {{ {string.Join(", ", jArray.Select(ConvertJToken))} }}";
+                case JObject jObject:
+                    // Using a quoted string so it doesn't mess up the syntax highlighting of the rest of the code.
+                    return T["\"FIX ME! Couldn't determine the actual type to instantiate.\" {0}", jObject.ToString()];
+                default:
+                    throw new NotSupportedException($"Settings values of type {jToken.GetType()} are not supported.");
+            }
+        }
+
+        private void AddSettingsWithout<T>(StringBuilder codeBuilder, JObject settings, int indentationDepth)
+        {
+            var indentation = string.Join(string.Empty, Enumerable.Repeat(" ", indentationDepth));
+
+            var filteredSettings = ((IEnumerable<KeyValuePair<string, JToken>>)settings)
+                .Where(setting => setting.Key != typeof(T).Name);
+            foreach (var setting in filteredSettings)
+            {
+                var properties = setting.Value.Where(property => property is JProperty).Cast<JProperty>().ToArray();
+
+                if (properties.Length == 0) continue;
+
+                codeBuilder.AppendLine($"{indentation}.WithSettings(new {setting.Key}");
+                codeBuilder.AppendLine(indentation + "{");
+
+                // This doesn't support multi-level object hierarchies for settings but come on, who uses
+                // complex settings objects?
+                for (int i = 0; i < properties.Length; i++)
+                {
+                    var property = properties[i];
+                    codeBuilder.AppendLine($"{indentation}    {property.Name} = {ConvertJToken(property.Value)}{(i != properties.Length - 1 ? "," : string.Empty)}");
+                }
+
+                codeBuilder.AppendLine(indentation + "})");
+            }
+        }
+
+        private void AddWithLine(StringBuilder codeBuilder, string name, string value)
+        {
+            if (!string.IsNullOrEmpty(value))
+            {
+                codeBuilder.AppendLine($"        .With{name}(\"{value}\")");
+            }
+        }
     }
 }
