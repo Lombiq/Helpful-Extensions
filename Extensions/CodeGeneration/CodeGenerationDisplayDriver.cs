@@ -173,7 +173,7 @@ namespace Lombiq.HelpfulExtensions.Extensions.CodeGeneration
             }
         }
 
-        private void AddWithLine(StringBuilder codeBuilder, string name, string value)
+        private static void AddWithLine(StringBuilder codeBuilder, string name, string value)
         {
             if (!string.IsNullOrEmpty(value))
             {
