@@ -28,95 +28,97 @@ namespace Lombiq.HelpfulExtensions.Extensions.CodeGeneration
 
                     // Building the code for the type.
                     codeBuilder.AppendLine($"_contentDefinitionManager.AlterTypeDefinition(\"{model.Name}\", type => type");
-
                     codeBuilder.AppendLine($"    .DisplayedAs(\"{model.DisplayName}\")");
 
-                    var contentTypeSettings = model.GetSettings<ContentTypeSettings>();
-                    if (contentTypeSettings.Creatable) codeBuilder.AppendLine("    .Creatable()");
-                    if (contentTypeSettings.Listable) codeBuilder.AppendLine("    .Listable()");
-                    if (contentTypeSettings.Draftable) codeBuilder.AppendLine("    .Draftable()");
-                    if (contentTypeSettings.Versionable) codeBuilder.AppendLine("    .Versionable()");
-                    if (contentTypeSettings.Securable) codeBuilder.AppendLine("    .Securable()");
-                    if (!string.IsNullOrEmpty(contentTypeSettings.Stereotype))
-                    {
-                        codeBuilder.AppendLine($"    .Stereotype(\"{contentTypeSettings.Stereotype}\")");
-                    }
-
+                    GenerateCodeForSettings(codeBuilder, model.GetSettings<ContentTypeSettings>());
                     AddSettingsWithout<ContentTypeSettings>(codeBuilder, model.Settings, 4);
-
-                    foreach (var part in model.Parts)
-                    {
-                        var partSettings = part.GetSettings<ContentTypePartSettings>();
-
-                        codeBuilder.AppendLine($"    .WithPart(\"{part.Name}\", part => part");
-
-                        var partStartingLength = codeBuilder.Length;
-
-                        AddWithLine(codeBuilder, nameof(partSettings.DisplayName), partSettings.DisplayName);
-                        AddWithLine(codeBuilder, nameof(partSettings.Description), partSettings.Description);
-                        AddWithLine(codeBuilder, nameof(partSettings.Position), partSettings.Position);
-                        AddWithLine(codeBuilder, nameof(partSettings.DisplayMode), partSettings.DisplayMode);
-                        AddWithLine(codeBuilder, nameof(partSettings.Editor), partSettings.Editor);
-
-                        AddSettingsWithout<ContentTypePartSettings>(codeBuilder, part.Settings, 8);
-
-                        // Checking if anything was added to the part's settings.
-                        if (codeBuilder.Length == partStartingLength)
-                        {
-                            // Remove ", part => part" and the line break.
-                            codeBuilder.Length -= 16;
-                            codeBuilder.Append(")" + Environment.NewLine);
-                        }
-                        else
-                        {
-                            codeBuilder.AppendLine("    )");
-                        }
-                    }
-
+                    GenerateCodeForParts(codeBuilder, model.Parts);
                     codeBuilder.AppendLine(");");
 
-                    // Building those parts that have fields separately (fields can't be configured inline in types).
-                    var partDefinitions = model.Parts
-                        .Where(part => part.PartDefinition.Fields.Any())
-                        .Select(part => part.PartDefinition);
-                    foreach (var part in partDefinitions)
-                    {
-                        codeBuilder.AppendLine();
-                        codeBuilder.AppendLine($"_contentDefinitionManager.AlterPartDefinition(\"{part.Name}\", part => part");
-
-                        var partSettings = part.GetSettings<ContentPartSettings>();
-                        if (partSettings.Attachable) codeBuilder.AppendLine("    .Attachable()");
-                        if (partSettings.Reusable) codeBuilder.AppendLine("    .Reusable()");
-
-                        AddWithLine(codeBuilder, nameof(partSettings.DisplayName), partSettings.DisplayName);
-                        AddWithLine(codeBuilder, nameof(partSettings.Description), partSettings.Description);
-                        AddWithLine(codeBuilder, nameof(partSettings.DefaultPosition), partSettings.DefaultPosition);
-
-                        AddSettingsWithout<ContentPartSettings>(codeBuilder, part.Settings, 4);
-
-                        foreach (var field in part.Fields)
-                        {
-                            codeBuilder.AppendLine($"    .WithField(\"{field.Name}\", field => field");
-                            codeBuilder.AppendLine($"        .OfType(\"{field.FieldDefinition.Name}\")");
-
-                            var fieldSettings = field.GetSettings<ContentPartFieldSettings>();
-                            AddWithLine(codeBuilder, nameof(fieldSettings.DisplayName), fieldSettings.DisplayName);
-                            AddWithLine(codeBuilder, nameof(fieldSettings.Description), fieldSettings.Description);
-                            AddWithLine(codeBuilder, nameof(fieldSettings.Editor), fieldSettings.Editor);
-                            AddWithLine(codeBuilder, nameof(fieldSettings.DisplayMode), fieldSettings.DisplayMode);
-                            AddWithLine(codeBuilder, nameof(fieldSettings.Position), fieldSettings.Position);
-
-                            AddSettingsWithout<ContentPartFieldSettings>(codeBuilder, field.Settings, 8);
-
-                            codeBuilder.AppendLine("    )");
-                        }
-
-                        codeBuilder.AppendLine(");");
-                    }
+                    GenerateCodeForPartsWithFields(codeBuilder, model.Parts);
 
                     return codeBuilder.ToString();
                 }))
             .Location("Content:7");
+
+
+        private void GenerateCodeForParts(StringBuilder codeBuilder, IEnumerable<ContentTypePartDefinition> parts)
+        {
+            foreach (var part in parts)
+            {
+                var partSettings = part.GetSettings<ContentTypePartSettings>();
+
+                codeBuilder.AppendLine($"    .WithPart(\"{part.Name}\", part => part");
+
+                var partStartingLength = codeBuilder.Length;
+
+                AddWithLine(codeBuilder, nameof(partSettings.DisplayName), partSettings.DisplayName);
+                AddWithLine(codeBuilder, nameof(partSettings.Description), partSettings.Description);
+                AddWithLine(codeBuilder, nameof(partSettings.Position), partSettings.Position);
+                AddWithLine(codeBuilder, nameof(partSettings.DisplayMode), partSettings.DisplayMode);
+                AddWithLine(codeBuilder, nameof(partSettings.Editor), partSettings.Editor);
+
+                AddSettingsWithout<ContentTypePartSettings>(codeBuilder, part.Settings, 8);
+
+                // Checking if anything was added to the part's settings.
+                if (codeBuilder.Length == partStartingLength)
+                {
+                    // Remove ", part => part" and the line break.
+                    codeBuilder.Length -= 16;
+                    codeBuilder.Append(")" + Environment.NewLine);
+                }
+                else
+                {
+                    codeBuilder.AppendLine("    )");
+                }
+            }
+        }
+
+        /// <summary>
+        /// Building those parts that have fields separately (fields can't be configured inline in types).
+        /// </summary>
+        private void GenerateCodeForPartsWithFields(
+            StringBuilder codeBuilder,
+            IEnumerable<ContentTypePartDefinition> parts)
+        {
+            var partDefinitions = parts
+                .Where(part => part.PartDefinition.Fields.Any())
+                .Select(part => part.PartDefinition);
+            foreach (var part in partDefinitions)
+            {
+                codeBuilder.AppendLine();
+                codeBuilder.AppendLine($"_contentDefinitionManager.AlterPartDefinition(\"{part.Name}\", part => part");
+
+                var partSettings = part.GetSettings<ContentPartSettings>();
+                if (partSettings.Attachable) codeBuilder.AppendLine("    .Attachable()");
+                if (partSettings.Reusable) codeBuilder.AppendLine("    .Reusable()");
+
+                AddWithLine(codeBuilder, nameof(partSettings.DisplayName), partSettings.DisplayName);
+                AddWithLine(codeBuilder, nameof(partSettings.Description), partSettings.Description);
+                AddWithLine(codeBuilder, nameof(partSettings.DefaultPosition), partSettings.DefaultPosition);
+
+                AddSettingsWithout<ContentPartSettings>(codeBuilder, part.Settings, 4);
+
+                foreach (var field in part.Fields)
+                {
+                    codeBuilder.AppendLine($"    .WithField(\"{field.Name}\", field => field");
+                    codeBuilder.AppendLine($"        .OfType(\"{field.FieldDefinition.Name}\")");
+
+                    var fieldSettings = field.GetSettings<ContentPartFieldSettings>();
+                    AddWithLine(codeBuilder, nameof(fieldSettings.DisplayName), fieldSettings.DisplayName);
+                    AddWithLine(codeBuilder, nameof(fieldSettings.Description), fieldSettings.Description);
+                    AddWithLine(codeBuilder, nameof(fieldSettings.Editor), fieldSettings.Editor);
+                    AddWithLine(codeBuilder, nameof(fieldSettings.DisplayMode), fieldSettings.DisplayMode);
+                    AddWithLine(codeBuilder, nameof(fieldSettings.Position), fieldSettings.Position);
+
+                    AddSettingsWithout<ContentPartFieldSettings>(codeBuilder, field.Settings, 8);
+
+                    codeBuilder.AppendLine("    )");
+                }
+
+                codeBuilder.AppendLine(");");
+            }
+        }
 
         private string ConvertJToken(JToken jToken)
         {
@@ -170,6 +172,20 @@ namespace Lombiq.HelpfulExtensions.Extensions.CodeGeneration
                 }
 
                 codeBuilder.AppendLine(indentation + "})");
+            }
+        }
+
+
+        private static void GenerateCodeForSettings(StringBuilder codeBuilder, ContentTypeSettings contentTypeSettings)
+        {
+            if (contentTypeSettings.Creatable) codeBuilder.AppendLine("    .Creatable()");
+            if (contentTypeSettings.Listable) codeBuilder.AppendLine("    .Listable()");
+            if (contentTypeSettings.Draftable) codeBuilder.AppendLine("    .Draftable()");
+            if (contentTypeSettings.Versionable) codeBuilder.AppendLine("    .Versionable()");
+            if (contentTypeSettings.Securable) codeBuilder.AppendLine("    .Securable()");
+            if (!string.IsNullOrEmpty(contentTypeSettings.Stereotype))
+            {
+                codeBuilder.AppendLine($"    .Stereotype(\"{contentTypeSettings.Stereotype}\")");
             }
         }
 
