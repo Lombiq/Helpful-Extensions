@@ -1,6 +1,7 @@
 ﻿using Orchard.Services;
 using Orchard.Utility.Extensions;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
@@ -81,5 +82,36 @@ namespace System
         public static string ConvertFromJsonStringArrayToCommaSeparatedString(this string serialized, IJsonConverter jsonConverter) =>
             jsonConverter.TryDeserialize<IEnumerable<string>>(serialized, out var values) ?
                 string.Join(", ", values.OrderBy(x => x)) : "";
+
+        public static DateTime? ToNullableDateTime(this string text) =>
+            DateTime.TryParse(text, out var date) ? date : (DateTime?)null;
+
+        /// <summary>
+        /// Tries to convert a string to decimal, but returns 0 if the conversion fails.
+        /// </summary>
+        /// <param name="number">The string to convert to decimal.</param>
+        /// <returns>Returns 0 if the given number is not parseable to decimal.</returns>
+        public static decimal ToDecimalOrZero(this string number) =>
+            decimal.TryParse(number, NumberStyles.Any, CultureInfo.InvariantCulture, out decimal decimalValue) ?
+                decimalValue : 0;
+
+        public static decimal? ToNullableDecimal(this string number) =>
+            decimal.TryParse(number, NumberStyles.Any, CultureInfo.InvariantCulture, out decimal decimalValue) ?
+                decimalValue : (decimal?)null;
+
+        public static bool? ToNullableBoolean(this string text)
+        {
+            switch (text?.Trim().ToUpperInvariant() ?? "")
+            {
+                case "YES":
+                case "TRUE":
+                    return true;
+                case "NO":
+                case "FALSE":
+                    return false;
+                default:
+                    return null;
+            }
+        }
     }
 }
