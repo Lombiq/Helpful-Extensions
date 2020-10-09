@@ -84,9 +84,7 @@ namespace Lombiq.HelpfulExtensions.Extensions.CodeGeneration
                                     propertyValue = "@" + propertyValue;
                                 }
 
-                                var lineEnd = i != properties.Length - 1 ? "," : string.Empty;
-
-                                codeBuilder.AppendLine($"{indentation}    {property.Name} = {propertyValue}{lineEnd}");
+                                codeBuilder.AppendLine($"{indentation}    {property.Name} = {propertyValue},");
                             }
 
                             codeBuilder.AppendLine(indentation + "})");
