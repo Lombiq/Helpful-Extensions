@@ -7,6 +7,6 @@ namespace Lombiq.HelpfulExtensions
     public class Startup : StartupBase
     {
         public override void ConfigureServices(IServiceCollection services) =>
-            services.AddScoped<IOrchardServices, OrchardServices>();
+            services.AddScoped(typeof(IOrchardServices<>), typeof(OrchardServices<>));
     }
 }
