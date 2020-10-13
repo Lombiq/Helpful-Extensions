@@ -91,10 +91,13 @@ namespace System
         /// </summary>
         /// <param name="number">The string to convert to decimal.</param>
         /// <returns>Returns 0 if the given number is not parseable to decimal.</returns>
-        public static decimal ToDecimalOrZero(this string number) =>
-            decimal.TryParse(number, NumberStyles.Any, CultureInfo.InvariantCulture, out decimal decimalValue) ?
-                decimalValue : 0;
+        public static decimal ToDecimalOrZero(this string number) => number.ToNullableDecimal() ?? 0;
 
+        /// <summary>
+        /// Tries to convert a string to decimal, but returns null if the conversion fails.
+        /// </summary>
+        /// <param name="number">The string to convert to decimal.</param>
+        /// <returns>Returns null if the given number is not parseable to decimal.</returns>
         public static decimal? ToNullableDecimal(this string number) =>
             decimal.TryParse(number, NumberStyles.Any, CultureInfo.InvariantCulture, out decimal decimalValue) ?
                 decimalValue : (decimal?)null;
