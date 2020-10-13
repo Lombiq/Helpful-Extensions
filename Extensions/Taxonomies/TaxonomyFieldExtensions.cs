@@ -1,5 +1,4 @@
 ﻿using Orchard.ContentManagement;
-using Orchard.Core.Common.Models;
 using Orchard.Taxonomies.Fields;
 using Orchard.Taxonomies.Models;
 using System.Collections.Generic;
@@ -15,8 +14,8 @@ namespace Piedone.HelpfulExtensions.Taxonomies
         public static string GetFirstTermName(this TaxonomyField field) =>
             GetFirstTerm(field)?.Name;
 
-        public static string GetTermNames(this TaxonomyField field) =>
-            field?.Terms?.Any() ?? false ? string.Join(", ", TermPart.Sort(field.Terms).Select(term => term.Name)) : "";
+        public static string GetTermNames(this TaxonomyField field, string separator = ", ") =>
+            field?.Terms?.Any() ?? false ? string.Join(separator, TermPart.Sort(field.Terms).Select(term => term.Name)) : "";
 
         // Use this method to correctly fetch the first Term's name immediately after updating the content item.
         public static TermPart GetFirstTermByRecord(
