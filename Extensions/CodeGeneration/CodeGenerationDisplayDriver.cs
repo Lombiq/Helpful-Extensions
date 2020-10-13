@@ -13,9 +13,6 @@ namespace Lombiq.HelpfulExtensions.Extensions.CodeGeneration
 {
     public class CodeGenerationDisplayDriver : ContentTypeDefinitionDisplayDriver
     {
-        private const string True = "true";
-        private const string False = "false";
-
         private readonly IStringLocalizer T;
 
 
@@ -134,7 +131,7 @@ namespace Lombiq.HelpfulExtensions.Extensions.CodeGeneration
                     var value = jValue.Value;
                     return value switch
                     {
-                        bool boolValue => boolValue ? True : False,
+                        bool boolValue => boolValue ? "true" : "false",
                         string _ => $"\"{value}\"",
                         _ => value?.ToString()?.Replace(',', '.'), // Replace decimal commas.
                     };
