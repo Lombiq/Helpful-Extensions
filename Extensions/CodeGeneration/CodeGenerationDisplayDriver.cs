@@ -36,7 +36,7 @@ namespace Lombiq.HelpfulExtensions.Extensions.CodeGeneration
                     codeBuilder.AppendLine($"    .DisplayedAs(\"{model.DisplayName}\")");
 
                     GenerateCodeForSettings(codeBuilder, model.GetSettings<ContentTypeSettings>());
-                    AddFilteredSettings<ContentTypeSettings>(codeBuilder, model.Settings, 4);
+                    AddSettingsWithout<ContentTypeSettings>(codeBuilder, model.Settings, 4);
                     GenerateCodeForParts(codeBuilder, model.Parts);
                     codeBuilder.AppendLine(");");
 
@@ -63,7 +63,7 @@ namespace Lombiq.HelpfulExtensions.Extensions.CodeGeneration
                 AddWithLine(codeBuilder, nameof(partSettings.DisplayMode), partSettings.DisplayMode);
                 AddWithLine(codeBuilder, nameof(partSettings.Editor), partSettings.Editor);
 
-                AddFilteredSettings<ContentTypePartSettings>(codeBuilder, part.Settings, 8);
+                AddSettingsWithout<ContentTypePartSettings>(codeBuilder, part.Settings, 8);
 
                 // Checking if anything was added to the part's settings.
                 if (codeBuilder.Length == partStartingLength)
@@ -102,7 +102,7 @@ namespace Lombiq.HelpfulExtensions.Extensions.CodeGeneration
                 AddWithLine(codeBuilder, nameof(partSettings.Description), partSettings.Description);
                 AddWithLine(codeBuilder, nameof(partSettings.DefaultPosition), partSettings.DefaultPosition);
 
-                AddFilteredSettings<ContentPartSettings>(codeBuilder, part.Settings, 4);
+                AddSettingsWithout<ContentPartSettings>(codeBuilder, part.Settings, 4);
 
                 foreach (var field in part.Fields)
                 {
@@ -116,7 +116,7 @@ namespace Lombiq.HelpfulExtensions.Extensions.CodeGeneration
                     AddWithLine(codeBuilder, nameof(fieldSettings.DisplayMode), fieldSettings.DisplayMode);
                     AddWithLine(codeBuilder, nameof(fieldSettings.Position), fieldSettings.Position);
 
-                    AddFilteredSettings<ContentPartFieldSettings>(codeBuilder, field.Settings, 8);
+                    AddSettingsWithout<ContentPartFieldSettings>(codeBuilder, field.Settings, 8);
 
                     codeBuilder.AppendLine("    )");
                 }
@@ -150,7 +150,7 @@ namespace Lombiq.HelpfulExtensions.Extensions.CodeGeneration
             }
         }
 
-        private void AddFilteredSettings<T>(StringBuilder codeBuilder, JObject settings, int indentationDepth)
+        private void AddSettingsWithout<T>(StringBuilder codeBuilder, JObject settings, int indentationDepth)
         {
             var indentation = string.Join(string.Empty, Enumerable.Repeat(" ", indentationDepth));
 
