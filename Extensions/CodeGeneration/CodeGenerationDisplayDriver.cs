@@ -13,10 +13,14 @@ namespace Lombiq.HelpfulExtensions.Extensions.CodeGeneration
 {
     public class CodeGenerationDisplayDriver : ContentTypeDefinitionDisplayDriver
     {
+        private const string True = "true";
+        private const string False = "false";
+
         private readonly IStringLocalizer T;
 
 
-        public CodeGenerationDisplayDriver(IStringLocalizer<CodeGenerationDisplayDriver> stringLocalizer) => T = stringLocalizer;
+        public CodeGenerationDisplayDriver(IStringLocalizer<CodeGenerationDisplayDriver> stringLocalizer) =>
+            T = stringLocalizer;
 
 
         public override IDisplayResult Edit(ContentTypeDefinition model) =>
@@ -27,11 +31,12 @@ namespace Lombiq.HelpfulExtensions.Extensions.CodeGeneration
                     var codeBuilder = new StringBuilder();
 
                     // Building the code for the type.
-                    codeBuilder.AppendLine($"_contentDefinitionManager.AlterTypeDefinition(\"{model.Name}\", type => type");
+                    var name = model.Name;
+                    codeBuilder.AppendLine($"_contentDefinitionManager.AlterTypeDefinition(\"{name}\", type => type");
                     codeBuilder.AppendLine($"    .DisplayedAs(\"{model.DisplayName}\")");
 
                     GenerateCodeForSettings(codeBuilder, model.GetSettings<ContentTypeSettings>());
-                    AddSettingsWithout<ContentTypeSettings>(codeBuilder, model.Settings, 4);
+                    AddFilteredSettings<ContentTypeSettings>(codeBuilder, model.Settings, 4);
                     GenerateCodeForParts(codeBuilder, model.Parts);
                     codeBuilder.AppendLine(");");
 
@@ -58,7 +63,7 @@ namespace Lombiq.HelpfulExtensions.Extensions.CodeGeneration
                 AddWithLine(codeBuilder, nameof(partSettings.DisplayMode), partSettings.DisplayMode);
                 AddWithLine(codeBuilder, nameof(partSettings.Editor), partSettings.Editor);
 
-                AddSettingsWithout<ContentTypePartSettings>(codeBuilder, part.Settings, 8);
+                AddFilteredSettings<ContentTypePartSettings>(codeBuilder, part.Settings, 8);
 
                 // Checking if anything was added to the part's settings.
                 if (codeBuilder.Length == partStartingLength)
@@ -97,7 +102,7 @@ namespace Lombiq.HelpfulExtensions.Extensions.CodeGeneration
                 AddWithLine(codeBuilder, nameof(partSettings.Description), partSettings.Description);
                 AddWithLine(codeBuilder, nameof(partSettings.DefaultPosition), partSettings.DefaultPosition);
 
-                AddSettingsWithout<ContentPartSettings>(codeBuilder, part.Settings, 4);
+                AddFilteredSettings<ContentPartSettings>(codeBuilder, part.Settings, 4);
 
                 foreach (var field in part.Fields)
                 {
@@ -111,7 +116,7 @@ namespace Lombiq.HelpfulExtensions.Extensions.CodeGeneration
                     AddWithLine(codeBuilder, nameof(fieldSettings.DisplayMode), fieldSettings.DisplayMode);
                     AddWithLine(codeBuilder, nameof(fieldSettings.Position), fieldSettings.Position);
 
-                    AddSettingsWithout<ContentPartFieldSettings>(codeBuilder, field.Settings, 8);
+                    AddFilteredSettings<ContentPartFieldSettings>(codeBuilder, field.Settings, 8);
 
                     codeBuilder.AppendLine("    )");
                 }
@@ -129,10 +134,7 @@ namespace Lombiq.HelpfulExtensions.Extensions.CodeGeneration
                     var value = jValue.Value;
                     return value switch
                     {
-                        // Should be ToLowerInvariant() as the value will generate C#.
-#pragma warning disable CA1308 // Normalize strings to uppercase
-                        bool boolValue => boolValue.ToString().ToLowerInvariant(),
-#pragma warning restore CA1308 // Normalize strings to uppercase
+                        bool boolValue => boolValue ? True : False,
                         string _ => $"\"{value}\"",
                         _ => value?.ToString()?.Replace(',', '.'), // Replace decimal commas.
                     };
@@ -148,7 +150,7 @@ namespace Lombiq.HelpfulExtensions.Extensions.CodeGeneration
             }
         }
 
-        private void AddSettingsWithout<T>(StringBuilder codeBuilder, JObject settings, int indentationDepth)
+        private void AddFilteredSettings<T>(StringBuilder codeBuilder, JObject settings, int indentationDepth)
         {
             var indentation = string.Join(string.Empty, Enumerable.Repeat(" ", indentationDepth));
 
@@ -168,7 +170,8 @@ namespace Lombiq.HelpfulExtensions.Extensions.CodeGeneration
                 for (int i = 0; i < properties.Length; i++)
                 {
                     var property = properties[i];
-                    codeBuilder.AppendLine($"{indentation}    {property.Name} = {ConvertJToken(property.Value)}{(i != properties.Length - 1 ? "," : string.Empty)}");
+                    codeBuilder.AppendLine($"{indentation}    {property.Name} = {ConvertJToken(property.Value)}" +
+                                           $"{(i != properties.Length - 1 ? "," : string.Empty)}");
                 }
 
                 codeBuilder.AppendLine(indentation + "})");
