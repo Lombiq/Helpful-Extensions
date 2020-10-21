@@ -45,7 +45,7 @@ namespace Orchard.Taxonomies.Services
             TermPart parent = null,
             params string[] termNames)
         {
-            if (taxonomy == null || !termNames.Any(termName => !string.IsNullOrEmpty(termName)))
+            if (taxonomy == null || termNames == null || !termNames.Any(termName => !string.IsNullOrEmpty(termName)))
                 return Enumerable.Empty<TermPart>();
 
             var existingTerms = parent == null ?
