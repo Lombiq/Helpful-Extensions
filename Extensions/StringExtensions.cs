@@ -108,9 +108,11 @@ namespace System
             {
                 case "YES":
                 case "TRUE":
+                case "ACTIVE":
                     return true;
                 case "NO":
                 case "FALSE":
+                case "INACTIVE":
                     return false;
                 default:
                     return null;
