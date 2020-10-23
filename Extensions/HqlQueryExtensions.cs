@@ -31,5 +31,27 @@ namespace Orchard.ContentManagement
             query.Where(a => a.ContentItem(), p =>
                 p.PartitionedExpression((e, i) => e.Not(inner => inner.In("Id", i)), ids, partitionSize, true));
         }
+
+
+        /// <summary>
+        /// Given an expression and a list of values, this method will generate an aggregated expression factory
+        /// that ORs together the applications of the expression on each value.
+        /// </summary>
+        /// <param name="expression">The expression to apply on each value</param>
+        /// <param name="values">The values to use</param>
+        /// <param name="property">The path of the property that the expression will compare the value to</param>
+        public static Action<IHqlExpressionFactory> AggregateOrFactory(
+            Func<string, object, Action<IHqlExpressionFactory>> expression,
+            string property,
+            object[] values)
+        {
+            if (!values?.Any() ?? true) return null;
+
+            if (!values.Skip(1).Any()) return expression(property, values.First());
+
+            return x => x.Or(
+                expression(property, values.First()),
+                AggregateOrFactory(expression, property, values.Skip(1).ToArray()));
+        }
     }
 }
