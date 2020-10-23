@@ -93,15 +93,24 @@ namespace System
         /// </summary>
         /// <param name="left">Left DateTime? operand.</param>
         /// <param name="right">Right DateTime? operand.</param>
-        /// <returns>The number of full calendar years passed between the operands.</returns>
-        public static int? TotalYearsSpan(this DateTime? left, DateTime? right)
-        {
-            if (!(left.HasValue && right.HasValue)) return null;
+        /// <returns>The number of full calendar years passed between the operands or null either operands is null.</returns>
+        public static int? TotalYearsSpan(this DateTime? left, DateTime? right) =>
+            left == null || right == null ? null : (int?)left.Value.TotalYearsSpan(right.Value);
 
-            var years = left.Value.Year - right.Value.Year;
+        /// <summary>
+        /// Calculates the full calendar years passed from the left operand until the right operand.
+        /// It's essentially TimeSpan.TotalYears, but it needs to be implemented this way,
+        /// because TimeSpan wouldn't know if a full year has passed or not (also taking leap years into account).
+        /// </summary>
+        /// <param name="left">Left DateTime operand.</param>
+        /// <param name="right">Right DateTime operand.</param>
+        /// <returns>The number of full calendar years passed between the operands.</returns>
+        public static int TotalYearsSpan(this DateTime left, DateTime right)
+        {
+            var years = left.Year - right.Year;
 
             // Correcting with a year that has not fully passed.
-            if (right.Value.Date > left.Value.AddYears(-years)) years--;
+            if (right.Date > left.AddYears(-years)) years--;
 
             return years;
         }
