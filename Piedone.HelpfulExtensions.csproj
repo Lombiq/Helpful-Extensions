@@ -186,6 +186,7 @@
     <Compile Include="Extensions\Contents\Models\HintField.cs" />
     <Compile Include="Extensions\Contents\Settings\HintFieldSettings.cs" />
     <Compile Include="Extensions\DateTimeExtensions.cs" />
+    <Compile Include="Extensions\HqlExpressionFactoryExtensions.cs" />
     <Compile Include="Extensions\HqlQueryExtensions.cs" />
     <Compile Include="Extensions\JsonConverterExtensions.cs" />
     <Compile Include="Extensions\LazyFieldExtensions.cs" />

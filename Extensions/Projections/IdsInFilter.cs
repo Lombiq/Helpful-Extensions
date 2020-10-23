@@ -1,12 +1,11 @@
-﻿using System;
-using System.Linq;
-using Orchard.Core.Common.Models;
+﻿using Orchard.ContentManagement;
 using Orchard.DisplayManagement;
 using Orchard.Environment.Extensions;
 using Orchard.Forms.Services;
 using Orchard.Localization;
 using Orchard.Projections.Descriptors.Filter;
-using Piedone.HelpfulLibraries.Utilities;
+using System;
+using System.Linq;
 
 namespace Piedone.HelpfulExtensions.Projections
 {
