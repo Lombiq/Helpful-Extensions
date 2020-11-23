@@ -1,4 +1,4 @@
-﻿using OrchardCore.DisplayManagement.Descriptors;
+using OrchardCore.DisplayManagement.Descriptors;
 
 namespace Lombiq.HelpfulExtensions.Extensions.Flows
 {
