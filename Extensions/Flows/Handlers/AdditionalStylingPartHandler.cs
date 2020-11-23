@@ -1,4 +1,4 @@
-﻿using Lombiq.HelpfulExtensions.Extensions.Flows.Models;
+using Lombiq.HelpfulExtensions.Extensions.Flows.Models;
 using OrchardCore.ContentManagement;
 using OrchardCore.ContentManagement.Handlers;
 using OrchardCore.ContentManagement.Metadata;
@@ -12,10 +12,8 @@ namespace Lombiq.HelpfulExtensions.Extensions.Flows.Handlers
         private readonly IContentDefinitionManager _contentDefinitionManager;
 
 
-        public AdditionalStylingPartHandler(IContentDefinitionManager contentDefinitionManager)
-        {
+        public AdditionalStylingPartHandler(IContentDefinitionManager contentDefinitionManager) =>
             _contentDefinitionManager = contentDefinitionManager;
-        }
 
 
         public override Task ActivatedAsync(ActivatedContentContext context)
