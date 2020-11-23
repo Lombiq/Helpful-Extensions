@@ -127,15 +127,13 @@ namespace Lombiq.HelpfulExtensions.Extensions.CodeGeneration
             switch (jToken)
             {
                 case JValue jValue:
+                    var value = jValue.Value;
+                    return value switch
                     {
-                        var value = jValue.Value;
-                        return value switch
-                        {
-                            bool boolValue => boolValue ? "true" : "false",
-                            string _ => $"\"{value}\"",
-                            _ => value?.ToString()?.Replace(',', '.'), // Replace decimal commas.
-                        };
-                    }
+                        bool boolValue => boolValue ? "true" : "false",
+                        string _ => $"\"{value}\"",
+                        _ => value?.ToString()?.Replace(',', '.'), // Replace decimal commas.
+                    };
                 case JArray jArray:
                     return $"new[] {{ {string.Join(", ", jArray.Select(ConvertJToken))} }}";
                 case JObject jObject:
