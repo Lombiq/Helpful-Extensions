@@ -127,7 +127,6 @@ namespace Lombiq.HelpfulExtensions.Extensions.CodeGeneration
             switch (jToken)
             {
                 case JValue jValue:
-                {
                     var value = jValue.Value;
                     return value switch
                     {
@@ -135,8 +134,6 @@ namespace Lombiq.HelpfulExtensions.Extensions.CodeGeneration
                         string _ => $"\"{value}\"",
                         _ => value?.ToString()?.Replace(',', '.'), // Replace decimal commas.
                     };
-                }
-
                 case JArray jArray:
                     return $"new[] {{ {string.Join(", ", jArray.Select(ConvertJToken))} }}";
                 case JObject jObject:
@@ -162,8 +159,8 @@ namespace Lombiq.HelpfulExtensions.Extensions.CodeGeneration
                 codeBuilder.AppendLine($"{indentation}.WithSettings(new {setting.Key}");
                 codeBuilder.AppendLine(indentation + "{");
 
-                // This doesn't support multi-level object hierarchies for settings but come on, who uses
-                // complex settings objects?
+                // This doesn't support multi-level object hierarchies for settings but come on, who uses complex
+                // settings objects?
                 for (int i = 0; i < properties.Length; i++)
                 {
                     var property = properties[i];
