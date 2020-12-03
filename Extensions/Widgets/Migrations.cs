@@ -9,10 +9,8 @@ namespace Lombiq.HelpfulExtensions.Extensions.Widgets
     {
         private readonly IContentDefinitionManager _contentDefinitionManager;
 
-
         public Migrations(IContentDefinitionManager contentDefinitionManager) =>
             _contentDefinitionManager = contentDefinitionManager;
-
 
         public int Create()
         {

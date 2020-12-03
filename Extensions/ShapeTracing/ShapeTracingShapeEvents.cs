@@ -11,9 +11,7 @@ namespace Lombiq.HelpfulExtensions.Extensions.ShapeTracing
     {
         private readonly IHttpContextAccessor _hca;
 
-
         public ShapeTracingShapeEvents(IHttpContextAccessor hca) => _hca = hca;
-
 
         public Task DisplayedAsync(ShapeDisplayContext context)
         {
