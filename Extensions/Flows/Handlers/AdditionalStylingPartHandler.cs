@@ -11,10 +11,8 @@ namespace Lombiq.HelpfulExtensions.Extensions.Flows.Handlers
     {
         private readonly IContentDefinitionManager _contentDefinitionManager;
 
-
         public AdditionalStylingPartHandler(IContentDefinitionManager contentDefinitionManager) =>
             _contentDefinitionManager = contentDefinitionManager;
-
 
         public override Task ActivatedAsync(ActivatedContentContext context)
         {

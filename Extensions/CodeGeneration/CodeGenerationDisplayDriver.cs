@@ -15,10 +15,8 @@ namespace Lombiq.HelpfulExtensions.Extensions.CodeGeneration
     {
         private readonly IStringLocalizer T;
 
-
         public CodeGenerationDisplayDriver(IStringLocalizer<CodeGenerationDisplayDriver> stringLocalizer) =>
             T = stringLocalizer;
-
 
         public override IDisplayResult Edit(ContentTypeDefinition model) =>
             Initialize<ContentTypeMigrationsViewModel>(
@@ -42,7 +40,6 @@ namespace Lombiq.HelpfulExtensions.Extensions.CodeGeneration
                     return codeBuilder.ToString();
                 }))
             .Location("Content:7");
-
 
         private void GenerateCodeForParts(StringBuilder codeBuilder, IEnumerable<ContentTypePartDefinition> parts)
         {
@@ -176,7 +173,6 @@ namespace Lombiq.HelpfulExtensions.Extensions.CodeGeneration
                 codeBuilder.AppendLine(indentation + "})");
             }
         }
-
 
         private static void GenerateCodeForSettings(StringBuilder codeBuilder, ContentTypeSettings contentTypeSettings)
         {
