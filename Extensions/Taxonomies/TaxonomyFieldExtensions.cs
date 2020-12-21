@@ -1,4 +1,6 @@
 ﻿using Orchard.ContentManagement;
+using Orchard.ContentManagement.Records;
+using Orchard.Core.Common.Models;
 using Orchard.Taxonomies.Fields;
 using Orchard.Taxonomies.Models;
 using System.Collections.Generic;
@@ -40,7 +42,14 @@ namespace Piedone.HelpfulExtensions.Taxonomies
             contentManager.GetMany<TermPart>(
                 content.As<TermsPart>()?.Terms.Where(term => term.Field == field.Name).Select(term => term.TermRecord.Id) ?? Enumerable.Empty<int>(),
                 VersionOptions.Published,
-                QueryHints.Empty);
+                new QueryHints().ExpandRecords(nameof(ContentTypeRecord), nameof(CommonPartRecord), nameof(TermsPartRecord)));
+
+        public static string GetTermNamesByRecord(
+            this TaxonomyField field,
+            IContent content,
+            IContentManager contentManager,
+            string separator = ", ") =>
+            string.Join(separator, TermPart.Sort(field.GetTermsByRecord(content, contentManager)).Select(term => term.Name));
 
         public static IEnumerable<TermPart> GetTermsUnderParent(this TaxonomyField field, TermPart parent) =>
             parent == null ?
