@@ -5,9 +5,9 @@ using OrchardCore.Modules;
 namespace Lombiq.HelpfulExtensions.Extensions.ShapeTracing
 {
     [Feature(FeatureIds.ShapeTracing)]
-    public class Startup
+    public class Startup : StartupBase
     {
-        public void ConfigureServices(IServiceCollection services) =>
+        public override void ConfigureServices(IServiceCollection services) =>
             services.AddScoped<IShapeDisplayEvents, ShapeTracingShapeEvents>();
     }
 }
