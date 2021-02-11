@@ -21,5 +21,13 @@ namespace Piedone.HelpfulExtensions.Taxonomies
         /// <param name="taxonomyName">Names of the Taxonomies to create.</param>
         /// <param name="termNames">Names of the Terms to create and add to the Taxonomy.</param>
         void ApplyTaxonomyCreationWithTerms(string taxonomyName, List<string> termNames);
+
+        /// <summary>
+        /// Applies the previously invoked creation of Taxonomy with Terms and Taxonomy settings.
+        /// </summary>
+        /// <param name="taxonomyName">Names of the Taxonomies to create.</param>
+        /// <param name="termNames">Names of the Terms to create and add to the Taxonomy.</param>
+        /// <param name="settings">The settings to add to the Taxonomy.</param>
+        void ApplyTaxonomyCreationWithTermsAndSettings(string taxonomyName, List<string> termNames, Dictionary<string, string> settings);
     }
 }
