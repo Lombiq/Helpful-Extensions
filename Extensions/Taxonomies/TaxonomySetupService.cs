@@ -1,5 +1,6 @@
 ﻿using Orchard;
 using Orchard.ContentManagement;
+using Orchard.ContentManagement.MetaData;
 using Orchard.Environment.Configuration;
 using Orchard.Environment.Descriptor;
 using Orchard.Environment.Extensions;
@@ -15,6 +16,7 @@ namespace Piedone.HelpfulExtensions.Taxonomies
     [OrchardFeature(Constants.FeatureNames.Taxonomies)]
     public class TaxonomySetupService : ITaxonomySetupService, ITaxonomySetupHandler
     {
+        private readonly Lazy<IContentDefinitionManager> _contentDefinitionManagerLazy;
         private readonly ShellSettings _shellSettings;
         private readonly IShellDescriptorManager _shellDescriptorManager;
         private readonly IProcessingEngine _processingEngine;
@@ -22,11 +24,13 @@ namespace Piedone.HelpfulExtensions.Taxonomies
 
 
         public TaxonomySetupService(
+            Lazy<IContentDefinitionManager> contentDefinitionManagerLazy,
             ShellSettings shellSettings,
             IShellDescriptorManager shellDescriptorManager,
             IProcessingEngine processingEngine,
             IWorkContextAccessor wca)
         {
+            _contentDefinitionManagerLazy = contentDefinitionManagerLazy;
             _shellSettings = shellSettings;
             _shellDescriptorManager = shellDescriptorManager;
             _processingEngine = processingEngine;
@@ -99,6 +103,35 @@ namespace Piedone.HelpfulExtensions.Taxonomies
                 currentTerm.Name = term;
                 contentManager.Create(currentTerm);
             }
+        }
+
+        public void CreateTaxonomiesWithTermsAndSettings(string taxonomyName, List<string> termNames, Dictionary<string, string> settings)
+        {
+            if (!string.IsNullOrEmpty(taxonomyName))
+            {
+                _processingEngine.AddTask(
+                    _shellSettings,
+                    _shellDescriptorManager.GetShellDescriptor(),
+                    $"{nameof(ITaxonomySetupHandler)}.{nameof(ITaxonomySetupHandler.ApplyTaxonomyCreationWithTermsAndSettings )}",
+                    new Dictionary<string, object> { { "taxonomyName", taxonomyName }, { "termNames", termNames }, { "settings", settings } });
+            }
+        }
+
+        public void ApplyTaxonomyCreationWithTermsAndSettings(string taxonomyName, List<string> termNames, Dictionary<string, string> settings)
+        {
+            ApplyTaxonomyCreationWithTerms(taxonomyName, termNames);
+
+            var workContextScope = _wca.GetContext();
+            var taxonomyService = workContextScope.Resolve<ITaxonomyService>();
+            var currentTaxonomy = taxonomyService.GetTaxonomyByName(taxonomyName);
+
+            _contentDefinitionManagerLazy.Value.AlterTypeDefinition(currentTaxonomy.TermTypeName, type =>
+            {
+                foreach (var setting in settings)
+                {
+                    type.WithSetting(setting.Key, setting.Value);
+                }
+            });
         }
     }
 }
