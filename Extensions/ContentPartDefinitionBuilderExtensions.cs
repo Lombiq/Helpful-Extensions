@@ -55,5 +55,11 @@ namespace Piedone.HelpfulExtensions
             string fieldName,
             Action<ContentPartFieldDefinitionBuilder> configuration = null) =>
             builder.WithField(nameof(MediaLibraryPickerField), fieldName, configuration);
+
+        public static ContentPartDefinitionBuilder WithNumericField(
+            this ContentPartDefinitionBuilder builder,
+            string fieldName,
+            Action<ContentPartFieldDefinitionBuilder> configuration = null) =>
+            builder.WithField(nameof(NumericField), fieldName, configuration);
     }
 }
