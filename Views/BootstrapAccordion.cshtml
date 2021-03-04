@@ -12,10 +12,10 @@
 
         <div class="card">
             <div class="card-header d-flex justify-content-between"
-                 id="heading@(id)"
-                 data-target="#collapse@(id)"
+                 id="heading-@id"
+                 data-target="#collapse-@id"
                  aria-expanded="true"
-                 aria-controls="collapse@(id)">
+                 aria-controls="collapse-@id">
                 <h5 class="mb-0">@items.Title</h5>
                 <div class="card-header-icon">
                     <i class="fas fa-chevron-right"></i>
@@ -25,9 +25,9 @@
                 </div>
             </div>
 
-            <div id="collapse@(id)"
+            <div id="collapse-@id"
                  class="collapse"
-                 aria-labelledby="heading@(id)"
+                 aria-labelledby="heading-@id"
                  data-parent=".card-accordion">
                 <div class="card-body">
                     @await DisplayAsync(items.Shape)
