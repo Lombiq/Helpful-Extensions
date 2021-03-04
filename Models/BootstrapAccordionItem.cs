@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc.Localization;
-using System.Collections.Generic;
 
 namespace Lombiq.HelpfulExtensions.Models
 {
