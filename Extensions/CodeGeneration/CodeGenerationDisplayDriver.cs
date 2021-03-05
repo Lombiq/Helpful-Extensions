@@ -132,10 +132,14 @@ namespace Lombiq.HelpfulExtensions.Extensions.CodeGeneration
                         _ => value?.ToString()?.Replace(',', '.'), // Replace decimal commas.
                     };
                 case JArray jArray:
-                    return $"new[] {{ {string.Join(", ", jArray.Select(ConvertJToken))} }}";
+                    var arrLines = jArray.Select(ConvertJToken).ToArray();
+                    if(arrLines.Length > 1)
+                        return $"new[] \n\t\t\t{{ {string.Join(", ", arrLines)} \n\t\t\t}}";
+
+                    return $"new[] {{ {string.Join(", ", arrLines)} }}";
                 case JObject jObject:
                     // Using a quoted string so it doesn't mess up the syntax highlighting of the rest of the code.
-                    return T["\"FIX ME! Couldn't determine the actual type to instantiate.\" {0}", jObject.ToString()];
+                    return $"\n\t\t\t\tnew ListValueOption {{ Name = \"{jObject["name"]}\", Value = \"{jObject["value"]}\" }}";
                 default:
                     throw new NotSupportedException($"Settings values of type {jToken.GetType()} are not supported.");
             }
