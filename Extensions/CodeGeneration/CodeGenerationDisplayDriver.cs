@@ -132,11 +132,7 @@ namespace Lombiq.HelpfulExtensions.Extensions.CodeGeneration
                         _ => value?.ToString()?.Replace(',', '.'), // Replace decimal commas.
                     };
                 case JArray jArray:
-                    var arrLines = jArray.Select(ConvertJToken).ToArray();
-                    if(arrLines.Length > 1)
-                        return $"new[] \n\t\t\t{{ {string.Join(", ", arrLines)} \n\t\t\t}}";
-
-                    return $"new[] {{ {string.Join(", ", arrLines)} }}";
+                    return $"new[] \n\t\t\t{{ {string.Join(", ", jArray.Select(ConvertJToken))} \n\t\t\t}}";
                 case JObject jObject:
                     // Using a quoted string so it doesn't mess up the syntax highlighting of the rest of the code.
                     return $"\n\t\t\t\tnew ListValueOption {{ Name = \"{jObject["name"]}\", Value = \"{jObject["value"]}\" }}";
