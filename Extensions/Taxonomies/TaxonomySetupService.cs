@@ -66,7 +66,7 @@ namespace Piedone.HelpfulExtensions.Taxonomies
             }
         }
 
-        public void CreateTaxonomiesWithTerms(string taxonomyName, List<string> termNames)
+        public void CreateTaxonomyWithTerms(string taxonomyName, List<string> termNames)
         {
             if (!string.IsNullOrEmpty(taxonomyName))
             {
@@ -105,7 +105,7 @@ namespace Piedone.HelpfulExtensions.Taxonomies
             }
         }
 
-        public void CreateTaxonomiesWithTermsAndSettings(string taxonomyName, List<string> termNames, Dictionary<string, string> settings)
+        public void CreateTaxonomyWithTermsAndSettings(string taxonomyName, List<string> termNames, Dictionary<string, string> settings)
         {
             if (!string.IsNullOrEmpty(taxonomyName))
             {
@@ -134,7 +134,7 @@ namespace Piedone.HelpfulExtensions.Taxonomies
             });
         }
 
-        public void CreateTaxonomiesWithSettings(string taxonomyName, Dictionary<string, string> settings)
+        public void CreateTaxonomyWithSettings(string taxonomyName, Dictionary<string, string> settings)
         {
             if (!string.IsNullOrEmpty(taxonomyName))
             {
