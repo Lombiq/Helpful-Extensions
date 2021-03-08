@@ -136,7 +136,8 @@ namespace Lombiq.HelpfulExtensions.Extensions.CodeGeneration
                     return $"new[] \n\t\t\t{{ {string.Join(", ", jArray.Select(ConvertJToken))} \n\t\t\t}}";
 
                 case JObject jObject:
-                    if(jObject["name"] != null && jObject["value"] != null)
+                    if (jObject["name"] != null && jObject["value"] != null)
+
                     {
                         return $"\n\t\t\t\tnew ListValueOption {{ Name = \"{jObject["name"]}\", Value = \"{jObject["value"]}\" }}";
                     }
