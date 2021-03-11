@@ -27,7 +27,12 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Libraries\Lombiq.HelpfulLibraries\Lombiq.HelpfulLibraries\Lombiq.HelpfulLibraries.csproj" />
+    <ProjectReference
+      Include="..\..\Libraries\Lombiq.HelpfulLibraries\Lombiq.HelpfulLibraries\Lombiq.HelpfulLibraries.csproj"
+      Condition="Exists('..\..\Libraries\Lombiq.HelpfulLibraries\Lombiq.HelpfulLibraries\Lombiq.HelpfulLibraries.csproj')" />
+    <ProjectReference
+      Include="..\..\Libraries\Lombiq.HelpfulLibraries\Lombiq.HelpfulLibraries.csproj"
+      Condition="Exists('..\..\Libraries\Lombiq.HelpfulLibraries\Lombiq.HelpfulLibraries.csproj')" />
   </ItemGroup>
 
 </Project>

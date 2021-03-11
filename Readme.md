@@ -46,6 +46,19 @@ Includes:
 
 Adds a dump of metadata to the output about every shape. This will help you understand how a shape is displayed and how you can override it. Just check out the HTML output. You can see a video demo of this feature in action [on YouTube](https://www.youtube.com/watch?v=WI4TEKVc9SA).
 
+### Helpful Shapes
+
+Adds common constructs you can use in your views.
+
+#### BootstrapAccordion
+
+It displays an [accordion powered by Bootstrap](https://getbootstrap.com/docs/4.0/components/collapse/#accordion-example). It displays shapes as content. The `Children` property is required.
+
+```html
+<shape type="BootstrapAccordion" 
+       prop-AdditionalClasses="string" 
+       prop-Children="IEnumerable<BootstrapAccordionItem>"></shape>
+```
 
 ## Contributing and support
 
