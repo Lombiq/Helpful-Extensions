@@ -128,7 +128,7 @@ namespace Lombiq.HelpfulExtensions.Extensions.CodeGeneration
                     return value switch
                     {
                         bool boolValue => boolValue ? "true" : "false",
-                        string _ => $"\"{value}\"",
+                        string => $"\"{value}\"",
                         _ => value?.ToString()?.Replace(',', '.'), // Replace decimal commas.
                     };
                 case JArray jArray:
