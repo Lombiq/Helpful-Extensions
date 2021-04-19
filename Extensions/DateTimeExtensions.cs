@@ -71,6 +71,13 @@ namespace System
             IDateLocalizationServices dateLocalizationServices) =>
             dateLocalizationServices.ConvertToSiteTimeZone(dateTime ?? clock.UtcNow).ConvertToUsaDateTimeFormat();
 
+        public static string DateTimeToSiteTimeZoneInUsaDateTimeFormat(
+           this DateTime? dateTime,
+           IDateLocalizationServices dateLocalizationServices) =>
+               dateTime == null ?
+               string.Empty :
+               dateLocalizationServices.ConvertToSiteTimeZone(dateTime.Value).ConvertToUsaDateTimeFormat();
+
         public static string DateTimeOrUtcNowToSiteTimeZoneInUsaDateFormat(
             this DateTime? dateTime,
             IClock clock,
