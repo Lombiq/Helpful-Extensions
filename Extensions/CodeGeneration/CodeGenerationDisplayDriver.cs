@@ -134,14 +134,14 @@ namespace Lombiq.HelpfulExtensions.Extensions.CodeGeneration
 
                 case JArray jArray:
                     var token = string.Join(", ", jArray.Select(ConvertJToken));
-                    var format = token.Contains("ListValueOption") ? "\n\t\t\t" : "";
+                    var format = token.Contains("ListValueOption") ? "\n    " : "";
 
                     return $"new[] {format}{{ {string.Join(", ", token)} {format}}}";
 
                 case JObject jObject:
                     if (jObject["name"] != null && jObject["value"] != null)
                     {
-                        return $"\n\t\t\t\tnew ListValueOption {{ Name = \"{jObject["name"]}\", Value = \"{jObject["value"]}\" }}";
+                        return $"\n               new ListValueOption {{ Name = \"{jObject["name"]}\", Value = \"{jObject["value"]}\" }}";
                     }
                     else
                     {
