@@ -134,7 +134,8 @@ namespace Lombiq.HelpfulExtensions.Extensions.CodeGeneration
 
                 case JArray jArray:
                     var token = string.Join(", ", jArray.Select(ConvertJToken));
-                    var format = token.Contains("ListValueOption") ? "\n    " : "";
+                    var format = token.Contains("ListValueOption") ? "\n    " : string.Empty;
+
 
                     return $"new[] {format}{{ {string.Join(", ", token)} {format}}}";
 
