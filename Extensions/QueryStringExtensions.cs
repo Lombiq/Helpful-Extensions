@@ -15,9 +15,10 @@ namespace Piedone.HelpfulExtensions
         /// </summary>
         /// <param name="queryString">The collection of query parameters.</param>
         /// <param name="key">The key of the query parameter to update.</param>
-        /// <param name="value">The value of the query parameter to update. It's empty by default that means the key needs to be removed.</param>
+        /// <param name="appendToAnExistingQueryString">Start your query string with an ampersand instead of a question mark.</param>
+        /// <param name="values">The value of the query parameter to update. It's empty by default that means the key needs to be removed.</param>
         /// <returns>The query string built from the collection of query parameters.</returns>
-        public static string UpdateAndBuildQueryString(this NameValueCollection queryString, string key, params object[] values)
+        public static string UpdateAndBuildQueryString(this NameValueCollection queryString, string key, bool appendToAnExistingQueryString = false, params object[] values)
         {
             // Creating a mutable collection.
             var queryParameters = GetQueryParameterDictionary(queryString);
@@ -28,7 +29,10 @@ namespace Piedone.HelpfulExtensions
             else queryParameters[key] = values;
 
             var builder = new StringBuilder();
-            builder.Append("?");
+            if (appendToAnExistingQueryString)
+                builder.Append("&");
+            else
+                builder.Append("?");
 
             foreach (var currentKey in queryParameters.Keys)
                 foreach (var value in queryParameters[currentKey])
