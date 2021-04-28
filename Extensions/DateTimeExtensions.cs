@@ -64,18 +64,21 @@ namespace System
         public static string ConvertToUsaDateTimeFormat(this DateTime? dateTime) =>
             dateTime?.ConvertToUsaDateTimeFormat() ?? "";
 
+        public static DateTime? ToSiteTimeZone(this DateTime? dateTime, IDateLocalizationServices dateLocalizationServices) =>
+            dateTime.HasValue ? (DateTime?)dateLocalizationServices.ConvertToSiteTimeZone(dateTime.Value) : null;
+
         // This name is oddly specific...
         public static string DateTimeOrUtcNowToSiteTimeZoneInUsaDateTimeFormat(
             this DateTime? dateTime,
             IClock clock,
             IDateLocalizationServices dateLocalizationServices) =>
-            dateLocalizationServices.ConvertToSiteTimeZone(dateTime ?? clock.UtcNow).ConvertToUsaDateTimeFormat();
+            (dateTime ?? clock.UtcNow as DateTime?).ToSiteTimeZone(dateLocalizationServices).ConvertToUsaDateTimeFormat();
 
         public static string DateTimeOrUtcNowToSiteTimeZoneInUsaDateFormat(
             this DateTime? dateTime,
             IClock clock,
             IDateLocalizationServices dateLocalizationServices) =>
-            dateLocalizationServices.ConvertToSiteTimeZone(dateTime ?? clock.UtcNow).ConvertToUsaDateFormat();
+            (dateTime ?? clock.UtcNow as DateTime?).ToSiteTimeZone(dateLocalizationServices).ConvertToUsaDateFormat();
 
         public static string ConvertToUsaTimeFormat(this DateTime? time) =>
             time?.ToString("hh:mm tt") ?? "";
@@ -84,7 +87,7 @@ namespace System
             this DateTime? dateTime,
             IClock clock,
             IDateLocalizationServices dateLocalizationServices) =>
-            (dateLocalizationServices.ConvertToSiteTimeZone(dateTime ?? clock.UtcNow) as DateTime?).ConvertToUsaTimeFormat();
+            (dateTime ?? clock.UtcNow as DateTime?).ToSiteTimeZone(dateLocalizationServices).ConvertToUsaTimeFormat();
 
         /// <summary>
         /// Calculates the full calendar years passed from the left operand until the right operand.
