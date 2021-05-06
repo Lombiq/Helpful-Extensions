@@ -62,3 +62,10 @@ using static Lombiq.HelpfulExtensions.FeatureIds;
     Category = "Development",
     Description = "Adds a dump of metadata to the output about every shape."
 )]
+
+[assembly: Feature(
+    Id = Testing,
+    Name = "Testing Marker",
+    Category = "Development",
+    Description = "Add this feature to your testing setup recipe to be able to tell when in testing from code."
+)]
