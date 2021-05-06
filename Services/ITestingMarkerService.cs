@@ -1,3 +1,5 @@
+using System.Diagnostics.CodeAnalysis;
+
 namespace Lombiq.HelpfulExtensions.Services
 {
     /// <summary>
@@ -5,6 +7,7 @@ namespace Lombiq.HelpfulExtensions.Services
     /// testingMarkerServices</c> to your service implementation, you will be able to do <c>_isTesting =
     /// testingMarkerServices.Any();</c> to tell if the testing feature is enabled.
     /// </summary>
+    [SuppressMessage("Design", "CA1040:Avoid empty interfaces", Justification = "Necessary marker interface.")]
     public interface ITestingMarkerService
     {
     }
