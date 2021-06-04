@@ -9,15 +9,22 @@ namespace Piedone.HelpfulExtensions
     public static class QueryStringExtensions
     {
         /// <summary>
-        /// Given the collection of query parameters and the key and value of a query parameter,
-        /// this helper will update (or add if not added yet) that query parameter (when the value is empty,
-        /// the query parameter will be removed from the collection) and then build the complete query string.
+        /// Given the collection of query parameters and the key and value of a query parameter, this helper will update
+        /// (or add if not added yet) that query parameter (when the value is empty, the query parameter will be removed
+        /// from the collection) and then build the complete query string.
         /// </summary>
         /// <param name="queryString">The collection of query parameters.</param>
         /// <param name="key">The key of the query parameter to update.</param>
-        /// <param name="value">The value of the query parameter to update. It's empty by default that means the key needs to be removed.</param>
+        /// <param name="appendToAnExistingQueryString">Start your query string with an ampersand instead of a question
+        /// mark.</param>
+        /// <param name="values">The value of the query parameter to update. It's empty by default that means the key
+        /// needs to be removed.</param>
         /// <returns>The query string built from the collection of query parameters.</returns>
-        public static string UpdateAndBuildQueryString(this NameValueCollection queryString, string key, params object[] values)
+        public static string UpdateAndBuildQueryString(
+            this NameValueCollection queryString,
+            string key,
+            bool appendToAnExistingQueryString = false,
+            params object[] values)
         {
             // Creating a mutable collection.
             var queryParameters = GetQueryParameterDictionary(queryString);
@@ -27,8 +34,7 @@ namespace Piedone.HelpfulExtensions
             // Non-empty value -> Add or Update.
             else queryParameters[key] = values;
 
-            var builder = new StringBuilder();
-            builder.Append("?");
+            var builder = new StringBuilder(appendToAnExistingQueryString ? "&" : "?");
 
             foreach (var currentKey in queryParameters.Keys)
                 foreach (var value in queryParameters[currentKey])
@@ -38,8 +44,8 @@ namespace Piedone.HelpfulExtensions
         }
 
         /// <summary>
-        /// Given the collection of query parameters and the key of a query parameter,
-        /// this helper will determine whether that key with any value exists among the query parameters.
+        /// Given the collection of query parameters and the key of a query parameter, this helper will determine
+        /// whether that key with any value exists among the query parameters.
         /// </summary>
         /// <param name="queryString">The collection of query parameters.</param>
         /// <param name="key">The key of the query parameter to check.</param>
@@ -48,8 +54,8 @@ namespace Piedone.HelpfulExtensions
             queryString?.AllKeys.Contains(key) ?? false;
 
         /// <summary>
-        /// Given the collection of query parameters and the key of a query parameter,
-        /// this helper will determine whether that key with a non-empty value exists among the query parameters.
+        /// Given the collection of query parameters and the key of a query parameter, this helper will determine
+        /// whether that key with a non-empty value exists among the query parameters.
         /// </summary>
         /// <param name="queryString">The collection of query parameters.</param>
         /// <param name="key">The key of the query parameter to check.</param>
@@ -58,8 +64,8 @@ namespace Piedone.HelpfulExtensions
             IsQueryStringParameterPresent(queryString, key) && queryString.GetValues(key).Any(value => !string.IsNullOrEmpty(value));
 
         /// <summary>
-        /// Given the collection of query parameters and the key and value of a query parameter,
-        /// this helper will determine whether that key-value pair exists among the query parameters.
+        /// Given the collection of query parameters and the key and value of a query parameter, this helper will
+        /// determine whether that key-value pair exists among the query parameters.
         /// </summary>
         /// <param name="queryString">The collection of query parameters.</param>
         /// <param name="key">The key of the query parameter to check.</param>
