@@ -14,5 +14,16 @@ namespace System
         {
             return value.ToString(CultureInfo.InvariantCulture);
         }
+
+        /// <summary>
+        /// Returns the string representation of the given <paramref name="value"/> using the <see
+        /// cref="CultureInfo.InvariantCulture"/>.
+        /// </summary>
+        /// <param name="value">The value to convert to a string.</param>
+        /// <returns>A predictable string representation of the given <paramref name="value"/>.</returns>
+        public static string ToInvariantString(this DateTime value, string format)
+        {
+            return value.ToString(format, CultureInfo.InvariantCulture);
+        }
     }
 }
