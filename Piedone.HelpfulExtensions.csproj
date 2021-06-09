@@ -189,6 +189,7 @@
     <Compile Include="Extensions\DateTimeExtensions.cs" />
     <Compile Include="Extensions\HqlExpressionFactoryExtensions.cs" />
     <Compile Include="Extensions\HqlQueryExtensions.cs" />
+    <Compile Include="Extensions\InvariantExtensions.cs" />
     <Compile Include="Extensions\JsonConverterExtensions.cs" />
     <Compile Include="Extensions\LazyFieldExtensions.cs" />
     <Compile Include="Extensions\Projections\ContainedByFilter.cs" />
