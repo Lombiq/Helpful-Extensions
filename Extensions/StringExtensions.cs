@@ -118,5 +118,35 @@ namespace System
                     return null;
             }
         }
+
+        /// <summary>
+        /// Splits a string into a set of integers using the provided separator. Optional whitespace in the input is
+        /// handled gracefully.
+        /// </summary>
+        /// <param name="value">The string to split into integers; may be null or empty.</param>
+        /// <param name="separator">The separator character to split the string by, defaults to <c>','</c>.</param>
+        /// <returns>The set of distinct integers found in the input string.</returns>
+        public static ISet<int> SplitIntoIntegers(this string value, char separator = ',')
+        {
+            value = value ?? "";
+
+            var collection = value
+                .Split(separator)
+                .Select(segment => int.TryParse(segment, out var result) ? (int?)result : null)
+                .Where(num => num.HasValue)
+                .Select(num => num.Value);
+
+            return new HashSet<int>(collection);
+        }
+
+        /// <summary>
+        /// Splits a string into a set of strings using the provided separator. Optional whitespace in the input is
+        /// handled gracefully.
+        /// </summary>
+        /// <param name="value">The string to split into strings; may be null or empty.</param>
+        /// <param name="separator">The separator character to split the string by, defaults to <c>','</c>.</param>
+        /// <returns>The set of distinct strings found in the input string.</returns>
+        public static ISet<string> SplitIntoStrings(this string value, char separator = ',') =>
+            new HashSet<string>((value ?? string.Empty).Split(new[] { separator }, StringSplitOptions.RemoveEmptyEntries));
     }
 }
