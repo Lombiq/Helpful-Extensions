@@ -4,7 +4,7 @@
 
 ## About
 
-Orchard Core module containing some handy extensions (e.g. filters for Projector). Note that this module has a more recent version targeting the nightly build of Orchard in the [orchard-core-preview branch](https://github.com/Lombiq/Helpful-Extensions/tree/orchard-core-preview), as well as an Orchard 1 version in the [dev-orchard-1 branch](https://github.com/Lombiq/Helpful-Extensions/tree/dev-orchard-1).
+Orchard Core module containing some handy extensions (e.g. filters for Projector). Note that this module has an Orchard 1 version in the [dev-orchard-1 branch](https://github.com/Lombiq/Helpful-Extensions/tree/dev-orchard-1).
 
 
 ## Extensions
