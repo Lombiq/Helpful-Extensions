@@ -55,3 +55,10 @@ using static Lombiq.HelpfulExtensions.FeatureIds;
         "OrchardCore.Title",
     }
 )]
+
+[assembly: Feature(
+    Id = ShapeTracing,
+    Name = "Shape Tracing Helpful Extensions - Lombiq Helpful Extensions",
+    Category = "Development",
+    Description = "Adds a dump of metadata to the output about every shape."
+)]

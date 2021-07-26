@@ -4,7 +4,7 @@
 
 ## About
 
-Orchard Core module containing some handy extensions (e.g. filters for Projector). Note that this module has a more recent version targeting the nightly build of Orchard in the [orchard-core-preview branch](https://github.com/Lombiq/Helpful-Extensions/tree/orchard-core-preview), as well as an Orchard 1 version in the [dev-orchard-1 branch](https://github.com/Lombiq/Helpful-Extensions/tree/dev-orchard-1).
+Orchard Core module containing some handy extensions (e.g. filters for Projector). Note that this module has an Orchard 1 version in the [dev-orchard-1 branch](https://github.com/Lombiq/Helpful-Extensions/tree/dev-orchard-1).
 
 
 ## Extensions
@@ -20,7 +20,7 @@ Generates migration code from content definitions. You can use this to create (o
 
 ### Flows Helpful Extensions
 
-Adds additional styling capabilities to the OrchardCore.Flows feature by making it possible to add classes to widgets in the Flow Part editor.
+Adds additional styling capabilities to the OrchardCore.Flows feature by making it possible to add classes to widgets in the Flow Part editor. Just add `AdditionalStylingPart` to the content type using `FlowPart`.
 
 ![Custom classes editor on a widget contained in Flow Part.](Docs/Attachments/FlowPartCustomClasses.png)
 
@@ -42,11 +42,23 @@ Includes:
 
 - Page: Highly customizable page content type with FlowPart and AutoroutePart.
 
-The module's source is available in two public source repositories, automatically mirrored in both directions with [Git-hg Mirror](https://githgmirror.com):
+### Shape Tracing Helpful Extensions
 
-- [https://bitbucket.org/Lombiq/helpful-extensions](https://bitbucket.org/Lombiq/helpful-extensions) (Mercurial repository)
-- [https://github.com/Lombiq/Helpful-Extensions](https://github.com/Lombiq/Helpful-Extensions) (Git repository)
+Adds a dump of metadata to the output about every shape. This will help you understand how a shape is displayed and how you can override it. Just check out the HTML output. You can see a video demo of this feature in action [on YouTube](https://www.youtube.com/watch?v=WI4TEKVc9SA).
 
+### Helpful Shapes
+
+Adds common constructs you can use in your views.
+
+#### BootstrapAccordion
+
+It displays an [accordion powered by Bootstrap](https://getbootstrap.com/docs/4.0/components/collapse/#accordion-example). It displays shapes as content. The `Children` property is required.
+
+```html
+<shape type="BootstrapAccordion" 
+       prop-AdditionalClasses="string" 
+       prop-Children="IEnumerable<BootstrapAccordionItem>"></shape>
+```
 
 ## Contributing and support
 

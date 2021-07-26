@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.Razor">
+﻿<Project Sdk="Microsoft.NET.Sdk.Razor">
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
@@ -7,19 +7,32 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="node_modules\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <FrameworkReference Include="Microsoft.AspNetCore.App" />
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="OrchardCore.Autoroute" Version="1.0.0-rc2-13450" />
-    <PackageReference Include="OrchardCore.ContentManagement" Version="1.0.0-rc2-13450" />
-    <PackageReference Include="OrchardCore.Contents" Version="1.0.0-rc2-13450" />
-    <PackageReference Include="OrchardCore.DisplayManagement" Version="1.0.0-rc2-13450" />
-    <PackageReference Include="OrchardCore.Flows" Version="1.0.0-rc2-13450" />
-    <PackageReference Include="OrchardCore.Html" Version="1.0.0-rc2-13450" />
-    <PackageReference Include="OrchardCore.MetaWeblog.Abstractions" Version="1.0.0-rc2-13450" />
-    <PackageReference Include="OrchardCore.Module.Targets" Version="1.0.0-rc2-13450" />
-    <PackageReference Include="OrchardCore.ResourceManagement" Version="1.0.0-rc2-13450" />
+    <PackageReference Include="OrchardCore.Autoroute" Version="1.0.0" />
+    <PackageReference Include="OrchardCore.ContentManagement" Version="1.0.0" />
+    <PackageReference Include="OrchardCore.Contents" Version="1.0.0" />
+    <PackageReference Include="OrchardCore.DisplayManagement" Version="1.0.0" />
+    <PackageReference Include="OrchardCore.Flows" Version="1.0.0" />
+    <PackageReference Include="OrchardCore.Html" Version="1.0.0" />
+    <PackageReference Include="OrchardCore.MetaWeblog.Abstractions" Version="1.0.0" />
+    <PackageReference Include="OrchardCore.Module.Targets" Version="1.0.0" />
+    <PackageReference Include="OrchardCore.ResourceManagement" Version="1.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference
+      Include="..\..\Libraries\Lombiq.HelpfulLibraries\Lombiq.HelpfulLibraries\Lombiq.HelpfulLibraries.csproj"
+      Condition="Exists('..\..\Libraries\Lombiq.HelpfulLibraries\Lombiq.HelpfulLibraries\Lombiq.HelpfulLibraries.csproj')" />
+    <ProjectReference
+      Include="..\..\Libraries\Lombiq.HelpfulLibraries\Lombiq.HelpfulLibraries.csproj"
+      Condition="Exists('..\..\Libraries\Lombiq.HelpfulLibraries\Lombiq.HelpfulLibraries.csproj')" />
   </ItemGroup>
 
 </Project>

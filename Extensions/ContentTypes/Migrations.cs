@@ -10,10 +10,8 @@ namespace Lombiq.HelpfulExtensions.Extensions.ContentTypes
     {
         private readonly IContentDefinitionManager _contentDefinitionManager;
 
-
         public Migrations(IContentDefinitionManager contentDefinitionManager) =>
             _contentDefinitionManager = contentDefinitionManager;
-
 
         public int Create()
         {
