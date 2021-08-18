@@ -1,5 +1,3 @@
-using Lombiq.HelpfulExtensions;
-using Lombiq.HelpfulExtensions.Extensions.ContentTypes;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.DependencyInjection;
@@ -7,7 +5,7 @@ using OrchardCore.Data.Migration;
 using OrchardCore.Modules;
 using System;
 
-namespace Piedone.HelpfulExtensions.Extensions.ContentTypes
+namespace Lombiq.HelpfulExtensions.Extensions.ContentTypes
 {
     [Feature(FeatureIds.ContentTypes)]
     public class Startup : StartupBase
