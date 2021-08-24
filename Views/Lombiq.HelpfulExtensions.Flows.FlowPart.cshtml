@@ -11,26 +11,33 @@
     {
         var widgetContent = await ContentItemDisplayManager.BuildDisplayAsync(
             widget, Model.BuildPartDisplayContext.Updater, Model.BuildPartDisplayContext.DisplayType, Model.BuildPartDisplayContext.GroupId);
-        var additionalStyling = widget.As<AdditionalStylingPart>();
+        var flowMetadata = widget.As<FlowMetadata>();
 
-        if (additionalStyling != null)
+        if (flowMetadata != null)
         {
-            var flowMetadata = widget.As<FlowMetadata>();
+            var additionalStyling = widget.As<AdditionalStylingPart>();
 
-            if (!string.IsNullOrEmpty(additionalStyling.CustomClasses))
+            bool removeGridExtensionClasses = false;
+            if (additionalStyling != null)
             {
-                widgetContent.Classes.Add(additionalStyling.CustomClasses?.Trim());
+
+                if (!string.IsNullOrEmpty(additionalStyling.CustomClasses))
+                {
+                    widgetContent.Classes.Add(additionalStyling.CustomClasses?.Trim());
+                }
+
+                removeGridExtensionClasses = additionalStyling.RemoveGridExtensionClasses;
             }
 
-            if (!additionalStyling.RemoveGridExtensionClasses && flowMetadata != null)
+            if (!removeGridExtensionClasses)
             {
                 widgetContent.Classes.Add("widget-align-" + flowMetadata.Alignment.ToString().ToLowerInvariant());
                 widgetContent.Classes.Add("widget-size-" + flowMetadata.Size);
             }
-        }
 
-        widgetContent.Classes.Add("widget");
-        widgetContent.Classes.Add("widget-" + widget.ContentItem.ContentType.HtmlClassify());
+            widgetContent.Classes.Add("widget");
+            widgetContent.Classes.Add("widget-" + widget.ContentItem.ContentType.HtmlClassify());
+        }
 
         @await DisplayAsync(widgetContent)
     }
