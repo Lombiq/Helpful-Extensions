@@ -88,7 +88,10 @@ namespace System
             (dateTime ?? clock.UtcNow as DateTime?).ToSiteTimeZone(dateLocalizationServices).ConvertToUsaDateFormat();
 
         public static string ConvertToUsaTimeFormat(this DateTime? time) =>
-            time?.ToString("hh:mm tt") ?? "";
+            time?.ConvertToUsaTimeFormat() ?? "";
+
+        public static string ConvertToUsaTimeFormat(this DateTime time) =>
+            time.ToString("hh:mm tt") ?? "";
 
         public static string DateTimeOrUtcNowToSiteTimeZoneInUsaTimeFormat(
             this DateTime? dateTime,
