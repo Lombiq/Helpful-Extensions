@@ -154,7 +154,7 @@ namespace System
         /// The substring starts at a specified character position and has a specified length.
         /// Will never throw an exception unless start or length is negative.
         /// </summary>
-        /// <param name="text"></param>
+        /// <param name="text">The string to substring.</param>
         /// <param name="startIndex">The zero-based starting character position of a substring in this instance.</param>
         /// <param name="length">The number of characters in the substring.</param>
         /// <returns>A string that is equivalent to the substring of length that begins at startIndex in this instance.</returns>
