@@ -160,11 +160,9 @@ namespace System
         /// <returns>A string that is equivalent to the substring of length that begins at startIndex in this instance.</returns>
         public static string SafeSubstring(this string text, int startIndex, int length) =>
             string.IsNullOrEmpty(text)
-                ? string.Empty 
-                : text.Length <= startIndex 
-                    ? string.Empty 
-                    : text.Length - startIndex <= length 
-                        ? text.Substring(startIndex)
-                        : text.Substring(startIndex, length);
+                ? string.Empty
+                : text.Length <= startIndex
+                    ? string.Empty
+                    : text.Substring(startIndex, Math.Min(text.Length - startIndex, length));
     }
 }
