@@ -148,5 +148,23 @@ namespace System
         /// <returns>The set of distinct strings found in the input string.</returns>
         public static ISet<string> SplitIntoStrings(this string value, char separator = ',') =>
             new HashSet<string>((value ?? string.Empty).Split(new[] { separator }, StringSplitOptions.RemoveEmptyEntries));
+
+        /// <summary>
+        /// Retrieves a substring from this instance safely. 
+        /// The substring starts at a specified character position and has a specified length.
+        /// Will never throw an exception unless start or length is negative.
+        /// </summary>
+        /// <param name="text">The string to substring.</param>
+        /// <param name="startIndex">The zero-based starting character position of a substring in this instance.</param>
+        /// <param name="length">The number of characters in the substring.</param>
+        /// <returns>A string that is equivalent to the substring of length that begins at startIndex in this instance.</returns>
+        public static string SafeSubstring(this string text, int startIndex, int length) =>
+            string.IsNullOrEmpty(text)
+                ? string.Empty 
+                : text.Length <= startIndex 
+                    ? string.Empty 
+                    : text.Length - startIndex <= length 
+                        ? text.Substring(startIndex)
+                        : text.Substring(startIndex, length);
     }
 }
