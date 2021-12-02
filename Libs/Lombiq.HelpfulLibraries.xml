@@ -1,0 +1,1160 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Lombiq.HelpfulLibraries</name>
+    </assembly>
+    <members>
+        <member name="M:Microsoft.AspNetCore.Http.EnvironmentHttpContextExtensions.IsDevelopment(Microsoft.AspNetCore.Http.HttpContext)">
+            <summary>
+            Returns <see langword="true" /> if the current <see cref="P:Microsoft.Extensions.Hosting.IHostEnvironment.EnvironmentName"/> is
+            <see cref="F:Microsoft.Extensions.Hosting.Environments.Development"/>.
+            </summary>
+            <returns>
+            <see langword="true" /> if the current <see cref="P:Microsoft.Extensions.Hosting.IHostEnvironment.EnvironmentName"/> is
+            <see cref="F:Microsoft.Extensions.Hosting.Environments.Development"/>.
+            </returns>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Http.EnvironmentHttpContextExtensions.IsLocalhost(Microsoft.AspNetCore.Http.HttpContext)">
+            <summary>
+            Returns <see langword="true" /> if the current host is localhost.
+            </summary>
+            <returns><see langword="true" /> if the current host is localhost.</returns>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Http.EnvironmentHttpContextExtensions.IsDevelopmentAndLocalhost(Microsoft.AspNetCore.Http.HttpContext)">
+            <summary>
+            Returns <see langword="true" /> if the current <see cref="P:Microsoft.Extensions.Hosting.IHostEnvironment.EnvironmentName"/> is
+            <see cref="F:Microsoft.Extensions.Hosting.Environments.Development"/> and the host is localhost.
+            </summary>
+            <returns>
+            <see langword="true" /> if the current <see cref="P:Microsoft.Extensions.Hosting.IHostEnvironment.EnvironmentName"/> is
+            <see cref="F:Microsoft.Extensions.Hosting.Environments.Development"/> and the host is localhost.
+            </returns>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Http.DateTimeHttpContextExtensions.SetTimeZoneId(Microsoft.AspNetCore.Http.HttpContext,System.String)">
+            <summary>
+            Sets the time-zone in the HTTP context.
+            </summary>
+            <param name="timeZoneId">IANA time-zone ID.</param>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Http.DateTimeHttpContextExtensions.GetTimeZoneId(Microsoft.AspNetCore.Http.HttpContext)">
+            <summary>
+            Gets the time-zone set in the HTTP context.
+            </summary>
+            <remarks>
+            <para>
+            It returns null if the HTTP context doesn't contain any time-zone data which doesn't mean that no time-zone
+            information is provided by other providers.
+            </para>
+            </remarks>
+            <returns>IANA time-zone ID.</returns>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Http.LocalizationHttpContextExtensions.GetUICulture(Microsoft.AspNetCore.Http.HttpContext)">
+            <summary>
+            Returns the CultureInfo set in the request.
+            </summary>
+            <returns>CultureInfo set in the request.</returns>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Http.HttpContextExtensions.SetCookieForever(Microsoft.AspNetCore.Http.HttpContext,System.String,System.String)">
+            <summary>
+            Sets the cookie with the given name with a maximal expiration time.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Http.HttpContextExtensions.SetCookieForever(Microsoft.AspNetCore.Http.IHttpContextAccessor,System.String,System.String)">
+            <summary>
+            Sets the cookie with the given name with a maximal expiration time.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Builder.ForwardedHeadersApplicationBuilderExtensions.UseForwardedHeadersForCloudflareAndAzure(Microsoft.AspNetCore.Builder.IApplicationBuilder)">
+            <summary>
+            Forwards proxied headers onto the current request with settings suitable for an app behind Cloudflare and
+            hosted in an Azure App Service. Call this from the web app's <c>Startup</c> class.
+            </summary>
+            <remarks>
+            <para>
+            Uses and configures <see cref="M:Microsoft.AspNetCore.Builder.ForwardedHeadersExtensions.UseForwardedHeaders(Microsoft.AspNetCore.Builder.IApplicationBuilder,Microsoft.AspNetCore.Builder.ForwardedHeadersOptions)"/> under the hood.
+            </para>
+            <para>
+            Use this instead of the Reverse Proxy Configuration feature when the host header is forwarded too. Otherwise
+            tenant host matching won't work.
+            </para>
+            <para>
+            Doesn't cause any issues if there are no forwarded headers so you can use it during development too.
+            </para>
+            </remarks>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Mvc.Localization.LocalizedHtmlStringExtensions.Json(Microsoft.AspNetCore.Mvc.Localization.LocalizedHtmlString)">
+            <summary>
+            Returns a raw HTML string that's been JSON serialized and therefore safe to use within <c>&lt;script&gt;</c>
+            tags in a Razor view.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Mvc.ControllerExtensions.RedirectToLocal(Microsoft.AspNetCore.Mvc.Controller,System.String)">
+            <summary>
+            Will redirect to the given URL if that is local. Otherwise it will redirect to "~/".
+            </summary>
+            <param name="redirectUrl">Local URL to redirect to.</param>
+            <returns>Redirect action result.</returns>
+            <remarks>
+            <para>
+            Could be part of Orchard but <see href="https://github.com/OrchardCMS/OrchardCore/issues/2830">it
+            won't</see>.
+            </para>
+            </remarks>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Mvc.ControllerExtensions.RedirectToContentDisplay(Microsoft.AspNetCore.Mvc.Controller,OrchardCore.ContentManagement.IContent)">
+            <summary>
+            Uses <see cref="M:Microsoft.AspNetCore.Mvc.Routing.UrlHelperExtensions.DisplayContentItem(Microsoft.AspNetCore.Mvc.IUrlHelper,OrchardCore.ContentManagement.IContent)"/> extension method to redirect to this <see
+            cref="T:OrchardCore.ContentManagement.ContentItem"/>'s display page.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Mvc.Filters.ResultExecutingContextExtensions.IsNotFullViewRenderingOrIsAdmin(Microsoft.AspNetCore.Mvc.Filters.ResultExecutingContext)">
+            <summary>
+            Indicates if the current result is a full view rendering result (i.e. where you can properly inject shapes
+            into the Layout) or if the <see cref="T:OrchardCore.Admin.AdminAttribute"/> is applied.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Mvc.Filters.ResultExecutingContextExtensions.IsNotFullViewRenderingOrIsNotAdmin(Microsoft.AspNetCore.Mvc.Filters.ResultExecutingContext)">
+            <summary>
+            Indicates if the current result is a full view rendering result (i.e. where you can properly inject shapes
+            into the Layout) or if the <see cref="T:OrchardCore.Admin.AdminAttribute"/> is NOT applied.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Mvc.Filters.ResultExecutingContextExtensions.IsAdmin(Microsoft.AspNetCore.Mvc.Filters.ResultExecutingContext)">
+            <summary>
+            Indicates if the <see cref="T:OrchardCore.Admin.AdminAttribute"/> is applied to the current result.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Mvc.Filters.ResultExecutingContextExtensions.IsNotFullViewRendering(Microsoft.AspNetCore.Mvc.Filters.ResultExecutingContext)">
+            <summary>
+            Indicates if the current result is a full view rendering result (i.e. where you can properly inject shapes
+            into the Layout).
+            </summary>
+            <remarks>
+            <para>
+            The URL /Admin/Media/MediaApplication from OrchardCore.Media will be a full view rendering though.
+            </para>
+            </remarks>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Mvc.Routing.UrlHelperExtensions.EditContentItemWithTab(Microsoft.AspNetCore.Mvc.IUrlHelper,System.String,OrchardCore.ContentManagement.IContent)">
+            <summary>
+            Returns a relative URL for the editor action of <paramref name="content"/> with the tab of
+            <paramref name="tabIdPart"/> selected.
+            </summary>
+            <param name="tabIdPart">The name of the tab as used in the placement info.</param>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Mvc.Routing.UrlHelperExtensions.DisplayContentItem(Microsoft.AspNetCore.Mvc.IUrlHelper,OrchardCore.ContentManagement.IContent)">
+            <summary>
+            Returns the URL for the <see cref="T:OrchardCore.ContentManagement.ContentItem"/> display page for the given <paramref name="content"/>.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Extensions.Configuration.ConfigurationExtensions.IsAzureHosting(Microsoft.Extensions.Configuration.IConfiguration)">
+            <summary>
+            Retrieves a value indicating whether the <c>OrchardCore:IsAzureHosting</c> configuration key is set to
+            <see langword="true"/>.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Extensions.Caching.Memory.MemoryCacheExtensions.GetOrNew``1(Microsoft.Extensions.Caching.Memory.IMemoryCache,System.String)">
+            <summary>
+            Returns the value referenced by <paramref name="key"/> if it exists and it's of <typeparamref name="T"/>.
+            Otherwise returns a new instance without saving it into the cache. Never <see langword="null"/>.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Extensions.DependencyInjection.OrchardCoreBuilderExtensions.AddDatabaseShellsConfigurationIfAvailable(Microsoft.Extensions.DependencyInjection.OrchardCoreBuilder,Microsoft.Extensions.Configuration.IConfiguration)">
+            <summary>
+            Adds database shell configuration usage but only if the necessary connection string configuration is
+            available.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Extensions.DependencyInjection.OrchardCoreBuilderExtensions.ConfigureSmtpSettings(Microsoft.Extensions.DependencyInjection.OrchardCoreBuilder,System.Boolean)">
+            <summary>
+            Configures SMTP settings (<see cref="T:OrchardCore.Email.SmtpSettings"/>) from the configuration provider.
+            </summary>
+            <param name="overrideAdminSettings">
+            If set to <see langword="true"/> the settings coming from the configuration provider will override the ones
+            set up from the admin UI.
+            </param>
+        </member>
+        <member name="T:Lombiq.HelpfulLibraries.Libraries.Contents.CommonContentDisplayTypes">
+            <summary>
+            Values that can be used with <see cref="M:OrchardCore.ContentManagement.Display.IContentItemDisplayManager.BuildDisplayAsync(OrchardCore.ContentManagement.ContentItem,OrchardCore.DisplayManagement.ModelBinding.IUpdateModel,System.String,System.String)"/> or
+            <see cref="M:OrchardRazorHelperExtensions.DisplayAsync(OrchardCore.DisplayManagement.Razor.IOrchardDisplayHelper,OrchardCore.ContentManagement.ContentItem,System.String,System.String,OrchardCore.DisplayManagement.ModelBinding.IUpdateModel)"/> to safely select the correct display type.
+            </summary>
+        </member>
+        <member name="T:Lombiq.HelpfulLibraries.Libraries.Contents.IContentVersionNumberService">
+            <summary>
+            Service for getting the version numbers of a content item or a specific version of it.
+            </summary>
+        </member>
+        <member name="M:Lombiq.HelpfulLibraries.Libraries.Contents.IContentVersionNumberService.GetLatestVersionNumberAsync(System.String)">
+            <summary>
+            Returns the current largest version number for the content item.
+            </summary>
+        </member>
+        <member name="M:Lombiq.HelpfulLibraries.Libraries.Contents.IContentVersionNumberService.GetCurrentVersionNumberAsync(System.String,System.String)">
+            <summary>
+            Returns the version number of a specific version.
+            </summary>
+        </member>
+        <member name="T:Lombiq.HelpfulLibraries.Libraries.Contents.PublicationStatus">
+            <summary>
+            The status of the <see cref="T:OrchardCore.ContentManagement.ContentItem"/>.
+            </summary>
+        </member>
+        <member name="F:Lombiq.HelpfulLibraries.Libraries.Contents.PublicationStatus.Any">
+            <summary>
+            Only used for querying to return all regardless of publication status or to indicate that the status was unset.
+            </summary>
+        </member>
+        <member name="F:Lombiq.HelpfulLibraries.Libraries.Contents.PublicationStatus.Published">
+            <summary>
+            The content published (eg. after clicking the Publish button).
+            </summary>
+        </member>
+        <member name="F:Lombiq.HelpfulLibraries.Libraries.Contents.PublicationStatus.Draft">
+            <summary>
+            The content is draft (eg. after clicking the Save Draft button).
+            </summary>
+        </member>
+        <member name="F:Lombiq.HelpfulLibraries.Libraries.Contents.PublicationStatus.Latest">
+            <summary>
+            Only used for querying to return either published or draft items.
+            </summary>
+        </member>
+        <member name="F:Lombiq.HelpfulLibraries.Libraries.Contents.PublicationStatus.Deleted">
+            <summary>
+            The content is deleted but remains in database as version history.
+            </summary>
+        </member>
+        <member name="T:Lombiq.HelpfulLibraries.Libraries.Database.IManualConnectingIndexService`1">
+            <summary>
+            An alternative to <see cref="T:YesSql.Indexes.IndexProvider`1"/> for manually creating connecting indices without the use of a
+            connecting document. When representing many-to-many connections, the user must decide which it resolves to when
+            calling <see cref="M:Lombiq.HelpfulLibraries.Libraries.Database.IManualConnectingIndexService`1.AddAsync(`0,YesSql.ISession,System.Nullable{System.Int32})"/>.
+            </summary>
+            <typeparam name="T">The index to be managed.</typeparam>
+            <remarks>
+            <list type="number">
+                <listheader><description>Usage</description></listheader>
+                <item><description>Create a <see cref="T:YesSql.Indexes.MapIndex"/> as usual, but make no <see cref="T:YesSql.Indexes.IndexProvider`1"/>.</description></item>
+                <item><description>Register this class for the index as singleton.</description></item>
+                <item><description>Manually create the indices with <see cref="M:Lombiq.HelpfulLibraries.Libraries.Database.IManualConnectingIndexService`1.AddAsync(`0,YesSql.ISession,System.Nullable{System.Int32})"/>.</description></item>
+                <item><description>Look up the results using <see cref="T:YesSql.IQuery"/> as usual.</description></item>
+            </list>
+            </remarks>
+        </member>
+        <member name="M:Lombiq.HelpfulLibraries.Libraries.Database.IManualConnectingIndexService`1.AddAsync(`0,YesSql.ISession,System.Nullable{System.Int32})">
+            <summary>
+            Adds a new entry to the index that refers to the document with the id in <paramref name="setDocumentId"/>.
+            If that's <see langword="null"/> then the <see cref="T:YesSql.Document"/> of the <paramref name="item"/>.
+            </summary>
+            <param name="item">The index object to be recorded.</param>
+            <param name="setDocumentId">
+            If not <see langword="null"/>, overrides the index that may be in <paramref name="item"/>. It's also more
+            convenient than casting it into <see cref="T:YesSql.Indexes.IIndex"/> to use <see cref="M:YesSql.Indexes.IIndex.AddDocument(YesSql.Document)"/> when the index
+            is created just on call.
+            </param>
+            <param name="session">
+            If not null, its connection and transaction is used instead of creating a new one.
+            </param>
+        </member>
+        <member name="M:Lombiq.HelpfulLibraries.Libraries.Database.IManualConnectingIndexService`1.RemoveAsync(System.String,System.Object,YesSql.ISession)">
+            <summary>
+            Removes one or more existing indices using a standard SQL query where the given column has the given
+            <paramref name="value"/>.
+            </summary>
+            <param name="columnName">The name of the column (i.e. the property name) to check.</param>
+            <param name="value">The value to select for.</param>
+            <param name="session">
+            If not null, its connection and transaction is used instead of creating a new one.
+            </param>
+        </member>
+        <member name="T:Lombiq.HelpfulLibraries.Libraries.Database.IndexDataMigration`1">
+            <summary>
+            Use this as a normal <see cref="T:OrchardCore.Data.Migration.IDataMigration"/> for a single index. The generic type is considered a contract
+            and doesn't actually do anything. Use it in case you need to synchronize type constraints in your code.
+            </summary>
+            <typeparam name="TIndex">The type of the <see cref="T:YesSql.Indexes.MapIndex"/> this migration is for.</typeparam>
+        </member>
+        <member name="M:Lombiq.HelpfulLibraries.Libraries.Database.SchemaBuilderExtensions.CreateDocumentIdIndex``1(YesSql.Sql.ISchemaBuilder)">
+            <summary>
+            Creates a non-clustered DocumentId index for a specific table.
+            </summary>
+            <typeparam name="T">Index table type.</typeparam>
+            <param name="schemaBuilder">SchemaBuilder Interface.</param>
+        </member>
+        <member name="T:Lombiq.HelpfulLibraries.Libraries.DependencyInjection.IOrchardServices`1">
+            <summary>
+            A convenience bundle of services that are common dependencies of other CMS services in Orchard Core.
+            </summary>
+            <typeparam name="T">The type of the dependant service, used for logger.</typeparam>
+        </member>
+        <member name="T:Lombiq.HelpfulLibraries.Libraries.GraphQL.PartIndexAliasProvider`1">
+            <summary>
+            Eliminates boilerplate for IIndexAliasProvider for indexes with a name ending with <c>PartIndex</c>.
+            </summary>
+            <typeparam name="TIndex">A content part index with a name ending with <c>PartIndex</c>.</typeparam>
+        </member>
+        <member name="T:Lombiq.HelpfulLibraries.Libraries.GraphQL.TotalOfContentTypeBuilder">
+            <summary>
+            Adds a "totalOfContentType" field to each top level <see cref="T:OrchardCore.ContentManagement.ContentItem"/> type node.
+            </summary>
+        </member>
+        <member name="T:Lombiq.HelpfulLibraries.Libraries.Middlewares.IDeferredTask">
+            <summary>
+            A task that can be executed in the return edge of the middleware pipeline.
+            </summary>
+        </member>
+        <member name="P:Lombiq.HelpfulLibraries.Libraries.Middlewares.IDeferredTask.IsScheduled">
+            <summary>
+            Gets or sets a value indicating whether the task was scheduled.
+            </summary>
+        </member>
+        <member name="M:Lombiq.HelpfulLibraries.Libraries.Middlewares.IDeferredTask.PreProcessAsync(Microsoft.AspNetCore.Http.HttpContext)">
+            <summary>
+            A task executed on the starting edge of the middleware pipeline (i.e. this is not "deferred").
+            </summary>
+        </member>
+        <member name="M:Lombiq.HelpfulLibraries.Libraries.Middlewares.IDeferredTask.PostProcessAsync(Microsoft.AspNetCore.Http.HttpContext)">
+            <summary>
+            A task executed on the return edge of the middleware pipeline. It is guaranteed that all filters have
+            concluded at this point. Most middlewares too, as they typically only do work before passing to the next
+            element of the pipeline.
+            </summary>
+        </member>
+        <member name="M:Lombiq.HelpfulLibraries.Libraries.Mvc.ActionResultHelpers.ZipFile(System.Collections.Generic.IDictionary{System.String,System.IO.Stream},System.String)">
+            <summary>
+            Compresses the <paramref name="files"/> into a zip archive ready to be served by a controller.
+            </summary>
+            <param name="files">The file collection where key is the zip entry file name and value is the data stream.</param>
+            <param name="zipFileName">The filename of the archive, can be with or without the ".zip" at the end.</param>
+        </member>
+        <member name="T:Lombiq.HelpfulLibraries.Libraries.Mvc.DevelopmentAndLocalhostOnlyAttribute">
+            <summary>
+            Enforces the Development environment as well as localhost. When put on a controller or an action it'll set a
+            <see cref="T:Microsoft.AspNetCore.Mvc.NotFoundResult"/> if the current <see cref="T:Microsoft.Extensions.Hosting.IHostEnvironment"/> is not Development or if the host of
+            the current URL is "localhost".
+            </summary>
+        </member>
+        <member name="T:Lombiq.HelpfulLibraries.Libraries.Mvc.DevelopmentOnlyAttribute">
+            <summary>
+            Enforces the Development environment. When put on a controller or an action it'll set a <see
+            cref="T:Microsoft.AspNetCore.Mvc.NotFoundResult"/> if the current <see cref="T:Microsoft.Extensions.Hosting.IHostEnvironment"/> is not Development.
+            </summary>
+        </member>
+        <member name="T:Lombiq.HelpfulLibraries.Libraries.ResourceManagement.IResourceFilterProvider">
+            <summary>
+            A service that can add static resources to the resource management pipeline.
+            </summary>
+        </member>
+        <member name="M:Lombiq.HelpfulLibraries.Libraries.ResourceManagement.IResourceFilterProvider.AddResourceFilter(Lombiq.HelpfulLibraries.Libraries.ResourceManagement.ResourceFilterBuilder)">
+            <summary>
+            Adds static resources to the pipeline that will be loaded based on various criteria.
+            </summary>
+        </member>
+        <member name="M:Lombiq.HelpfulLibraries.Libraries.ResourceManagement.ResourceHelper.GetFileAsync(Microsoft.Extensions.FileProviders.IFileProvider,System.String)">
+            <summary>
+            Returns the contents of an embedded text file in a given assembly.
+            Returns the text content of the file located in the <paramref name="path"/> of the
+            <paramref name="provider"/> or <see langword="null"/> if it doesn't exist.
+            </summary>
+        </member>
+        <member name="M:Lombiq.HelpfulLibraries.Libraries.ResourceManagement.ResourceHelper.GetFileAsync``1(Microsoft.Extensions.FileProviders.IFileProvider,System.String)">
+            <summary>
+            Returns the text content of the file located in the "Resources/{typeName}.{extension}" path of the
+            <paramref name="provider"/> or <see langword="null" /> if it doesn't exist.
+            </summary>
+            <param name="extension">The extension of the target file.</param>
+        </member>
+        <member name="M:Lombiq.HelpfulLibraries.Libraries.ResourceManagement.ResourceHelper.GetEmbeddedFileAsync``1(System.String)">
+            <summary>
+            Returns the contents of an embedded text file inside the same assembly as the given type. The embedded path
+            is "Resources/{typeName}.{extension}".
+            </summary>
+            <typeparam name="T">A type defined in the same assembly where the embedded resource is.</typeparam>
+            <param name="extension">The extension of the target file.</param>
+        </member>
+        <member name="M:Lombiq.HelpfulLibraries.Libraries.ResourceManagement.ResourceHelper.GetTypeFilePath``1(System.String,System.Char)">
+            <summary>
+            Returns a path usable for looking up resources.
+            </summary>
+            <remarks>
+            <para>
+            Use this if you want to expand on the above but maintain the "Resources/{typeName}.{extension}" path format.
+            </para>
+            </remarks>
+        </member>
+        <member name="T:Lombiq.HelpfulLibraries.Libraries.Users.AdminPermissionBase">
+            <summary>
+            A provider that only has <c>Administrator</c> stereotype permissions. Reduces boilerplate.
+            </summary>
+        </member>
+        <member name="T:Lombiq.HelpfulLibraries.Libraries.Users.ICachingUserManager">
+            <summary>
+            Retrieves <see cref="T:OrchardCore.Users.Models.User"/>s from a transient per-request cache or sets them if they are not set yet.
+            </summary>
+        </member>
+        <member name="M:Lombiq.HelpfulLibraries.Libraries.Users.ICachingUserManager.GetUserByIdAsync(System.String)">
+            <summary>
+            Retrieves <see cref="T:OrchardCore.Users.Models.User"/>s from a transient per-request cache by their unique ID or gets them from the
+            store if not yet cached.
+            </summary>
+            <param name="userId">Unique ID identifying the <see cref="T:OrchardCore.Users.Models.User"/>.</param>
+            <returns>Potentially cached <see cref="T:OrchardCore.Users.Models.User"/>.</returns>
+        </member>
+        <member name="M:Lombiq.HelpfulLibraries.Libraries.Users.ICachingUserManager.GetUserByNameAsync(System.String)">
+            <summary>
+            Retrieves <see cref="T:OrchardCore.Users.Models.User"/>s from a transient per-request cache by their username or gets them from the
+            store if not yet cached.
+            </summary>
+            <param name="username">Username of the <see cref="T:OrchardCore.Users.Models.User"/>.</param>
+            <returns>Potentially cached <see cref="T:OrchardCore.Users.Models.User"/>.</returns>
+        </member>
+        <member name="M:Lombiq.HelpfulLibraries.Libraries.Users.ICachingUserManager.GetUserByEmailAsync(System.String)">
+            <summary>
+            Retrieves <see cref="T:OrchardCore.Users.Models.User"/>s from a transient per-request cache by their email or gets them from the store
+            if not yet cached.
+            </summary>
+            <param name="email">Email of the <see cref="T:OrchardCore.Users.Models.User"/>.</param>
+            <returns>Potentially cached <see cref="T:OrchardCore.Users.Models.User"/>.</returns>
+        </member>
+        <member name="M:Lombiq.HelpfulLibraries.Libraries.Users.ICachingUserManager.GetUserByClaimsPrincipalAsync(System.Security.Claims.ClaimsPrincipal)">
+            <summary>
+            Retrieves an authenticated <see cref="T:OrchardCore.Users.Models.User"/> from a transient per-request cache or gets them from the
+            store if not yet cached.
+            </summary>
+            <param name="claimsPrincipal">
+            <see cref="T:System.Security.Claims.ClaimsPrincipal"/> representing the authenticated <see cref="T:OrchardCore.Users.Models.User"/>.
+            </param>
+            <returns>Potentially cached <see cref="T:OrchardCore.Users.Models.User"/>.</returns>
+        </member>
+        <member name="M:Lombiq.HelpfulLibraries.Libraries.Users.CachingUserServiceExtensions.GetUserByNameOrEmailAsync(Lombiq.HelpfulLibraries.Libraries.Users.ICachingUserManager,System.String)">
+            <summary>
+            Retrieves <see cref="T:OrchardCore.Users.Models.User"/>s from a transient per-request cache by their username or email or gets them
+            from the store if not yet cached.
+            </summary>
+            <param name="nameOrEmail">Username or email of the <see cref="T:OrchardCore.Users.Models.User"/>.</param>
+            <returns>Potentially cached <see cref="T:OrchardCore.Users.Models.User"/>.</returns>
+        </member>
+        <member name="M:Lombiq.HelpfulLibraries.Libraries.Utilities.JsonHelpers.AlterDeep(Newtonsoft.Json.Linq.JObject,System.Action{System.String,Newtonsoft.Json.Linq.JObject},System.String)">
+            <summary>
+            Alters a <see cref="T:Newtonsoft.Json.Linq.JObject"/> by iterating through all their inner JObject nodes deeply and executing the
+            provided alter operation on it.
+            </summary>
+            <param name="jObject"><see cref="T:Newtonsoft.Json.Linq.JObject"/> to alter.</param>
+            <param name="alter">Operation that alters a deep <see cref="T:Newtonsoft.Json.Linq.JObject"/> node.</param>
+            <param name="propertyName">Name of the deep <see cref="T:Newtonsoft.Json.Linq.JObject"/> node.</param>
+        </member>
+        <member name="M:Lombiq.HelpfulLibraries.Libraries.Utilities.JsonHelpers.AlterDeepAsync(Newtonsoft.Json.Linq.JObject,System.Func{System.String,Newtonsoft.Json.Linq.JObject,System.Threading.Tasks.Task},System.String)">
+            <summary>
+            Alters a <see cref="T:Newtonsoft.Json.Linq.JObject"/> by iterating through all their inner JObject nodes deeply and executing the
+            provided asynchronous alter operation on it.
+            </summary>
+            <param name="jObject"><see cref="T:Newtonsoft.Json.Linq.JObject"/> to alter.</param>
+            <param name="alterAsync">Async operation that alters a deep <see cref="T:Newtonsoft.Json.Linq.JObject"/> node.</param>
+            <param name="propertyName">Name of the deep <see cref="T:Newtonsoft.Json.Linq.JObject"/> node.</param>
+        </member>
+        <member name="T:Lombiq.HelpfulLibraries.Libraries.Utilities.NonSecurityRandomizer">
+            <summary>
+            A wrapper around <see cref="T:System.Random"/> which emphasizes that it is not for any security critical purpose. By
+            using this class the user acknowledges that, which means manually disabling the
+            <see href="https://docs.microsoft.com/en-us/dotnet/fundamentals/code-analysis/quality-rules/ca5394#when-to-suppress-warnings">
+            CA5394</see> warning is no longer necessary.
+            </summary>
+        </member>
+        <member name="M:Lombiq.HelpfulLibraries.Libraries.Utilities.NonSecurityRandomizer.GetFromRange(System.Int32)">
+            <summary>
+            Returns a random integer that is at least 0 and lower than <paramref name="below"/>.
+            </summary>
+        </member>
+        <member name="M:Lombiq.HelpfulLibraries.Libraries.Utilities.NonSecurityRandomizer.Get">
+            <summary>
+            Returns a random integer between 0 and <see cref="F:System.Int32.MaxValue"/> inclusive.
+            </summary>
+        </member>
+        <member name="M:Lombiq.HelpfulLibraries.Libraries.Utilities.Sha256Helper.ComputeHash(System.String)">
+            <summary>
+            Calculates the SHA-256 strong (cryptographic) hash from the specified <paramref name="text"/> string.
+            </summary>
+            <param name="text">The text that is decoded into a hashable byte array using <see cref="P:System.Text.Encoding.UTF8"/>.</param>
+            <returns>The hexadecimal string representation of the SHA-256 hash.</returns>
+        </member>
+        <member name="T:Lombiq.HelpfulLibraries.MimeTypes">
+            <summary>
+            Provides utilities for mapping file names and extensions to MIME-types.
+            </summary>
+        </member>
+        <member name="P:Lombiq.HelpfulLibraries.MimeTypes.FallbackMimeType">
+            <summary>
+            The fallback MIME-type. Defaults to <c>application/octet-stream</c>.
+            </summary>
+        </member>
+        <member name="M:Lombiq.HelpfulLibraries.MimeTypes.TryGetMimeType(System.String,System.String@)">
+            <summary>
+            Tries to get the MIME-type for the given file name.
+            </summary>
+            <param name="fileName">The name of the file.</param>
+            <param name="mimeType">The MIME-type for the given file name.</param>
+            <returns><c>true</c> if a MIME-type was found, <c>false</c> otherwise.</returns>
+        </member>
+        <member name="M:Lombiq.HelpfulLibraries.MimeTypes.GetMimeType(System.String)">
+            <summary>
+            Gets the MIME-type for the given file name,
+            or <see cref="P:Lombiq.HelpfulLibraries.MimeTypes.FallbackMimeType"/> if a mapping doesn't exist.
+            </summary>
+            <param name="fileName">The name of the file.</param>
+            <returns>The MIME-type for the given file name.</returns>
+        </member>
+        <member name="M:OrchardCore.ContentManagement.Metadata.ContentDefinitionManagerExtensions.GetContentPartSettings``1(OrchardCore.ContentManagement.Metadata.IContentDefinitionManager,System.String,System.String)">
+            <summary>
+            Returns the content part settings object defined for the given content part on the given content type.
+            </summary>
+            <typeparam name="T">Type of the content part settings.</typeparam>
+            <param name="contentType">Technical name of the content type.</param>
+            <param name="contentPart">Technical name of the content part.</param>
+            <returns>Content part settings object.</returns>
+        </member>
+        <member name="M:OrchardCore.ContentManagement.ContentEnumerableExtensions.As``1(System.Collections.Generic.IEnumerable{OrchardCore.ContentManagement.IContent})">
+            <summary>
+            Retrieves an enumeration of a content part based on its type from an enumeration of content items.
+            </summary>
+            <returns>The content part enumeration or empty enumeration if it doesn't exist.</returns>
+        </member>
+        <member name="M:OrchardCore.ContentManagement.ContentExtensions.As``1(OrchardCore.ContentManagement.IContent)">
+            <summary>
+            Gets a content part by its type.
+            </summary>
+            <returns>The content part or <see langword="null"/> if it doesn't exist.</returns>
+        </member>
+        <member name="M:OrchardCore.ContentManagement.ContentExtensions.GetOrCreate``1(OrchardCore.ContentManagement.IContent)">
+            <summary>
+            Gets a content part by its type or create a new one.
+            </summary>
+            <typeparam name="TPart">The type of the content part.</typeparam>
+            <returns>The content part instance or a new one if it doesn't exist.</returns>
+        </member>
+        <member name="M:OrchardCore.ContentManagement.ContentExtensions.Weld``1(OrchardCore.ContentManagement.IContent,``0)">
+            <summary>
+            Adds a content part by its type.
+            </summary>
+            <typeparam name="TPart">The part to add to the <see cref="T:OrchardCore.ContentManagement.ContentItem"/>.</typeparam>
+            <returns>The current <see cref="T:OrchardCore.ContentManagement.IContent"/> instance.</returns>
+        </member>
+        <member name="M:OrchardCore.ContentManagement.ContentExtensions.Apply``1(OrchardCore.ContentManagement.IContent,``0)">
+            <summary>
+            Updates the content part with the specified type.
+            </summary>
+            <typeparam name="TPart">The type of the part to update.</typeparam>
+            <returns>The current <see cref="T:OrchardCore.ContentManagement.IContent"/> instance.</returns>
+        </member>
+        <member name="M:OrchardCore.ContentManagement.ContentExtensions.Alter``1(OrchardCore.ContentManagement.IContent,System.Action{``0})">
+            <summary>
+            Modifies a new or existing content part by name.
+            </summary>
+            <param name="action">An action to apply on the content part.</param>
+            <returns>The current <see cref="T:OrchardCore.ContentManagement.IContent"/> instance.</returns>
+        </member>
+        <member name="M:OrchardCore.ContentManagement.ContentExtensions.AlterAsync``1(OrchardCore.ContentManagement.IContent,System.Func{``0,System.Threading.Tasks.Task})">
+            <summary>
+            Modifies a new or existing content part by name.
+            </summary>
+            <param name="action">An action to apply on the content part.</param>
+            <typeparam name="TPart">The type of the part to update.</typeparam>
+            <returns>The current <see cref="T:OrchardCore.ContentManagement.IContent"/> instance.</returns>
+        </member>
+        <member name="M:OrchardCore.ContentManagement.ContentExtensions.Merge(OrchardCore.ContentManagement.IContent,System.Object,Newtonsoft.Json.Linq.JsonMergeSettings)">
+            <summary>
+            Merges properties to the contents of a content item.
+            </summary>
+            <param name="properties">The object to merge.</param>
+            <param name="jsonMergeSettings">Settings for the merge.</param>
+            <returns>The modified <see cref="T:OrchardCore.ContentManagement.ContentItem"/> instance.</returns>
+        </member>
+        <member name="M:OrchardCore.ContentManagement.ContentExtensions.GetPublicationStatus(OrchardCore.ContentManagement.IContent)">
+            <summary>
+            Returns the <see cref="T:Lombiq.HelpfulLibraries.Libraries.Contents.PublicationStatus"/> of the content item.
+            </summary>
+            <param name="content">The <see cref="T:OrchardCore.ContentManagement.IContent"/> whose <see cref="T:OrchardCore.ContentManagement.ContentItem"/> to check.</param>
+            <returns>The status of the <see cref="T:OrchardCore.ContentManagement.ContentItem"/>'s publication if any.</returns>
+        </member>
+        <member name="M:OrchardCore.ContentManagement.ContentExtensions.SanitizeContentItemVersionsAsync(OrchardCore.ContentManagement.IContent,YesSql.ISession)">
+            <summary>
+            Prevents multiple "latest" versions in case somehow two threads edited the same <see cref="T:OrchardCore.ContentManagement.ContentItem"/> at
+            the same time. For example this is possible if the update was done through XHR.
+            </summary>
+            <param name="content">The desired latest version of the content.</param>
+            <remarks>
+            <para>
+            If the <paramref name="content"/> is not <see cref="P:OrchardCore.ContentManagement.ContentItem.Latest"/> nothing will happen. This is to
+            prevent accidental deletion.
+            </para>
+            </remarks>
+        </member>
+        <member name="M:OrchardCore.ContentManagement.ContentExtensions.GetAlias(OrchardCore.ContentManagement.IContent)">
+            <summary>
+            Returns the alias of the content item if the <see cref="T:OrchardCore.Alias.Models.AliasPart"/> is attached to it.
+            </summary>
+            <param name="content">Content item containing <see cref="T:OrchardCore.Alias.Models.AliasPart"/>.</param>
+            <returns>Alias of the content item.</returns>
+        </member>
+        <member name="M:OrchardCore.ContentManagement.ContentExtensions.ToTechnicalString(OrchardCore.ContentManagement.IContent)">
+            <summary>
+            Provides the most essential data for a <see cref="T:OrchardCore.ContentManagement.ContentItem"/> enough to identify it in a text format. Can
+            be used as a human-readable text representing the <see cref="T:OrchardCore.ContentManagement.ContentItem"/> in a log.
+            </summary>
+            <returns>Technical text representing a Content Item.</returns>
+        </member>
+        <member name="M:OrchardCore.ContentManagement.ContentExtensions.GetDateTimeUtc(OrchardCore.ContentManagement.IContent)">
+            <summary>
+            Returns the most relevant date of the <paramref name="content"/>'s <see cref="T:OrchardCore.ContentManagement.ContentItem"/>.
+            </summary>
+            <returns>
+            <para>
+            The values are resolved in the following order if available. If all of them are <see langword="null"/> then
+            <see cref="F:System.DateTime.MinValue"/> is returned.
+            </para>
+            <list type="bullet">
+                <item>
+                    <description><see cref="P:OrchardCore.ContentManagement.ContentItem.ModifiedUtc"/></description>
+                </item>
+                <item>
+                    <description><see cref="P:OrchardCore.ContentManagement.ContentItem.PublishedUtc"/></description>
+                </item>
+                <item>
+                    <description><see cref="P:OrchardCore.ContentManagement.ContentItem.CreatedUtc"/></description>
+                </item>
+            </list>
+            </returns>
+        </member>
+        <member name="M:OrchardCore.ContentManagement.ContentExtensions.IsNew(OrchardCore.ContentManagement.IContent)">
+            <summary>
+            Indicates whether the <see cref="T:OrchardCore.ContentManagement.ContentItem"/> is a newly instantiated one or an already existing one.
+            </summary>
+            <returns>Returns <see langword="true"/> if the item is new.</returns>
+        </member>
+        <member name="M:OrchardCore.ContentManagement.ContentManagerExtensions.GetTaxonomyTermDisplayTextAsync(OrchardCore.ContentManagement.IContentManager,OrchardCore.ContentManagement.IContentHandleManager,System.String,System.String)">
+            <summary>
+            Returns the <see cref="P:OrchardCore.ContentManagement.ContentItem.DisplayText"/> of a specific term identified by its <paramref
+            name="termId"/> within a taxonomy identified by its <paramref name="alias"/>. If none are found <see
+            langword="null"/> is returned.
+            </summary>
+        </member>
+        <member name="T:OrchardCore.ContentManagement.ContentManagerSessionExtensions">
+            <summary>
+            Uses the <see cref="T:OrchardCore.ContentManagement.IContentManagerSession"/> scoped cache around any <see cref="T:OrchardCore.ContentManagement.ContentItem"/> query done
+            outside <see cref="T:OrchardCore.ContentManagement.IContentManager"/>, e.g. if it is not a joined query on <see cref="T:OrchardCore.ContentManagement.Records.ContentItemIndex"/>.
+            </summary>
+        </member>
+        <member name="M:OrchardCore.ContentManagement.ContentManagerSessionExtensions.QueryContentAsync(OrchardCore.ContentManagement.IContentManagerSession,System.Func{System.Threading.Tasks.Task{OrchardCore.ContentManagement.ContentItem}})">
+            <summary>
+            Queries a <see cref="T:OrchardCore.ContentManagement.ContentItem"/> and then stores it in the scoped cache.
+            </summary>
+        </member>
+        <member name="M:OrchardCore.ContentManagement.ContentManagerSessionExtensions.QueryContentAsync(OrchardCore.ContentManagement.IContentManagerSession,System.Func{System.Threading.Tasks.Task{System.Collections.Generic.IEnumerable{OrchardCore.ContentManagement.ContentItem}}})">
+            <summary>
+            Queries <see cref="T:OrchardCore.ContentManagement.ContentItem"/>s and then stores them in the scoped cache.
+            </summary>
+        </member>
+        <member name="M:OrchardCore.ContentManagement.ContentManagerSessionExtensions.GetOrQueryContentAsync(OrchardCore.ContentManagement.IContentManagerSession,System.String,System.Func{System.String,System.Threading.Tasks.Task{OrchardCore.ContentManagement.ContentItem}})">
+            <summary>
+            Gets a published <see cref="T:OrchardCore.ContentManagement.ContentItem"/> from the scoped cache or query it.
+            </summary>
+        </member>
+        <member name="M:OrchardCore.ContentManagement.ContentManagerSessionExtensions.GetOrQueryContentAsync(OrchardCore.ContentManagement.IContentManagerSession,System.Collections.Generic.IEnumerable{System.String},System.Func{System.Collections.Generic.IEnumerable{System.String},System.Threading.Tasks.Task{System.Collections.Generic.IEnumerable{OrchardCore.ContentManagement.ContentItem}}})">
+            <summary>
+            Gets published <see cref="T:OrchardCore.ContentManagement.ContentItem"/>s from the scoped cache or query them.
+            </summary>
+        </member>
+        <member name="M:OrchardCore.Modules.ClockExtensions.GetUnixTimeMilliseconds(OrchardCore.Modules.IClock)">
+            <summary>
+            Returns the Unix timestamp of the current time in UTC.
+            </summary>
+        </member>
+        <member name="M:OrchardCore.Modules.LocalClockExtensions.ConvertToLocalAsync(OrchardCore.Modules.ILocalClock,System.DateTime,System.String,Microsoft.AspNetCore.Http.HttpContext)">
+            <summary>
+            Converts the given UTC date to the given time-zone by temporarily setting it in the HTTP context.
+            </summary>
+            <param name="dateTimeUtc">UTC date.</param>
+            <param name="timeZoneId">IANA time-zone ID.</param>
+            <param name="httpContext">HTTP context to be used to temporarily set in the HTTP context.</param>
+            <returns>Local date.</returns>
+        </member>
+        <member name="M:OrchardCore.Modules.LocalClockExtensions.ConvertToUtcAsync(OrchardCore.Modules.ILocalClock,System.DateTime,System.String,Microsoft.AspNetCore.Http.HttpContext)">
+            <summary>
+            Converts the given local date to UTC using the given time-zone by temporarily setting it in the HTTP
+            context.
+            </summary>
+            <param name="dateTimeLocal">Local date.</param>
+            <param name="timeZoneId">IANA time-zone ID.</param>
+            <param name="httpContext">HTTP context to be used to temporarily set in the HTTP context.</param>
+            <returns>UTC date.</returns>
+        </member>
+        <member name="M:OrchardCore.Modules.LocalClockExtensions.LocalizeAndFormatAsync(OrchardCore.Modules.ILocalClock,System.Nullable{System.DateTime})">
+            <summary>
+            Converts a UTC DateTime to local time and formats it to long time format
+            The <paramref name="dateTimeUtc"/> must be UTC. If the <see cref="P:System.DateTime.Kind"/> is something other than
+            <see cref="F:System.DateTimeKind.Utc"/> then it will be coerced without any conversion. If you need conversion use
+            <see cref="M:OrchardCore.Modules.LocalClockExtensions.ConvertToUtcAsync(OrchardCore.Modules.ILocalClock,System.DateTime,System.String,Microsoft.AspNetCore.Http.HttpContext)"/> first.
+            </summary>
+        </member>
+        <member name="T:OrchardCore.DisplayManagement.Views.ShapeResultExtensions">
+            <summary>
+            Helper class for generating placement strings.
+            </summary>
+        </member>
+        <member name="M:OrchardCore.DisplayManagement.Views.ShapeResultExtensions.UseTab(OrchardCore.DisplayManagement.Views.ShapeResult,System.String,System.Int32)">
+            <summary>
+            Uses <see cref="M:OrchardCore.DisplayManagement.Views.ShapeResult.Location(System.String)"/> to set the <paramref name="name"/> of the tab and its
+            <paramref name="priority"/> in the order of the tabs.
+            </summary>
+        </member>
+        <member name="M:OrchardCore.ResourceManagement.ResourceManifestExtensions.SetDependenciesRecursively(OrchardCore.ResourceManagement.ResourceDefinition,OrchardCore.ResourceManagement.ResourceManifest,OrchardCore.ResourceManagement.ResourceDefinition[])">
+            <summary>
+            Adds <paramref name="newDependencies"/> and all of their dependencies recursively, and strips duplicates.
+            </summary>
+        </member>
+        <member name="M:OrchardCore.ResourceManagement.ResourceManagerExtensions.RegisterStyle(OrchardCore.ResourceManagement.IResourceManager,System.String)">
+            <summary>
+            Registers a <c>stylesheet</c> resource by name at head.
+            </summary>
+        </member>
+        <member name="M:OrchardCore.ResourceManagement.ResourceManagerExtensions.RegisterScript(OrchardCore.ResourceManagement.IResourceManager,System.String,OrchardCore.ResourceManagement.ResourceLocation)">
+            <summary>
+            Registers a <c>script</c> resource by name at the given <paramref name="location"/> (at foot by default).
+            </summary>
+        </member>
+        <member name="M:OrchardCore.ContentOrchardHelperExtensions.GetItemEditUrlAsync(OrchardCore.IOrchardHelper,OrchardCore.ContentManagement.ContentItem)">
+            <summary>
+            Gets the given content item's edit URL.
+            </summary>
+        </member>
+        <member name="M:OrchardCore.ContentOrchardHelperExtensions.GetItemDisplayUrlAsync(OrchardCore.IOrchardHelper,OrchardCore.ContentManagement.ContentItem)">
+            <summary>
+            Gets the given content item's display URL.
+            </summary>
+        </member>
+        <member name="M:OrchardCore.ContentOrchardHelperExtensions.GetContentItemOrPreviewAsync(OrchardCore.IOrchardHelper,System.Func{System.Threading.Tasks.Task{OrchardCore.ContentManagement.ContentItem}})">
+            <summary>
+            Runs a getter delegate to get a content item or loads the item currently viewed via Content Preview.
+            </summary>
+            <remarks>
+            <para>
+            This is useful when supporting preview in a decoupled scenario.
+            </para>
+            </remarks>
+        </member>
+        <member name="M:OrchardCore.FileStorage.FileStoreExtensions.FileExistsAsync(OrchardCore.FileStorage.IFileStore,System.String)">
+            <summary>
+            Checks the existence of a file in the file store.
+            </summary>
+            <param name="path">Relative path to the file.</param>
+        </member>
+        <member name="M:OrchardCore.FileStorage.FileStoreExtensions.DirectoryExistsAsync(OrchardCore.FileStorage.IFileStore,System.String)">
+            <summary>
+            Checks the existence of a directory in the file store.
+            </summary>
+            <param name="path">Relative path to the directory.</param>
+        </member>
+        <member name="M:YesSql.QueryExtensions.PaginateAsync``1(YesSql.IQuery{``0},System.Int32,System.Int32)">
+            <summary>
+            Breaks the query up into pages and lists the page using the given zero-based index. If pageIndex is 0 and
+            count is <see cref="F:System.Int32.MaxValue"/> then the whole query is listed.
+            </summary>
+            <param name="query">The query to paginate.</param>
+            <param name="pageIndex">Zero-based index of the desired page.</param>
+            <param name="count">The page size.</param>
+            <returns>The desired page of the resulting items.</returns>
+        </member>
+        <member name="M:YesSql.QueryExtensions.PaginateAsync``1(YesSql.IQuery{OrchardCore.ContentManagement.ContentItem},System.Int32,System.Int32)">
+            <summary>
+            Breaks the query up into pages and lists the page using the given zero-based index. If pageIndex is 0 and
+            count is <see cref="F:System.Int32.MaxValue"/> then the whole query is listed.
+            </summary>
+            <typeparam name="TPart">
+            The final results are converted into the <see cref="T:OrchardCore.ContentManagement.ContentPart"/> of this type.
+            </typeparam>
+            <param name="query">The query to paginate.</param>
+            <param name="pageIndex">Zero-based index of the desired page.</param>
+            <param name="count">The page size.</param>
+            <returns>
+            The desired page of the resulting <see cref="T:OrchardCore.ContentManagement.ContentItem"/>s converted into the desired ContentPart. Those
+            that don't have it are discarded.
+            </returns>
+        </member>
+        <member name="M:YesSql.QueryExtensions.PaginateAsync``1(YesSql.IQueryIndex{``0},System.Int32,System.Int32)">
+            <summary>
+            Breaks the query up into pages and lists the page using the given zero-based index. If pageIndex is 0 and
+            count is <see cref="F:System.Int32.MaxValue"/> then the whole query is listed.
+            </summary>
+        </member>
+        <member name="M:YesSql.QueryExtensions.SliceAsync(YesSql.IQuery{OrchardCore.ContentManagement.ContentItem},System.Nullable{System.Int32},System.Nullable{System.Int32})">
+            <summary>
+            Breaks the query up into slices and lists the slice.
+            </summary>
+            <param name="query">The query to slice.</param>
+            <param name="skip">Number of items to skip. Can be null.</param>
+            <param name="count">Number of items to take. Can be null.</param>
+            <returns>The desired slices of the resulting <see cref="T:OrchardCore.ContentManagement.ContentItem"/>s.</returns>
+        </member>
+        <member name="M:YesSql.QueryExtensions.OrderBy``2(YesSql.IQuery{``0,``1},System.String,System.Boolean,System.Boolean)">
+            <summary>
+            A more compact shortcut for the <see cref="T:YesSql.IQuery`2"/> ordering methods.
+            </summary>
+            <param name="query">The query to be ordered.</param>
+            <param name="sql">The column name or other expression that may be put in the WHERE clause.</param>
+            <param name="isAscending">
+            If <see langword="true"/>, <see cref="M:YesSql.IQuery`2.OrderBy(System.String)"/> or
+            <see cref="M:YesSql.IQuery`2.ThenBy(System.String)"/> is used, otherwise their <c>Descending</c> counterparts.
+            </param>
+            <param name="isFirstClause">
+            If <see langword="true"/>, additional sorting expression is added. If <see langword="false"/> the primary
+            sorting expression is set or overwritten.
+            </param>
+            <typeparam name="T">The query's item type after listing.</typeparam>
+            <typeparam name="TIndex">The index used for sorting.</typeparam>
+            <returns>An ordered query.</returns>
+        </member>
+        <member name="M:YesSql.SessionExtensions.RawQueryAsync``1(YesSql.ISession,System.String,System.Collections.Generic.IDictionary{System.String,System.Object},System.Func{System.ValueTuple{System.String,System.Data.IDbTransaction},System.Threading.Tasks.Task{System.Collections.Generic.IEnumerable{``0}}},System.Data.Common.DbTransaction)">
+            <summary>
+            Executes a raw SQL string query in a database-agnostic way by running it through Orchard's <see
+            cref="T:OrchardCore.Queries.Sql.SqlParser"/>.
+            </summary>
+            <typeparam name="TRow">Type used to map the returned rows to.</typeparam>
+            <param name="sql">
+            The raw SQL string. Doesn't need to use table prefixes or care about SQL dialects.
+            </param>
+            <param name="parameters">Input parameters passed to the query.</param>
+            <param name="queryExecutor">
+            Delegate to execute a query in a custom way, based on the prepared inputs.
+            </param>
+            <param name="transaction">If not <see langword="null"/> it must be an open DB transaction.</param>
+            <returns>The result set of the query, rows mapped to <typeparamref name="TRow"/>.</returns>
+        </member>
+        <member name="M:YesSql.SessionExtensions.RawExecuteNonQueryAsync(YesSql.ISession,YesSql.GetSqlQuery,System.Object,System.Data.Common.DbTransaction)">
+            <summary>
+            Executes a raw SQL string command that doesn't return data in a database-agnostic way by running it
+            through Orchard's <see cref="T:OrchardCore.Queries.Sql.SqlParser"/>.
+            </summary>
+            <param name="getSqlQuery">The function that generates the raw SQL string given the transaction, dialect and prefix.</param>
+            <param name="parameters">Input parameters passed to the query.</param>
+            <param name="transaction">If not <see langword="null"/> it must be an open DB transaction.</param>
+            <returns>The number of rows affected.</returns>
+            <remarks><para>This uses unparsed SQL because the parser always expects SELECT.</para></remarks>
+        </member>
+        <member name="M:YesSql.SessionExtensions.UpdateDocumentDirectlyAsync(YesSql.ISession,System.Int32,System.Object)">
+            <summary>
+            Updates the Content value of a <see cref="T:YesSql.Document"/> directly in the Document table. It won't alter the
+            <see cref="T:YesSql.Document"/>'s version and won't execute index providers either. Should be used for maintenance
+            purposes only.
+            </summary>
+            <param name="documentId">ID of the <see cref="T:YesSql.Document"/> in the Document table.</param>
+            <param name="entity">Object that needs to be serialized to the Content field of the Document table.</param>
+            <returns><see langword="true" /> if the query updated an existing <see cref="T:YesSql.Document"/> successfully.</returns>
+        </member>
+        <member name="M:YesSql.SessionExtensions.QueryContentItem(YesSql.ISession,Lombiq.HelpfulLibraries.Libraries.Contents.PublicationStatus,System.String)">
+            <summary>
+            Returns a query that matches the publication status in <see cref="T:OrchardCore.ContentManagement.Records.ContentItemIndex"/>.
+            </summary>
+        </member>
+        <member name="M:YesSql.SessionExtensions.WithContentItem(YesSql.IQuery{OrchardCore.ContentManagement.ContentItem},Lombiq.HelpfulLibraries.Libraries.Contents.PublicationStatus)">
+            <summary>
+            Filters a query to match the publication status in <see cref="T:OrchardCore.ContentManagement.Records.ContentItemIndex"/>.
+            </summary>
+        </member>
+        <member name="M:YesSql.SessionExtensions.QueryContentItemIndex(YesSql.ISession,Lombiq.HelpfulLibraries.Libraries.Contents.PublicationStatus,System.String)">
+            <summary>
+            Returns an index query that matches the publication status in <see cref="T:OrchardCore.ContentManagement.Records.ContentItemIndex"/>.
+            </summary>
+        </member>
+        <member name="M:YesSql.SqlDialectExtensions.IsSqlServer(YesSql.ISqlDialect)">
+            <summary>
+            Returns <see langword="true"/> if the database uses Microsoft SQL Server's dialect of SQL.
+            </summary>
+        </member>
+        <member name="M:YesSql.SqlDialectExtensions.IsSqlite(YesSql.ISqlDialect)">
+            <summary>
+            Returns <see langword="true"/> if the database uses SQLite's dialect of SQL.
+            </summary>
+        </member>
+        <member name="M:YesSql.TransactionSqlDialectFactory.For(System.Data.Common.DbTransaction)">
+            <summary>
+            Retrieves the <see cref="T:YesSql.ISqlDialect"/> for the given <see cref="T:System.Data.Common.DbTransaction"/>.
+            </summary>
+        </member>
+        <member name="M:NodaTime.NodaTimeExtensions.ToShortDateString(NodaTime.LocalDate)">
+            <summary>
+            Does the same as <see cref="M:System.DateTime.ToShortDateString"/> except for <see cref="T:NodaTime.LocalDate"/>.
+            </summary>
+        </member>
+        <member name="M:System.ServiceProviderExtensions.WithShellScopeAsync(System.IServiceProvider,System.Func{OrchardCore.Environment.Shell.Scope.ShellScope,System.Threading.Tasks.Task},System.String)">
+            <summary>
+            Executes <paramref name="asyncAction"/> in the specified shell's scope.
+            </summary>
+        </member>
+        <member name="M:System.ServiceProviderExtensions.GetLazyService``1(System.IServiceProvider)">
+            <summary>
+            Returns a <see cref="T:System.Lazy`1"/> accessor for the service so you can access services with a shorter lifecyle
+            in your service implementation without storing a service provider which is an anti-pattern.
+            </summary>
+            <typeparam name="T">The type of the required service.</typeparam>
+        </member>
+        <member name="M:System.Collections.Generic.DictionaryExtensions.GetMaybe``2(System.Collections.Generic.IDictionary{``0,``1},``0)">
+            <summary>
+            Safely returns the value by key if it's in the dictionary. If the key is <see langword="default" /> or not
+            found in the dictionary, it'll return <see langword="default" />.
+            </summary>
+            <param name="key">Key in the dictionary.</param>
+            <typeparam name="TKey">Type of the keys in the dictionary.</typeparam>
+            <typeparam name="TValue">Type of the values in the dictionary.</typeparam>
+            <returns>Value identified by the key if it's in the dictionary.</returns>
+        </member>
+        <member name="M:System.Collections.Generic.DictionaryExtensions.GetMaybe``1(System.Collections.Generic.IDictionary{System.Object,System.Object},System.Object)">
+            <summary>
+            Safely returns the value by key converted to the given type if it's in the dictionary. It'll return
+            <see langword="default" /> if the key is not present in the dictionary or if the value can't be converted.
+            </summary>
+            <param name="key">Key in the dictionary.</param>
+            <typeparam name="TValue">Type to convert to.</typeparam>
+            <returns>Value identified by the key if it's in the dictionary.</returns>
+        </member>
+        <member name="M:System.Collections.Generic.DictionaryExtensions.GetMaybeReadOnly``2(System.Collections.Generic.IReadOnlyDictionary{``0,``1},``0)">
+            <summary>
+            Safely returns the value by key if it's in the dictionary. If the key is <see langword="default" /> or not
+            found in the dictionary, it'll return <see langword="default" />.
+            </summary>
+            <param name="key">Key in the dictionary.</param>
+            <typeparam name="TKey">Type of the keys in the dictionary.</typeparam>
+            <typeparam name="TValue">Type of the values in the dictionary.</typeparam>
+            <returns>Value identified by the key if it's in the dictionary.</returns>
+        </member>
+        <member name="M:System.Collections.Generic.DictionaryExtensions.GetValuesOrAddRangeIfMissingAsync``2(System.Collections.Generic.IDictionary{``0,``1},System.Collections.Generic.IEnumerable{``0},System.Func{System.Collections.Generic.IEnumerable{``0},System.Threading.Tasks.Task{System.Collections.Generic.IEnumerable{``1}}},System.Func{``1,``0})">
+            <summary>
+            Returns values from the dictionary identified by the given keys. In case of missing items it will also add
+            these in one batch. Could be used as a simple memory cache where the items are fetched from the database in
+            one query for example.
+            </summary>
+            <param name="keys">List of keys in the dictionary.</param>
+            <param name="valuesFactory">
+            Operation returning the missing items. This will always be executed using the missing keys only.
+            </param>
+            <param name="keySelector">
+            Determines the new key for the dictionary by the missing item. The key must be unique.
+            </param>
+            <typeparam name="TKey">Type of the keys in the dictionary.</typeparam>
+            <typeparam name="TValue">Type of the values in the dictionary.</typeparam>
+            <returns>Values in the dictionary including the newly added ones.</returns>
+        </member>
+        <member name="M:System.Collections.Generic.DictionaryExtensions.GetValuesOrAddIfMissingAsync``2(System.Collections.Generic.IDictionary{``0,``1},System.Collections.Generic.IEnumerable{``0},System.Func{``0,System.Threading.Tasks.Task{``1}})">
+            <summary>
+            Returns values from the dictionary identified by the given keys. In case of missing items it will also add
+            these one by one. Could be used as a simple memory cache.
+            </summary>
+            <param name="keys">List of keys in the dictionary.</param>
+            <param name="valueFactory">Operation returning a missing item for a missing key.</param>
+            <typeparam name="TKey">Type of the keys in the dictionary.</typeparam>
+            <typeparam name="TValue">Type of the values in the dictionary.</typeparam>
+            <returns>Values in the dictionary including the newly added ones.</returns>
+        </member>
+        <member name="M:System.Collections.Generic.DictionaryExtensions.GetValueOrAddIfMissingAsync``2(System.Collections.Generic.IDictionary{``0,``1},``0,System.Func{``0,System.Threading.Tasks.Task{``1}})">
+            <summary>
+            Returns a value from the dictionary identified by the given key. In case of it's missing it will add it.
+            Could be used as a simple memory cache.
+            </summary>
+            <param name="key">Key in the dictionary.</param>
+            <param name="valueFactory">Operation returning the missing item for a missing key.</param>
+            <typeparam name="TKey">Type of the keys in the dictionary.</typeparam>
+            <typeparam name="TValue">Type of the values in the dictionary.</typeparam>
+            <returns>Value in the dictionary.</returns>
+        </member>
+        <member name="M:System.Collections.Generic.DictionaryExtensions.AddIfMissingAsync``2(System.Collections.Generic.IDictionary{``0,``1},``0,System.Func{``0,System.Threading.Tasks.Task{``1}})">
+            <summary>
+            Checks for a value from the dictionary identified by the given key. In case it's missing this method will
+            add it.
+            </summary>
+            <param name="key">Key in the dictionary.</param>
+            <param name="valueFactory">Operation returning the missing item for a missing key.</param>
+            <typeparam name="TKey">Type of the keys in the dictionary.</typeparam>
+            <typeparam name="TValue">Type of the values in the dictionary.</typeparam>
+        </member>
+        <member name="M:System.Collections.Generic.DictionaryExtensions.AddRange``2(System.Collections.Generic.IDictionary{``0,``1},System.Collections.Generic.IEnumerable{System.Collections.Generic.KeyValuePair{``0,``1}})">
+            <summary>
+            Adds several entries to the dictionary (e.g. from another dictionary). This uses <see
+            cref="M:System.Collections.Generic.Dictionary`2.Add(`0,`1)"/> so duplicate keys are not permitted. It is safe if the <paramref
+            name="additionalEntries"/> is <see langword="null"/>, nothing will happen.
+            </summary>
+        </member>
+        <member name="M:System.Collections.Generic.EnumerableExtensions.AwaitEachAsync``2(System.Collections.Generic.IEnumerable{``0},System.Func{``0,System.Threading.Tasks.Task{``1}})">
+            <summary>
+            Awaits the tasks sequentially. An alternative to <see cref="M:System.Threading.Tasks.Task.WhenAll(System.Collections.Generic.IEnumerable{System.Threading.Tasks.Task})"/> and
+            <c>Nito.AsyncEx.TaskExtensions.WhenAll</c> when true multi-threaded asynchronicity is not desirable.
+            </summary>
+            <param name="source">A collection of items.</param>
+            <param name="asyncOperation">An <see langword="async"/> function to call on each item.</param>
+            <typeparam name="TItem">The type of the input collection's items.</typeparam>
+            <typeparam name="TResult">The type of the output collection's items.</typeparam>
+            <returns>When awaited the task contains the results which were added one-by-one.</returns>
+        </member>
+        <member name="M:System.Collections.Generic.EnumerableExtensions.AwaitWhileAsync``1(System.Collections.Generic.IEnumerable{``0},System.Func{``0,System.Threading.Tasks.Task{System.Boolean}})">
+            <summary>
+            Awaits the tasks sequentially while the action returns <see langword="false"/>.
+            </summary>
+            <returns><see langword="true"/> if the <see langword="foreach"/> was never broken.</returns>
+        </member>
+        <member name="M:System.Collections.Generic.EnumerableExtensions.AwaitUntilAsync``1(System.Collections.Generic.IEnumerable{``0},System.Func{``0,System.Threading.Tasks.Task{System.Boolean}})">
+            <summary>
+            Awaits the tasks sequentially until the action returns <see langword="true"/>.
+            </summary>
+            <returns><see langword="true"/> if the <see langword="foreach"/> was never broken.</returns>
+        </member>
+        <member name="M:System.Collections.Generic.EnumerableExtensions.AnyAsync``1(System.Collections.Generic.IEnumerable{``0},System.Func{``0,System.Threading.Tasks.Task{System.Boolean}})">
+            <summary>
+            Determines whether any element of a sequence satisfies a condition, asynchronously, like LINQ Any().
+            </summary>
+            <returns>
+            <see langword="true"/> if any elements in the source sequence pass the test in the specified predicate;
+            otherwise, <see langword="false"/>.
+            </returns>
+        </member>
+        <member name="M:System.Collections.Generic.EnumerableExtensions.AsList``1(System.Collections.Generic.IEnumerable{``0})">
+            <summary>
+            Attempts to cast <paramref name="collection"/> into <see cref="T:System.Collections.Generic.List`1"/>. If that's not possible then
+            converts it into one. Not to be confused with <see cref="M:System.Linq.Enumerable.ToList``1(System.Collections.Generic.IEnumerable{``0})"/> that always creates a
+            separate <see cref="T:System.Collections.Generic.List`1"/> regardless of source type. This extension is more suitable when the <paramref
+            name="collection"/> is expected to be <see cref="T:System.Collections.Generic.List`1"/> but has to be stored as <see
+            cref="T:System.Collections.Generic.IEnumerable`1"/>.
+            </summary>
+        </member>
+        <member name="M:System.Collections.Generic.EnumerableExtensions.SelectWhere``2(System.Collections.Generic.IEnumerable{``0},System.Func{``0,``1},System.Func{``1,System.Boolean})">
+            <summary>
+            Transforms the specified <paramref name="collection"/> with the <paramref name="select"/> function and
+            returns the items that are not null. Or if the <paramref name="where"/> function is given then those that
+            return <see langword="true"/> with it.
+            </summary>
+        </member>
+        <member name="M:System.Collections.Generic.EnumerableExtensions.ToDictionaryOverwrite``3(System.Collections.Generic.IEnumerable{``0},System.Func{``0,``1},System.Func{``0,``2})">
+            <summary>
+            Returns a dictionary created from the <paramref name="collection"/>. If there are key clashes, the item
+            later in the enumeration overwrites the earlier one.
+            </summary>
+        </member>
+        <member name="M:System.Collections.Generic.EnumerableExtensions.ToDictionaryOverwrite``2(System.Collections.Generic.IEnumerable{``0},System.Func{``0,``1})">
+            <summary>
+            Returns a dictionary created from the <paramref name="collection"/>. If there are key clashes, the item
+            later in the enumeration overwrites the earlier one.
+            </summary>
+        </member>
+        <member name="M:System.Collections.Generic.EnumerableExtensions.Unique``2(System.Collections.Generic.IEnumerable{``0},System.Func{``0,``1})">
+            <summary>
+            Returns the <paramref name="collection"/> without any duplicate items.
+            </summary>
+            <remarks>
+            <para>
+            We use <see cref="M:System.Linq.Enumerable.FirstOrDefault``1(System.Collections.Generic.IEnumerable{``0})"/>
+            to improve compatibility. It returning <see langword="default"/> is theoretically impossible, but some DB
+            frameworks require the "or default" after grouping.
+            </para>
+            </remarks>
+        </member>
+        <member name="M:System.Collections.Generic.EnumerableExtensions.Unique``3(System.Collections.Generic.IEnumerable{``0},System.Func{``0,``1},System.Func{``0,``2})">
+            <summary>
+            Returns the <paramref name="collection"/> without any duplicate items picking the first of each when sorting
+            by <paramref name="orderBySelector"/>.
+            </summary>
+        </member>
+        <member name="M:System.Collections.Generic.EnumerableExtensions.UniqueDescending``3(System.Collections.Generic.IEnumerable{``0},System.Func{``0,``1},System.Func{``0,``2})">
+            <summary>
+            Returns the <paramref name="collection"/> without any duplicate items picking the last of each when sorting
+            by <paramref name="orderBySelector"/>.
+            </summary>
+        </member>
+        <member name="M:System.Collections.Generic.EnumerableExtensions.JoinNotNullOrEmpty(System.Collections.Generic.IEnumerable{System.String},System.String)">
+            <summary>
+            Returns a string that joins the string collection. It excludes null or empty items if there are any.
+            </summary>
+            <returns>
+            The concatenated texts if there are any nonempty, otherwise <see langword="null"/>.
+            </returns>
+        </member>
+        <member name="M:System.Collections.Generic.EnumerableExtensions.GetUniqueValues``1(System.Collections.Generic.IEnumerable{System.Linq.IGrouping{``0,OrchardCore.ContentManagement.ContentItem}})">
+            <summary>
+            Re-flattens <see cref="T:System.Linq.ILookup`2"/> or <c>GroupBy</c> collections and eliminates duplicates
+            using <see cref="P:OrchardCore.ContentManagement.ContentItem.ContentItemVersionId"/>.
+            </summary>
+        </member>
+        <member name="M:System.Collections.Generic.EnumerableExtensions.GetSingleValues``1(System.Collections.Generic.IEnumerable{System.Linq.IGrouping{``0,OrchardCore.ContentManagement.ContentItem}})">
+            <summary>
+            Re-flattens <see cref="T:System.Linq.ILookup`2"/> or <c>GroupBy</c> collections and ensures that each
+            grouping only had one item (i.e. one-to-one relationships).
+            </summary>
+        </member>
+        <member name="M:System.JsonStringExtensions.JsonHtmlContent(System.String)">
+            <summary>
+            Returns a raw HTML string that's been JSON serialized and therefore safe to use within <c>&lt;script&gt;</c>
+            tags in a Razor view.
+            </summary>
+        </member>
+        <member name="M:System.NumberExtensions.ToTechnicalString(System.Int32)">
+            <summary>
+            Returns culture-invariant string created from the specified <see cref="T:System.Int32"/>.
+            </summary>
+            <param name="number">The number to stringify.</param>
+        </member>
+        <member name="M:System.Security.Cryptography.RNGCryptoServiceProviderExtensions.Next(System.Security.Cryptography.RNGCryptoServiceProvider,System.Int32,System.Int32)">
+            <summary>
+            Returns a non-negative cryptographically secure random integer that is within a specified range.
+            </summary>
+            <param name="minValue">The inclusive lower bound of the random number returned.</param>
+            <param name="maxValue">
+            The exclusive upper bound of the random number returned. <paramref name="maxValue"/> must be greater than or
+            equal to <paramref name="minValue"/>.
+            </param>
+            <returns>A cryptographically random number within the specified range.</returns>
+            <remarks>
+            <para>
+            Taken from
+            <see href="https://docs.microsoft.com/en-us/archive/msdn-magazine/2007/september/net-matters-tales-from-the-cryptorandom"/>.
+            </para>
+            </remarks>
+        </member>
+        <member name="M:System.StringExtensions.SplitByCommas(System.String)">
+            <summary>
+            Returns an array by splitting the input along commas and stripping empty entries.
+            </summary>
+        </member>
+        <member name="M:System.StringExtensions.SplitByNewLines(System.String)">
+            <summary>
+            Returns the input split into lines (using <see cref="P:System.Environment.NewLine"/>).
+            </summary>
+        </member>
+        <member name="M:System.StringExtensions.ContainsLoose(System.String,System.String)">
+            <summary>
+            A shortcut for <c>string.Contains(string, StringComparison.InvariantCultureIgnoreCase)</c>. It also safely
+            returns <see langword="false"/> if either parameters are <see langword="null"/>.
+            </summary>
+        </member>
+        <member name="M:System.StringExtensions.EqualsOrdinalIgnoreCase(System.String,System.String)">
+            <summary>
+            A shortcut for <c>string.Equals(string, StringComparison.OrdinalIgnoreCase)</c>.
+            </summary>
+        </member>
+        <member name="M:System.StringExtensions.ContainsOrdinalIgnoreCase(System.String,System.String)">
+            <summary>
+            A shortcut for <c>string.Contains(string, StringComparison.OrdinalIgnoreCase)</c>.
+            </summary>
+        </member>
+        <member name="M:System.StringExtensions.StartsWithOrdinalIgnoreCase(System.String,System.String)">
+            <summary>
+            A shortcut for <c>string.StartsWith(string, StringComparison.OrdinalIgnoreCase)</c>.
+            </summary>
+        </member>
+        <member name="M:System.StringExtensions.EndsWithOrdinalIgnoreCase(System.String,System.String)">
+            <summary>
+            A shortcut for <c>string.EndsWith(string, StringComparison.OrdinalIgnoreCase)</c>.
+            </summary>
+        </member>
+        <member name="M:System.StringExtensions.ReplaceOrdinalIgnoreCase(System.String,System.String,System.String)">
+            <summary>
+            A shortcut for <c>string.Replace(string, string, StringComparison.OrdinalIgnoreCase)</c>.
+            </summary>
+        </member>
+    </members>
+</doc>
