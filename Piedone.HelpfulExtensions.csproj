@@ -187,6 +187,7 @@
     <Compile Include="Extensions\Contents\Models\HintField.cs" />
     <Compile Include="Extensions\Contents\Settings\HintFieldSettings.cs" />
     <Compile Include="Extensions\DateTimeExtensions.cs" />
+    <Compile Include="Extensions\EnumExtensions.cs" />
     <Compile Include="Extensions\HqlExpressionFactoryExtensions.cs" />
     <Compile Include="Extensions\HqlQueryExtensions.cs" />
     <Compile Include="Extensions\InvariantCultureTypeConversionExtensions.cs" />
