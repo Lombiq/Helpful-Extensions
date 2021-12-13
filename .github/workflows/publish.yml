@@ -1,0 +1,14 @@
+name: publish
+
+on:
+  push:
+    tags:
+      - v*
+
+jobs:
+  call-publish-workflow:
+    uses: deanmarcussen/NuGet-Publishing-GitHub-Actions/.github/workflows/publish.yml@v1
+    with:
+      source: https://nuget.cloudsmith.io/lombiq/Helpful-Extensions/v3/index.json
+    secrets:
+      apikey: ${{ secrets.LOMBIQ_CLOUDSMITH_API_KEY }}
