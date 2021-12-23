@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc.Localization;
+using Microsoft.AspNetCore.Mvc.Localization;
 
 namespace Lombiq.HelpfulExtensions.Models
 {
