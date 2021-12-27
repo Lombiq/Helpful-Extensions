@@ -19,7 +19,7 @@ namespace Lombiq.HelpfulExtensions.Extensions.Flows.Handlers
         {
             if (!context.ContentItem.Has<AdditionalStylingPart>() &&
                 _contentDefinitionManager.GetTypeDefinition(context.ContentItem.ContentType)
-                    .GetSettings<ContentTypeSettings>().Stereotype.EqualsOrdinal("Widget"))
+                    .GetSettings<ContentTypeSettings>().Stereotype?.EqualsOrdinal("Widget") == true)
             {
                 context.ContentItem.Weld<AdditionalStylingPart>();
             }
