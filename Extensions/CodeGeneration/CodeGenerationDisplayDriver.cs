@@ -146,7 +146,7 @@ namespace Lombiq.HelpfulExtensions.Extensions.CodeGeneration
             var indentation = string.Join(string.Empty, Enumerable.Repeat(" ", indentationDepth));
 
             var filteredSettings = ((IEnumerable<KeyValuePair<string, JToken>>)settings)
-                .Where(setting => setting.Key != typeof(T).Name);
+                .Where(setting => !setting.Key.EqualsOrdinal(typeof(T).Name));
             foreach (var setting in filteredSettings)
             {
                 var properties = setting.Value.Where(property => property is JProperty).Cast<JProperty>().ToArray();

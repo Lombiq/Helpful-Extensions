@@ -3,6 +3,7 @@ using OrchardCore.ContentManagement;
 using OrchardCore.ContentManagement.Handlers;
 using OrchardCore.ContentManagement.Metadata;
 using OrchardCore.ContentManagement.Metadata.Settings;
+using System;
 using System.Threading.Tasks;
 
 namespace Lombiq.HelpfulExtensions.Extensions.Flows.Handlers
@@ -18,7 +19,7 @@ namespace Lombiq.HelpfulExtensions.Extensions.Flows.Handlers
         {
             if (!context.ContentItem.Has<AdditionalStylingPart>() &&
                 _contentDefinitionManager.GetTypeDefinition(context.ContentItem.ContentType)
-                    .GetSettings<ContentTypeSettings>().Stereotype == "Widget")
+                    .GetSettings<ContentTypeSettings>().Stereotype.EqualsOrdinal("Widget"))
             {
                 context.ContentItem.Weld<AdditionalStylingPart>();
             }
