@@ -63,14 +63,15 @@
                     }
                     else
                     {
+                        var activeClass = Context.Request.Path == menuItem.Href?.Partition("?").Left ? "active" : string.Empty;
                         <li class="nav-item">
                             <a id="@menuItem.Id"
-                               class="nav-link @string.Join(" ", menuItem.Classes)"
+                               class="nav-link @activeClass @string.Join(" ", menuItem.Classes)"
                                @if (!menuItem.LocalNav)
                                {
                                    <text>target="_blank"</text>
                                }
-                               href="@menuItem.Href">
+                               href="@(menuItem.Href ?? "#")">
                                 @menuItem.Text
                             </a>
                         </li>
