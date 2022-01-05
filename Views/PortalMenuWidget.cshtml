@@ -1,0 +1,78 @@
+@using Lombiq.HelpfulExtensions.Extensions.Widgets
+@using OrchardCore.Navigation
+
+@{
+    IEnumerable<MenuItem> menuItems = Model.MenuItems;
+
+    const string blockName = WidgetTypes.PortalMenuWidget;
+    const string contentElementName = blockName + "__content";
+    const string dropdownElementName = blockName + "__dropdown";
+    const string dropdownItemElementName = blockName + "__dropdownItem";
+
+    var contentIdName = FormattableString.Invariant($"{contentElementName}_{Guid.NewGuid()}");
+    var dropdownIdName = FormattableString.Invariant($"{dropdownElementName}_{Guid.NewGuid()}");
+}
+
+<nav class="navbar navbar-expand-md">
+    <div class="container-fluid">
+        <button class="navbar-toggler"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#@contentIdName"
+                aria-controls="@contentIdName"
+                aria-expanded="false"
+                aria-label="@T["Toggle Navigation"]">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div id="@contentIdName" class="collapse navbar-collapse @contentElementName">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                @foreach (var menuItem in menuItems)
+                {
+                    @if (menuItem.Items.Any())
+                    {
+                        <li class="nav-item dropdown">
+                            <a id="@dropdownIdName"
+                               class="nav-link dropdown-toggle @dropdownElementName"
+                               href="#"
+                               role="button"
+                               data-bs-toggle="dropdown"
+                               aria-expanded="false">
+                                Dropdown
+                            </a>
+                        </li>
+                        <ul class="dropdown-menu" aria-labelledby="@dropdownIdName">
+                            @foreach (var submenu in menuItem.Items)
+                            {
+                                <li>
+                                    <a id="@menuItem.Id"
+                                       class="dropdown-item @dropdownItemElementName"
+                                       @if (!menuItem.LocalNav)
+                                       {
+                                           <text>target="_blank"</text>
+                                       }
+                                       href="@menuItem.Href">
+                                        @menuItem.Text
+                                    </a>
+                                </li>
+                            }
+                        </ul>
+                    }
+                    else
+                    {
+                        <li class="nav-item">
+                            <a id="@menuItem.Id"
+                               class="nav-link @menuItem.Classes"
+                               @if (!menuItem.LocalNav)
+                               {
+                                   <text>target="_blank"</text>
+                               }
+                               href="@menuItem.Href">
+                                @menuItem.Text
+                            </a>
+                        </li>
+                    }
+                }
+            </ul>
+        </div>
+    </div>
+</nav>
