@@ -2,6 +2,7 @@
 @using OrchardCore.Navigation
 
 @{
+    var useWrapper = !(Model.NoWrapper as bool? ?? false);
     IEnumerable<MenuItem> menuItems = Model.MenuItems;
 
     const string blockName = WidgetTypes.PortalMenuWidget;
@@ -13,7 +14,10 @@
     var dropdownIdName = FormattableString.Invariant($"{dropdownElementName}_{Guid.NewGuid()}");
 }
 
-<nav class="navbar navbar-expand-md">
+@if (useWrapper)
+{
+    @:<nav class="navbar navbar-expand-md">
+}
     <div class="container-fluid">
         <button class="navbar-toggler"
                 type="button"
@@ -44,14 +48,14 @@
                             @foreach (var submenu in menuItem.Items)
                             {
                                 <li>
-                                    <a id="@menuItem.Id"
+                                    <a id="@submenu.Id"
                                        class="dropdown-item @dropdownItemElementName"
-                                       @if (!menuItem.LocalNav)
+                                       @if (!submenu.LocalNav)
                                        {
                                            <text>target="_blank"</text>
                                        }
-                                       href="@menuItem.Href">
-                                        @menuItem.Text
+                                       href="@submenu.Href">
+                                        @submenu.Text
                                     </a>
                                 </li>
                             }
@@ -61,7 +65,7 @@
                     {
                         <li class="nav-item">
                             <a id="@menuItem.Id"
-                               class="nav-link @menuItem.Classes"
+                               class="nav-link @string.Join(" ", menuItem.Classes)"
                                @if (!menuItem.LocalNav)
                                {
                                    <text>target="_blank"</text>
@@ -75,4 +79,8 @@
             </ul>
         </div>
     </div>
-</nav>
+
+@if (useWrapper)
+{
+    @:</nav>
+}
