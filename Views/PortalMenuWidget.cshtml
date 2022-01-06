@@ -40,9 +40,7 @@
                                href="#"
                                role="button"
                                data-bs-toggle="dropdown"
-                               aria-expanded="false">
-                                Dropdown
-                            </a>
+                               aria-expanded="false">@menuItem.Text</a>
                         </li>
                         <ul class="dropdown-menu" aria-labelledby="@dropdownIdName">
                             @foreach (var submenu in menuItem.Items)
@@ -54,9 +52,7 @@
                                        {
                                            <text>target="_blank"</text>
                                        }
-                                       href="@submenu.Href">
-                                        @submenu.Text
-                                    </a>
+                                       href="@submenu.Href">@submenu.Text</a>
                                 </li>
                             }
                         </ul>
@@ -71,9 +67,7 @@
                                {
                                    <text>target="_blank"</text>
                                }
-                               href="@(menuItem.Href ?? "#")">
-                                @menuItem.Text
-                            </a>
+                               href="@(menuItem.Href ?? "#")">@menuItem.Text</a>
                         </li>
                     }
                 }
