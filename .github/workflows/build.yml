@@ -4,8 +4,8 @@ on:
   push:
     branches: [dev]
     paths-ignore:
-      - "docs/**"
-      - "readme.md"
+      - "Docs/**"
+      - "Readme.md"
 
   pull_request:
     branches: [dev]
