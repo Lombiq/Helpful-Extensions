@@ -9,4 +9,4 @@ jobs:
   call-publish-workflow:
     uses: Lombiq/NuGet-Publishing-GitHub-Actions/.github/workflows/publish.yml@v1
     secrets:
-      apikey: ${{ secrets.LOMBIQ_CLOUDSMITH_API_KEY }}
+      apikey: ${{ secrets.DEFAULT_PUBLISH_API_KEY }}
