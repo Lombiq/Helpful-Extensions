@@ -62,8 +62,10 @@
                     }
                     else
                     {
-                        var activeClass = Context.Request.Path == menuItem.Href?.Partition("?").Left ? "active" : string.Empty;
-                        <li class="nav-item">
+                        var isActive = Context.Request.Path == menuItem.Href?.Partition("?").Left;
+                        var activeClass = isActive ? "active" : string.Empty;
+                        var activeParentClass = isActive ? "nav-item-link-active" : string.Empty;
+                        <li class="nav-item @activeParentClass">
                             <a id="@menuItem.Id"
                                class="nav-link @activeClass @string.Join(" ", menuItem.Classes)"
                                @if (!menuItem.LocalNav)
