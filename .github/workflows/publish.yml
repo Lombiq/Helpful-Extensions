@@ -7,6 +7,6 @@ on:
 
 jobs:
   call-publish-workflow:
-    uses: deanmarcussen/NuGet-Publishing-GitHub-Actions/.github/workflows/publish.yml@v1
+    uses: deanmarcussen/NuGet-Publishing-GitHub-Actions/.github/workflows/publish.yml@dev
     secrets:
       apikey: ${{ secrets.LOMBIQ_CLOUDSMITH_API_KEY }}
