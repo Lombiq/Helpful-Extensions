@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk.Razor">
+<Project Sdk="Microsoft.NET.Sdk.Razor">
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
@@ -15,12 +15,12 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="OrchardCore.Autoroute" Version="1.2.1" />
-    <PackageReference Include="OrchardCore.Contents" Version="1.2.1" />
-    <PackageReference Include="OrchardCore.Flows" Version="1.2.1" />
-    <PackageReference Include="OrchardCore.Html" Version="1.2.1" />
-    <PackageReference Include="OrchardCore.MetaWeblog.Abstractions" Version="1.2.1" />
-    <PackageReference Include="OrchardCore.Module.Targets" Version="1.2.1" />
+    <PackageReference Include="OrchardCore.Autoroute" Version="1.2.2" />
+    <PackageReference Include="OrchardCore.Contents" Version="1.2.2" />
+    <PackageReference Include="OrchardCore.Flows" Version="1.2.2" />
+    <PackageReference Include="OrchardCore.Html" Version="1.2.2" />
+    <PackageReference Include="OrchardCore.MetaWeblog.Abstractions" Version="1.2.2" />
+    <PackageReference Include="OrchardCore.Module.Targets" Version="1.2.2" />
   </ItemGroup>
 
   <ItemGroup Condition="'$(NuGetBuild)' != 'True'">
