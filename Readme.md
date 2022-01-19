@@ -2,7 +2,7 @@
 
 
 
-![Lombiq.HelpfulExtensions NuGet](https://img.shields.io/nuget/v/Lombiq.HelpfulExtensions?label=Lombiq.HelpfulExtensions)
+[![Lombiq.HelpfulExtensions NuGet](https://img.shields.io/nuget/v/Lombiq.HelpfulExtensions?label=Lombiq.HelpfulExtensions)](https://www.nuget.org/packages/Lombiq.HelpfulExtensions/)
 
 
 ## About
