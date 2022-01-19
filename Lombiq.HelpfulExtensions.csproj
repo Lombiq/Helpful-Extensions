@@ -10,6 +10,21 @@
     <None Remove="node_modules\**" />
   </ItemGroup>
 
+  <PropertyGroup>
+    <Title>Lombiq Helpful Extensions for Orchard Core</Title>
+    <Authors>Lombiq Technologies</Authors>
+    <Description>Orchard Core module containing some handy extensions (e.g. useful content types and widgets). It's also available on all sites of DotNest, the Orchard SaaS. See the project website for detailed documentation.</Description>
+    <PackageTags>OrchardCore;Lombiq;AspNetCore;CodeGeneration;ShapeTracing;Widgets</PackageTags>
+    <RepositoryUrl>https://github.com/Lombiq/Helpful-Extensions</RepositoryUrl>
+    <PackageProjectUrl>https://github.com/Lombiq/Helpful-Extensions</PackageProjectUrl>
+    <PackageLicenseFile>Licence.md</PackageLicenseFile>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="Licence.md" Pack="true" PackagePath="" />
+    <None Include="Readme.md" />
+  </ItemGroup>
+
   <ItemGroup>
     <FrameworkReference Include="Microsoft.AspNetCore.App" />
   </ItemGroup>
