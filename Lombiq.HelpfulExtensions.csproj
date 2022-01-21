@@ -39,17 +39,13 @@
     <PackageReference Include="OrchardCore.Module.Targets" Version="1.2.2" />
   </ItemGroup>
 
-  <ItemGroup Condition="'$(NuGetBuild)' != 'True'">
+  <ItemGroup>
     <ProjectReference
       Include="..\..\Libraries\Lombiq.HelpfulLibraries\Lombiq.HelpfulLibraries\Lombiq.HelpfulLibraries.csproj"
       Condition="Exists('..\..\Libraries\Lombiq.HelpfulLibraries\Lombiq.HelpfulLibraries\Lombiq.HelpfulLibraries.csproj')" />
     <ProjectReference
       Include="..\..\Libraries\Lombiq.HelpfulLibraries\Lombiq.HelpfulLibraries.csproj"
       Condition="Exists('..\..\Libraries\Lombiq.HelpfulLibraries\Lombiq.HelpfulLibraries.csproj')" />
-  </ItemGroup>
-
-  <ItemGroup Condition="'$(NuGetBuild)' == 'True'">
-    <PackageReference Include="Lombiq.HelpfulLibraries" Version="0.0.6" />
   </ItemGroup>
 
 </Project>
