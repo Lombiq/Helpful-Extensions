@@ -29,7 +29,7 @@ namespace Lombiq.HelpfulExtensions.Extensions.Widgets
             if (model.ContentType != PortalMenuWidget) return null;
 
             var menuItems = await _navigationManager.BuildMenuAsync(
-                NavigationName,
+                PortalNavigationName,
                 _actionContextAccessor.ActionContext);
             return Initialize<PortalMenuWidgetViewModel>(PortalMenuWidget, viewModel => viewModel.MenuItems = menuItems);
         }
