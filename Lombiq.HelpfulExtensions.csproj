@@ -24,16 +24,12 @@
   </ItemGroup>
 
   <ItemGroup Condition="'$(NuGetBuild)' != 'True'">
-    <ProjectReference
-      Include="..\..\Libraries\Lombiq.HelpfulLibraries\Lombiq.HelpfulLibraries\Lombiq.HelpfulLibraries.csproj"
-      Condition="Exists('..\..\Libraries\Lombiq.HelpfulLibraries\Lombiq.HelpfulLibraries\Lombiq.HelpfulLibraries.csproj')" />
-    <ProjectReference
-      Include="..\..\Libraries\Lombiq.HelpfulLibraries\Lombiq.HelpfulLibraries.csproj"
-      Condition="Exists('..\..\Libraries\Lombiq.HelpfulLibraries\Lombiq.HelpfulLibraries.csproj')" />
+    <ProjectReference Include="..\..\Libraries\Lombiq.HelpfulLibraries\Lombiq.HelpfulLibraries\Lombiq.HelpfulLibraries.csproj" Condition="Exists('..\..\Libraries\Lombiq.HelpfulLibraries\Lombiq.HelpfulLibraries\Lombiq.HelpfulLibraries.csproj')" />
+    <ProjectReference Include="..\..\Libraries\Lombiq.HelpfulLibraries\Lombiq.HelpfulLibraries.csproj" Condition="Exists('..\..\Libraries\Lombiq.HelpfulLibraries\Lombiq.HelpfulLibraries.csproj')" />
   </ItemGroup>
 
   <ItemGroup Condition="'$(NuGetBuild)' == 'True'">
-    <PackageReference Include="Lombiq.HelpfulLibraries.Targets" Version="0.0.3" />
+    <PackageReference Include="Lombiq.HelpfulLibraries.Targets" Version="0.0.11" />
   </ItemGroup>
 
 </Project>

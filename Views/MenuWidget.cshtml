@@ -1,13 +1,12 @@
 @using Lombiq.HelpfulExtensions.Extensions.Widgets
-@using OrchardCore.Navigation
+@using Lombiq.HelpfulExtensions.Extensions.Widgets.ViewModels
 
 <style asp-name="font-awesome"></style>
 
 @{
-    var useWrapper = !(Model.NoWrapper as bool? ?? false);
-    IEnumerable<MenuItem> menuItems = Model.MenuItems;
+    var viewModel = new MenuWidgetViewModel(Model);
 
-    const string blockName = WidgetTypes.PortalMenuWidget;
+    const string blockName = WidgetTypes.MenuWidget;
     const string contentElementName = blockName + "__content";
     const string togglerElementName = blockName + "__toggler";
     const string dropdownElementName = blockName + "__dropdown";
@@ -17,7 +16,7 @@
     var dropdownIdName = FormattableString.Invariant($"{dropdownElementName}_{Guid.NewGuid()}");
 }
 
-@if (useWrapper)
+@if (!viewModel.NoWrapper)
 {
     @:<nav class="navbar navbar-expand-md">
 }
@@ -33,7 +32,7 @@
         </button>
         <div id="@contentIdName" class="collapse navbar-collapse @contentElementName">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                @foreach (var menuItem in menuItems)
+                @foreach (var menuItem in viewModel.MenuItems)
                 {
                     @if (menuItem.Items.Any())
                     {
@@ -80,7 +79,7 @@
         </div>
     </div>
 
-@if (useWrapper)
+@if (!viewModel.NoWrapper)
 {
     @:</nav>
 }
