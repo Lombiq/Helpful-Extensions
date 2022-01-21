@@ -37,6 +37,7 @@ Includes:
 - ContainerWidget: Works as a container for further widgets. It has a FlowPart attached to it so it can contain additional widgets as well.
 - HtmlWidget: Adds HTML editing and displaying capabilities using a WYSIWYG editor. 
 - LiquidWidget: Adds Liquid code editing and rendering capabilities.
+- MenuWidget: Renders a Bootstrap navigation menu using the provided `MenuItem`s as a widget. 
 
 ### Helpful Content Types
 

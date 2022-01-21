@@ -5,6 +5,6 @@ namespace Lombiq.HelpfulExtensions.Extensions.Widgets
         public const string ContainerWidget = nameof(ContainerWidget);
         public const string HtmlWidget = nameof(HtmlWidget);
         public const string LiquidWidget = nameof(LiquidWidget);
-        public const string MainMenuWidget = nameof(MainMenuWidget);
+        public const string MenuWidget = nameof(MenuWidget);
     }
 }
