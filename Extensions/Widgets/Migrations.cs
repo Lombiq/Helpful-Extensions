@@ -41,7 +41,7 @@ namespace Lombiq.HelpfulExtensions.Extensions.Widgets
                 )
             );
 
-            _contentDefinitionManager.AlterTypeDefinition(PortalMenuWidget, builder => builder
+            _contentDefinitionManager.AlterTypeDefinition(MainMenuWidget, builder => builder
                 .Securable()
                 .Stereotype("Widget")
             );
@@ -61,7 +61,7 @@ namespace Lombiq.HelpfulExtensions.Extensions.Widgets
 
         public int UpdateFrom2()
         {
-            _contentDefinitionManager.AlterTypeDefinition(PortalMenuWidget, builder => builder
+            _contentDefinitionManager.AlterTypeDefinition(MainMenuWidget, builder => builder
                 .Securable()
                 .Stereotype("Widget")
             );
