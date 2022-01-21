@@ -1,0 +1,12 @@
+name: publish
+
+on:
+  push:
+    tags:
+      - v*
+
+jobs:
+  call-publish-workflow:
+    uses: Lombiq/NuGet-Publishing-GitHub-Actions/.github/workflows/publish.yml@dev
+    secrets:
+      apikey: ${{ secrets.DEFAULT_NUGET_PUBLISH_API_KEY }}
