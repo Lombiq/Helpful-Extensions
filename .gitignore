@@ -5,5 +5,4 @@ artifacts/
 wwwroot/
 node_modules/
 *.user
-*.orig
 .pnpm-debug.log
