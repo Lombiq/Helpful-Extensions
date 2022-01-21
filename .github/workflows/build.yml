@@ -1,0 +1,15 @@
+name: build
+
+on:
+  push:
+    branches: [dev]
+    paths-ignore:
+      - "Docs/**"
+      - "Readme.md"
+
+  pull_request:
+    branches: [dev]
+
+jobs:
+  call-build-workflow:
+    uses: Lombiq/NuGet-Publishing-GitHub-Actions/.github/workflows/build.yml@dev
