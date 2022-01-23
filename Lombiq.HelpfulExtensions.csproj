@@ -29,7 +29,7 @@
   <ItemGroup>
     <None Include="Licence.md" Pack="true" PackagePath="" />
     <None Include="Readme.md" />
-    <None Include="NuGetIcon.png" Pack="true" PackagePath="\"/>
+    <None Include="NuGetIcon.png" Pack="true" PackagePath=""/>
   </ItemGroup>
 
   <ItemGroup>
