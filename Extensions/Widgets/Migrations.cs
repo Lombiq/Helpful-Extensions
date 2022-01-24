@@ -15,8 +15,6 @@ namespace Lombiq.HelpfulExtensions.Extensions.Widgets
         public int Create()
         {
             _contentDefinitionManager.AlterTypeDefinition(ContainerWidget, builder => builder
-                .Draftable()
-                .Versionable()
                 .Securable()
                 .Stereotype("Widget")
                 .WithPart("TitlePart", part => part.WithPosition("0"))
@@ -24,8 +22,6 @@ namespace Lombiq.HelpfulExtensions.Extensions.Widgets
             );
 
             _contentDefinitionManager.AlterTypeDefinition(HtmlWidget, builder => builder
-                .Draftable()
-                .Versionable()
                 .Securable()
                 .Stereotype("Widget")
                 .WithPart("HtmlBodyPart", part => part
@@ -38,8 +34,6 @@ namespace Lombiq.HelpfulExtensions.Extensions.Widgets
             );
 
             _contentDefinitionManager.AlterTypeDefinition(LiquidWidget, builder => builder
-                .Draftable()
-                .Versionable()
                 .Securable()
                 .Stereotype("Widget")
                 .WithPart("LiquidPart", part => part
@@ -47,7 +41,12 @@ namespace Lombiq.HelpfulExtensions.Extensions.Widgets
                 )
             );
 
-            return 2;
+            _contentDefinitionManager.AlterTypeDefinition(MenuWidget, builder => builder
+                .Securable()
+                .Stereotype("Widget")
+            );
+
+            return 3;
         }
 
         public int UpdateFrom1()
@@ -58,6 +57,16 @@ namespace Lombiq.HelpfulExtensions.Extensions.Widgets
             );
 
             return 2;
+        }
+
+        public int UpdateFrom2()
+        {
+            _contentDefinitionManager.AlterTypeDefinition(MenuWidget, builder => builder
+                .Securable()
+                .Stereotype("Widget")
+            );
+
+            return 3;
         }
     }
 }
