@@ -66,12 +66,12 @@
                         var activeParentClass = isActive ? "nav-item-link-active" : string.Empty;
                         <li class="nav-item @activeParentClass">
                             <a id="@menuItem.Id"
-                               class="nav-link @activeClass @string.Join(" ", menuItem.Classes)"
+                               class="nav-link @activeClass @menuItem.Classes.Join()"
                                @if (!menuItem.LocalNav)
                                {
                                    <text>target="_blank"</text>
                                }
-                               href="@(menuItem.Href ?? "#")">@menuItem.Text</a>
+                               href="@(menuItem.Href ?? "")">@menuItem.Text</a>
                         </li>
                     }
                 }
