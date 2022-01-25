@@ -16,7 +16,7 @@ namespace Lombiq.HelpfulExtensions.Extensions.Widgets.ViewModels
         }
 
         public MenuWidgetViewModel(dynamic model)
-            : this(model.NoWrapper as bool? ?? false, model.MenuItems as IEnumerable<MenuItem>)
+            : this((model.NoWrapper as bool?) == true, model.MenuItems as IEnumerable<MenuItem>)
         {
         }
     }

@@ -61,15 +61,15 @@
                     }
                     else
                     {
-                        var activeClass = Context.Request.Path == menuItem.Href?.Partition("?").Left ? "active" : string.Empty;
-                        <li class="nav-item">
+                        var isActive = Context.Request.Path == menuItem.Href?.Partition("?").Left;
+                        <li class="nav-item @(isActive ? "nav-item-link-active" : string.Empty)">
                             <a id="@menuItem.Id"
-                               class="nav-link @activeClass @string.Join(" ", menuItem.Classes)"
+                               class="nav-link @(isActive ? "active" : string.Empty) @menuItem.Classes.Join()"
                                @if (!menuItem.LocalNav)
                                {
                                    <text>target="_blank"</text>
                                }
-                               href="@(menuItem.Href ?? "#")">@menuItem.Text</a>
+                               href="@(menuItem.Href ?? string.Empty)">@menuItem.Text</a>
                         </li>
                     }
                 }
