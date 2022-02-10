@@ -10,7 +10,7 @@ using static Lombiq.HelpfulExtensions.FeatureIds;
 
 [assembly: Feature(
     Id = CodeGeneration,
-    Name = "Code Generation Helpful Extensions - Lombiq Helpful Extensions",
+    Name = "Lombiq Helpful Extensions - Code Generation Helpful Extensions",
     Category = "Development",
     Description = "Generates migrations from content type definitions.",
     Dependencies = new[]
@@ -21,7 +21,7 @@ using static Lombiq.HelpfulExtensions.FeatureIds;
 
 [assembly: Feature(
     Id = Flows,
-    Name = "Flows Helpful Extensions - Lombiq Helpful Extensions",
+    Name = "Lombiq Helpful Extensions - Flows Helpful Extensions",
     Category = "Content",
     Description = "Adds additional styling capabilities to Flow Part.",
     Dependencies = new[]
@@ -32,7 +32,7 @@ using static Lombiq.HelpfulExtensions.FeatureIds;
 
 [assembly: Feature(
     Id = Widgets,
-    Name = "Helpful Widgets - Lombiq Helpful Extensions",
+    Name = "Lombiq Helpful Extensions - Helpful Widgets",
     Category = "Content",
     Description = "Adds helpful widgets such as Container or Liquid widgets.",
     Dependencies = new[]
@@ -45,7 +45,7 @@ using static Lombiq.HelpfulExtensions.FeatureIds;
 
 [assembly: Feature(
     Id = ContentTypes,
-    Name = "Helpful Content Types - Lombiq Helpful Extensions",
+    Name = "Lombiq Helpful Extensions - Helpful Content Types",
     Category = "Content",
     Description = "Adds helpful content types such as Page.",
     Dependencies = new[]
@@ -58,7 +58,7 @@ using static Lombiq.HelpfulExtensions.FeatureIds;
 
 [assembly: Feature(
     Id = ShapeTracing,
-    Name = "Shape Tracing Helpful Extensions - Lombiq Helpful Extensions",
+    Name = "Lombiq Helpful Extensions - Shape Tracing Helpful Extensions",
     Category = "Development",
     Description = "Adds a dump of metadata to the output about every shape."
 )]
