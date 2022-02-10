@@ -6,10 +6,6 @@
     <DefaultItemExcludes>$(DefaultItemExcludes);.git*;node_modules\**</DefaultItemExcludes>
   </PropertyGroup>
 
-  <ItemGroup>
-    <None Remove="node_modules\**" />
-  </ItemGroup>
-
   <PropertyGroup>
     <Title>Lombiq Helpful Extensions for Orchard Core</Title>
     <Authors>Lombiq Technologies</Authors>
@@ -28,6 +24,11 @@
     <None Include="NuGetIcon.png" Pack="true" PackagePath="" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Remove="node_modules\**" />
+    <None Remove="Tests\**" />
+  </ItemGroup>
+  
   <ItemGroup>
     <FrameworkReference Include="Microsoft.AspNetCore.App" />
   </ItemGroup>
