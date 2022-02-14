@@ -62,3 +62,14 @@ using static Lombiq.HelpfulExtensions.FeatureIds;
     Category = "Development",
     Description = "Adds a dump of metadata to the output about every shape."
 )]
+
+[assembly: Feature(
+    Id = Emails,
+    Name = "Lombiq Helpful Extensions - Emails",
+    Category = "Messaging",
+    Description = "Adds shape-based email template rendering and helpful email sending services.",
+    Dependencies = new[]
+    {
+        "OrchardCore.Email",
+    }
+)]

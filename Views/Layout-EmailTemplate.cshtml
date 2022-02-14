@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="@Orchard.CultureName()">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width" initial-scale="1">
+    <!--[if !mso]>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <![endif]-->
+    <title>
+        <shape type="EmailTemplate_Title"></shape>
+    </title>
+
+    @await RenderSectionAsync("Head", false)
+
+    <shape type="EmailTemplate_LayoutInjections" prop-layoutModel="@Model"></shape>
+</head>
+<body>
+
+<div style="display: none; max-height: 0px; overflow: hidden;">
+    @await RenderSectionAsync("Preheader", false)
+</div>
+
+<div>
+    @await RenderSectionAsync("Header", false)
+</div>
+
+<div>
+    @await RenderSectionAsync("BeforeBody", false)
+    @await RenderBodyAsync()
+    @await RenderSectionAsync("AfterBody", false)
+</div>
+
+<div>
+    @await RenderSectionAsync("Footer", false)
+</div>
+
+</body>
+</html>
