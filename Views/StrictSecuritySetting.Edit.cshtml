@@ -1,0 +1,23 @@
+@model Lombiq.HelpfulExtensions.Extensions.Security.ViewModels.StrictSecuritySettingsViewModel
+
+@* Template is to be kept identically formatted as ContentTypeSettings.Edit.cshtml. *@
+<div class="form-group">
+    <div class="custom-control custom-checkbox">
+        <input type="checkbox" class="custom-control-input" asp-for="Enabled">
+        <label class="custom-control-label" asp-for="Enabled">@T["Strict Securable"]</label>
+        <span class="hint dashed">
+            @T["Enable along with Securable to ensure the user must have the content type version of the permission."]
+        </span>
+    </div>
+</div>
+
+<script at="Foot" depends-on="jQuery">
+jQuery(function ($) {
+     $('#ContentTypeDefinition_Securable').change(function () {
+         var strict = document.getElementById(@Html.IdFor(model => model.Enabled).JsonHtmlContent());
+
+         strict.disabled = !this.checked;
+         if (!this.checked) strict.checked = false;
+    });
+});
+</script>

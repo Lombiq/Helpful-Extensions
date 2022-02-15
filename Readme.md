@@ -79,9 +79,7 @@ _contentDefinitionManager.AlterTypeDefinition("Page", type => type
     .WithSettings(new StrictSecuritySettings { Enabled = true }));
 ```
 
-You can also enable it by going to the content type editor on the admin side and checking the _Strict Securable_ checkbox. 
-
-> ⚠ Make sure to enable Securable, otherwise it will require a permission that doesn't exist and your content type will be inaccessible. 
+You can also enable it by going to the content type editor on the admin side and checking the _Strict Securable_ checkbox.
 
 
 ## Contributing and support
