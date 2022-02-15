@@ -5,7 +5,6 @@ using OrchardCore.Contents.Security;
 using OrchardCore.Modules;
 using OrchardCore.Security;
 using OrchardCore.Security.Permissions;
-using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
@@ -16,30 +15,25 @@ namespace Lombiq.HelpfulExtensions.Extensions.Security.Services
     [RequireFeatures(FeatureIds.Security)]
     public class StrictSecurablePermissionAuthorizationHandler : AuthorizationHandler<PermissionRequirement>
     {
-        private static Dictionary<string, IList<string>> _permissionTemplates = ContentTypePermissionsHelper
+        private static readonly Dictionary<string, IList<string>> _permissionTemplates = ContentTypePermissionsHelper
             .PermissionTemplates
             .ToDictionary(
                 pair => pair.Key,
                 pair => GetPermissionTemplates(pair.Value, new List<string>()));
 
-        private readonly Lazy<IAuthorizationService> _authorizationServiceLazy;
-
-        public StrictSecurablePermissionAuthorizationHandler(Lazy<IAuthorizationService> authorizationServiceLazy) =>
-            _authorizationServiceLazy = authorizationServiceLazy;
-
-        protected override async Task HandleRequirementAsync(AuthorizationHandlerContext context, PermissionRequirement requirement)
+        protected override Task HandleRequirementAsync(AuthorizationHandlerContext context, PermissionRequirement requirement)
         {
             if (context.Resource is not IContent content ||
                 !content.ContentItem.Has<StrictSecurityPart>() ||
                 !_permissionTemplates.TryGetValue(requirement.Permission.Name, out var claims))
             {
-                return;
+                return Task.CompletedTask;
             }
 
             if (!context.User.Identity.IsAuthenticated)
             {
                 context.Fail();
-                return;
+                return Task.CompletedTask;
             }
 
             var contentType = content.ContentItem.ContentType;
@@ -53,6 +47,7 @@ namespace Lombiq.HelpfulExtensions.Extensions.Security.Services
                 .Select(claim => claim.Value);
 
             if (!permissionNames.Any(claims.Contains)) context.Fail();
+            return Task.CompletedTask;
         }
 
         private static IList<string> GetPermissionTemplates(Permission permission, IList<string> templates)
