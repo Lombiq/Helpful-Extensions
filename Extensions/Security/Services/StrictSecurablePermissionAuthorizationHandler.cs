@@ -1,6 +1,7 @@
 using Lombiq.HelpfulExtensions.Extensions.Security.Models;
 using Microsoft.AspNetCore.Authorization;
 using OrchardCore.ContentManagement;
+using OrchardCore.ContentManagement.Metadata;
 using OrchardCore.Contents.Security;
 using OrchardCore.Modules;
 using OrchardCore.Security;
@@ -21,11 +22,17 @@ namespace Lombiq.HelpfulExtensions.Extensions.Security.Services
                 pair => pair.Key,
                 pair => GetPermissionTemplates(pair.Value, new List<string>()));
 
+        private readonly IContentDefinitionManager _contentDefinitionManager;
+
+        public StrictSecurablePermissionAuthorizationHandler(IContentDefinitionManager contentDefinitionManager) =>
+            _contentDefinitionManager = contentDefinitionManager;
+
         protected override Task HandleRequirementAsync(AuthorizationHandlerContext context, PermissionRequirement requirement)
         {
-            if (context.Resource is not IContent content ||
-                !content.ContentItem.Has<StrictSecurityPart>() ||
-                !_permissionTemplates.TryGetValue(requirement.Permission.Name, out var claims))
+            if ((context.Resource as IContent)?.ContentItem is not { } contentItem ||
+                !_permissionTemplates.TryGetValue(requirement.Permission.Name, out var claims) ||
+                _contentDefinitionManager.GetTypeDefinition(contentItem.ContentType) is not { } definition ||
+                definition.GetSettings<StrictSecuritySetting>()?.Enabled != true)
             {
                 return Task.CompletedTask;
             }
@@ -36,7 +43,7 @@ namespace Lombiq.HelpfulExtensions.Extensions.Security.Services
                 return Task.CompletedTask;
             }
 
-            var contentType = content.ContentItem.ContentType;
+            var contentType = contentItem.ContentType;
             claims = claims
                 .Select(template => string.Format(CultureInfo.InvariantCulture, template, contentType))
                 .ToList();
