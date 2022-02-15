@@ -1,6 +1,6 @@
 namespace Lombiq.HelpfulExtensions.Extensions.Security.Models
 {
-    public class StrictSecuritySetting
+    public class StrictSecuritySettings
     {
         public bool Enabled { get; set; }
     }

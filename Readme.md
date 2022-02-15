@@ -75,10 +75,13 @@ When applied to a content type definition, `StrictSecuritySetting` requires the 
 Make content type use strict security in migration:
 ```csharp
 _contentDefinitionManager.AlterTypeDefinition("Page", type => type
-    .WithSettings(new StrictSecuritySetting { Enabled = true }));
+    .Securable()
+    .WithSettings(new StrictSecuritySettings { Enabled = true }));
 ```
 
 You can also enable it by going to the content type editor on the admin side and checking the _Strict Securable_ checkbox. 
+
+> ⚠ Make sure to enable Securable, otherwise it will require a permission that doesn't exist and your content type will be inaccessible. 
 
 
 ## Contributing and support

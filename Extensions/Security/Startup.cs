@@ -12,7 +12,7 @@ namespace Lombiq.HelpfulExtensions.Extensions.Security
         public override void ConfigureServices(IServiceCollection services)
         {
             services.AddLazyInjectionSupport();
-            services.AddScoped<IAuthorizationHandler, StrictSecurablePermissionAuthorizationHandler>();
+            services.AddScoped<IAuthorizationHandler, StrictSecurityPermissionAuthorizationHandler>();
         }
     }
 }
