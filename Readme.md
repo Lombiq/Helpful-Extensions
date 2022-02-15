@@ -65,6 +65,14 @@ It displays an [accordion powered by Bootstrap](https://getbootstrap.com/docs/4.
        prop-Children="IEnumerable<BootstrapAccordionItem>"></shape>
 ```
 
+### Security Extensions
+
+
+#### StrictSecurityPart
+
+When attached to a content type, it requires the user to have the exact Securable permission for that content type. For example if you attach to Page, then just having the common ViewContent permission won't be enough and you must explicitly have the View_Page permission too. Don't worry, the normal implications such as ViewOwn beig fulfilled by View still apply within the content type, they just no longer imply their common counterparts.
+
+
 ## Contributing and support
 
 Bug reports, feature requests, comments, questions, code contributions, and love letters are warmly welcome, please do so via GitHub issues and pull requests. Please adhere to our [open-source guidelines](https://lombiq.com/open-source-guidelines) while doing so.
