@@ -1,56 +1,30 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.Extensions.Logging;
+﻿using System.Threading.Tasks;
+using Lombiq.HelpfulExtensions.Extensions.Emails.Models;
 using OrchardCore.Email;
 
 namespace Lombiq.HelpfulExtensions.Extensions.Emails.Services
 {
+    /// <summary>
+    /// Service for sending emails.
+    /// </summary>
     public interface IEmailService
     {
-        Task SendEmailAsync(EmailParameters parameters);
+        /// <summary>
+        /// Sends an email using the given parameters.
+        /// </summary>
+        /// <param name="parameters">Parameters required for sending emails (e.g., recipients, subject, CC).</param>
+        /// <returns>Result of the SMTP operation.</returns>
+        Task<SmtpResult> SendEmailAsync(EmailParameters parameters);
     }
 
-    public class EmailService : IEmailService
+    public static class EmailServiceExtensions
     {
-        private readonly ISmtpService _smtpService;
-        private readonly ILogger<EmailService> _logger;
-
-        public EmailService(ISmtpService smtpService, ILogger<EmailService> logger)
-        {
-            _smtpService = smtpService;
-            _logger = logger;
-        }
-
-        public async Task SendEmailAsync(EmailParameters parameters)
-        {
-            var result = await _smtpService.SendAsync(new MailMessage
+        public static Task<SmtpResult> SendEmailAsync(this IEmailService service, string to, string subject, string body) =>
+            service.SendEmailAsync(new EmailParameters
             {
-                Sender = parameters.Sender,
-                To = parameters.To?.Join(","),
-                Cc = parameters.Cc?.Join(","),
-                Bcc = parameters.Bcc?.Join(","),
-                Subject = parameters.Subject,
-                ReplyTo = parameters.ReplyTo,
-                Body = parameters.Body,
-                IsBodyHtml = true,
+                To = new[] {to},
+                Subject = subject,
+                Body = body,
             });
-
-            if (!result.Succeeded)
-            {
-                _logger.LogError("Email sending was unsuccessful: {0}", result.Errors.Select(error => error.ToString()).Join());
-            }
-        }
-    }
-
-    public class EmailParameters
-    {
-        public string Sender { get; set; }
-        public IEnumerable<string> To { get; set; }
-        public IEnumerable<string> Cc { get; set; }
-        public IEnumerable<string> Bcc { get; set; }
-        public string Subject { get; set; }
-        public string Body { get; set; }
-        public string ReplyTo { get; set; }
     }
 }

@@ -1,3 +1,7 @@
+@{
+    const string blockName = "emailTemplate";
+}
+
 <!DOCTYPE html>
 <html lang="@Orchard.CultureName()">
 <head>
@@ -16,23 +20,26 @@
 </head>
 <body>
 
-<div style="display: none; max-height: 0px; overflow: hidden;">
+<span class="preheader" style="display: none; max-height: 0px; overflow: hidden;">
     @await RenderSectionAsync("Preheader", false)
+</span>
+
+<div class="@(blockName)">
+    <div class="@(blockName)__header">
+        @await RenderSectionAsync("Header", false)
+    </div>
+
+    <div class="@(blockName)__content">
+        @await RenderSectionAsync("BeforeContent", false)
+        @await RenderBodyAsync()
+        @await RenderSectionAsync("AfterContent", false)
+    </div>
+
+    <div class="@(blockName)__footer">
+        @await RenderSectionAsync("Footer", false)
+    </div>
 </div>
 
-<div>
-    @await RenderSectionAsync("Header", false)
-</div>
-
-<div>
-    @await RenderSectionAsync("BeforeBody", false)
-    @await RenderBodyAsync()
-    @await RenderSectionAsync("AfterBody", false)
-</div>
-
-<div>
-    @await RenderSectionAsync("Footer", false)
-</div>
 
 </body>
 </html>
