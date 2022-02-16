@@ -14,7 +14,7 @@ namespace Lombiq.HelpfulExtensions.Extensions.Emails
         public override void ConfigureServices(IServiceCollection services)
         {
             services.AddShapeRenderer();
-            services.AddScoped<IEmailTemplateService, EmailTemplateService>();
+            services.AddScoped<IEmailTemplateService, ShapeBasedEmailTemplateService>();
             services.AddScoped<IEmailService, EmailService>();
         }
 

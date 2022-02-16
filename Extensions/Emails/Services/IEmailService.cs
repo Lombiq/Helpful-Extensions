@@ -1,6 +1,4 @@
-﻿using System.Threading.Tasks;
-using Lombiq.HelpfulExtensions.Extensions.Emails.Models;
-using OrchardCore.Email;
+﻿using Lombiq.HelpfulExtensions.Extensions.Emails.Models;
 
 namespace Lombiq.HelpfulExtensions.Extensions.Emails.Services
 {
@@ -10,19 +8,18 @@ namespace Lombiq.HelpfulExtensions.Extensions.Emails.Services
     public interface IEmailService
     {
         /// <summary>
-        /// Sends an email using the given parameters.
+        /// Sends an email after the current shell scope is ended. Any error occurs during the process will be logged.
         /// </summary>
         /// <param name="parameters">Parameters required for sending emails (e.g., recipients, subject, CC).</param>
-        /// <returns>Result of the SMTP operation.</returns>
-        Task<SmtpResult> SendEmailAsync(EmailParameters parameters);
+        void SendEmailDeferred(EmailParameters parameters);
     }
 
     public static class EmailServiceExtensions
     {
-        public static Task<SmtpResult> SendEmailAsync(this IEmailService service, string to, string subject, string body) =>
-            service.SendEmailAsync(new EmailParameters
+        public static void SendEmailDeferred(this IEmailService service, string to, string subject, string body) =>
+            service.SendEmailDeferred(new EmailParameters
             {
-                To = new[] {to},
+                To = new[] { to },
                 Subject = subject,
                 Body = body,
             });
