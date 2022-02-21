@@ -67,5 +67,5 @@ using static Lombiq.HelpfulExtensions.FeatureIds;
     Id = Security,
     Name = "Lombiq Helpful Extensions - Security Helpful Extensions",
     Category = "Security",
-    Description = "Adds a content part and authorization handler for richer security options."
+    Description = "Adds a content type definition setting and authorization handler for richer security options."
 )]

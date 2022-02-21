@@ -32,8 +32,4 @@
     <PackageReference Include="Lombiq.HelpfulLibraries.Targets" Version="0.0.11" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Content Include="Views\StrictSecuritySetting.Edit.cshtml" />
-  </ItemGroup>
-
 </Project>
