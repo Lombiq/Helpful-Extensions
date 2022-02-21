@@ -15,7 +15,7 @@ namespace Lombiq.HelpfulExtensions.Extensions.Emails.Services
             ShellScope.AddDeferredTask(async scope =>
             {
                 var smtpService = scope.ServiceProvider.GetService<ISmtpService>();
-                var logger = scope.ServiceProvider.GetService<ILogger>();
+                var logger = scope.ServiceProvider.GetService<ILogger<EmailService>>();
                 var result = await smtpService.SendAsync(new MailMessage
                 {
                     Sender = parameters.Sender,

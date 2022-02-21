@@ -13,15 +13,4 @@ namespace Lombiq.HelpfulExtensions.Extensions.Emails.Services
         /// <param name="parameters">Parameters required for sending emails (e.g., recipients, subject, CC).</param>
         void SendEmailDeferred(EmailParameters parameters);
     }
-
-    public static class EmailServiceExtensions
-    {
-        public static void SendEmailDeferred(this IEmailService service, string to, string subject, string body) =>
-            service.SendEmailDeferred(new EmailParameters
-            {
-                To = new[] { to },
-                Subject = subject,
-                Body = body,
-            });
-    }
 }
