@@ -68,6 +68,23 @@ It displays an [accordion powered by Bootstrap](https://getbootstrap.com/docs/4.
        prop-Children="IEnumerable<BootstrapAccordionItem>"></shape>
 ```
 
+### Security Extensions
+
+
+#### Strict Security
+
+When applied to a content type definition, `StrictSecuritySetting` requires the user to have the exact Securable permission for that content type. For example if you apply it to Page, then just having the common ViewContent permission won't be enough and you must explicitly have the View_Page permission too. Don't worry, the normal implications such as ViewOwn beig fulfilled by View still apply within the content type, they just no longer imply their common counterparts.
+
+Make content type use strict security in migration:
+```csharp
+_contentDefinitionManager.AlterTypeDefinition("Page", type => type
+    .Securable()
+    .WithSettings(new StrictSecuritySettings { Enabled = true }));
+```
+
+You can also enable it by going to the content type editor on the admin side and checking the _Strict Securable_ checkbox.
+
+
 ## Contributing and support
 
 Bug reports, feature requests, comments, questions, code contributions, and love letters are warmly welcome, please do so via GitHub issues and pull requests. Please adhere to our [open-source guidelines](https://lombiq.com/open-source-guidelines) while doing so.

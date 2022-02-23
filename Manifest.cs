@@ -62,3 +62,10 @@ using static Lombiq.HelpfulExtensions.FeatureIds;
     Category = "Development",
     Description = "Adds a dump of metadata to the output about every shape."
 )]
+
+[assembly: Feature(
+    Id = Security,
+    Name = "Lombiq Helpful Extensions - Security Helpful Extensions",
+    Category = "Security",
+    Description = "Adds a content type definition setting and authorization handler for richer security options."
+)]
