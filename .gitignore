@@ -1,5 +1,8 @@
+.vs/
 obj/
 bin/
-*.user
 artifacts/
-.vs/
+wwwroot/
+node_modules/
+*.user
+.pnpm-debug.log
