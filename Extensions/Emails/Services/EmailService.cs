@@ -1,11 +1,10 @@
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using Lombiq.HelpfulExtensions.Extensions.Emails.Models;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using OrchardCore.Email;
 using OrchardCore.Environment.Shell.Scope;
-using Microsoft.Extensions.DependencyInjection;
 
 namespace Lombiq.HelpfulExtensions.Extensions.Emails.Services
 {
