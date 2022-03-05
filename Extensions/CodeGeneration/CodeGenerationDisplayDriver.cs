@@ -119,7 +119,7 @@ namespace Lombiq.HelpfulExtensions.Extensions.CodeGeneration
             }
         }
 
-        private string ConvertJToken(JToken jToken)
+        private string ConvertJToken(JToken jToken, int indentationDepth)
         {
             switch (jToken)
             {
@@ -133,16 +133,18 @@ namespace Lombiq.HelpfulExtensions.Extensions.CodeGeneration
                     };
 
                 case JArray jArray:
-                    var token = string.Join(", ", jArray.Select(ConvertJToken));
-                    var format = token.Contains("ListValueOption") ? "\n    " : string.Empty;
-
+                    var token = string.Join(", ", jArray.Select(a => ConvertJToken(a, indentationDepth * 2)));
+                    var format = token.Contains("ListValueOption", StringComparison.InvariantCulture)
+                        ? $"\n{string.Join(string.Empty, Enumerable.Repeat(" ", (int)(indentationDepth * 1.5)))}"
+                        : string.Empty;
 
                     return $"new[] {format}{{ {string.Join(", ", token)} {format}}}";
 
                 case JObject jObject:
+                    var indentation = string.Join(string.Empty, Enumerable.Repeat(" ", indentationDepth));
                     if (jObject["name"] != null && jObject["value"] != null)
                     {
-                        return $"\n               new ListValueOption {{ Name = \"{jObject["name"]}\", Value = \"{jObject["value"]}\" }}";
+                        return $"\n{indentation}new ListValueOption {{ Name = \"{jObject["name"]}\", Value = \"{jObject["value"]}\" }}";
                     }
                     else
                     {
@@ -161,8 +163,10 @@ namespace Lombiq.HelpfulExtensions.Extensions.CodeGeneration
 
             var filteredSettings = ((IEnumerable<KeyValuePair<string, JToken>>)settings)
                 .Where(setting => setting.Key != typeof(T).Name);
+
             foreach (var setting in filteredSettings)
             {
+
                 var properties = setting.Value.Where(property => property is JProperty).Cast<JProperty>().ToArray();
 
                 if (properties.Length == 0) continue;
@@ -175,7 +179,8 @@ namespace Lombiq.HelpfulExtensions.Extensions.CodeGeneration
                 for (int i = 0; i < properties.Length; i++)
                 {
                     var property = properties[i];
-                    var propertyValue = ConvertJToken(property.Value);
+
+                    var propertyValue = ConvertJToken(property.Value, indentationDepth);
 
                     if (propertyValue == null)
                     {
