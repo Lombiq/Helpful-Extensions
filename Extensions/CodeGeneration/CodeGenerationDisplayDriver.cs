@@ -128,7 +128,7 @@ namespace Lombiq.HelpfulExtensions.Extensions.CodeGeneration
                     return value switch
                     {
                         bool boolValue => boolValue ? "true" : "false",
-                        string _ => $"\"{value}\"",
+                        string => $"\"{value}\"",
                         _ => value?.ToString()?.Replace(',', '.'), // Replace decimal commas.
                     };
 
@@ -176,7 +176,12 @@ namespace Lombiq.HelpfulExtensions.Extensions.CodeGeneration
                 {
                     var property = properties[i];
                     var propertyValue = ConvertJToken(property.Value);
-                    if (propertyValue.Contains(Environment.NewLine, StringComparison.OrdinalIgnoreCase))
+
+                    if (propertyValue == null)
+                    {
+                        propertyValue = "\"\"";
+                    }
+                    else if (propertyValue.Contains(Environment.NewLine, StringComparison.OrdinalIgnoreCase))
                     {
                         propertyValue = "@" + propertyValue;
                     }

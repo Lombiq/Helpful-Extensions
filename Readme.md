@@ -2,9 +2,16 @@
 
 
 
+[![Lombiq.HelpfulExtensions NuGet](https://img.shields.io/nuget/v/Lombiq.HelpfulExtensions?label=Lombiq.HelpfulExtensions)](https://www.nuget.org/packages/Lombiq.HelpfulExtensions/)
+
+
 ## About
 
-Orchard Core module containing some handy extensions (e.g. filters for Projector). Note that this module has a more recent version targeting the nightly build of Orchard in the [orchard-core-preview branch](https://github.com/Lombiq/Helpful-Extensions/tree/orchard-core-preview), as well as an Orchard 1 version in the [dev-orchard-1 branch](https://github.com/Lombiq/Helpful-Extensions/tree/dev-orchard-1).
+Orchard Core module containing some handy extensions (e.g. useful content types and widgets). It's also available on all sites of [DotNest, the Orchard SaaS](https://dotnest.com/).
+
+Do you want to quickly try out this project and see it in action? Check it out in our [Open-Source Orchard Core Extensions](https://github.com/Lombiq/Open-Source-Orchard-Core-Extensions) full Orchard Core solution and also see our other useful Orchard Core-related open-source projects!
+
+Note that this module has an Orchard 1 version in the [dev-orchard-1 branch](https://github.com/Lombiq/Helpful-Extensions/tree/dev-orchard-1).
 
 
 ## Extensions
@@ -31,8 +38,9 @@ Adds multiple helpful widget content types. These are basic widgets that are add
 Includes:
 
 - ContainerWidget: Works as a container for further widgets. It has a FlowPart attached to it so it can contain additional widgets as well.
-- HtmlWidget: Adds HTML editing and displaying capabilities using a WYSIWYG editor. 
+- HtmlWidget: Adds HTML editing and displaying capabilities using a WYSIWYG editor.
 - LiquidWidget: Adds Liquid code editing and rendering capabilities.
+- MenuWidget: Renders a Bootstrap navigation menu as a widget using the provided `MenuItem`s. 
 
 ### Helpful Content Types
 
@@ -45,6 +53,36 @@ Includes:
 ### Shape Tracing Helpful Extensions
 
 Adds a dump of metadata to the output about every shape. This will help you understand how a shape is displayed and how you can override it. Just check out the HTML output. You can see a video demo of this feature in action [on YouTube](https://www.youtube.com/watch?v=WI4TEKVc9SA).
+
+### Helpful Shapes
+
+Adds common constructs you can use in your views.
+
+#### BootstrapAccordion
+
+It displays an [accordion powered by Bootstrap](https://getbootstrap.com/docs/4.0/components/collapse/#accordion-example). It displays shapes as content. The `Children` property is required.
+
+```html
+<shape type="BootstrapAccordion" 
+       prop-AdditionalClasses="string" 
+       prop-Children="IEnumerable<BootstrapAccordionItem>"></shape>
+```
+
+### Security Extensions
+
+
+#### Strict Security
+
+When applied to a content type definition, `StrictSecuritySetting` requires the user to have the exact Securable permission for that content type. For example if you apply it to Page, then just having the common ViewContent permission won't be enough and you must explicitly have the View_Page permission too. Don't worry, the normal implications such as ViewOwn beig fulfilled by View still apply within the content type, they just no longer imply their common counterparts.
+
+Make content type use strict security in migration:
+```csharp
+_contentDefinitionManager.AlterTypeDefinition("Page", type => type
+    .Securable()
+    .WithSettings(new StrictSecuritySettings { Enabled = true }));
+```
+
+You can also enable it by going to the content type editor on the admin side and checking the _Strict Securable_ checkbox.
 
 
 ## Contributing and support

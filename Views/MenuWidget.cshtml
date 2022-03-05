@@ -1,0 +1,83 @@
+@using Lombiq.HelpfulExtensions.Extensions.Widgets
+@using Lombiq.HelpfulExtensions.Extensions.Widgets.ViewModels
+
+<style asp-name="font-awesome"></style>
+
+@{
+    var viewModel = new MenuWidgetViewModel(Model);
+
+    const string blockName = "menuWidget";
+    const string contentElementName = blockName + "__content";
+    const string togglerElementName = blockName + "__toggler";
+    const string dropdownElementName = blockName + "__dropdown";
+    const string dropdownItemElementName = blockName + "__dropdownItem";
+
+    var contentIdName = FormattableString.Invariant($"{contentElementName}_{Guid.NewGuid()}");
+    var dropdownIdName = FormattableString.Invariant($"{dropdownElementName}_{Guid.NewGuid()}");
+}
+
+@if (!viewModel.NoWrapper)
+{
+    @:<nav class="navbar navbar-expand-md">
+}
+    <div class="container-fluid">
+        <button class="navbar-toggler @togglerElementName"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#@contentIdName"
+                aria-controls="@contentIdName"
+                aria-expanded="false"
+                aria-label="@T["Toggle Navigation"]">
+            <span class="navbar-toggler-icon fas fa-bars"></span>
+        </button>
+        <div id="@contentIdName" class="collapse navbar-collapse @contentElementName">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                @foreach (var menuItem in viewModel.MenuItems)
+                {
+                    @if (menuItem.Items.Any())
+                    {
+                        <li class="nav-item dropdown">
+                            <a id="@dropdownIdName"
+                               class="nav-link dropdown-toggle @dropdownElementName"
+                               href="#"
+                               role="button"
+                               data-bs-toggle="dropdown"
+                               aria-expanded="false">@menuItem.Text</a>
+                        </li>
+                        <ul class="dropdown-menu" aria-labelledby="@dropdownIdName">
+                            @foreach (var submenu in menuItem.Items)
+                            {
+                                <li>
+                                    <a id="@submenu.Id"
+                                       class="dropdown-item @dropdownItemElementName"
+                                       @if (!submenu.LocalNav)
+                                       {
+                                           <text>target="_blank"</text>
+                                       }
+                                       href="@submenu.Href">@submenu.Text</a>
+                                </li>
+                            }
+                        </ul>
+                    }
+                    else
+                    {
+                        var isActive = Context.Request.Path == menuItem.Href?.Partition("?").Left;
+                        <li class="nav-item @(isActive ? "nav-item-link-active" : string.Empty)">
+                            <a id="@menuItem.Id"
+                               class="nav-link @(isActive ? "active" : string.Empty) @menuItem.Classes.Join()"
+                               @if (!menuItem.LocalNav)
+                               {
+                                   <text>target="_blank"</text>
+                               }
+                               href="@(menuItem.Href ?? string.Empty)">@menuItem.Text</a>
+                        </li>
+                    }
+                }
+            </ul>
+        </div>
+    </div>
+
+@if (!viewModel.NoWrapper)
+{
+    @:</nav>
+}

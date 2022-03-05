@@ -1,5 +1,3 @@
-using Lombiq.HelpfulExtensions;
-using Lombiq.HelpfulExtensions.Extensions.Flows;
 using Lombiq.HelpfulExtensions.Extensions.Flows.Drivers;
 using Lombiq.HelpfulExtensions.Extensions.Flows.Handlers;
 using Lombiq.HelpfulExtensions.Extensions.Flows.Models;
@@ -13,7 +11,7 @@ using OrchardCore.DisplayManagement.Descriptors;
 using OrchardCore.Modules;
 using System;
 
-namespace Piedone.HelpfulExtensions.Extensions.Flows
+namespace Lombiq.HelpfulExtensions.Extensions.Flows
 {
     [Feature(FeatureIds.Flows)]
     public class Startup : StartupBase

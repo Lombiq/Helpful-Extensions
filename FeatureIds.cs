@@ -9,5 +9,6 @@ namespace Lombiq.HelpfulExtensions
         public const string Flows = FeatureIdPrefix + nameof(Flows);
         public const string ShapeTracing = FeatureIdPrefix + nameof(ShapeTracing);
         public const string Widgets = FeatureIdPrefix + nameof(Widgets);
+        public const string Security = FeatureIdPrefix + nameof(Security);
     }
 }
