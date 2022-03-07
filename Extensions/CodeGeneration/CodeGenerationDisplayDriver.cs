@@ -134,7 +134,7 @@ namespace Lombiq.HelpfulExtensions.Extensions.CodeGeneration
 
                 case JArray jArray:
                     var token = string.Join(", ", jArray.Select(a => ConvertJToken(a, indentationDepth * 2)));
-                    var format = token.Contains("ListValueOption", StringComparison.InvariantCulture)
+                    var format = token.ContainsOrdinalIgnoreCase("ListValueOption")
                         ? $"\n{string.Join(string.Empty, Enumerable.Repeat(" ", (int)(indentationDepth * 1.5)))}"
                         : string.Empty;
 
@@ -166,7 +166,6 @@ namespace Lombiq.HelpfulExtensions.Extensions.CodeGeneration
 
             foreach (var setting in filteredSettings)
             {
-
                 var properties = setting.Value.Where(property => property is JProperty).Cast<JProperty>().ToArray();
 
                 if (properties.Length == 0) continue;
