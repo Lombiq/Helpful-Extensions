@@ -20,9 +20,7 @@ namespace Lombiq.HelpfulExtensions.Extensions.Emails.Services
         {
             ExceptionHelpers.ThrowIfNull(emailTemplateId, nameof(emailTemplateId));
 
-            var shape = model != null
-                ? await _shapeFactory.CreateAsync($"EmailTemplate__{emailTemplateId}", Arguments.From(model))
-                : await _shapeFactory.CreateAsync($"EmailTemplate__{emailTemplateId}");
+            var shape = await _shapeFactory.CreateAsync($"EmailTemplate__{emailTemplateId}", Arguments.From(model ?? new { }));
 
             return await _shapeRenderer.RenderAsync(shape);
         }

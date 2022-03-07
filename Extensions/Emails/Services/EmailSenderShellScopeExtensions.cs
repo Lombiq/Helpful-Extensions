@@ -8,13 +8,17 @@ using OrchardCore.Environment.Shell.Scope;
 
 namespace Lombiq.HelpfulExtensions.Extensions.Emails.Services
 {
-    public class EmailService : IEmailService
+    public static class EmailSenderShellScopeExtensions
     {
-        public void SendEmailDeferred(EmailParameters parameters) =>
-            ShellScope.AddDeferredTask(async scope =>
+        /// <summary>
+        /// Sends an HTML email after the current shell scope has ended. If any errors occur during the process they
+        /// will be logged.
+        /// </summary>
+        /// <param name="parameters">Parameters required for sending emails (e.g., recipients, subject, CC).</param>
+        public static void SendEmailDeferred(this ShellScope shellScope, EmailParameters parameters) =>
+            shellScope.AddDeferredTask(async scope =>
             {
                 var smtpService = scope.ServiceProvider.GetService<ISmtpService>();
-                var logger = scope.ServiceProvider.GetService<ILogger<EmailService>>();
                 var result = await smtpService.SendAsync(new MailMessage
                 {
                     Sender = parameters.Sender,
@@ -29,6 +33,7 @@ namespace Lombiq.HelpfulExtensions.Extensions.Emails.Services
 
                 if (!result.Succeeded)
                 {
+                    var logger = scope.ServiceProvider.GetService<ILogger<ShellScope>>();
                     logger.LogError("Email sending was unsuccessful: {0}", result.Errors.Select(error => error.ToString()).Join());
                 }
             });

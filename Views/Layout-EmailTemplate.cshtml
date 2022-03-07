@@ -14,29 +14,29 @@
         <shape type="EmailTemplate_Title"></shape>
     </title>
 
-    @await RenderSectionAsync("Head", false)
+    @await RenderSectionAsync("Head", required: false)
 
     <shape type="EmailTemplate_LayoutInjections" prop-layoutModel="@Model"></shape>
 </head>
 <body>
 
 <span class="preheader" style="display: none; max-height: 0px; overflow: hidden;">
-    @await RenderSectionAsync("Preheader", false)
+    @await RenderSectionAsync("Preheader", required: false)
 </span>
 
 <div class="@(blockName)">
     <div class="@(blockName)__header">
-        @await RenderSectionAsync("Header", false)
+        @await RenderSectionAsync("Header", required: false)
     </div>
 
     <div class="@(blockName)__content">
-        @await RenderSectionAsync("BeforeContent", false)
+        @await RenderSectionAsync("BeforeContent", required: false)
         @await RenderBodyAsync()
-        @await RenderSectionAsync("AfterContent", false)
+        @await RenderSectionAsync("AfterContent", required: false)
     </div>
 
     <div class="@(blockName)__footer">
-        @await RenderSectionAsync("Footer", false)
+        @await RenderSectionAsync("Footer", required: false)
     </div>
 </div>
 
