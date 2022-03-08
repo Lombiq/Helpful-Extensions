@@ -171,7 +171,7 @@ namespace Lombiq.HelpfulExtensions.Extensions.CodeGeneration
                         objectCodeBuilder.AppendLine($"{braceIndentation}{{");
                         objectCodeBuilder.AppendLine($"{propertyIndentation}Name = \"{jObject["name"]}\",");
                         objectCodeBuilder.AppendLine($"{propertyIndentation}Value = \"{jObject["value"]}\",");
-                        objectCodeBuilder.AppendLine($"{braceIndentation}}}");
+                        objectCodeBuilder.AppendLine($"{braceIndentation}}},");
 
                         return objectCodeBuilder.ToString();
                     }
