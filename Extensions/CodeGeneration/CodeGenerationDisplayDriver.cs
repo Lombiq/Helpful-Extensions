@@ -135,25 +135,22 @@ namespace Lombiq.HelpfulExtensions.Extensions.CodeGeneration
                 case JArray jArray:
                     var token = string.Join(string.Empty, jArray.Select(item => ConvertJToken(item, indentationDepth + 8)));
 
-                    var format = token.ContainsOrdinalIgnoreCase("ListValueOption")
-                        ? $"{string.Join(string.Empty, Enumerable.Repeat(" ", (int)(indentationDepth + 4)))}"
-                        : string.Empty;
+                    var format = $"{string.Join(string.Empty, Enumerable.Repeat(" ", (int)(indentationDepth + 4)))}";
 
                     return $"new[]\n{format}{{\n{token}{format}}}";
-
                 case JObject jObject:
                     var braceIndentation = string.Join(string.Empty, Enumerable.Repeat(" ", indentationDepth));
                     var propertyIndentation = string.Join(string.Empty, Enumerable.Repeat(" ", (int)(indentationDepth + 4)));
                     if (jObject["name"] != null && jObject["value"] != null)
                     {
-                        var codeBuilder = new StringBuilder();
-                        codeBuilder.AppendLine($"{braceIndentation}new ListValueOption");
-                        codeBuilder.AppendLine($"{braceIndentation}{{");
-                        codeBuilder.AppendLine($"{propertyIndentation}Name = \"{jObject["name"]}\",");
-                        codeBuilder.AppendLine($"{propertyIndentation}Value = \"{jObject["value"]}\",");
-                        codeBuilder.AppendLine($"{braceIndentation}}},");
+                        var objectCodeBuilder = new StringBuilder();
+                        objectCodeBuilder.AppendLine($"{braceIndentation}new ListValueOption");
+                        objectCodeBuilder.AppendLine($"{braceIndentation}{{");
+                        objectCodeBuilder.AppendLine($"{propertyIndentation}Name = \"{jObject["name"]}\",");
+                        objectCodeBuilder.AppendLine($"{propertyIndentation}Value = \"{jObject["value"]}\",");
+                        objectCodeBuilder.AppendLine($"{braceIndentation}}},");
 
-                        return codeBuilder.ToString();
+                        return objectCodeBuilder.ToString();
                     }
 
                     // Using a quoted string so it doesn't mess up the syntax highlighting of the rest of the code.
@@ -192,7 +189,8 @@ namespace Lombiq.HelpfulExtensions.Extensions.CodeGeneration
                     {
                         propertyValue = "\"\"";
                     }
-                    else if (propertyValue.Contains(Environment.NewLine, StringComparison.OrdinalIgnoreCase))
+                    else if (propertyValue.Contains(Environment.NewLine, StringComparison.OrdinalIgnoreCase) 
+                        && !setting.Key.ContainsOrdinalIgnoreCase("TextFieldPredefinedListEditorSettings"))
                     {
                         propertyValue = "@" + propertyValue;
                     }
