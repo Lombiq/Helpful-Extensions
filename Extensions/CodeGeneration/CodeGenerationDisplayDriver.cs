@@ -137,7 +137,7 @@ namespace Lombiq.HelpfulExtensions.Extensions.CodeGeneration
 
                     var items = jArray.Select(item => ConvertJToken(item, indentationDepth + 8)).ToList();
 
-                    // If the items are formatted (for ListValueOption) the don't inject line-by-line formatting
+                    // If the items are formatted (for ListValueOption) then don't inject line-by-line formatting.
                     if (items.Any(item => item.ContainsOrdinalIgnoreCase(Environment.NewLine)))
                     {
                         var token = string.Join(string.Empty, items);
