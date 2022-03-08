@@ -133,7 +133,7 @@ namespace Lombiq.HelpfulExtensions.Extensions.CodeGeneration
                     };
 
                 case JArray jArray:
-                    var format = $"{string.Join(string.Empty, Enumerable.Repeat(" ", indentationDepth + 4))}";
+                    var indentation = $"{string.Join(string.Empty, Enumerable.Repeat(" ", indentationDepth + 4))}";
 
                     var items = jArray.Select(item => ConvertJToken(item, indentationDepth + 8)).ToList();
 
