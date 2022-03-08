@@ -147,11 +147,9 @@ namespace Lombiq.HelpfulExtensions.Extensions.CodeGeneration
                     {
                         return $"\n{indentation}new ListValueOption {{ Name = \"{jObject["name"]}\", Value = \"{jObject["value"]}\" }}";
                     }
-                    else
-                    {
-                        // Using a quoted string so it doesn't mess up the syntax highlighting of the rest of the code.
-                        return T["\"FIX ME! Couldn't determine the actual type to instantiate.\" {0}", jObject.ToString()];
-                    }
+
+                    // Using a quoted string so it doesn't mess up the syntax highlighting of the rest of the code.
+                    return T["\"FIX ME! Couldn't determine the actual type to instantiate.\" {0}", jObject.ToString()];
 
                 default:
                     throw new NotSupportedException($"Settings values of type {jToken.GetType()} are not supported.");
