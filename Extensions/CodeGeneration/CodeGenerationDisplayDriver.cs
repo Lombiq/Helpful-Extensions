@@ -133,19 +133,28 @@ namespace Lombiq.HelpfulExtensions.Extensions.CodeGeneration
                     };
 
                 case JArray jArray:
-                    var token = string.Join(", ", jArray.Select(item => ConvertJToken(item, indentationDepth * 2)));
+                    var token = string.Join(string.Empty, jArray.Select(item => ConvertJToken(item, indentationDepth + 8)));
 
                     var format = token.ContainsOrdinalIgnoreCase("ListValueOption")
-                        ? $"\n{string.Join(string.Empty, Enumerable.Repeat(" ", (int)(indentationDepth * 1.5)))}"
+                        ? $"{string.Join(string.Empty, Enumerable.Repeat(" ", (int)(indentationDepth + 4)))}"
                         : string.Empty;
 
-                    return $"new[] {format}{{ {string.Join(", ", token)} {format}}}";
+                    return $"new[]\n {format}{{ {token} {format}}}";
 
                 case JObject jObject:
-                    var indentation = string.Join(string.Empty, Enumerable.Repeat(" ", indentationDepth));
+                    var braceIndentation = string.Join(string.Empty, Enumerable.Repeat(" ", indentationDepth));
+                    var propertyIndentation = string.Join(string.Empty, Enumerable.Repeat(" ", (int)(indentationDepth + 4)));
                     if (jObject["name"] != null && jObject["value"] != null)
                     {
-                        return $"\n{indentation}new ListValueOption {{ Name = \"{jObject["name"]}\", Value = \"{jObject["value"]}\" }}";
+                        var codeBuilder = new StringBuilder();
+                        codeBuilder.AppendLine();
+                        codeBuilder.AppendLine($"{braceIndentation}new ListValueOption");
+                        codeBuilder.AppendLine($"{braceIndentation}{{");
+                        codeBuilder.AppendLine($"{propertyIndentation}Name = \"{jObject["name"]}\",");
+                        codeBuilder.AppendLine($"{propertyIndentation}Value = \"{jObject["value"]}\" }},");
+                        codeBuilder.AppendLine($"{braceIndentation}}},");
+
+                        return codeBuilder.ToString();
                     }
 
                     // Using a quoted string so it doesn't mess up the syntax highlighting of the rest of the code.
