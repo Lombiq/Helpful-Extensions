@@ -149,7 +149,7 @@ namespace Lombiq.HelpfulExtensions.Extensions.CodeGeneration
                     stringArrayCodeBuilder.AppendLine();
                     stringArrayCodeBuilder.AppendLine($"{format}{{");
 
-                    var itemFormat = $"{string.Join(string.Empty, Enumerable.Repeat(" ", indentationDepth + 8))}";
+                    var itemFormat = new string(' ', indentationDepth + 8);
 
                     foreach (var item in items)
                     {
