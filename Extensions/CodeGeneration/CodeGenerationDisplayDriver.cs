@@ -139,7 +139,7 @@ namespace Lombiq.HelpfulExtensions.Extensions.CodeGeneration
                         ? $"{string.Join(string.Empty, Enumerable.Repeat(" ", (int)(indentationDepth + 4)))}"
                         : string.Empty;
 
-                    return $"new[]\n {format}{{ {token} {format}}}";
+                    return $"new[]\n{format}{{\n{token}{format}}}";
 
                 case JObject jObject:
                     var braceIndentation = string.Join(string.Empty, Enumerable.Repeat(" ", indentationDepth));
@@ -147,7 +147,6 @@ namespace Lombiq.HelpfulExtensions.Extensions.CodeGeneration
                     if (jObject["name"] != null && jObject["value"] != null)
                     {
                         var codeBuilder = new StringBuilder();
-                        codeBuilder.AppendLine();
                         codeBuilder.AppendLine($"{braceIndentation}new ListValueOption");
                         codeBuilder.AppendLine($"{braceIndentation}{{");
                         codeBuilder.AppendLine($"{propertyIndentation}Name = \"{jObject["name"]}\",");
