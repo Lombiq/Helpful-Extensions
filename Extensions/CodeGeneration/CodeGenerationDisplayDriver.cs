@@ -133,14 +133,37 @@ namespace Lombiq.HelpfulExtensions.Extensions.CodeGeneration
                     };
 
                 case JArray jArray:
-                    var token = string.Join(string.Empty, jArray.Select(item => ConvertJToken(item, indentationDepth + 8)));
+                    var format = $"{string.Join(string.Empty, Enumerable.Repeat(" ", indentationDepth + 4))}";
+                    
+                    var items = jArray.Select(item => ConvertJToken(item, indentationDepth + 8)).ToList();
+                    
+                    // If the items are formatted (for ListValueOption) the don't inject line-by-line formatting
+                    if(items.Any(item => item.Contains(Environment.NewLine, StringComparison.OrdinalIgnoreCase)))
+                    {
+                        var token = string.Join("", items);
+                        return $"new[]\n{format}{{\n{token}{format}}}";
+                    }
+                    // Otherwise, make sure that we have proper formatting for string arrays
+                    else
+                    {
+                        var stringArrayCodeBuilder = new StringBuilder("new[]");
+                        stringArrayCodeBuilder.AppendLine();
+                        stringArrayCodeBuilder.AppendLine($"{format}{{");
 
-                    var format = $"{string.Join(string.Empty, Enumerable.Repeat(" ", (int)(indentationDepth + 4)))}";
+                        var itemFormat = $"{string.Join(string.Empty, Enumerable.Repeat(" ", indentationDepth + 8))}";
 
-                    return $"new[]\n{format}{{\n{token}{format}}}";
+                        foreach (var item in items)
+                        {
+                            stringArrayCodeBuilder.AppendLine($"{itemFormat}{item},");
+                        }
+                        stringArrayCodeBuilder.Append($"{format}}}");
+
+                        return stringArrayCodeBuilder.ToString();
+                    }
+
                 case JObject jObject:
                     var braceIndentation = string.Join(string.Empty, Enumerable.Repeat(" ", indentationDepth));
-                    var propertyIndentation = string.Join(string.Empty, Enumerable.Repeat(" ", (int)(indentationDepth + 4)));
+                    var propertyIndentation = string.Join(string.Empty, Enumerable.Repeat(" ", indentationDepth + 4));
                     if (jObject["name"] != null && jObject["value"] != null)
                     {
                         var objectCodeBuilder = new StringBuilder();
@@ -148,7 +171,7 @@ namespace Lombiq.HelpfulExtensions.Extensions.CodeGeneration
                         objectCodeBuilder.AppendLine($"{braceIndentation}{{");
                         objectCodeBuilder.AppendLine($"{propertyIndentation}Name = \"{jObject["name"]}\",");
                         objectCodeBuilder.AppendLine($"{propertyIndentation}Value = \"{jObject["value"]}\",");
-                        objectCodeBuilder.AppendLine($"{braceIndentation}}},");
+                        objectCodeBuilder.AppendLine($"{braceIndentation}}}");
 
                         return objectCodeBuilder.ToString();
                     }
@@ -188,11 +211,6 @@ namespace Lombiq.HelpfulExtensions.Extensions.CodeGeneration
                     if (propertyValue == null)
                     {
                         propertyValue = "\"\"";
-                    }
-                    else if (propertyValue.Contains(Environment.NewLine, StringComparison.OrdinalIgnoreCase) 
-                        && !setting.Key.ContainsOrdinalIgnoreCase("TextFieldPredefinedListEditorSettings"))
-                    {
-                        propertyValue = "@" + propertyValue;
                     }
 
                     codeBuilder.AppendLine($"{indentation}    {property.Name} = {propertyValue},");
