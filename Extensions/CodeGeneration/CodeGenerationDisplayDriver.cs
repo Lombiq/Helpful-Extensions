@@ -150,7 +150,7 @@ namespace Lombiq.HelpfulExtensions.Extensions.CodeGeneration
                         codeBuilder.AppendLine($"{braceIndentation}new ListValueOption");
                         codeBuilder.AppendLine($"{braceIndentation}{{");
                         codeBuilder.AppendLine($"{propertyIndentation}Name = \"{jObject["name"]}\",");
-                        codeBuilder.AppendLine($"{propertyIndentation}Value = \"{jObject["value"]}\" }},");
+                        codeBuilder.AppendLine($"{propertyIndentation}Value = \"{jObject["value"]}\",");
                         codeBuilder.AppendLine($"{braceIndentation}}},");
 
                         return codeBuilder.ToString();
