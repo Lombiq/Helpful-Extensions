@@ -144,7 +144,7 @@ namespace Lombiq.HelpfulExtensions.Extensions.CodeGeneration
                         return $"new[]\n{format}{{\n{token}{format}}}";
                     }
 
-                    // Otherwise, make sure that we have proper formatting for string arrays
+                    // Otherwise, make sure that we have proper formatting for string arrays.
                     var stringArrayCodeBuilder = new StringBuilder("new[]");
                     stringArrayCodeBuilder.AppendLine();
                     stringArrayCodeBuilder.AppendLine($"{format}{{");
