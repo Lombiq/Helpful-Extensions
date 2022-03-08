@@ -133,7 +133,8 @@ namespace Lombiq.HelpfulExtensions.Extensions.CodeGeneration
                     };
 
                 case JArray jArray:
-                    var token = string.Join(", ", jArray.Select(a => ConvertJToken(a, indentationDepth * 2)));
+                    var token = string.Join(", ", jArray.Select(item => ConvertJToken(item, indentationDepth * 2)));
+
                     var format = token.ContainsOrdinalIgnoreCase("ListValueOption")
                         ? $"\n{string.Join(string.Empty, Enumerable.Repeat(" ", (int)(indentationDepth * 1.5)))}"
                         : string.Empty;
