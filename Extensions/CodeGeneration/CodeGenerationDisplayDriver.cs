@@ -149,11 +149,11 @@ namespace Lombiq.HelpfulExtensions.Extensions.CodeGeneration
                     stringArrayCodeBuilder.AppendLine();
                     stringArrayCodeBuilder.AppendLine($"{indentation}{{");
 
-                    var itemFormat = new string(' ', indentationDepth + 8);
+                    var itemIndentation = new string(' ', indentationDepth + 8);
 
                     foreach (var item in items)
                     {
-                        stringArrayCodeBuilder.AppendLine($"{itemFormat}{item},");
+                        stringArrayCodeBuilder.AppendLine($"{itemIndentation}{item},");
                     }
 
                     stringArrayCodeBuilder.Append($"{indentation}}}");
