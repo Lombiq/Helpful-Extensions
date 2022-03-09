@@ -137,19 +137,19 @@ namespace Lombiq.HelpfulExtensions.Extensions.CodeGeneration
 
                     var items = jArray.Select(item => ConvertJToken(item, indentationDepth + 8)).ToList();
 
-                    // If the items are formatted (for ListValueOption) the don't inject line-by-line formatting
-                    if (items.Any(item => item.Contains(Environment.NewLine, StringComparison.OrdinalIgnoreCase)))
+                    // If the items are formatted (for ListValueOption) then don't inject line-by-line formatting.
+                    if (items.Any(item => item.ContainsOrdinalIgnoreCase(Environment.NewLine)))
                     {
                         var token = string.Join(string.Empty, items);
                         return $"new[]\n{indentation}{{\n{token}{indentation}}}";
                     }
 
-                    // Otherwise, make sure that we have proper formatting for string arrays
+                    // Otherwise, make sure that we have proper formatting for string arrays.
                     var stringArrayCodeBuilder = new StringBuilder("new[]");
                     stringArrayCodeBuilder.AppendLine();
                     stringArrayCodeBuilder.AppendLine($"{indentation}{{");
 
-                    var itemFormat = $"{string.Join(string.Empty, Enumerable.Repeat(" ", indentationDepth + 8))}";
+                    var itemFormat = new string(' ', indentationDepth + 8);
 
                     foreach (var item in items)
                     {
