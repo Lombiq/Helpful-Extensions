@@ -133,7 +133,7 @@ namespace Lombiq.HelpfulExtensions.Extensions.CodeGeneration
                     };
 
                 case JArray jArray:
-                    var format = $"{string.Join(string.Empty, Enumerable.Repeat(" ", indentationDepth + 4))}";
+                    var indentation = $"{string.Join(string.Empty, Enumerable.Repeat(" ", indentationDepth + 4))}";
 
                     var items = jArray.Select(item => ConvertJToken(item, indentationDepth + 8)).ToList();
 
@@ -141,13 +141,13 @@ namespace Lombiq.HelpfulExtensions.Extensions.CodeGeneration
                     if (items.Any(item => item.Contains(Environment.NewLine, StringComparison.OrdinalIgnoreCase)))
                     {
                         var token = string.Join(string.Empty, items);
-                        return $"new[]\n{format}{{\n{token}{format}}}";
+                        return $"new[]\n{indentation}{{\n{token}{indentation}}}";
                     }
 
                     // Otherwise, make sure that we have proper formatting for string arrays
                     var stringArrayCodeBuilder = new StringBuilder("new[]");
                     stringArrayCodeBuilder.AppendLine();
-                    stringArrayCodeBuilder.AppendLine($"{format}{{");
+                    stringArrayCodeBuilder.AppendLine($"{indentation}{{");
 
                     var itemFormat = $"{string.Join(string.Empty, Enumerable.Repeat(" ", indentationDepth + 8))}";
 
@@ -156,7 +156,7 @@ namespace Lombiq.HelpfulExtensions.Extensions.CodeGeneration
                         stringArrayCodeBuilder.AppendLine($"{itemFormat}{item},");
                     }
 
-                    stringArrayCodeBuilder.Append($"{format}}}");
+                    stringArrayCodeBuilder.Append($"{indentation}}}");
 
                     return stringArrayCodeBuilder.ToString();
 
