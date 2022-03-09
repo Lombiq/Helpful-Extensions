@@ -133,7 +133,7 @@ namespace Lombiq.HelpfulExtensions.Extensions.CodeGeneration
                     };
 
                 case JArray jArray:
-                    var indentation = $"{string.Join(string.Empty, Enumerable.Repeat(" ", indentationDepth + 4))}";
+                    var indentation = new string(' ', indentationDepth + 4);
 
                     var items = jArray.Select(item => ConvertJToken(item, indentationDepth + 8)).ToList();
 
@@ -161,8 +161,8 @@ namespace Lombiq.HelpfulExtensions.Extensions.CodeGeneration
                     return stringArrayCodeBuilder.ToString();
 
                 case JObject jObject:
-                    var braceIndentation = string.Join(string.Empty, Enumerable.Repeat(" ", indentationDepth));
-                    var propertyIndentation = string.Join(string.Empty, Enumerable.Repeat(" ", indentationDepth + 4));
+                    var braceIndentation = new string(' ', indentationDepth);
+                    var propertyIndentation = new string(' ', indentationDepth + 4);
                     if (jObject["name"] != null && jObject["value"] != null)
                     {
                         var objectCodeBuilder = new StringBuilder();
@@ -185,7 +185,7 @@ namespace Lombiq.HelpfulExtensions.Extensions.CodeGeneration
 
         private void AddSettingsWithout<T>(StringBuilder codeBuilder, JObject settings, int indentationDepth)
         {
-            var indentation = string.Join(string.Empty, Enumerable.Repeat(" ", indentationDepth));
+            var indentation = new string(' ', indentationDepth);
 
             var filteredSettings = ((IEnumerable<KeyValuePair<string, JToken>>)settings)
                 .Where(setting => setting.Key != typeof(T).Name);
