@@ -6,6 +6,7 @@ using OrchardCore.ContentTypes.Editors;
 using OrchardCore.DisplayManagement.Views;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 
@@ -27,8 +28,16 @@ namespace Lombiq.HelpfulExtensions.Extensions.CodeGeneration
 
                     // Building the code for the type.
                     var name = model.Name;
-                    codeBuilder.AppendLine($"_contentDefinitionManager.AlterTypeDefinition(\"{name}\", type => type");
-                    codeBuilder.AppendLine($"    .DisplayedAs(\"{model.DisplayName}\")");
+
+                    // This can't be added to a Helpful Libraries extension method because one with the
+                    // public static StringBuilder AppendLineInvariant(
+                    //     this StringBuilder stringBuilder,
+                    //     [InterpolatedStringHandlerArgument("", "provider")] ref StringBuilder.AppendInterpolatedStringHandler handler)
+                    // signature causes the following error:
+                    // "'StringBuilderExtensions.AppendLineInvariant(StringBuilder, ref StringBuilder.AppendInterpolatedStringHandler)'
+                    // is not an instance method, the receiver cannot be an interpolated string handler argument
+                    codeBuilder.AppendLine(CultureInfo.InvariantCulture, $"_contentDefinitionManager.AlterTypeDefinition(\"{name}\", type => type");
+                    codeBuilder.AppendLine(CultureInfo.InvariantCulture, $"    .DisplayedAs(\"{model.DisplayName}\")");
 
                     GenerateCodeForSettings(codeBuilder, model.GetSettings<ContentTypeSettings>());
                     AddSettingsWithout<ContentTypeSettings>(codeBuilder, model.Settings, 4);
@@ -47,7 +56,7 @@ namespace Lombiq.HelpfulExtensions.Extensions.CodeGeneration
             {
                 var partSettings = part.GetSettings<ContentTypePartSettings>();
 
-                codeBuilder.AppendLine($"    .WithPart(\"{part.Name}\", part => part");
+                codeBuilder.AppendLine(CultureInfo.InvariantCulture, $"    .WithPart(\"{part.Name}\", part => part");
 
                 var partStartingLength = codeBuilder.Length;
 
@@ -86,7 +95,7 @@ namespace Lombiq.HelpfulExtensions.Extensions.CodeGeneration
             foreach (var part in partDefinitions)
             {
                 codeBuilder.AppendLine();
-                codeBuilder.AppendLine($"_contentDefinitionManager.AlterPartDefinition(\"{part.Name}\", part => part");
+                codeBuilder.AppendLine(CultureInfo.InvariantCulture, $"_contentDefinitionManager.AlterPartDefinition(\"{part.Name}\", part => part");
 
                 var partSettings = part.GetSettings<ContentPartSettings>();
                 if (partSettings.Attachable) codeBuilder.AppendLine("    .Attachable()");
@@ -100,8 +109,8 @@ namespace Lombiq.HelpfulExtensions.Extensions.CodeGeneration
 
                 foreach (var field in part.Fields)
                 {
-                    codeBuilder.AppendLine($"    .WithField(\"{field.Name}\", field => field");
-                    codeBuilder.AppendLine($"        .OfType(\"{field.FieldDefinition.Name}\")");
+                    codeBuilder.AppendLine(CultureInfo.InvariantCulture, $"    .WithField(\"{field.Name}\", field => field");
+                    codeBuilder.AppendLine(CultureInfo.InvariantCulture, $"        .OfType(\"{field.FieldDefinition.Name}\")");
 
                     var fieldSettings = field.GetSettings<ContentPartFieldSettings>();
                     AddWithLine(codeBuilder, nameof(fieldSettings.DisplayName), fieldSettings.DisplayName);
@@ -147,16 +156,16 @@ namespace Lombiq.HelpfulExtensions.Extensions.CodeGeneration
                     // Otherwise, make sure that we have proper formatting for string arrays.
                     var stringArrayCodeBuilder = new StringBuilder("new[]");
                     stringArrayCodeBuilder.AppendLine();
-                    stringArrayCodeBuilder.AppendLine($"{indentation}{{");
+                    stringArrayCodeBuilder.AppendLine(CultureInfo.InvariantCulture, $"{indentation}{{");
 
                     var itemIndentation = new string(' ', indentationDepth + 8);
 
                     foreach (var item in items)
                     {
-                        stringArrayCodeBuilder.AppendLine($"{itemIndentation}{item},");
+                        stringArrayCodeBuilder.AppendLine(CultureInfo.InvariantCulture, $"{itemIndentation}{item},");
                     }
 
-                    stringArrayCodeBuilder.Append($"{indentation}}}");
+                    stringArrayCodeBuilder.Append(CultureInfo.InvariantCulture, $"{indentation}}}");
 
                     return stringArrayCodeBuilder.ToString();
 
@@ -166,11 +175,11 @@ namespace Lombiq.HelpfulExtensions.Extensions.CodeGeneration
                     if (jObject["name"] != null && jObject["value"] != null)
                     {
                         var objectCodeBuilder = new StringBuilder();
-                        objectCodeBuilder.AppendLine($"{braceIndentation}new ListValueOption");
-                        objectCodeBuilder.AppendLine($"{braceIndentation}{{");
-                        objectCodeBuilder.AppendLine($"{propertyIndentation}Name = \"{jObject["name"]}\",");
-                        objectCodeBuilder.AppendLine($"{propertyIndentation}Value = \"{jObject["value"]}\",");
-                        objectCodeBuilder.AppendLine($"{braceIndentation}}},");
+                        objectCodeBuilder.AppendLine(CultureInfo.InvariantCulture, $"{braceIndentation}new ListValueOption");
+                        objectCodeBuilder.AppendLine(CultureInfo.InvariantCulture, $"{braceIndentation}{{");
+                        objectCodeBuilder.AppendLine(CultureInfo.InvariantCulture, $"{propertyIndentation}Name = \"{jObject["name"]}\",");
+                        objectCodeBuilder.AppendLine(CultureInfo.InvariantCulture, $"{propertyIndentation}Value = \"{jObject["value"]}\",");
+                        objectCodeBuilder.AppendLine(CultureInfo.InvariantCulture, $"{braceIndentation}}},");
 
                         return objectCodeBuilder.ToString();
                     }
@@ -196,7 +205,7 @@ namespace Lombiq.HelpfulExtensions.Extensions.CodeGeneration
 
                 if (properties.Length == 0) continue;
 
-                codeBuilder.AppendLine($"{indentation}.WithSettings(new {setting.Key}");
+                codeBuilder.AppendLine(CultureInfo.InvariantCulture, $"{indentation}.WithSettings(new {setting.Key}");
                 codeBuilder.AppendLine(indentation + "{");
 
                 // This doesn't support multi-level object hierarchies for settings but come on, who uses complex
@@ -209,7 +218,7 @@ namespace Lombiq.HelpfulExtensions.Extensions.CodeGeneration
 
                     propertyValue ??= "\"\"";
 
-                    codeBuilder.AppendLine($"{indentation}    {property.Name} = {propertyValue},");
+                    codeBuilder.AppendLine(CultureInfo.InvariantCulture, $"{indentation}    {property.Name} = {propertyValue},");
                 }
 
                 codeBuilder.AppendLine(indentation + "})");
@@ -225,7 +234,7 @@ namespace Lombiq.HelpfulExtensions.Extensions.CodeGeneration
             if (contentTypeSettings.Securable) codeBuilder.AppendLine("    .Securable()");
             if (!string.IsNullOrEmpty(contentTypeSettings.Stereotype))
             {
-                codeBuilder.AppendLine($"    .Stereotype(\"{contentTypeSettings.Stereotype}\")");
+                codeBuilder.AppendLine(CultureInfo.InvariantCulture, $"    .Stereotype(\"{contentTypeSettings.Stereotype}\")");
             }
         }
 
@@ -233,7 +242,7 @@ namespace Lombiq.HelpfulExtensions.Extensions.CodeGeneration
         {
             if (!string.IsNullOrEmpty(value))
             {
-                codeBuilder.AppendLine($"        .With{name}(\"{value}\")");
+                codeBuilder.AppendLine(CultureInfo.InvariantCulture, $"        .With{name}(\"{value}\")");
             }
         }
     }
