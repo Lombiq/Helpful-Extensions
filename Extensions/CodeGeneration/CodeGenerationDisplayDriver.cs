@@ -119,7 +119,7 @@ namespace Lombiq.HelpfulExtensions.Extensions.CodeGeneration
             }
         }
 
-        private string ConvertJToken(JToken jToken)
+        private string ConvertJToken(JToken jToken, int indentationDepth)
         {
             switch (jToken)
             {
@@ -131,11 +131,53 @@ namespace Lombiq.HelpfulExtensions.Extensions.CodeGeneration
                         string => $"\"{value}\"",
                         _ => value?.ToString()?.Replace(',', '.'), // Replace decimal commas.
                     };
+
                 case JArray jArray:
-                    return $"new[] {{ {string.Join(", ", jArray.Select(ConvertJToken))} }}";
+                    var indentation = new string(' ', indentationDepth + 4);
+
+                    var items = jArray.Select(item => ConvertJToken(item, indentationDepth + 8)).ToList();
+
+                    // If the items are formatted (for ListValueOption) then don't inject line-by-line formatting.
+                    if (items.Any(item => item.ContainsOrdinalIgnoreCase(Environment.NewLine)))
+                    {
+                        var token = string.Join(string.Empty, items);
+                        return $"new[]\n{indentation}{{\n{token}{indentation}}}";
+                    }
+
+                    // Otherwise, make sure that we have proper formatting for string arrays.
+                    var stringArrayCodeBuilder = new StringBuilder("new[]");
+                    stringArrayCodeBuilder.AppendLine();
+                    stringArrayCodeBuilder.AppendLine($"{indentation}{{");
+
+                    var itemIndentation = new string(' ', indentationDepth + 8);
+
+                    foreach (var item in items)
+                    {
+                        stringArrayCodeBuilder.AppendLine($"{itemIndentation}{item},");
+                    }
+
+                    stringArrayCodeBuilder.Append($"{indentation}}}");
+
+                    return stringArrayCodeBuilder.ToString();
+
                 case JObject jObject:
+                    var braceIndentation = new string(' ', indentationDepth);
+                    var propertyIndentation = new string(' ', indentationDepth + 4);
+                    if (jObject["name"] != null && jObject["value"] != null)
+                    {
+                        var objectCodeBuilder = new StringBuilder();
+                        objectCodeBuilder.AppendLine($"{braceIndentation}new ListValueOption");
+                        objectCodeBuilder.AppendLine($"{braceIndentation}{{");
+                        objectCodeBuilder.AppendLine($"{propertyIndentation}Name = \"{jObject["name"]}\",");
+                        objectCodeBuilder.AppendLine($"{propertyIndentation}Value = \"{jObject["value"]}\",");
+                        objectCodeBuilder.AppendLine($"{braceIndentation}}},");
+
+                        return objectCodeBuilder.ToString();
+                    }
+
                     // Using a quoted string so it doesn't mess up the syntax highlighting of the rest of the code.
                     return T["\"FIX ME! Couldn't determine the actual type to instantiate.\" {0}", jObject.ToString()];
+
                 default:
                     throw new NotSupportedException($"Settings values of type {jToken.GetType()} are not supported.");
             }
@@ -143,10 +185,11 @@ namespace Lombiq.HelpfulExtensions.Extensions.CodeGeneration
 
         private void AddSettingsWithout<T>(StringBuilder codeBuilder, JObject settings, int indentationDepth)
         {
-            var indentation = string.Join(string.Empty, Enumerable.Repeat(" ", indentationDepth));
+            var indentation = new string(' ', indentationDepth);
 
             var filteredSettings = ((IEnumerable<KeyValuePair<string, JToken>>)settings)
                 .Where(setting => setting.Key != typeof(T).Name);
+
             foreach (var setting in filteredSettings)
             {
                 var properties = setting.Value.Where(property => property is JProperty).Cast<JProperty>().ToArray();
@@ -161,16 +204,10 @@ namespace Lombiq.HelpfulExtensions.Extensions.CodeGeneration
                 for (int i = 0; i < properties.Length; i++)
                 {
                     var property = properties[i];
-                    var propertyValue = ConvertJToken(property.Value);
 
-                    if (propertyValue == null)
-                    {
-                        propertyValue = "\"\"";
-                    }
-                    else if (propertyValue.Contains(Environment.NewLine, StringComparison.OrdinalIgnoreCase))
-                    {
-                        propertyValue = "@" + propertyValue;
-                    }
+                    var propertyValue = ConvertJToken(property.Value, indentationDepth);
+
+                    propertyValue ??= "\"\"";
 
                     codeBuilder.AppendLine($"{indentation}    {property.Name} = {propertyValue},");
                 }
