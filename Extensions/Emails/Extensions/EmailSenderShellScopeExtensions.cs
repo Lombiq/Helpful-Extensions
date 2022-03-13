@@ -6,7 +6,7 @@ using Microsoft.Extensions.Logging;
 using OrchardCore.Email;
 using OrchardCore.Environment.Shell.Scope;
 
-namespace Lombiq.HelpfulExtensions.Extensions.Emails.Services
+namespace Lombiq.HelpfulExtensions.Extensions.Emails.Extensions
 {
     public static class EmailSenderShellScopeExtensions
     {
