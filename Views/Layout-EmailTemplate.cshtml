@@ -1,0 +1,45 @@
+@{
+    const string blockName = "emailTemplate";
+}
+
+<!DOCTYPE html>
+<html lang="@Orchard.CultureName()">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width" initial-scale="1">
+    <!--[if !mso]>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <![endif]-->
+    <title>
+        <shape type="EmailTemplate_Title"></shape>
+    </title>
+
+    @await RenderSectionAsync("Head", required: false)
+
+    <shape type="EmailTemplate_LayoutInjections" prop-layoutModel="@Model"></shape>
+</head>
+<body>
+
+<span class="preheader" style="display: none; max-height: 0px; overflow: hidden;">
+    @await RenderSectionAsync("Preheader", required: false)
+</span>
+
+<div class="@(blockName)">
+    <div class="@(blockName)__header">
+        @await RenderSectionAsync("Header", required: false)
+    </div>
+
+    <div class="@(blockName)__content">
+        @await RenderSectionAsync("BeforeContent", required: false)
+        @await RenderBodyAsync()
+        @await RenderSectionAsync("AfterContent", required: false)
+    </div>
+
+    <div class="@(blockName)__footer">
+        @await RenderSectionAsync("Footer", required: false)
+    </div>
+</div>
+
+
+</body>
+</html>

@@ -69,3 +69,14 @@ using static Lombiq.HelpfulExtensions.FeatureIds;
     Category = "Security",
     Description = "Adds a content type definition setting and authorization handler for richer security options."
 )]
+
+[assembly: Feature(
+    Id = Emails,
+    Name = "Lombiq Helpful Extensions - Emails",
+    Category = "Messaging",
+    Description = "Adds shape-based email template rendering and helpful email sending services.",
+    Dependencies = new[]
+    {
+        "OrchardCore.Email",
+    }
+)]
