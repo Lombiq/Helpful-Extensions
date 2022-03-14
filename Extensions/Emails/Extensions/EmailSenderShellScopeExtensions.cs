@@ -18,7 +18,7 @@ namespace Lombiq.HelpfulExtensions.Extensions.Emails.Extensions
         public static void SendEmailDeferred(this ShellScope shellScope, EmailParameters parameters) =>
             shellScope.AddDeferredTask(async scope =>
             {
-                var smtpService = scope.ServiceProvider.GetService<ISmtpService>();
+                var smtpService = scope.ServiceProvider.GetRequiredService<ISmtpService>();
                 var result = await smtpService.SendAsync(new MailMessage
                 {
                     Sender = parameters.Sender,
@@ -33,8 +33,8 @@ namespace Lombiq.HelpfulExtensions.Extensions.Emails.Extensions
 
                 if (!result.Succeeded)
                 {
-                    var logger = scope.ServiceProvider.GetService<ILogger<ShellScope>>();
-                    logger.LogError("Email sending was unsuccessful: {0}", result.Errors.Select(error => error.ToString()).Join());
+                    var logger = scope.ServiceProvider.GetRequiredService<ILogger<ShellScope>>();
+                    logger.LogError("Email sending was unsuccessful: {Error}", result.Errors.Select(error => error.ToString()).Join());
                 }
             });
     }
