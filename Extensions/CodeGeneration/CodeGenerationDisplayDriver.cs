@@ -29,13 +29,11 @@ namespace Lombiq.HelpfulExtensions.Extensions.CodeGeneration
                     // Building the code for the type.
                     var name = model.Name;
 
-                    // This can't be added to a Helpful Libraries extension method because one with the
-                    // public static StringBuilder AppendLineInvariant(
-                    //     this StringBuilder stringBuilder,
-                    //     [InterpolatedStringHandlerArgument("", "provider")] ref StringBuilder.AppendInterpolatedStringHandler handler)
-                    // signature causes the following error:
-                    // "'StringBuilderExtensions.AppendLineInvariant(StringBuilder, ref StringBuilder.AppendInterpolatedStringHandler)'
-                    // is not an instance method, the receiver cannot be an interpolated string handler argument
+                    // This would be great in a Helpful Libraries extension method but unless we construct and manage an
+                    // StringBuilder.AppendInterpolatedStringHandler instance by hand (to be able to use pass on a
+                    // FormattableString received from here to
+                    // StringBuilder.AppendLine(IFormatProvider? provider, ref AppendInterpolatedStringHandler handler))
+                    // it won't work.
                     codeBuilder.AppendLine(CultureInfo.InvariantCulture, $"_contentDefinitionManager.AlterTypeDefinition(\"{name}\", type => type");
                     codeBuilder.AppendLine(CultureInfo.InvariantCulture, $"    .DisplayedAs(\"{model.DisplayName}\")");
 
