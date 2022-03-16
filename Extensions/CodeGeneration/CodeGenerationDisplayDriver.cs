@@ -31,9 +31,8 @@ public class CodeGenerationDisplayDriver : ContentTypeDefinitionDisplayDriver
 
                 // This would be great in a Helpful Libraries extension method but unless we construct and manage an
                 // StringBuilder.AppendInterpolatedStringHandler instance by hand (to be able to use pass on a
-                // FormattableString received from here to
-                // StringBuilder.AppendLine(IFormatProvider? provider, ref AppendInterpolatedStringHandler handler))
-                // it won't work.
+                // FormattableString received from here to StringBuilder.AppendLine(IFormatProvider? provider, ref
+                // AppendInterpolatedStringHandler handler)) it won't work.
                 codeBuilder.AppendLine(CultureInfo.InvariantCulture, $"_contentDefinitionManager.AlterTypeDefinition(\"{name}\", type => type");
                 codeBuilder.AppendLine(CultureInfo.InvariantCulture, $"    .DisplayedAs(\"{model.DisplayName}\")");
 
@@ -206,8 +205,8 @@ public class CodeGenerationDisplayDriver : ContentTypeDefinitionDisplayDriver
             codeBuilder.AppendLine(CultureInfo.InvariantCulture, $"{indentation}.WithSettings(new {setting.Key}");
             codeBuilder.AppendLine(indentation + "{");
 
-            // This doesn't support multi-level object hierarchies for settings but come on, who uses complex
-            // settings objects?
+            // This doesn't support multi-level object hierarchies for settings but come on, who uses complex settings
+            // objects?
             for (int i = 0; i < properties.Length; i++)
             {
                 var property = properties[i];

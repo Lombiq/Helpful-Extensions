@@ -1,18 +1,18 @@
-using System.Collections.Generic;
-using System.Linq;
 using Lombiq.HelpfulExtensions.Extensions.Emails.Models;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using OrchardCore.Email;
 using OrchardCore.Environment.Shell.Scope;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Lombiq.HelpfulExtensions.Extensions.Emails.Extensions;
 
 public static class EmailSenderShellScopeExtensions
 {
     /// <summary>
-    /// Sends an HTML email after the current shell scope has ended. If any errors occur during the process they
-    /// will be logged.
+    /// Sends an HTML email after the current shell scope has ended. If any errors occur during the process they will be
+    /// logged.
     /// </summary>
     /// <param name="parameters">Parameters required for sending emails (e.g., recipients, subject, CC).</param>
     public static void SendEmailDeferred(this ShellScope shellScope, EmailParameters parameters) =>

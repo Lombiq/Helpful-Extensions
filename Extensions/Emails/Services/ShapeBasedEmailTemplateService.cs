@@ -1,7 +1,7 @@
-﻿using System.Threading.Tasks;
 using Lombiq.HelpfulLibraries.Libraries.Shapes;
 using Lombiq.HelpfulLibraries.Libraries.Utilities;
 using OrchardCore.DisplayManagement;
+using System.Threading.Tasks;
 
 namespace Lombiq.HelpfulExtensions.Extensions.Emails.Services;
 

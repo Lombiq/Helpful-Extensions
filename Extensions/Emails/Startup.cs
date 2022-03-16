@@ -1,10 +1,10 @@
-using System;
 using Lombiq.HelpfulExtensions.Extensions.Emails.Services;
 using Lombiq.HelpfulLibraries.Libraries.Shapes;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.DependencyInjection;
 using OrchardCore.Modules;
+using System;
 
 namespace Lombiq.HelpfulExtensions.Extensions.Emails;
 
