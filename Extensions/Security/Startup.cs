@@ -6,16 +6,15 @@ using Microsoft.Extensions.DependencyInjection;
 using OrchardCore.ContentTypes.Editors;
 using OrchardCore.Modules;
 
-namespace Lombiq.HelpfulExtensions.Extensions.Security
+namespace Lombiq.HelpfulExtensions.Extensions.Security;
+
+[Feature(FeatureIds.Security)]
+public class Startup : StartupBase
 {
-    [Feature(FeatureIds.Security)]
-    public class Startup : StartupBase
+    public override void ConfigureServices(IServiceCollection services)
     {
-        public override void ConfigureServices(IServiceCollection services)
-        {
-            services.AddLazyInjectionSupport();
-            services.AddScoped<IAuthorizationHandler, StrictSecurityPermissionAuthorizationHandler>();
-            services.AddScoped<IContentTypeDefinitionDisplayDriver, StrictSecuritySettingsDisplayDriver>();
-        }
+        services.AddLazyInjectionSupport();
+        services.AddScoped<IAuthorizationHandler, StrictSecurityPermissionAuthorizationHandler>();
+        services.AddScoped<IContentTypeDefinitionDisplayDriver, StrictSecuritySettingsDisplayDriver>();
     }
 }

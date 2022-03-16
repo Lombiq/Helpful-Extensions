@@ -5,39 +5,38 @@ using OrchardCore.DisplayManagement.ModelBinding;
 using OrchardCore.DisplayManagement.Views;
 using System.Threading.Tasks;
 
-namespace Lombiq.HelpfulExtensions.Extensions.Flows.Drivers
+namespace Lombiq.HelpfulExtensions.Extensions.Flows.Drivers;
+
+public class AdditionalStylingPartDisplay : ContentDisplayDriver
 {
-    public class AdditionalStylingPartDisplay : ContentDisplayDriver
+    public override IDisplayResult Edit(ContentItem model, IUpdateModel updater) =>
+        Initialize<AdditionalStylingPart>(
+            $"{nameof(AdditionalStylingPart)}_Edit",
+            viewModel => PopulateViewModel(model, viewModel))
+        .Location("Footer:3");
+
+    public override async Task<IDisplayResult> UpdateAsync(ContentItem model, IUpdateModel updater)
     {
-        public override IDisplayResult Edit(ContentItem model, IUpdateModel updater) =>
-            Initialize<AdditionalStylingPart>(
-                $"{nameof(AdditionalStylingPart)}_Edit",
-                viewModel => PopulateViewModel(model, viewModel))
-            .Location("Footer:3");
+        var additionalStylingPart = model.As<AdditionalStylingPart>();
 
-        public override async Task<IDisplayResult> UpdateAsync(ContentItem model, IUpdateModel updater)
+        if (additionalStylingPart == null)
         {
-            var additionalStylingPart = model.As<AdditionalStylingPart>();
-
-            if (additionalStylingPart == null)
-            {
-                return null;
-            }
-
-            await model.AlterAsync<AdditionalStylingPart>(model => updater.TryUpdateModelAsync(model, Prefix));
-
-            return await EditAsync(model, updater);
+            return null;
         }
 
-        private static void PopulateViewModel(ContentItem model, AdditionalStylingPart viewModel)
-        {
-            var additionalStylingPart = model.As<AdditionalStylingPart>();
+        await model.AlterAsync<AdditionalStylingPart>(model => updater.TryUpdateModelAsync(model, Prefix));
 
-            if (additionalStylingPart != null)
-            {
-                viewModel.CustomClasses = additionalStylingPart.CustomClasses;
-                viewModel.RemoveGridExtensionClasses = additionalStylingPart.RemoveGridExtensionClasses;
-            }
+        return await EditAsync(model, updater);
+    }
+
+    private static void PopulateViewModel(ContentItem model, AdditionalStylingPart viewModel)
+    {
+        var additionalStylingPart = model.As<AdditionalStylingPart>();
+
+        if (additionalStylingPart != null)
+        {
+            viewModel.CustomClasses = additionalStylingPart.CustomClasses;
+            viewModel.RemoveGridExtensionClasses = additionalStylingPart.RemoveGridExtensionClasses;
         }
     }
 }
