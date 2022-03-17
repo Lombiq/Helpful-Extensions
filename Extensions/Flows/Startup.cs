@@ -11,22 +11,21 @@ using OrchardCore.DisplayManagement.Descriptors;
 using OrchardCore.Modules;
 using System;
 
-namespace Lombiq.HelpfulExtensions.Extensions.Flows
-{
-    [Feature(FeatureIds.Flows)]
-    public class Startup : StartupBase
-    {
-        public override void ConfigureServices(IServiceCollection services)
-        {
-            services.AddScoped<IContentDisplayDriver, AdditionalStylingPartDisplay>();
-            services.AddScoped<IContentHandler, AdditionalStylingPartHandler>();
-            services.AddContentPart<AdditionalStylingPart>();
-            services.AddScoped<IShapeTableProvider, FlowPartShapeTableProvider>();
-        }
+namespace Lombiq.HelpfulExtensions.Extensions.Flows;
 
-        public override void Configure(IApplicationBuilder app, IEndpointRouteBuilder routes, IServiceProvider serviceProvider)
-        {
-            // No need for anything here yet.
-        }
+[Feature(FeatureIds.Flows)]
+public class Startup : StartupBase
+{
+    public override void ConfigureServices(IServiceCollection services)
+    {
+        services.AddScoped<IContentDisplayDriver, AdditionalStylingPartDisplay>();
+        services.AddScoped<IContentHandler, AdditionalStylingPartHandler>();
+        services.AddContentPart<AdditionalStylingPart>();
+        services.AddScoped<IShapeTableProvider, FlowPartShapeTableProvider>();
+    }
+
+    public override void Configure(IApplicationBuilder app, IEndpointRouteBuilder routes, IServiceProvider serviceProvider)
+    {
+        // No need for anything here yet.
     }
 }

@@ -5,25 +5,24 @@ using OrchardCore.ContentManagement.Metadata;
 using OrchardCore.ContentManagement.Metadata.Settings;
 using System.Threading.Tasks;
 
-namespace Lombiq.HelpfulExtensions.Extensions.Flows.Handlers
+namespace Lombiq.HelpfulExtensions.Extensions.Flows.Handlers;
+
+public class AdditionalStylingPartHandler : ContentHandlerBase
 {
-    public class AdditionalStylingPartHandler : ContentHandlerBase
+    private readonly IContentDefinitionManager _contentDefinitionManager;
+
+    public AdditionalStylingPartHandler(IContentDefinitionManager contentDefinitionManager) =>
+        _contentDefinitionManager = contentDefinitionManager;
+
+    public override Task ActivatedAsync(ActivatedContentContext context)
     {
-        private readonly IContentDefinitionManager _contentDefinitionManager;
-
-        public AdditionalStylingPartHandler(IContentDefinitionManager contentDefinitionManager) =>
-            _contentDefinitionManager = contentDefinitionManager;
-
-        public override Task ActivatedAsync(ActivatedContentContext context)
+        if (!context.ContentItem.Has<AdditionalStylingPart>() &&
+            _contentDefinitionManager.GetTypeDefinition(context.ContentItem.ContentType)
+                .GetSettings<ContentTypeSettings>().Stereotype == "Widget")
         {
-            if (!context.ContentItem.Has<AdditionalStylingPart>() &&
-                _contentDefinitionManager.GetTypeDefinition(context.ContentItem.ContentType)
-                    .GetSettings<ContentTypeSettings>().Stereotype == "Widget")
-            {
-                context.ContentItem.Weld<AdditionalStylingPart>();
-            }
-
-            return Task.CompletedTask;
+            context.ContentItem.Weld<AdditionalStylingPart>();
         }
+
+        return Task.CompletedTask;
     }
 }

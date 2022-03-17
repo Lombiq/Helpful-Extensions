@@ -1,7 +1,6 @@
-namespace Lombiq.HelpfulExtensions.Extensions.Security.ViewModels
+namespace Lombiq.HelpfulExtensions.Extensions.Security.ViewModels;
+
+public class StrictSecuritySettingsViewModel
 {
-    public class StrictSecuritySettingsViewModel
-    {
-        public bool Enabled { get; set; }
-    }
+    public bool Enabled { get; set; }
 }

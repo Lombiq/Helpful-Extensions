@@ -1,11 +1,10 @@
 using Microsoft.AspNetCore.Mvc.Localization;
 using OrchardCore.DisplayManagement;
 
-namespace Lombiq.HelpfulExtensions.Models
+namespace Lombiq.HelpfulExtensions.Models;
+
+public class BootstrapAccordionItem
 {
-    public class BootstrapAccordionItem
-    {
-        public LocalizedHtmlString Title { get; set; }
-        public IShape Shape { get; set; }
-    }
+    public LocalizedHtmlString Title { get; set; }
+    public IShape Shape { get; set; }
 }
