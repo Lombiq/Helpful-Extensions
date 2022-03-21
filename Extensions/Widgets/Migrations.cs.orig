@@ -46,6 +46,21 @@ namespace Lombiq.HelpfulExtensions.Extensions.Widgets
                 .Stereotype("Widget")
             );
 
+<<<<<<< Updated upstream
+            return 3;
+        }
+
+        public int UpdateFrom1()
+        {
+            _contentDefinitionManager.AlterTypeDefinition(ContainerWidget, builder => builder
+                .WithPart("TitlePart", part => part.WithPosition("0"))
+                .WithPart("FlowPart", part => part.WithPosition("1"))
+            );
+
+            return 2;
+        }
+
+=======
             _contentDefinitionManager.AlterTypeDefinition(MarkdownWidget, builder => builder
                 .Securable()
                 .Stereotype("Widget")
@@ -67,12 +82,17 @@ namespace Lombiq.HelpfulExtensions.Extensions.Widgets
             return 3;
         }
 
+>>>>>>> Stashed changes
         public int UpdateFrom2()
         {
             _contentDefinitionManager.AlterTypeDefinition(MenuWidget, builder => builder
                 .Securable()
                 .Stereotype("Widget")
             );
+<<<<<<< Updated upstream
+
+            return 3;
+=======
 
             return 4;
         }
@@ -87,6 +107,7 @@ namespace Lombiq.HelpfulExtensions.Extensions.Widgets
                 )
             );
             return 4;
+>>>>>>> Stashed changes
         }
     }
 }
