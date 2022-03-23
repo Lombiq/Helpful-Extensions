@@ -49,7 +49,7 @@ namespace Lombiq.HelpfulExtensions.Extensions.Widgets
             _contentDefinitionManager.AlterTypeDefinition(MarkdownWidget, builder => builder
                 .Securable()
                 .Stereotype("Widget")
-                .WithPart("MarkdownPart", part => part
+                .WithPart("MarkdownBodyPart", part => part
                     .WithDisplayName("Markdown Part")
                 )
             );
@@ -82,7 +82,7 @@ namespace Lombiq.HelpfulExtensions.Extensions.Widgets
             _contentDefinitionManager.AlterTypeDefinition(MarkdownWidget, builder => builder
                 .Securable()
                 .Stereotype("Widget")
-                .WithPart("MarkdownPart", part => part
+                .WithPart("MarkdownBodyPart", part => part
                     .WithDisplayName("Markdown Part")
                 )
             );
