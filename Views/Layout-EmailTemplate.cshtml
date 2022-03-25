@@ -20,26 +20,25 @@
 </head>
 <body>
 
-<span class="preheader" style="display: none; max-height: 0px; overflow: hidden;">
-    @await RenderSectionAsync("Preheader", required: false)
-</span>
+    <span class="preheader" style="display: none; max-height: 0px; overflow: hidden;">
+        @await RenderSectionAsync("Preheader", required: false)
+    </span>
 
-<div class="@(blockName)">
-    <div class="@(blockName)__header">
-        @await RenderSectionAsync("Header", required: false)
+    <div class="@(blockName)">
+        <div class="@(blockName)__header">
+            @await RenderSectionAsync("Header", required: false)
+        </div>
+
+        <div class="@(blockName)__content">
+            @await RenderSectionAsync("BeforeContent", required: false)
+            @await RenderBodyAsync()
+            @await RenderSectionAsync("AfterContent", required: false)
+        </div>
+
+        <div class="@(blockName)__footer">
+            @await RenderSectionAsync("Footer", required: false)
+        </div>
     </div>
-
-    <div class="@(blockName)__content">
-        @await RenderSectionAsync("BeforeContent", required: false)
-        @await RenderBodyAsync()
-        @await RenderSectionAsync("AfterContent", required: false)
-    </div>
-
-    <div class="@(blockName)__footer">
-        @await RenderSectionAsync("Footer", required: false)
-    </div>
-</div>
-
 
 </body>
 </html>

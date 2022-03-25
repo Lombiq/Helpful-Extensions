@@ -1,10 +1,9 @@
 using System;
 
-namespace Lombiq.HelpfulExtensions.Extensions.CodeGeneration
+namespace Lombiq.HelpfulExtensions.Extensions.CodeGeneration;
+
+public class ContentTypeMigrationsViewModel
 {
-    public class ContentTypeMigrationsViewModel
-    {
-        internal Lazy<string> MigrationCodeLazy { get; set; }
-        public string MigrationCode => MigrationCodeLazy.Value;
-    }
+    internal Lazy<string> MigrationCodeLazy { get; set; }
+    public string MigrationCode => MigrationCodeLazy.Value;
 }
