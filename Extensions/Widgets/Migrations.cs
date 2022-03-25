@@ -46,15 +46,15 @@ public class Migrations : DataMigration
             .Stereotype("Widget")
         );
 
-            _contentDefinitionManager.AlterTypeDefinition(MarkdownWidget, builder => builder
-                .Securable()
-                .Stereotype("Widget")
-                .WithPart("MarkdownBodyPart", part => part
-                    .WithDisplayName("Markdown Part")
-                )
-            );
+        _contentDefinitionManager.AlterTypeDefinition(MarkdownWidget, builder => builder
+            .Securable()
+            .Stereotype("Widget")
+            .WithPart("MarkdownBodyPart", part => part
+                .WithDisplayName("Markdown Part")
+            )
+        );
 
-            return 4;
+        return 4;
     }
 
     public int UpdateFrom1()
@@ -64,7 +64,7 @@ public class Migrations : DataMigration
             .WithPart("FlowPart", part => part.WithPosition("1"))
         );
 
-            return 3;
+        return 3;
     }
 
     public int UpdateFrom2()
@@ -74,18 +74,18 @@ public class Migrations : DataMigration
             .Stereotype("Widget")
         );
 
-            return 4;
-        }
+        return 4;
+    }
 
-        public int UpdateFrom3()
-        {
-            _contentDefinitionManager.AlterTypeDefinition(MarkdownWidget, builder => builder
-                .Securable()
-                .Stereotype("Widget")
-                .WithPart("MarkdownBodyPart", part => part
-                    .WithDisplayName("Markdown Part")
-                )
-            );
-            return 4;
+    public int UpdateFrom3()
+    {
+        _contentDefinitionManager.AlterTypeDefinition(MarkdownWidget, builder => builder
+            .Securable()
+            .Stereotype("Widget")
+            .WithPart("MarkdownBodyPart", part => part
+                .WithDisplayName("Markdown Part")
+            )
+        );
+        return 4;
     }
 }
