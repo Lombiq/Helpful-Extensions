@@ -1,3 +1,4 @@
+using Lombiq.HelpfulLibraries.OrchardCore.Contents;
 using OrchardCore.ContentManagement.Metadata;
 using OrchardCore.ContentManagement.Metadata.Settings;
 using OrchardCore.Data.Migration;
@@ -16,14 +17,14 @@ public class Migrations : DataMigration
     {
         _contentDefinitionManager.AlterTypeDefinition(ContainerWidget, builder => builder
             .Securable()
-            .Stereotype("Widget")
+            .Stereotype(CommonStereotypes.Widget)
             .WithPart("TitlePart", part => part.WithPosition("0"))
             .WithPart("FlowPart", part => part.WithPosition("1"))
         );
 
         _contentDefinitionManager.AlterTypeDefinition(HtmlWidget, builder => builder
             .Securable()
-            .Stereotype("Widget")
+            .Stereotype(CommonStereotypes.Widget)
             .WithPart("HtmlBodyPart", part => part
                 .WithDisplayName("HTML Body")
                 .WithSettings(new ContentTypePartSettings
@@ -35,7 +36,7 @@ public class Migrations : DataMigration
 
         _contentDefinitionManager.AlterTypeDefinition(LiquidWidget, builder => builder
             .Securable()
-            .Stereotype("Widget")
+            .Stereotype(CommonStereotypes.Widget)
             .WithPart("LiquidPart", part => part
                 .WithDisplayName("Liquid Part")
             )
@@ -43,7 +44,7 @@ public class Migrations : DataMigration
 
         _contentDefinitionManager.AlterTypeDefinition(MenuWidget, builder => builder
             .Securable()
-            .Stereotype("Widget")
+            .Stereotype(CommonStereotypes.Widget)
         );
 
         return 3;
@@ -63,7 +64,7 @@ public class Migrations : DataMigration
     {
         _contentDefinitionManager.AlterTypeDefinition(MenuWidget, builder => builder
             .Securable()
-            .Stereotype("Widget")
+            .Stereotype(CommonStereotypes.Widget)
         );
 
         return 3;
