@@ -1,0 +1,40 @@
+@using OrchardCore.Navigation
+
+@{
+    if (Model.MenuItem is not MenuItem menuItem) { return; }
+
+    const string blockName = "menuWidget";
+    const string dropdownElementName = blockName + "__dropdown";
+    const string dropdownItemElementName = blockName + "__dropdownItem";
+    var dropdownIdName = FormattableString.Invariant($"{dropdownElementName}_{Guid.NewGuid()}");
+}
+
+@if (menuItem.Items.Any())
+{
+    <li class="nav-item dropdown">
+        <a id="@dropdownIdName"
+           class="nav-link dropdown-toggle @dropdownElementName"
+           href="#"
+           role="button"
+           data-bs-toggle="dropdown"
+           aria-expanded="false">@menuItem.Text</a>
+        <ul class="dropdown-menu" aria-labelledby="@dropdownIdName">
+            @foreach (var submenu in menuItem.Items)
+            {
+                <shape type="MenuWidget_DropdownItem" prop-MenuItem="@submenu"></shape>
+            }
+        </ul>
+    </li>
+}
+else
+{
+    <li>
+        <a id="@menuItem.Id"
+           class="dropdown-item @dropdownItemElementName"
+           @if (!menuItem.LocalNav)
+           {
+               <text>target="_blank"</text>
+           }
+           href="@menuItem.Href">@menuItem.Text</a>
+    </li>
+}
