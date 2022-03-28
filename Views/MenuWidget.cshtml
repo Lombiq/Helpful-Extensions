@@ -43,21 +43,21 @@
                                role="button"
                                data-bs-toggle="dropdown"
                                aria-expanded="false">@menuItem.Text</a>
+                            <ul class="dropdown-menu" aria-labelledby="@dropdownIdName">
+                                @foreach (var submenu in menuItem.Items)
+                                {
+                                    <li>
+                                        <a id="@submenu.Id"
+                                           class="dropdown-item @dropdownItemElementName"
+                                           @if (!submenu.LocalNav)
+                                           {
+                                               <text>target="_blank"</text>
+                                           }
+                                           href="@submenu.Href">@submenu.Text</a>
+                                    </li>
+                                }
+                            </ul>
                         </li>
-                        <ul class="dropdown-menu" aria-labelledby="@dropdownIdName">
-                            @foreach (var submenu in menuItem.Items)
-                            {
-                                <li>
-                                    <a id="@submenu.Id"
-                                       class="dropdown-item @dropdownItemElementName"
-                                       @if (!submenu.LocalNav)
-                                       {
-                                           <text>target="_blank"</text>
-                                       }
-                                       href="@submenu.Href">@submenu.Text</a>
-                                </li>
-                            }
-                        </ul>
                     }
                     else
                     {
