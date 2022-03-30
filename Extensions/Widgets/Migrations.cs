@@ -48,7 +48,7 @@ public class Migrations : DataMigration
         );
 
         _contentDefinitionManager.AlterTypeDefinition(MarkdownWidget, builder => builder
-             .Securable()
+            .Securable()
             .Stereotype(CommonStereotypes.Widget)
             .WithPart("MarkdownBodyPart", part => part
                 .WithDisplayName("Markdown Part")
@@ -81,10 +81,10 @@ public class Migrations : DataMigration
     public int UpdateFrom3()
     {
         _contentDefinitionManager.AlterTypeDefinition(MarkdownWidget, builder => builder
-         .Securable()
-                .Stereotype(CommonStereotypes.Widget)
-                .WithPart("MarkdownBodyPart", part => part
-                    .WithDisplayName("Markdown Part")
+            .Securable()
+            .Stereotype(CommonStereotypes.Widget)
+            .WithPart("MarkdownBodyPart", part => part
+                .WithDisplayName("Markdown Part")
                 )
             );
 
