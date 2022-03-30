@@ -1,6 +1,4 @@
-@using Lombiq.HelpfulExtensions.Extensions.Widgets
 @using Lombiq.HelpfulExtensions.Extensions.Widgets.ViewModels
-
 <style asp-name="font-awesome"></style>
 
 @{
@@ -58,6 +56,11 @@
                                 }
                             </ul>
                         </li>
+                    }
+                    @* We use LocalizedString.Name instead of Value intentionally, as this shouldn't be affected by localization. *@
+                    else if (menuItem.Text.Name.Length >= 3 && menuItem.Text.Name.All(character => character == '-'))
+                    {
+                        <li><hr class="dropdown-divider"></li>
                     }
                     else
                     {
