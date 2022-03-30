@@ -31,7 +31,7 @@
             <span class="navbar-toggler-icon fas fa-bars"></span>
         </button>
         <div id="@contentIdName" class="collapse navbar-collapse @contentElementName">
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <ul class="navbar-nav me-auto mb-lg-0">
                 @foreach (var menuItem in viewModel.MenuItems.OrderBy(item => item.Position))
                 {
                     @if (menuItem.Items.Any())
