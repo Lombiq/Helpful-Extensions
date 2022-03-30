@@ -63,12 +63,9 @@ public class StrictSecurityPermissionAuthorizationHandler : AuthorizationHandler
 
         if (permission.ImpliedBy is { } impliedBy)
         {
-            foreach (var impliedPermission in impliedBy)
+            foreach (var impliedPermission in impliedBy.Where(impliedPermission => impliedPermission.Name.Contains("{0}")))
             {
-                if (impliedPermission.Name.Contains("{0}"))
-                {
-                    GetPermissionTemplates(impliedPermission, templates);
-                }
+                GetPermissionTemplates(impliedPermission, templates);
             }
         }
 

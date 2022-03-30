@@ -1,6 +1,6 @@
 using Lombiq.HelpfulExtensions.Extensions.Security.Driver;
 using Lombiq.HelpfulExtensions.Extensions.Security.Services;
-using Lombiq.HelpfulLibraries.Libraries.DependencyInjection;
+using Lombiq.HelpfulLibraries.Common.DependencyInjection;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.Extensions.DependencyInjection;
 using OrchardCore.ContentTypes.Editors;

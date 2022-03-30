@@ -4,7 +4,7 @@ using static Lombiq.HelpfulExtensions.FeatureIds;
 [assembly: Module(
     Name = "Lombiq Helpful Extensions",
     Author = "Lombiq Technologies",
-    Version = "3.0.0",
+    Version = "3.0.1",
     Website = "https://github.com/Lombiq/Helpful-Extensions"
 )]
 

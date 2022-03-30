@@ -137,56 +137,63 @@ public class CodeGenerationDisplayDriver : ContentTypeDefinitionDisplayDriver
                     string => $"\"{value}\"",
                     _ => value?.ToString()?.Replace(',', '.'), // Replace decimal commas.
                 };
-
             case JArray jArray:
-                var indentation = new string(' ', indentationDepth + 4);
-
-                var items = jArray.Select(item => ConvertJToken(item, indentationDepth + 8)).ToList();
-
-                // If the items are formatted (for ListValueOption) then don't inject line-by-line formatting.
-                if (items.Any(item => item.ContainsOrdinalIgnoreCase(Environment.NewLine)))
-                {
-                    var token = string.Join(string.Empty, items);
-                    return $"new[]\n{indentation}{{\n{token}{indentation}}}";
-                }
-
-                // Otherwise, make sure that we have proper formatting for string arrays.
-                var stringArrayCodeBuilder = new StringBuilder("new[]");
-                stringArrayCodeBuilder.AppendLine();
-                stringArrayCodeBuilder.AppendLine(CultureInfo.InvariantCulture, $"{indentation}{{");
-
-                var itemIndentation = new string(' ', indentationDepth + 8);
-
-                foreach (var item in items)
-                {
-                    stringArrayCodeBuilder.AppendLine(CultureInfo.InvariantCulture, $"{itemIndentation}{item},");
-                }
-
-                stringArrayCodeBuilder.Append(CultureInfo.InvariantCulture, $"{indentation}}}");
-
-                return stringArrayCodeBuilder.ToString();
-
+                return ConvertJArray(jArray, indentationDepth);
             case JObject jObject:
-                var braceIndentation = new string(' ', indentationDepth);
-                var propertyIndentation = new string(' ', indentationDepth + 4);
-                if (jObject["name"] != null && jObject["value"] != null)
-                {
-                    var objectCodeBuilder = new StringBuilder();
-                    objectCodeBuilder.AppendLine(CultureInfo.InvariantCulture, $"{braceIndentation}new ListValueOption");
-                    objectCodeBuilder.AppendLine(CultureInfo.InvariantCulture, $"{braceIndentation}{{");
-                    objectCodeBuilder.AppendLine(CultureInfo.InvariantCulture, $"{propertyIndentation}Name = \"{jObject["name"]}\",");
-                    objectCodeBuilder.AppendLine(CultureInfo.InvariantCulture, $"{propertyIndentation}Value = \"{jObject["value"]}\",");
-                    objectCodeBuilder.AppendLine(CultureInfo.InvariantCulture, $"{braceIndentation}}},");
-
-                    return objectCodeBuilder.ToString();
-                }
-
-                // Using a quoted string so it doesn't mess up the syntax highlighting of the rest of the code.
-                return T["\"FIX ME! Couldn't determine the actual type to instantiate.\" {0}", jObject.ToString()];
-
+                return ConvertJObject(jObject, indentationDepth);
             default:
                 throw new NotSupportedException($"Settings values of type {jToken.GetType()} are not supported.");
         }
+    }
+
+    private string ConvertJArray(JArray jArray, int indentationDepth)
+    {
+        var indentation = new string(' ', indentationDepth + 4);
+
+        var items = jArray.Select(item => ConvertJToken(item, indentationDepth + 8)).ToList();
+
+        // If the items are formatted (for ListValueOption) then don't inject line-by-line formatting.
+        if (items.Any(item => item.ContainsOrdinalIgnoreCase(Environment.NewLine)))
+        {
+            var token = string.Join(string.Empty, items);
+            return $"new[]\n{indentation}{{\n{token}{indentation}}}";
+        }
+
+        // Otherwise, make sure that we have proper formatting for string arrays.
+        var stringArrayCodeBuilder = new StringBuilder("new[]");
+        stringArrayCodeBuilder.AppendLine();
+        stringArrayCodeBuilder.AppendLine(CultureInfo.InvariantCulture, $"{indentation}{{");
+
+        var itemIndentation = new string(' ', indentationDepth + 8);
+
+        foreach (var item in items)
+        {
+            stringArrayCodeBuilder.AppendLine(CultureInfo.InvariantCulture, $"{itemIndentation}{item},");
+        }
+
+        stringArrayCodeBuilder.Append(CultureInfo.InvariantCulture, $"{indentation}}}");
+
+        return stringArrayCodeBuilder.ToString();
+    }
+
+    private string ConvertJObject(JObject jObject, int indentationDepth)
+    {
+        var braceIndentation = new string(' ', indentationDepth);
+        var propertyIndentation = new string(' ', indentationDepth + 4);
+        if (jObject["name"] != null && jObject["value"] != null)
+        {
+            var objectCodeBuilder = new StringBuilder();
+            objectCodeBuilder.AppendLine(CultureInfo.InvariantCulture, $"{braceIndentation}new ListValueOption");
+            objectCodeBuilder.AppendLine(CultureInfo.InvariantCulture, $"{braceIndentation}{{");
+            objectCodeBuilder.AppendLine(CultureInfo.InvariantCulture, $"{propertyIndentation}Name = \"{jObject["name"]}\",");
+            objectCodeBuilder.AppendLine(CultureInfo.InvariantCulture, $"{propertyIndentation}Value = \"{jObject["value"]}\",");
+            objectCodeBuilder.AppendLine(CultureInfo.InvariantCulture, $"{braceIndentation}}},");
+
+            return objectCodeBuilder.ToString();
+        }
+
+        // Using a quoted string so it doesn't mess up the syntax highlighting of the rest of the code.
+        return T["\"FIX ME! Couldn't determine the actual type to instantiate.\" {0}", jObject.ToString()];
     }
 
     private void AddSettingsWithout<T>(StringBuilder codeBuilder, JObject settings, int indentationDepth)

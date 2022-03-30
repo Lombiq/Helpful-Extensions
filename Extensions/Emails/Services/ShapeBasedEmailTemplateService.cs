@@ -1,5 +1,5 @@
-using Lombiq.HelpfulLibraries.Libraries.Shapes;
-using Lombiq.HelpfulLibraries.Libraries.Utilities;
+using Lombiq.HelpfulLibraries.Common.Utilities;
+using Lombiq.HelpfulLibraries.OrchardCore.Shapes;
 using OrchardCore.DisplayManagement;
 using System.Threading.Tasks;
 
