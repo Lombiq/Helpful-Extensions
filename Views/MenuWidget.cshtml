@@ -33,6 +33,7 @@
         <div id="@contentIdName" class="collapse navbar-collapse @contentElementName">
             <ul class="navbar-nav me-auto mb-lg-0">
                 @foreach (var menuItem in viewModel.MenuItems.OrderBy(item => item.Position))
+                    .OrderBy(item => double.TryParse(item.Position, out var number) ? number : double.MaxValue ).ThenBy(item => item.Position))
                 {
                     @if (menuItem.Items.Any())
                     {
@@ -46,6 +47,7 @@
                         </li>
                         <ul class="dropdown-menu" aria-labelledby="@dropdownIdName">
                             @foreach (var submenu in menuItem.Items.OrderBy(item => item.Position))
+                                .OrderBy(item => double.TryParse(item.Position, out var number) ? number : double.MaxValue ).ThenBy(item => item.Position))
                             {
                                 <li>
                                     <a id="@submenu.Id"
