@@ -65,7 +65,7 @@ public class Migrations : DataMigration
             .WithPart("FlowPart", part => part.WithPosition("1"))
         );
 
-        return 3;
+        return 2;
     }
 
     public int UpdateFrom2()
@@ -75,7 +75,7 @@ public class Migrations : DataMigration
             .Stereotype(CommonStereotypes.Widget)
         );
 
-        return 4;
+        return 3;
     }
 
     public int UpdateFrom3()
@@ -85,8 +85,8 @@ public class Migrations : DataMigration
             .Stereotype(CommonStereotypes.Widget)
             .WithPart("MarkdownBodyPart", part => part
                 .WithDisplayName("Markdown Part")
-                )
-            );
+            )
+        );
 
         return 4;
     }
