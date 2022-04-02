@@ -1,4 +1,5 @@
 @using Lombiq.HelpfulExtensions.Extensions.Widgets.ViewModels
+@using OrchardCore.Navigation
 <style asp-name="font-awesome"></style>
 
 @{
@@ -17,6 +18,10 @@
         .MenuItems
         .OrderBy(item => double.TryParse(item.Position, out var number) ? number : double.MaxValue)
         .ThenBy(item => item.Position);
+
+    // We use LocalizedString.Name instead of Value intentionally, as this shouldn't be affected by localization.
+    bool IsDivider(MenuItem menuItem) =>
+        menuItem.Text.Name.Length >= 3 && menuItem.Text.Name.All(character => character == '-');
 }
 
 @if (!viewModel.NoWrapper)
@@ -51,23 +56,29 @@
                                data-bs-toggle="dropdown"
                                aria-expanded="false">@menuItem.Text</a>
                             <ul class="dropdown-menu" aria-labelledby="@dropdownIdName">
-                            @foreach (var submenu in submenuItems)
+                                @foreach (var submenu in submenuItems)
                                 {
-                                    <li>
-                                        <a id="@submenu.Id"
-                                           class="dropdown-item @dropdownItemElementName"
-                                           @if (!submenu.LocalNav)
-                                           {
-                                               <text>target="_blank"</text>
-                                           }
-                                           href="@submenu.Href">@submenu.Text</a>
-                                    </li>
+                                    if (IsDivider(submenu))
+                                    {
+                                        <li><hr class="dropdown-divider"></li>
+                                    }
+                                    else
+                                    {
+                                        <li>
+                                            <a id="@submenu.Id"
+                                               class="dropdown-item @dropdownItemElementName"
+                                               @if (!submenu.LocalNav)
+                                               {
+                                                   <text>target="_blank"</text>
+                                               }
+                                               href="@submenu.Href">@submenu.Text</a>
+                                        </li>
+                                    }
                                 }
                             </ul>
                         </li>
                     }
-                    @* We use LocalizedString.Name instead of Value intentionally, as this shouldn't be affected by localization. *@
-                    else if (menuItem.Text.Name.Length >= 3 && menuItem.Text.Name.All(character => character == '-'))
+                    else if (IsDivider(menuItem))
                     {
                         <li><hr class="dropdown-divider"></li>
                     }
