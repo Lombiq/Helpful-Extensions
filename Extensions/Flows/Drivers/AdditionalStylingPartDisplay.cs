@@ -13,7 +13,7 @@ public class AdditionalStylingPartDisplay : ContentDisplayDriver
         Initialize<AdditionalStylingPart>(
             $"{nameof(AdditionalStylingPart)}_Edit",
             viewModel => PopulateViewModel(model, viewModel))
-        .Location("Footer:3");
+        .PlaceInContent(3);
 
     public override async Task<IDisplayResult> UpdateAsync(ContentItem model, IUpdateModel updater)
     {
