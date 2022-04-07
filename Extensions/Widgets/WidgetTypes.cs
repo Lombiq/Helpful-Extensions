@@ -6,4 +6,5 @@ public static class WidgetTypes
     public const string HtmlWidget = nameof(HtmlWidget);
     public const string LiquidWidget = nameof(LiquidWidget);
     public const string MenuWidget = nameof(MenuWidget);
+    public const string MarkdownWidget = nameof(MarkdownWidget);
 }
