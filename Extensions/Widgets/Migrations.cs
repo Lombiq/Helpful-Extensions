@@ -47,7 +47,15 @@ public class Migrations : DataMigration
             .Stereotype(CommonStereotypes.Widget)
         );
 
-        return 3;
+        _contentDefinitionManager.AlterTypeDefinition(MarkdownWidget, builder => builder
+            .Securable()
+            .Stereotype(CommonStereotypes.Widget)
+            .WithPart("MarkdownBodyPart", part => part
+                .WithDisplayName("Markdown Part")
+            )
+        );
+
+        return 4;
     }
 
     public int UpdateFrom1()
@@ -68,5 +76,18 @@ public class Migrations : DataMigration
         );
 
         return 3;
+    }
+
+    public int UpdateFrom3()
+    {
+        _contentDefinitionManager.AlterTypeDefinition(MarkdownWidget, builder => builder
+            .Securable()
+            .Stereotype(CommonStereotypes.Widget)
+            .WithPart("MarkdownBodyPart", part => part
+                .WithDisplayName("Markdown Part")
+            )
+        );
+
+        return 4;
     }
 }
