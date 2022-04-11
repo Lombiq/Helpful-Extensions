@@ -11,12 +11,12 @@
 
 <div class="btn-group bootstrapSplitButton @viewModel.WrapperClasses">
     <button type="button"
-            class="bootstrapSplitButton__main @classes @viewModel.ButtonClasses}"
+            class="bootstrapSplitButton__main @classes @viewModel.ButtonClasses"
             disabled="@disabled">
         @(string.IsNullOrWhiteSpace(viewModel.Text) ? options.FirstOrDefault().Text : viewModel.Text)
     </button>
     <button type="button"
-            class="dropdown-toggle dropdown-toggle-split bootstrapSplitButton__dropdownButton @classes @viewModel.ToggleClasses`"
+            class="dropdown-toggle dropdown-toggle-split bootstrapSplitButton__dropdownButton @classes @viewModel.ToggleClasses"
             disabled="@disabled"
             aria-expanded="false">
         <span class="visually-hidden">@T["Toggle Dropdown"]</span>
