@@ -17,6 +17,9 @@ public class BootstrapSplitButtonTagHelper : TagHelper
     [HtmlAttributeName("text")]
     public string Text { get; set; }
 
+    [HtmlAttributeName("class")]
+    public string WrapperClasses { get; set; }
+
     [HtmlAttributeName("button-classes")]
     public string ButtonClasses { get; set; }
 
@@ -40,6 +43,7 @@ public class BootstrapSplitButtonTagHelper : TagHelper
         IShape shape = await _shapeFactory.New.BootstrapSplitButton(
             Type: Type,
             Text: Text,
+            WrapperClasses: WrapperClasses,
             ButtonClasses: ButtonClasses,
             ToggleClasses: ToggleClasses,
             DropdownClasses: DropdownClasses,

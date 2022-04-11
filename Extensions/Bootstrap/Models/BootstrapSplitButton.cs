@@ -6,6 +6,7 @@ public class BootstrapSplitButton
 {
     public string Type { get; set; }
     public string Text { get; set; }
+    public string WrapperClasses { get; set; }
     public string ButtonClasses { get; set; }
     public string ToggleClasses { get; set; }
     public string DropdownClasses { get; set; }
