@@ -16,7 +16,7 @@ public class StrictSecuritySettingsDisplayDriver : ContentTypeDefinitionDisplayD
             var settings = model.GetSettings<StrictSecuritySettings>();
 
             viewModel.Enabled = settings?.Enabled == true;
-        }).Location("Content:5");
+        }).PlaceInContent(5);
 
     public override async Task<IDisplayResult> UpdateAsync(ContentTypeDefinition model, UpdateTypeEditorContext context)
     {
