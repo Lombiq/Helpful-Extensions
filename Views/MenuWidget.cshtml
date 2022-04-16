@@ -13,7 +13,6 @@
     const string dropdownItemElementName = blockName + "__dropdownItem";
 
     var contentIdName = FormattableString.Invariant($"{contentElementName}_{Guid.NewGuid()}");
-    var dropdownIdName = FormattableString.Invariant($"{dropdownElementName}_{Guid.NewGuid()}");
 
     var baseUri = new Uri(Context.Request.GetDisplayUrl());
 
@@ -51,6 +50,7 @@
             <ul class="navbar-nav me-auto mb-lg-0">
                 @foreach (var menuItem in menuItems)
                 {
+                    var dropdownIdName = FormattableString.Invariant($"{dropdownElementName}_{Guid.NewGuid()}");
                     @if (menuItem.Items.Any())
                     {
                         var submenuItems = menuItem
@@ -61,7 +61,6 @@
                             <a id="@dropdownIdName"
                                class="nav-link dropdown-toggle @dropdownElementName"
                                href="#"
-                               role="button"
                                data-bs-toggle="dropdown"
                                aria-expanded="false">@menuItem.Text</a>
                             <ul class="dropdown-menu" aria-labelledby="@dropdownIdName">
