@@ -11,9 +11,9 @@ public class AdditionalStylingPartDisplay : ContentDisplayDriver
 {
     public override IDisplayResult Edit(ContentItem model, IUpdateModel updater) =>
         Initialize<AdditionalStylingPart>(
-            $"{nameof(AdditionalStylingPart)}_Edit",
-            viewModel => PopulateViewModel(model, viewModel))
-        .Location("Footer:3");
+                $"{nameof(AdditionalStylingPart)}_Edit",
+                viewModel => PopulateViewModel(model, viewModel))
+            .PlaceInZone("Footer", 3);
 
     public override async Task<IDisplayResult> UpdateAsync(ContentItem model, IUpdateModel updater)
     {

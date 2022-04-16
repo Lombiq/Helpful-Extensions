@@ -45,7 +45,7 @@ public class CodeGenerationDisplayDriver : ContentTypeDefinitionDisplayDriver
 
                 return codeBuilder.ToString();
             }))
-        .Location("Content:7");
+        .PlaceInContent(7);
 
     private void GenerateCodeForParts(StringBuilder codeBuilder, IEnumerable<ContentTypePartDefinition> parts)
     {
