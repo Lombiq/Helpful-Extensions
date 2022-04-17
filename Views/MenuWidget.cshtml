@@ -76,10 +76,12 @@
                                     }
                                     else if (IsFormPost(uri))
                                     {
-                                        <form method="post" action="@submenu.Href">
-                                            @Html.AntiForgeryToken()
-                                            <button class="@dropdownClasses">@submenu.Text</button>
-                                        </form>
+                                        <li>
+                                            <form method="post" action="@submenu.Href">
+                                                @Html.AntiForgeryToken()
+                                                <button class="@dropdownClasses" type="button">@submenu.Text</button>
+                                            </form>
+                                        </li>
                                     }
                                     else
                                     {
