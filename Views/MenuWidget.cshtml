@@ -79,7 +79,7 @@
                                         <li>
                                             <form method="post" action="@submenu.Href">
                                                 @Html.AntiForgeryToken()
-                                                <button class="@dropdownClasses" type="button">@submenu.Text</button>
+                                                <button class="@dropdownClasses" type="submit">@submenu.Text</button>
                                             </form>
                                         </li>
                                     }
@@ -113,7 +113,7 @@
                             {
                                 <form method="post" action="@menuItem.Href">
                                     @Html.AntiForgeryToken()
-                                    <button class="@linkClasses" type="button">@menuItem.Text</button>
+                                    <button class="@linkClasses" type="submit">@menuItem.Text</button>
                                 </form>
                             }
                             else
