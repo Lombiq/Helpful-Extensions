@@ -108,7 +108,7 @@
                         var uri = new Uri(baseUri, menuItem.Href);
                         var isActive = baseUri.AbsolutePath.EqualsOrdinalIgnoreCase(uri.AbsolutePath);
                         var linkClasses = $"nav-link {(isActive ? "active" : string.Empty)} {menuItem.Classes.Join()}";
-                        <li class="nav-item @(isActive ? "nav-item-link-active" : string.Empty)">
+                        <li class="nav-item menuWidget__topLevel @(isActive ? "nav-item-link-active" : string.Empty)">
                             @if (IsFormPost(uri))
                             {
                                 <form method="post" action="@menuItem.Href">
