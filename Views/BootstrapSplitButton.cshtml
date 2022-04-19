@@ -4,9 +4,11 @@
 @{
     if (Model is not IShape shape || shape.As<BootstrapSplitButton>() is not { } viewModel) { return; }
 
-    var classes = $"btn btn-{(string.IsNullOrWhiteSpace(viewModel.Type) ? "primary" : viewModel.Type)}";
+    var type = string.IsNullOrWhiteSpace(viewModel.Type) ? "primary" : viewModel.Type;
+    var classes = $"btn btn-{type}";
     var options = viewModel.Options.AsList();
     var disabled = !options.Any();
+    var shadowOffset = type == "primary" ? 0 : 8;
 }
 
 <div class="btn-group bootstrapSplitButton @viewModel.WrapperClasses">
@@ -59,7 +61,7 @@ Array.from(document.querySelectorAll('.bootstrapSplitButton'))
                 event.target.setAttribute('aria-expanded', expanded);
                 screen.hidden = !expanded;
                 menu.classList[expanded ? 'add' : 'remove']('show');
-                menu.style.marginTop = toggler.offsetHeight + 'px';
+                menu.style.marginTop = (toggler.offsetHeight + @shadowOffset) + 'px';
             });
     });
 </script>
