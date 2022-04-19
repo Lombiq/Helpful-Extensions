@@ -25,7 +25,7 @@
     <ul class="bootstrapSplitButton__dropdownMenu dropdown-menu @viewModel.DropdownClasses">
         @foreach (var option in options)
         {
-            <li>
+            <li class="bootstrapSplitButton__dropdownMenuItem">
                 @if (option.Text?.Trim().StartsWith("---") == true)
                 {
                     <hr class="dropdown-divider">
