@@ -80,10 +80,3 @@ using static Lombiq.HelpfulExtensions.FeatureIds;
         "OrchardCore.Email",
     }
 )]
-
-[assembly: Feature(
-    Id = Bootstrap,
-    Name = "Lombiq Helpful Extensions - Bootstrap Controls",
-    Category = "Content",
-    Description = "Adds reusable shapes for various Boostrap controls. These aren't widgets but smaller units you can reuse in your templates."
-)]

@@ -11,5 +11,4 @@ public static class FeatureIds
     public const string Widgets = FeatureIdPrefix + nameof(Widgets);
     public const string Emails = FeatureIdPrefix + nameof(Emails);
     public const string Security = FeatureIdPrefix + nameof(Security);
-    public const string Bootstrap = FeatureIdPrefix + nameof(Bootstrap);
 }
