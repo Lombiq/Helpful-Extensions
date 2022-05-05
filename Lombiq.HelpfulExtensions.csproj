@@ -28,7 +28,7 @@
     <None Remove="node_modules\**" />
     <None Remove="Tests\**" />
   </ItemGroup>
-  
+
   <ItemGroup>
     <FrameworkReference Include="Microsoft.AspNetCore.App" />
   </ItemGroup>
