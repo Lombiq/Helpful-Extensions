@@ -85,6 +85,6 @@ using static Lombiq.HelpfulExtensions.FeatureIds;
     Id = TargetBlank,
     Name = "Lombiq Helpful Extensions - Target Blank",
     Category = "Content",
-    Description = "Adds shape-based email template rendering and helpful email sending services."
+    Description = "Open external links in new tab"
 
 )]
