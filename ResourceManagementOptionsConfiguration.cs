@@ -4,7 +4,6 @@ using OrchardCore.ResourceManagement;
 namespace Lombiq.HelpfulExtensions;
 public class ResourceManagementOptionsConfiguration : IConfigureOptions<ResourceManagementOptions>
 {
-
     private static readonly ResourceManifest _manifest = new();
 
     static ResourceManagementOptionsConfiguration() =>
