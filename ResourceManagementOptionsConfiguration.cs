@@ -9,7 +9,8 @@ public class ResourceManagementOptionsConfiguration : IConfigureOptions<Resource
     static ResourceManagementOptionsConfiguration() =>
         _manifest
             .DefineScript("Lombiq.HelpfulExtensions.TargetBlank")
-            .SetUrl("~/Lombiq.HelpfulExtensions/TargetBlank/TargetBlank.min.js", "~/Lombiq.HelpfulExtensions/TargetBlank/TargetBlank.js");
+            .SetUrl("~/Lombiq.HelpfulExtensions/TargetBlank/TargetBlank.js")
+            .SetPosition(ResourcePosition.Last);
 
     public void Configure(ResourceManagementOptions options) => options.ResourceManifests.Add(_manifest);
 }
