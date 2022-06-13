@@ -21,8 +21,8 @@ public class TargetBlankFilter : IAsyncResultFilter
             return;
         }
 
-        // Until NodeExtensions is not being used this solution is for to replace the usage of GULP
-        // When NE will come alive this script should be refactored and store as a .js file.
+        // Until Node Extensions is ready for use, this solution is here to replace the usage of Gulp. When Node
+        // Extensions is ready, this script should be replaced with a JavaScript file.
         _resourceManager.RegisterFootScript(new HtmlString(
             "<script>function targetBlank(){const x=document.querySelectorAll('a');" +
             "for(let i=0;i<x.length;i++){if(!x[i].href.match(/^mailto:/)&&(x[i].hostname!==location.hostname))" +
