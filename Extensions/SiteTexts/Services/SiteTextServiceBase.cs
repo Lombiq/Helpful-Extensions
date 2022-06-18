@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Html;
+﻿using AngleSharp;
+using Microsoft.AspNetCore.Html;
 using OrchardCore.ContentManagement;
 using OrchardCore.Markdown.Models;
 using OrchardCore.Markdown.Services;
@@ -49,5 +50,20 @@ public abstract class SiteTextServiceBase : ISiteTextService
         return part;
     }
 
-    protected HtmlString RenderMarkdown(string markdown) => new(_markdownService.ToHtml(markdown));
+    protected async Task<HtmlString> RenderMarkdownAsync(string markdown)
+    {
+        var html = _markdownService.ToHtml(markdown.Trim());
+
+        using var context = BrowsingContext.New(Configuration.Default);
+        using var doc = await context.OpenAsync(response => response.Content($"<html><body>{html}</body></html>"));
+
+        // If it's a single-line expression, then it's presumably inline so don't wrap it in a <p> element.
+        if (doc.Body is { ChildElementCount: 1, FirstElementChild: { } first } &&
+            first.TagName.ToUpperInvariant() == "P")
+        {
+            html = first.InnerHtml.Trim();
+        }
+
+        return new(html);
+    }
 }

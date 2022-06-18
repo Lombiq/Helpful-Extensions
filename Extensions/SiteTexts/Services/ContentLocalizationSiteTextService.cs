@@ -34,6 +34,6 @@ public class ContentLocalizationSiteTextService : SiteTextServiceBase
             if (contentItem?.As<MarkdownBodyPart>() is { } localizedPart) part = localizedPart;
         }
 
-        return RenderMarkdown(part.Markdown);
+        return await RenderMarkdownAsync(part.Markdown);
     }
 }

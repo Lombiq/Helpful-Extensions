@@ -15,6 +15,6 @@ public class SiteTextService : SiteTextServiceBase
     public override async Task<HtmlString> RenderHtmlByIdAsync(string contentItemId)
     {
         var part = await GetSiteTextMarkdownBodyPartByIdAsync(contentItemId);
-        return RenderMarkdown(part.Markdown);
+        return await RenderMarkdownAsync(part.Markdown);
     }
 }
