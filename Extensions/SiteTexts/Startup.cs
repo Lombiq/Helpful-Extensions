@@ -11,6 +11,18 @@ public class Startup : StartupBase
     public override void ConfigureServices(IServiceCollection services)
     {
         services.AddScoped<IDataMigration, Migrations>();
+
+        services.AddScoped<SiteTextService>();
         services.AddScoped<ISiteTextService, SiteTextService>();
+    }
+}
+
+[Feature("OrchardCore.ContentLocalization")]
+public class ContentLocalizationStartup : StartupBase
+{
+    public override void ConfigureServices(IServiceCollection services)
+    {
+        services.RemoveImplementations<ISiteTextService>();
+        services.AddScoped<ISiteTextService, ContentLocalizationSiteTextService>();
     }
 }
