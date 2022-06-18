@@ -1,4 +1,5 @@
-﻿using OrchardCore.ContentManagement.Metadata;
+﻿using OrchardCore.ContentLocalization.Models;
+using OrchardCore.ContentManagement.Metadata;
 using OrchardCore.ContentManagement.Metadata.Builders;
 using OrchardCore.ContentManagement.Metadata.Settings;
 using OrchardCore.Data.Migration;
@@ -28,7 +29,8 @@ public class Migrations : DataMigration
             .WithPart(nameof(MarkdownBodyPart), part => part
                 // These resources shouldn't be made editable to untrusted parties so we don't need to sanitize HTML.
                 .WithSettings(new MarkdownBodyPartSettings { SanitizeHtml = false })
-                .WithEditor("Wysiwyg")));
+                .WithEditor("Wysiwyg"))
+            .WithPart(nameof(LocalizationPart)));
 
         return 1;
     }

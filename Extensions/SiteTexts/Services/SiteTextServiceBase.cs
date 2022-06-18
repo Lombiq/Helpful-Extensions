@@ -22,6 +22,19 @@ public abstract class SiteTextServiceBase : ISiteTextService
 
     protected async Task<MarkdownBodyPart> GetSiteTextMarkdownBodyPartByIdAsync(string contentItemId)
     {
+        ArgumentNullException.ThrowIfNull(contentItemId);
+
+        // A bit of syntactic sugar for IDs using our conventions. This "~help popular topics" will be translated to
+        // the ID "helppopulartopics000000000".
+        if (contentItemId[0] == '~')
+        {
+#pragma warning disable CA1308
+            contentItemId = contentItemId[1..].Replace(" ", string.Empty).ToLowerInvariant();
+#pragma warning restore CA1308
+
+            if (contentItemId.Length < 26) contentItemId = contentItemId.PadRight(26, '0');
+        }
+
         if (await _contentManager.GetAsync(contentItemId) is not { } contentItem)
         {
             throw new InvalidOperationException($"A content with the ID \"{contentItemId}\" does not exist.");
