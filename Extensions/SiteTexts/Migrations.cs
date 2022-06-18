@@ -25,11 +25,7 @@ public class Migrations : DataMigration
                 draftable: false,
                 listable: true,
                 versionable: false)
-            .WithTitlePart()
-            .WithPart(nameof(MarkdownBodyPart), part => part
-                // These resources shouldn't be made editable to untrusted parties so we don't need to sanitize HTML.
-                .WithSettings(new MarkdownBodyPartSettings { SanitizeHtml = false })
-                .WithEditor("Wysiwyg"))
+            .WithPart(nameof(MarkdownBodyPart), part => part.WithEditor("Wysiwyg"))
             .WithPart(nameof(LocalizationPart)));
 
         return 1;
