@@ -80,3 +80,17 @@ using static Lombiq.HelpfulExtensions.FeatureIds;
         "OrchardCore.Email",
     }
 )]
+
+[assembly: Feature(
+    Id = SiteTexts,
+    Name = "Lombiq Helpful Extensions - Site Texts",
+    Category = "Content",
+    Description =
+        "Adds a content type that lets the users with admin dashboard access customize string/HTML resources on the " +
+        "site via Markdown. If OrchardCore.ContentLocalization is enabled, it also tries to retrieve the localized " +
+        "version if available.",
+    Dependencies = new[]
+    {
+        "OrchardCore.Markdown",
+    }
+)]
