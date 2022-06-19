@@ -4,7 +4,6 @@ using OrchardCore.ContentManagement.Metadata.Builders;
 using OrchardCore.ContentManagement.Metadata.Settings;
 using OrchardCore.Data.Migration;
 using OrchardCore.Markdown.Models;
-using OrchardCore.Markdown.Settings;
 using static Lombiq.HelpfulExtensions.Extensions.SiteTexts.Constants.ContentTypes;
 
 namespace Lombiq.HelpfulExtensions.Extensions.SiteTexts;
