@@ -25,8 +25,7 @@ public abstract class SiteTextServiceBase : ISiteTextService
     {
         ArgumentNullException.ThrowIfNull(contentItemId);
 
-        // A bit of syntactic sugar for IDs using our conventions. This "~help popular topics" will be translated to
-        // the ID "helppopulartopics000000000".
+        // A bit of syntactic sugar for IDs using our human-readable conventions.
         if (contentItemId[0] == '~')
         {
 #pragma warning disable CA1308
