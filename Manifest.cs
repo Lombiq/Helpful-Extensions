@@ -80,3 +80,11 @@ using static Lombiq.HelpfulExtensions.FeatureIds;
         "OrchardCore.Email",
     }
 )]
+
+[assembly: Feature(
+    Id = TargetBlank,
+    Name = "Lombiq Helpful Extensions - Target Blank",
+    Category = "Content",
+    Description = "Adds shape-based email template rendering and helpful email sending services."
+
+)]
