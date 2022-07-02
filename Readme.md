@@ -100,7 +100,9 @@ To add inline styles include:
 
 Use the `ShellScope.Current.SendEmailDeferred()` for sending emails. It'll send emails after the shell scope has ended without blocking the request.
 
+### Target blank
 
+Turns all external links into `target="_blank"`.
 
 ## Contributing and support
 
