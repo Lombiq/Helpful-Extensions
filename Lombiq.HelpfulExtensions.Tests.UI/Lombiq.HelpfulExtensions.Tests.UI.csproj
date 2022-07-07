@@ -34,7 +34,19 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Lombiq.HelpfulExtensions.Samples\Lombiq.HelpfulExtensions.Samples.csproj" />
+    <PackageReference Include="OrchardCore.Forms" Version="1.4.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Lombiq.HelpfulExtensions\Lombiq.HelpfulExtensions.csproj" />
+  </ItemGroup>
+  
+  <ItemGroup Condition="'$(NuGetBuild)' != 'true'">
+    <ProjectReference Include="..\..\..\..\test\Lombiq.UITestingToolbox\Lombiq.Tests.UI\Lombiq.Tests.UI.csproj" />
+  </ItemGroup>
+
+  <ItemGroup Condition="'$(NuGetBuild)' == 'true'">
+    <PackageReference Include="Lombiq.Tests.UI" Version="3.3.0" />
   </ItemGroup>
 
 </Project>

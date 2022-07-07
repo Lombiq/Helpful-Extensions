@@ -5,8 +5,6 @@ VisualStudioVersion = 17.1.32319.34
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Lombiq.HelpfulExtensions", "Lombiq.HelpfulExtensions\Lombiq.HelpfulExtensions.csproj", "{207243C1-5934-4D94-AAF2-F46D4DB2F20F}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Lombiq.HelpfulExtensions.Samples", "Lombiq.HelpfulExtensions.Samples\Lombiq.HelpfulExtensions.Samples.csproj", "{C18FD243-6827-4993-A31A-68D95F428398}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Lombiq.HelpfulExtensions.Tests.UI", "Lombiq.HelpfulExtensions.Tests.UI\Lombiq.HelpfulExtensions.Tests.UI.csproj", "{B1077AC7-10D3-451C-B467-DA0B4D7BD5A4}"
 EndProject
 Global
@@ -19,10 +17,6 @@ Global
 		{207243C1-5934-4D94-AAF2-F46D4DB2F20F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{207243C1-5934-4D94-AAF2-F46D4DB2F20F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{207243C1-5934-4D94-AAF2-F46D4DB2F20F}.Release|Any CPU.Build.0 = Release|Any CPU
-		{C18FD243-6827-4993-A31A-68D95F428398}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{C18FD243-6827-4993-A31A-68D95F428398}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{C18FD243-6827-4993-A31A-68D95F428398}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{C18FD243-6827-4993-A31A-68D95F428398}.Release|Any CPU.Build.0 = Release|Any CPU
 		{B1077AC7-10D3-451C-B467-DA0B4D7BD5A4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{B1077AC7-10D3-451C-B467-DA0B4D7BD5A4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B1077AC7-10D3-451C-B467-DA0B4D7BD5A4}.Release|Any CPU.ActiveCfg = Release|Any CPU
