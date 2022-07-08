@@ -43,7 +43,7 @@ public static class TestCaseUITestContextExtensions
 
         await context.GoToCreatePageAsync();
 
-        // Adding 'Blockquote' to flow.
+        // Adding 'Html' to flow.
         context.AddWidgetToPageFlow(WidgetTypes.Html);
 
         // To show toolbar.
@@ -66,6 +66,7 @@ public static class TestCaseUITestContextExtensions
         // Check that, the 'AdditionalStylingPart' view is exists and visible.
         context.Exists(By.XPath(FlowSettingsDropdown));
 
+        // Check CustomClasses input.
         var customClassesInputSelector = By.XPath(CustomClassesInput);
         context.Get(customClassesInputSelector)
             .SendKeys(TestClass);
