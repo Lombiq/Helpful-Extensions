@@ -7,5 +7,5 @@ namespace Lombiq.HelpfulExtensions.Tests.UI.Extensions;
 public static class UITestContextExtensions
 {
     public static Task GoToCreatePageAsync(this UITestContext context) =>
-        context.GoToRelativeUrlAsync("/Admin/Contents/ContentTypes/Page/Create", onlyIfNotAlreadyThere: false);
+        context.CreateNewContentItemAsync("Page", onlyIfNotAlreadyThere: false);
 }

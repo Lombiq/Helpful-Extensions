@@ -34,7 +34,12 @@ public static class TestCaseUITestContextExtensions
         }
     }
 
-    public static async Task TestFlowAdditionalStylingPartNotActivatingGh76Async(this UITestContext context)
+    /// <summary>
+    /// <see href="https://github.com/Lombiq/Helpful-Extensions/issues/76">
+    /// Flow 'Additional Styling Part' flyout not activating
+    /// </see>.
+    /// </summary>
+    public static async Task TestFlowAdditionalStylingPartAsync(this UITestContext context)
     {
         await context.SignInDirectlyAsync();
         await context.EnableFeatureDirectlyAsync(FeatureIds.Flows);
