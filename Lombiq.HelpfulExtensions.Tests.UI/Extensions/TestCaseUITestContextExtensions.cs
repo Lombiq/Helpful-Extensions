@@ -54,7 +54,7 @@ public static class TestCaseUITestContextExtensions
 
         var flowSettingsButtonSelector = By.XPath(FlowSettingsButton);
 
-        // Check that, the settings button is exists and visible.
+        // Check that the settings button exists and is visible.
         context.Exists(flowSettingsButtonSelector);
 
         // To show 'AdditionalStylingPart' view.
