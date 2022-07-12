@@ -102,7 +102,7 @@ Use the `ShellScope.Current.SendEmailDeferred()` for sending emails. It'll send 
 
 ### Target blank
 
-Turns all external links into `target="_blank"`.
+Gives all external links the `target="_blank"` attribute.
 
 ## Contributing and support
 
