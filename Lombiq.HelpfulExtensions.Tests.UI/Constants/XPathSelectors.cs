@@ -14,6 +14,5 @@ public static class XPathSelectors
         + "/div[@class='btn-group']/div[@class='btn-group']";
     public const string FlowSettingsButton = $"{FlowSettingsButtonGroup}/button[@title='Settings']";
     public const string FlowSettingsDropdown = $"{FlowSettingsButtonGroup}/div[contains(@class, 'dropdown-menu')]";
-    public const string CustomClassesInput = $"{FlowSettingsDropdown}/div[@class='form-group']"
-        + "/input[@id='FlowPart-0_ContentItem_CustomClasses']";
+    public const string CustomClassesInput = "id('FlowPart-0_ContentItem_CustomClasses')";
 }
