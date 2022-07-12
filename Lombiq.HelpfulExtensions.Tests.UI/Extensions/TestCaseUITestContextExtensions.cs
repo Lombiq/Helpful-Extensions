@@ -63,7 +63,7 @@ public static class TestCaseUITestContextExtensions
             .Build()
             .Perform();
 
-        // Check that, the 'AdditionalStylingPart' view is exists and visible.
+        // Check that the 'AdditionalStylingPart' view exists and is visible.
         context.Exists(By.XPath(FlowSettingsDropdown));
 
         // Check CustomClasses input.
