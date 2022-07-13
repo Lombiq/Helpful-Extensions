@@ -3,7 +3,7 @@
 
 
 [![Lombiq.HelpfulExtensions NuGet](https://img.shields.io/nuget/v/Lombiq.HelpfulExtensions?label=Lombiq.HelpfulExtensions)](https://www.nuget.org/packages/Lombiq.HelpfulExtensions/)
-[![Lombiq.HelpfulExtensions NuGet](https://img.shields.io/nuget/v/Lombiq.HelpfulExtensions.Tests.UI?label=Lombiq.HelpfulExtensions.Tests.UI)](https://www.nuget.org/packages/Lombiq.HelpfulExtensions/)
+[![Lombiq.HelpfulExtensions UI Test Extensions NuGet](https://img.shields.io/nuget/v/Lombiq.HelpfulExtensions.Tests.UI?label=Lombiq.HelpfulExtensions.Tests.UI)](https://www.nuget.org/packages/Lombiq.HelpfulExtensions.Tests.UI/)
 
 
 ## About
