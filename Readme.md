@@ -1,7 +1,6 @@
 # Lombiq Helpful Extensions for Orchard Core
 
-[![Lombiq.HelpfulExtensions NuGet](https://img.shields.io/nuget/v/Lombiq.HelpfulExtensions?label=Lombiq.HelpfulExtensions)](https://www.nuget.org/packages/Lombiq.HelpfulExtensions/)
-[![Lombiq.HelpfulExtensions UI Test Extensions NuGet](https://img.shields.io/nuget/v/Lombiq.HelpfulExtensions.Tests.UI?label=Lombiq.HelpfulExtensions.Tests.UI)](https://www.nuget.org/packages/Lombiq.HelpfulExtensions.Tests.UI/)
+[![Lombiq.HelpfulExtensions NuGet](https://img.shields.io/nuget/v/Lombiq.HelpfulExtensions?label=Lombiq.HelpfulExtensions)](https://www.nuget.org/packages/Lombiq.HelpfulExtensions/) [![Lombiq.HelpfulExtensions UI Test Extensions NuGet](https://img.shields.io/nuget/v/Lombiq.HelpfulExtensions.Tests.UI?label=Lombiq.HelpfulExtensions.Tests.UI)](https://www.nuget.org/packages/Lombiq.HelpfulExtensions.Tests.UI/)
 
 ## About
 
@@ -100,7 +99,9 @@ To add inline styles include:
 Use the `ShellScope.Current.SendEmailDeferred()` for sending emails. It'll send emails after the shell scope has ended without blocking the request.
 
 ### Target blank
+
 Gives all external links the `target="_blank"` attribute.
+
 ## Contributing and support
 
 Bug reports, feature requests, comments, questions, code contributions, and love letters are warmly welcome, please do so via GitHub issues and pull requests. Please adhere to our [open-source guidelines](https://lombiq.com/open-source-guidelines) while doing so.
