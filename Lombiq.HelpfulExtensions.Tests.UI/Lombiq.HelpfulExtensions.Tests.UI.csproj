@@ -7,14 +7,14 @@
   </PropertyGroup>
 
   <PropertyGroup>
-    <Title>Lombiq Helpful Extensions for Orchard Core</Title>
+    <Title>Lombiq Helpful Extensions for Orchard Core - UI Test Extensions</Title>
     <Authors>Lombiq Technologies</Authors>
     <Copyright>Copyright © 2013, Lombiq Technologies Ltd.</Copyright>
-    <Description>Lombiq Helpful Extensions for Orchard Core: Orchard Core module containing some handy extensions (e.g. useful content types and widgets). It's also available on all sites of DotNest, the Orchard SaaS. See the project website for detailed documentation.</Description>
+    <Description>Lombiq Helpful Extensions for Orchard Core - UI Test Extensions: Extension methods that test various features in Lombiq Helpful Extensions for Orchard Core.</Description>
     <PackageIcon>NuGetIcon.png</PackageIcon>
     <PackageTags>OrchardCore;Lombiq;AspNetCore;CodeGeneration;ShapeTracing;Widgets</PackageTags>
     <RepositoryUrl>https://github.com/Lombiq/Helpful-Extensions</RepositoryUrl>
-    <PackageProjectUrl>https://github.com/Lombiq/Helpful-Extensions</PackageProjectUrl>
+    <PackageProjectUrl>https://github.com/Lombiq/Helpful-Extensions/Lombiq.HelpfulExtensions.Tests.UI/Readme.md</PackageProjectUrl>
     <PackageLicenseFile>License.md</PackageLicenseFile>
   </PropertyGroup>
 
@@ -34,20 +34,15 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="OrchardCore.Autoroute" Version="1.4.0" />
-    <PackageReference Include="OrchardCore.Contents" Version="1.4.0" />
-    <PackageReference Include="OrchardCore.Flows" Version="1.4.0" />
-    <PackageReference Include="OrchardCore.Html" Version="1.4.0" />
-    <PackageReference Include="OrchardCore.MetaWeblog.Abstractions" Version="1.4.0" />
-    <PackageReference Include="OrchardCore.Module.Targets" Version="1.4.0" />
+    <ProjectReference Include="..\Lombiq.HelpfulExtensions\Lombiq.HelpfulExtensions.csproj" />
   </ItemGroup>
-
+  
   <ItemGroup Condition="'$(NuGetBuild)' != 'true'">
-    <ProjectReference Include="..\..\Libraries\Lombiq.HelpfulLibraries\Lombiq.HelpfulLibraries.OrchardCore\Lombiq.HelpfulLibraries.OrchardCore.csproj" />
+    <ProjectReference Include="..\..\..\..\test\Lombiq.UITestingToolbox\Lombiq.Tests.UI\Lombiq.Tests.UI.csproj" />
   </ItemGroup>
 
   <ItemGroup Condition="'$(NuGetBuild)' == 'true'">
-    <PackageReference Include="Lombiq.HelpfulLibraries.OrchardCore" Version="4.5.0" />
+    <PackageReference Include="Lombiq.Tests.UI" Version="3.4.0" />
   </ItemGroup>
 
 </Project>
