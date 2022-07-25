@@ -2,6 +2,9 @@
 
 namespace System
 {
+    /// <summary>
+    /// The Orchard Core counterparts of these extensions can be found in the NumberExtensions.cs of Helpful Libraries.
+    /// </summary>
     public static class InvariantCultureTypeConversionExtensions
     {
         /// <summary>
