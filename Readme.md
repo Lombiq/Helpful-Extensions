@@ -1,10 +1,6 @@
 # Lombiq Helpful Extensions for Orchard Core
 
-
-
-[![Lombiq.HelpfulExtensions NuGet](https://img.shields.io/nuget/v/Lombiq.HelpfulExtensions?label=Lombiq.HelpfulExtensions)](https://www.nuget.org/packages/Lombiq.HelpfulExtensions/)
-[![Lombiq.HelpfulExtensions UI Test Extensions NuGet](https://img.shields.io/nuget/v/Lombiq.HelpfulExtensions.Tests.UI?label=Lombiq.HelpfulExtensions.Tests.UI)](https://www.nuget.org/packages/Lombiq.HelpfulExtensions.Tests.UI/)
-
+[![Lombiq.HelpfulExtensions NuGet](https://img.shields.io/nuget/v/Lombiq.HelpfulExtensions?label=Lombiq.HelpfulExtensions)](https://www.nuget.org/packages/Lombiq.HelpfulExtensions/) [![Lombiq.HelpfulExtensions UI Test Extensions NuGet](https://img.shields.io/nuget/v/Lombiq.HelpfulExtensions.Tests.UI?label=Lombiq.HelpfulExtensions.Tests.UI)](https://www.nuget.org/packages/Lombiq.HelpfulExtensions.Tests.UI/)
 
 ## About
 
@@ -14,7 +10,6 @@ Do you want to quickly try out this project and see it in action? Check it out i
 
 Note that this module has an Orchard 1 version in the [dev-orchard-1 branch](https://github.com/Lombiq/Helpful-Extensions/tree/dev-orchard-1).
 
-
 ## Extensions
 
 The module consists of the following independent extensions (all in their own features):
@@ -22,6 +17,7 @@ The module consists of the following independent extensions (all in their own fe
 ### Code Generation Helpful Extensions
 
 #### Content definition code generation
+
 Generates migration code from content definitions. You can use this to create (or edit) a content type on the admin and then move its creation to a migration class. Generated migration code is displayed under the content types' editors, just enable the feature. Check out [this demo video](https://www.youtube.com/watch?v=KOlsLaIzgm8) to see this in action.
 
 ![Content definition code generation textbox on the admin, showing generated migration code for the Page content type.](Docs/Attachments/ContentTypeCodeGeneration.png)
@@ -41,7 +37,7 @@ Includes:
 - ContainerWidget: Works as a container for further widgets. It has a FlowPart attached to it so it can contain additional widgets as well.
 - HtmlWidget: Adds HTML editing and displaying capabilities using a WYSIWYG editor.
 - LiquidWidget: Adds Liquid code editing and rendering capabilities.
-- MenuWidget: Renders a Bootstrap navigation menu as a widget using the provided `MenuItem`s. 
+- MenuWidget: Renders a Bootstrap navigation menu as a widget using the provided `MenuItem`s.
 
 ### Helpful Content Types
 
@@ -57,12 +53,12 @@ Adds a dump of metadata to the output about every shape. This will help you unde
 
 ### Security Extensions
 
-
 #### Strict Security
 
 When applied to a content type definition, `StrictSecuritySetting` requires the user to have the exact Securable permission for that content type. For example if you apply it to Page, then just having the common ViewContent permission won't be enough and you must explicitly have the View_Page permission too. Don't worry, the normal implications such as ViewOwn beig fulfilled by View still apply within the content type, they just no longer imply their common counterparts.
 
 Make content type use strict security in migration:
+
 ```csharp
 _contentDefinitionManager.AlterTypeDefinition("Page", type => type
     .Securable()
@@ -70,7 +66,6 @@ _contentDefinitionManager.AlterTypeDefinition("Page", type => type
 ```
 
 You can also enable it by going to the content type editor on the admin side and checking the _Strict Securable_ checkbox.
-
 
 ### Emails and Email Templates
 
@@ -88,7 +83,9 @@ To extend the layout you can override the `EmailTemplate_LayoutInjections` shape
     My Awesome Team
 </zone>
 ```
+
 To add inline styles include:
+
 ```html
 <zone name="Head">
     <style>
@@ -107,6 +104,6 @@ Gives all external links the `target="_blank"` attribute.
 
 ## Contributing and support
 
-Bug reports, feature requests, comments, questions, code contributions, and love letters are warmly welcome, please do so via GitHub issues and pull requests. Please adhere to our [open-source guidelines](https://lombiq.com/open-source-guidelines) while doing so.
+Bug reports, feature requests, comments, questions, code contributions and love letters are warmly welcome. You can send them to us via GitHub issues and pull requests. Please adhere to our [open-source guidelines](https://lombiq.com/open-source-guidelines) while doing so.
 
 This project is developed by [Lombiq Technologies](https://lombiq.com/). Commercial-grade support is available through Lombiq.
