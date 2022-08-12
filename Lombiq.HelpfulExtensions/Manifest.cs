@@ -82,6 +82,13 @@ using static Lombiq.HelpfulExtensions.FeatureIds;
 )]
 
 [assembly: Feature(
+    Id = TargetBlank,
+    Name = "Lombiq Helpful Extensions - Target Blank",
+    Category = "Content",
+    Description = "Turns all external links into target=\"_blank\"."
+)]
+
+[assembly: Feature(
     Id = SiteTexts,
     Name = "Lombiq Helpful Extensions - Site Texts",
     Category = "Content",
