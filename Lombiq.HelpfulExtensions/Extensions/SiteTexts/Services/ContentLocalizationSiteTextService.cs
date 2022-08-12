@@ -23,15 +23,14 @@ public class ContentLocalizationSiteTextService : SiteTextServiceBase
     public override async Task<HtmlString> RenderHtmlByIdAsync(string contentItemId)
     {
         var part = await GetSiteTextMarkdownBodyPartByIdAsync(contentItemId);
+        var culture = CultureInfo.CurrentCulture.Name;
 
-        if (part.As<LocalizationPart>() is { } localizationPart &&
-            localizationPart.Culture != CultureInfo.CurrentCulture.Name)
+        if (part.As<LocalizationPart>() is { Culture: { } partCulture, LocalizationSet: { } localizationSet } &&
+            partCulture != culture &&
+            await _contentLocalizationManager.GetContentItemAsync(localizationSet, culture) is { } contentItem &&
+            contentItem.As<MarkdownBodyPart>() is { } localizedPart)
         {
-            var contentItem = await _contentLocalizationManager.GetContentItemAsync(
-                localizationPart.LocalizationSet,
-                CultureInfo.CurrentCulture.Name);
-
-            if (contentItem?.As<MarkdownBodyPart>() is { } localizedPart) part = localizedPart;
+            part = localizedPart;
         }
 
         return await RenderMarkdownAsync(part.Markdown);
