@@ -10,7 +10,8 @@ namespace Lombiq.HelpfulExtensions.Extensions.SiteTexts.Services;
 public interface ISiteTextService
 {
     /// <summary>
-    /// Depending on the implementation it may look at the referenced content item, or any localized versions.
+    /// Looks up the referenced site text and returns it as HTML. Depending on the implementation, it may also perform
+    /// other steps such looking for a localized version.
     /// </summary>
     /// <param name="contentItemId">
     /// The <see cref="ContentItem.ContentItemId"/> of the Site Text. If the first character is <c>~</c> then the rest
