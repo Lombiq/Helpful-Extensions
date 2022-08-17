@@ -15,7 +15,7 @@ public class Startup : StartupBase
     }
 }
 
-[Feature("OrchardCore.ContentLocalization")]
+[RequireFeatures("OrchardCore.ContentLocalization")]
 public class ContentLocalizationStartup : StartupBase
 {
     public override void ConfigureServices(IServiceCollection services)
