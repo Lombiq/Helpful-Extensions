@@ -8,11 +8,11 @@ using static Lombiq.HelpfulExtensions.Extensions.SiteTexts.Constants.ContentType
 
 namespace Lombiq.HelpfulExtensions.Extensions.SiteTexts;
 
-public class Migrations : DataMigration
+public class SiteTextMigrations : DataMigration
 {
     private readonly IContentDefinitionManager _contentDefinitionManager;
 
-    public Migrations(IContentDefinitionManager contentDefinitionManager) =>
+    public SiteTextMigrations(IContentDefinitionManager contentDefinitionManager) =>
         _contentDefinitionManager = contentDefinitionManager;
 
     public int Create()
