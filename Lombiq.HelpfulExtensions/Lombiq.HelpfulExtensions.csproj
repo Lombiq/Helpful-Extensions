@@ -38,6 +38,7 @@
     <PackageReference Include="OrchardCore.Contents" Version="1.4.0" />
     <PackageReference Include="OrchardCore.Flows" Version="1.4.0" />
     <PackageReference Include="OrchardCore.Html" Version="1.4.0" />
+    <PackageReference Include="OrchardCore.Markdown" Version="1.4.0" />
     <PackageReference Include="OrchardCore.MetaWeblog.Abstractions" Version="1.4.0" />
     <PackageReference Include="OrchardCore.Module.Targets" Version="1.4.0" />
   </ItemGroup>
