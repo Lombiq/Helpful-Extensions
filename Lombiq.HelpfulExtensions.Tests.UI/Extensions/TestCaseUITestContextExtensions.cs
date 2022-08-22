@@ -13,6 +13,9 @@ namespace Lombiq.HelpfulExtensions.Tests.UI.Extensions;
 
 public static class TestCaseUITestContextExtensions
 {
+    /// <summary>
+    /// Tests the Lombiq Helpful Extensions - Helpful Widgets feature.
+    /// </summary>
     public static async Task TestFeatureWidgetsAsync(this UITestContext context)
     {
         await context.SignInDirectlyAsync();
@@ -35,10 +38,14 @@ public static class TestCaseUITestContextExtensions
     }
 
     /// <summary>
-    /// <see href="https://github.com/Lombiq/Helpful-Extensions/issues/76">
-    /// Flow 'Additional Styling Part' flyout not activating
-    /// </see>.
+    /// Tests the Lombiq Helpful Extensions - Flows Helpful Extensions feature.
     /// </summary>
+    /// <remarks>
+    /// <para>
+    /// Added originally to cover the fix for <see href="https://github.com/Lombiq/Helpful-Extensions/issues/76">
+    /// Flow 'Additional Styling Part' flyout not activating</see>.
+    /// </para>
+    /// </remarks>
     public static async Task TestFlowAdditionalStylingPartAsync(this UITestContext context)
     {
         await context.SignInDirectlyAsync();
@@ -79,6 +86,33 @@ public static class TestCaseUITestContextExtensions
         context.Get(customClassesInputSelector)
             .GetValue()
             .ShouldBe(TestClass);
+    }
+
+    /// <summary>
+    /// Tests the Lombiq Helpful Extensions - Code Generation Helpful Extensions feature.
+    /// </summary>
+    /// <remarks>
+    /// <para>
+    /// Added originally to cover the fix for <see href="https://github.com/Lombiq/Helpful-Extensions/issues/85">
+    /// Fix content type code generation button not working</see>.
+    /// </para>
+    /// </remarks>
+    public static async Task TestFeatureCodeGenerationsAsync(this UITestContext context)
+    {
+        await context.SignInDirectlyAsync();
+
+        await context.EnableFeatureDirectlyAsync(FeatureIds.ContentTypes);
+        await context.EnableFeatureDirectlyAsync(FeatureIds.CodeGeneration);
+
+        await context.GoToContentTypeEditorAsync("Page");
+        await context.ClickReliablyOnAsync(By.ClassName("toggle-showing-generated-migration-code"));
+
+        context.Get(By.Id("generated-migration-code").OfAnyVisibility()).GetValue().ShouldBe(GeneratedMigrationCodes.Page);
+
+        // Checking the first line of the CodeMirror editor.
+        context.Get(By.CssSelector(".CodeMirror-line .cm-variable")).Text.ShouldBe("_contentDefinitionManager");
+        context.Get(By.CssSelector(".CodeMirror-line .cm-property")).Text.ShouldBe("AlterTypeDefinition");
+        context.Get(By.CssSelector(".CodeMirror-line .cm-string")).Text.ShouldBe("\"Page\"");
     }
 
     private static async Task TestWidgetAsync(this UITestContext context, string widget)
