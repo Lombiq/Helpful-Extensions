@@ -13,6 +13,9 @@ namespace Lombiq.HelpfulExtensions.Tests.UI.Extensions;
 
 public static class TestCaseUITestContextExtensions
 {
+    /// <summary>
+    /// Tests the Lombiq Helpful Extensions - Helpful Widgets feature
+    /// </summary>
     public static async Task TestFeatureWidgetsAsync(this UITestContext context)
     {
         await context.SignInDirectlyAsync();
@@ -35,10 +38,14 @@ public static class TestCaseUITestContextExtensions
     }
 
     /// <summary>
-    /// <see href="https://github.com/Lombiq/Helpful-Extensions/issues/76">
-    /// Flow 'Additional Styling Part' flyout not activating
-    /// </see>.
+    /// Tests the Lombiq Helpful Extensions - Flows Helpful Extensions feature.
     /// </summary>
+    /// <remarks>
+    /// <para>
+    /// Added originally to cover the fix for <see href="https://github.com/Lombiq/Helpful-Extensions/issues/76">
+    /// Flow 'Additional Styling Part' flyout not activating</see>.
+    /// </para>
+    /// </remarks>
     public static async Task TestFlowAdditionalStylingPartAsync(this UITestContext context)
     {
         await context.SignInDirectlyAsync();
@@ -81,6 +88,15 @@ public static class TestCaseUITestContextExtensions
             .ShouldBe(TestClass);
     }
 
+    /// <summary>
+    /// Tests the Lombiq Helpful Extensions - Code Generation Helpful Extensions feature.
+    /// </summary>
+    /// <remarks>
+    /// <para>
+    /// Added originally to cover the fix for <see href="https://github.com/Lombiq/Helpful-Extensions/issues/85">
+    /// Fix content type code generation button not working</see>.
+    /// </para>
+    /// </remarks>
     public static async Task TestFeatureCodeGenerationsAsync(this UITestContext context)
     {
         await context.SignInDirectlyAsync();
