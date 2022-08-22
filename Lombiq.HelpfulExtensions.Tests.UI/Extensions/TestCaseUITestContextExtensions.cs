@@ -81,6 +81,24 @@ public static class TestCaseUITestContextExtensions
             .ShouldBe(TestClass);
     }
 
+    public static async Task TestFeatureCodeGenerationsAsync(this UITestContext context)
+    {
+        await context.SignInDirectlyAsync();
+
+        await context.EnableFeatureDirectlyAsync(FeatureIds.ContentTypes);
+        await context.EnableFeatureDirectlyAsync(FeatureIds.CodeGeneration);
+
+        await context.GoToContentTypeEditorAsync("Page");
+        await context.ClickReliablyOnAsync(By.ClassName("toggle-showing-generated-migration-code"));
+
+        context.Get(By.Id("generated-migration-code").OfAnyVisibility()).GetValue().ShouldBe(GeneratedMigrationCodes.Page);
+
+        // Checking the first line of the CodeMirror editor.
+        context.Get(By.CssSelector(".CodeMirror-line .cm-variable")).Text.ShouldBe("_contentDefinitionManager");
+        context.Get(By.CssSelector(".CodeMirror-line .cm-property")).Text.ShouldBe("AlterTypeDefinition");
+        context.Get(By.CssSelector(".CodeMirror-line .cm-string")).Text.ShouldBe("\"Page\"");
+    }
+
     private static async Task TestWidgetAsync(this UITestContext context, string widget)
     {
         await context.GoToCreatePageAsync();
