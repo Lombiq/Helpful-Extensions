@@ -14,7 +14,7 @@ namespace Lombiq.HelpfulExtensions.Tests.UI.Extensions;
 public static class TestCaseUITestContextExtensions
 {
     /// <summary>
-    /// Tests the Lombiq Helpful Extensions - Helpful Widgets feature
+    /// Tests the Lombiq Helpful Extensions - Helpful Widgets feature.
     /// </summary>
     public static async Task TestFeatureWidgetsAsync(this UITestContext context)
     {
