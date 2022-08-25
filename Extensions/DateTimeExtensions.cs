@@ -79,7 +79,12 @@ namespace System
            IDateLocalizationServices dateLocalizationServices) =>
                dateTime == null ?
                string.Empty :
-               dateLocalizationServices.ConvertToSiteTimeZone(dateTime.Value).ConvertToUsaDateTimeFormat();
+               dateTime.Value.DateTimeToSiteTimeZoneInUsaDateTimeFormat(dateLocalizationServices);
+
+        public static string DateTimeToSiteTimeZoneInUsaDateTimeFormat(
+           this DateTime dateTime,
+           IDateLocalizationServices dateLocalizationServices) =>
+               dateLocalizationServices.ConvertToSiteTimeZone(dateTime).ConvertToUsaDateTimeFormat();
 
         public static string DateTimeOrUtcNowToSiteTimeZoneInUsaDateFormat(
             this DateTime? dateTime,
