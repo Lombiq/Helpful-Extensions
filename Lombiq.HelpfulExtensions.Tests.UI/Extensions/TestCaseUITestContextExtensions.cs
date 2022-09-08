@@ -105,13 +105,12 @@ public static class TestCaseUITestContextExtensions
         await context.EnableFeatureDirectlyAsync(FeatureIds.CodeGeneration);
 
         await context.GoToContentTypeEditorAsync("Page");
-        // Not trying repeated clicks, not to cause the code container to collapse.
-        await context.ClickReliablyOnAsync(By.ClassName("toggle-showing-generated-migration-code"), 1);
+        await context.ClickReliablyOnAsync(By.ClassName("toggle-showing-generated-migration-code"));
 
         context.Get(By.Id("generated-migration-code").OfAnyVisibility()).GetValue().ShouldBe(GeneratedMigrationCodes.Page);
 
-        // Making sure that the code is visible.
-        context.ScrollTo(By.Id("generated-migration-code-container"));
+        // Making sure that the collapsible area is open.
+        context.Get(By.CssSelector("#generated-migration-code-container.collapse.show"));
 
         // Checking the first line of the CodeMirror editor.
         context.Get(By.CssSelector(".CodeMirror-line .cm-variable")).Text.ShouldBe("_contentDefinitionManager");
