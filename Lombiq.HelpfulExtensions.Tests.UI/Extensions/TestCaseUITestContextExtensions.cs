@@ -109,6 +109,9 @@ public static class TestCaseUITestContextExtensions
 
         context.Get(By.Id("generated-migration-code").OfAnyVisibility()).GetValue().ShouldBe(GeneratedMigrationCodes.Page);
 
+        // Making sure that the collapsible area is open.
+        context.Get(By.CssSelector("#generated-migration-code-container.collapse.show"));
+
         // Checking the first line of the CodeMirror editor.
         context.Get(By.CssSelector(".CodeMirror-line .cm-variable")).Text.ShouldBe("_contentDefinitionManager");
         context.Get(By.CssSelector(".CodeMirror-line .cm-property")).Text.ShouldBe("AlterTypeDefinition");
