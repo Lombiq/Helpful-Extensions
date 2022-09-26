@@ -19,6 +19,9 @@ namespace Piedone.HelpfulExtensions.Taxonomies
         public static string GetTermNames(this TaxonomyField field, string separator = ", ") =>
             field?.Terms?.Any() ?? false ? string.Join(separator, TermPart.Sort(field.Terms).Select(term => term.Name)) : "";
 
+        public static IEnumerable<string> GetTermNamesEnumerable(this TaxonomyField field) =>
+            field?.Terms?.Select(term => term.Name) ?? Enumerable.Empty<string>();
+
         // Use this method to correctly fetch the first Term's name immediately after updating the content item.
         public static TermPart GetFirstTermByRecord(
             this TaxonomyField field,
