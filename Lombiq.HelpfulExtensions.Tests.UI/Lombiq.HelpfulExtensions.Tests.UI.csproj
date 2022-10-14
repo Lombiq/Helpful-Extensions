@@ -42,7 +42,7 @@
   </ItemGroup>
 
   <ItemGroup Condition="'$(NuGetBuild)' == 'true'">
-    <PackageReference Include="Lombiq.Tests.UI" Version="4.0.0" />
+    <PackageReference Include="Lombiq.Tests.UI" Version="4.0.1" />
   </ItemGroup>
 
 </Project>
