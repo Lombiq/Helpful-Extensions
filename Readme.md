@@ -55,7 +55,7 @@ Adds a dump of metadata to the output about every shape. This will help you unde
 
 #### Strict Security
 
-When applied to a content type definition, `StrictSecuritySetting` requires the user to have the exact Securable permission for that content type. For example if you apply it to Page, then just having the common ViewContent permission won't be enough and you must explicitly have the View_Page permission too. Don't worry, the normal implications such as ViewOwn beig fulfilled by View still apply within the content type, they just no longer imply their common counterparts.
+When applied to a content type definition, `StrictSecuritySetting` requires the user to have the exact Securable permission for that content type. For example if you apply it to Page, then just having the common ViewContent permission won't be enough and you must explicitly have the View_Page permission too. Don't worry, the normal implications such as ViewOwn being fulfilled by View still apply within the content type, they just no longer imply their common counterparts.
 
 Make content type use strict security in migration:
 
