@@ -92,6 +92,13 @@ namespace System
             IDateLocalizationServices dateLocalizationServices) =>
             (dateTime ?? clock.UtcNow as DateTime?).ToSiteTimeZone(dateLocalizationServices).ConvertToUsaDateFormat();
 
+        public static string DateTimeToSiteTimeZoneInUsaDateFormat(
+            this DateTime? dateTime,
+            IDateLocalizationServices dateLocalizationServices) =>
+            dateTime.HasValue
+                ? dateLocalizationServices.ConvertToSiteTimeZone(dateTime.Value).ConvertToUsaDateFormat()
+                : string.Empty;
+
         public static string ConvertToUsaTimeFormat(this DateTime? time) =>
             time?.ConvertToUsaTimeFormat() ?? "";
 
