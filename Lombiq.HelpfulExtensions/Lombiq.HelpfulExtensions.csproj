@@ -48,7 +48,7 @@
   </ItemGroup>
 
   <ItemGroup Condition="'$(NuGetBuild)' == 'true'">
-    <PackageReference Include="Lombiq.HelpfulLibraries.OrchardCore" Version="4.7.0" />
+    <PackageReference Include="Lombiq.HelpfulLibraries.OrchardCore" Version="4.7.1-alpha.0.osoe-392" />
   </ItemGroup>
 
 </Project>
