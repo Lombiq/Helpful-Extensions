@@ -2,6 +2,9 @@
 
 namespace System
 {
+    /// <summary>
+    /// The Orchard Core counterparts of these extensions can be found in the NumberExtensions.cs of Helpful Libraries.
+    /// </summary>
     public static class InvariantCultureTypeConversionExtensions
     {
         /// <summary>
@@ -11,6 +14,15 @@ namespace System
         /// <param name="value">The value to convert to a string.</param>
         /// <returns>A predictable string representation of the given <paramref name="value"/>.</returns>
         public static string ToInvariantString(this int value) => value.ToString(CultureInfo.InvariantCulture);
+
+        /// <summary>
+        /// Returns the string representation of the given <paramref name="value"/> using the <see
+        /// cref="CultureInfo.InvariantCulture"/>.
+        /// </summary>
+        /// <param name="value">The value to convert to a string.</param>
+        /// <returns>A predictable string representation of the given <paramref name="value"/>.</returns>
+        public static string ToInvariantString(this int? value) =>
+            value?.ToInvariantString() ?? string.Empty;
 
         /// <summary>
         /// Returns the string representation of the given <paramref name="value"/> using the <see
@@ -47,5 +59,23 @@ namespace System
         /// <returns>A predictable string representation of the given <paramref name="value"/>.</returns>
         public static string ToInvariantString(this DateTime? value, string format) =>
             value?.ToInvariantString(format) ?? string.Empty;
+
+        /// <summary>
+        /// Returns the string representation of the given <paramref name="value"/> using the <see
+        /// cref="CultureInfo.InvariantCulture"/>.
+        /// </summary>
+        /// <param name="value">The value to convert to a string.</param>
+        /// <returns>A predictable string representation of the given <paramref name="value"/>.</returns>
+        public static string ToInvariantString(this double value) =>
+            value.ToString(CultureInfo.InvariantCulture);
+
+        /// <summary>
+        /// Returns the string representation of the given <paramref name="value"/> using the <see
+        /// cref="CultureInfo.InvariantCulture"/>.
+        /// </summary>
+        /// <param name="value">The value to convert to a string.</param>
+        /// <returns>A predictable string representation of the given <paramref name="value"/>.</returns>
+        public static string ToInvariantString(this double? value) =>
+            value?.ToInvariantString() ?? string.Empty;
     }
 }

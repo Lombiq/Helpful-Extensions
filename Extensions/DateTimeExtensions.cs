@@ -79,13 +79,25 @@ namespace System
            IDateLocalizationServices dateLocalizationServices) =>
                dateTime == null ?
                string.Empty :
-               dateLocalizationServices.ConvertToSiteTimeZone(dateTime.Value).ConvertToUsaDateTimeFormat();
+               dateTime.Value.DateTimeToSiteTimeZoneInUsaDateTimeFormat(dateLocalizationServices);
+
+        public static string DateTimeToSiteTimeZoneInUsaDateTimeFormat(
+           this DateTime dateTime,
+           IDateLocalizationServices dateLocalizationServices) =>
+               dateLocalizationServices.ConvertToSiteTimeZone(dateTime).ConvertToUsaDateTimeFormat();
 
         public static string DateTimeOrUtcNowToSiteTimeZoneInUsaDateFormat(
             this DateTime? dateTime,
             IClock clock,
             IDateLocalizationServices dateLocalizationServices) =>
             (dateTime ?? clock.UtcNow as DateTime?).ToSiteTimeZone(dateLocalizationServices).ConvertToUsaDateFormat();
+
+        public static string DateTimeToSiteTimeZoneInUsaDateFormat(
+            this DateTime? dateTime,
+            IDateLocalizationServices dateLocalizationServices) =>
+            dateTime.HasValue
+                ? dateLocalizationServices.ConvertToSiteTimeZone(dateTime.Value).ConvertToUsaDateFormat()
+                : string.Empty;
 
         public static string ConvertToUsaTimeFormat(this DateTime? time) =>
             time?.ConvertToUsaTimeFormat() ?? "";
