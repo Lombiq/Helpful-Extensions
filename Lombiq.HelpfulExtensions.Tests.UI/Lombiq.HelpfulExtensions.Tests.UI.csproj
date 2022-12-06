@@ -14,7 +14,7 @@
     <PackageIcon>NuGetIcon.png</PackageIcon>
     <PackageTags>OrchardCore;Lombiq;AspNetCore;CodeGeneration;ShapeTracing;Widgets</PackageTags>
     <RepositoryUrl>https://github.com/Lombiq/Helpful-Extensions</RepositoryUrl>
-    <PackageProjectUrl>https://github.com/Lombiq/Helpful-Extensions/Lombiq.HelpfulExtensions.Tests.UI/Readme.md</PackageProjectUrl>
+    <PackageProjectUrl>https://github.com/Lombiq/Helpful-Extensions/tree/dev/Lombiq.HelpfulExtensions.Tests.UI</PackageProjectUrl>
     <PackageLicenseFile>License.md</PackageLicenseFile>
   </PropertyGroup>
 
