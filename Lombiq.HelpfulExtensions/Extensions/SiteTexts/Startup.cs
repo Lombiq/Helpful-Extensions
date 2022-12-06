@@ -10,8 +10,8 @@ public class Startup : StartupBase
 {
     public override void ConfigureServices(IServiceCollection services)
     {
-        services.AddScoped<IDataMigration, SiteTextMigrations>();
-        services.AddScoped<IDataMigration, LocalizationMigrations>();
+        services.AddDataMigration<SiteTextMigrations>();
+        services.AddDataMigration<LocalizationMigrations>();
         services.AddScoped<ISiteTextService, SiteTextService>();
     }
 }

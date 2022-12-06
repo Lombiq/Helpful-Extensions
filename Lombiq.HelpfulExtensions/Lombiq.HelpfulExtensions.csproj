@@ -34,13 +34,13 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="OrchardCore.Autoroute" Version="1.4.0" />
-    <PackageReference Include="OrchardCore.Contents" Version="1.4.0" />
-    <PackageReference Include="OrchardCore.Flows" Version="1.4.0" />
-    <PackageReference Include="OrchardCore.Html" Version="1.4.0" />
-    <PackageReference Include="OrchardCore.Markdown" Version="1.4.0" />
-    <PackageReference Include="OrchardCore.MetaWeblog.Abstractions" Version="1.4.0" />
-    <PackageReference Include="OrchardCore.Module.Targets" Version="1.4.0" />
+    <PackageReference Include="OrchardCore.Autoroute" Version="1.5.0" />
+    <PackageReference Include="OrchardCore.Contents" Version="1.5.0" />
+    <PackageReference Include="OrchardCore.Flows" Version="1.5.0" />
+    <PackageReference Include="OrchardCore.Html" Version="1.5.0" />
+    <PackageReference Include="OrchardCore.Markdown" Version="1.5.0" />
+    <PackageReference Include="OrchardCore.MetaWeblog.Abstractions" Version="1.5.0" />
+    <PackageReference Include="OrchardCore.Module.Targets" Version="1.5.0" />
   </ItemGroup>
 
   <ItemGroup Condition="'$(NuGetBuild)' != 'true'">
@@ -48,7 +48,7 @@
   </ItemGroup>
 
   <ItemGroup Condition="'$(NuGetBuild)' == 'true'">
-    <PackageReference Include="Lombiq.HelpfulLibraries.OrchardCore" Version="4.7.0" />
+    <PackageReference Include="Lombiq.HelpfulLibraries.OrchardCore" Version="5.0.0" />
   </ItemGroup>
 
 </Project>

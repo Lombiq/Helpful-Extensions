@@ -11,7 +11,7 @@ namespace Lombiq.HelpfulExtensions.Extensions.Widgets;
 public class Startup : StartupBase
 {
     public override void ConfigureServices(IServiceCollection services) =>
-        services.AddScoped<IDataMigration, Migrations>();
+        services.AddDataMigration<Migrations>();
 
     public override void Configure(IApplicationBuilder app, IEndpointRouteBuilder routes, IServiceProvider serviceProvider)
     {
