@@ -13,6 +13,12 @@ namespace Orchard.Tokens
             LocalizedString description) where TPart : ContentPart =>
             describeFor.Token($"{typeof(TPart).Name}.{tokenName}", name, description);
 
+        public static DescribeFor ContentPartToken<TPart>(
+            this DescribeFor describeFor,
+            string tokenName,
+            LocalizedString nameAndDescription) where TPart : ContentPart =>
+            ContentPartToken<TPart>(describeFor, tokenName, nameAndDescription, nameAndDescription);
+
         public static EvaluateFor<IContent> ContentPartToken<TPart>(
             this EvaluateFor<IContent> evaluateFor,
             string tokenName,
