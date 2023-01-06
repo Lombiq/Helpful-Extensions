@@ -54,6 +54,12 @@ namespace Piedone.HelpfulExtensions.Taxonomies
             string separator = ", ") =>
             string.Join(separator, TermPart.Sort(field.GetTermsByRecord(content, contentManager)).Select(term => term.Name));
 
+        public static IEnumerable<string> GetTermNamesByRecordEnumerable(
+            this TaxonomyField field,
+            IContent content,
+            IContentManager contentManager) =>
+            TermPart.Sort(field.GetTermsByRecord(content, contentManager))?.Select(term => term.Name) ?? Enumerable.Empty<string>();
+
         public static IEnumerable<TermPart> GetTermsUnderParent(this TaxonomyField field, TermPart parent) =>
             parent == null ?
                 Enumerable.Empty<TermPart>() :
