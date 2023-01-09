@@ -6,6 +6,7 @@ using OpenQA.Selenium;
 using OpenQA.Selenium.Interactions;
 using Shouldly;
 using System.Threading.Tasks;
+using Xunit.Abstractions;
 using static Lombiq.HelpfulExtensions.Tests.UI.Constants.TextInputValues;
 using static Lombiq.HelpfulExtensions.Tests.UI.Constants.XPathSelectors;
 
@@ -105,17 +106,40 @@ public static class TestCaseUITestContextExtensions
         await context.EnableFeatureDirectlyAsync(FeatureIds.CodeGeneration);
 
         await context.GoToContentTypeEditorAsync("Page");
-        await context.ClickReliablyOnAsync(By.ClassName("toggle-showing-generated-migration-code"));
 
-        context.Get(By.Id("generated-migration-code").OfAnyVisibility()).GetValue().ShouldBe(GeneratedMigrationCodes.Page);
+        // These CodeMirror checks can throw StaleElementReferenceException even if the code section is there, opened,
+        // and visible in the current viewport (though this shouldn't matter). So, it should just work, but it doesn't,
+        // so we need to retry for these random issues.
+        var succeeded = false;
+        const int maxTries = 3;
+        for (var i = 1; !succeeded && i <= maxTries; i++)
+        {
+            try
+            {
+                await context.ClickReliablyOnAsync(By.ClassName("toggle-showing-generated-migration-code"));
 
-        // Making sure that the collapsible area is open.
-        context.Get(By.CssSelector("#generated-migration-code-container.collapse.show"));
+                context.Get(By.Id("generated-migration-code").OfAnyVisibility()).GetValue().ShouldBe(GeneratedMigrationCodes.Page);
 
-        // Checking the first line of the CodeMirror editor.
-        context.Get(By.CssSelector(".CodeMirror-line .cm-variable")).Text.ShouldBe("_contentDefinitionManager");
-        context.Get(By.CssSelector(".CodeMirror-line .cm-property")).Text.ShouldBe("AlterTypeDefinition");
-        context.Get(By.CssSelector(".CodeMirror-line .cm-string")).Text.ShouldBe("\"Page\"");
+                // Making sure that the collapsible area is open.
+                context.Get(By.CssSelector("#generated-migration-code-container.collapse.show"));
+
+                // Checking the first line of the CodeMirror editor.
+                context.Get(By.CssSelector(".CodeMirror-line .cm-variable")).Text.ShouldBe("_contentDefinitionManager");
+                context.Get(By.CssSelector(".CodeMirror-line .cm-property")).Text.ShouldBe("AlterTypeDefinition");
+                context.Get(By.CssSelector(".CodeMirror-line .cm-string")).Text.ShouldBe("\"Page\"");
+
+                succeeded = true;
+            }
+            catch (StaleElementReferenceException) when (i < maxTries)
+            {
+                context.Configuration.TestOutputHelper.WriteLineTimestampedAndDebug(
+                    "The CodeMirror code block was checked {0} times but failed with StaleElementReferenceException. " +
+                        "It'll be checked {1} times altogether.",
+                    i,
+                    maxTries);
+                context.Refresh();
+            }
+        }
     }
 
     private static async Task TestWidgetAsync(this UITestContext context, string widget)
