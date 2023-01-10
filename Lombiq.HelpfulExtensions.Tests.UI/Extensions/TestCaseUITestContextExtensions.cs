@@ -112,7 +112,7 @@ public static class TestCaseUITestContextExtensions
         // so we need to retry for these random issues.
         var succeeded = false;
         const int maxTries = 3;
-        for (var i = 1; !succeeded && i <= maxTries; i++)
+        for (var currentTry = 1; !succeeded && currentTry <= maxTries; currentTry++)
         {
             try
             {
@@ -130,12 +130,12 @@ public static class TestCaseUITestContextExtensions
 
                 succeeded = true;
             }
-            catch (StaleElementReferenceException) when (i < maxTries)
+            catch (StaleElementReferenceException) when (currentTry < maxTries)
             {
                 context.Configuration.TestOutputHelper.WriteLineTimestampedAndDebug(
                     "The CodeMirror code block was checked {0} times but failed with StaleElementReferenceException. " +
                         "It'll be checked {1} times altogether.",
-                    i,
+                    currentTry,
                     maxTries);
                 context.Refresh();
             }
