@@ -1,4 +1,4 @@
-﻿using AngleSharp;
+using AngleSharp;
 using Microsoft.AspNetCore.Html;
 using OrchardCore.ContentManagement;
 using OrchardCore.Markdown.Models;
@@ -21,22 +21,10 @@ public abstract class SiteTextServiceBase : ISiteTextService
 
     public abstract Task<HtmlString> RenderHtmlByIdAsync(string contentItemId);
 
-    protected async Task<MarkdownBodyPart> GetSiteTextMarkdownBodyPartByIdAsync(string contentItemId)
+    protected Task<MarkdownBodyPart> GetSiteTextMarkdownBodyPartByIdAsync(string contentItemId)
     {
         ArgumentNullException.ThrowIfNull(contentItemId);
-
-        if (await _contentManager.GetAsync(contentItemId) is not { } contentItem)
-        {
-            throw new InvalidOperationException($"A content with the ID \"{contentItemId}\" does not exist.");
-        }
-
-        if (contentItem.As<MarkdownBodyPart>() is not { } part)
-        {
-            throw new InvalidOperationException(
-                $"A content with the ID \"{contentItemId}\" does not have a {nameof(MarkdownBodyPart)}.");
-        }
-
-        return part;
+        return GetSiteTextMarkdownBodyPartByIdInnerAsync(contentItemId);
     }
 
     protected async Task<HtmlString> RenderMarkdownAsync(string markdown)
@@ -54,5 +42,21 @@ public abstract class SiteTextServiceBase : ISiteTextService
         }
 
         return new(html);
+    }
+
+    private async Task<MarkdownBodyPart> GetSiteTextMarkdownBodyPartByIdInnerAsync(string contentItemId)
+    {
+        if (await _contentManager.GetAsync(contentItemId) is not { } contentItem)
+        {
+            throw new InvalidOperationException($"A content with the ID \"{contentItemId}\" does not exist.");
+        }
+
+        if (contentItem.As<MarkdownBodyPart>() is not { } part)
+        {
+            throw new InvalidOperationException(
+                $"A content with the ID \"{contentItemId}\" does not have a {nameof(MarkdownBodyPart)}.");
+        }
+
+        return part;
     }
 }
