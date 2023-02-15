@@ -104,7 +104,9 @@ Gives all external links the `target="_blank"` attribute.
 
 ### Workflows
 
-Adds useful Workflows activities such as the `GenerateResetPasswordTask` that can be used to generate a reset password token to a Workflow context~~~~.
+Adds useful Workflows activities.
+
+- GenerateResetPasswordTask: Generates a reset password token for the user found in the Workflow context or the current user. The token is set to the Workflow properties to the `ResetPasswordToken` key. It also generates a URL for the built-in reset password page; it'll be set to the `ResetPasswordUrl` key. If you want to use the URL, make sure you have the Reset Password feature enabled and you have allowed users to reset their password by going to Admin UI > Security > Settings > Reset Password > tick "Allow the users to reset their password".
 
 ## Contributing and support
 
