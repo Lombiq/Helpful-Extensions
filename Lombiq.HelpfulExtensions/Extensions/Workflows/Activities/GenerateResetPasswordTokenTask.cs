@@ -44,7 +44,7 @@ public class GenerateResetPasswordTokenTask : TaskActivity
     public override IEnumerable<Outcome> GetPossibleOutcomes(
         WorkflowExecutionContext workflowContext,
         ActivityContext activityContext) =>
-        Outcomes(T["Done"]);
+        Outcomes(names: T["Done"]);
 
     public override async Task<ActivityExecutionResult> ExecuteAsync(
         WorkflowExecutionContext workflowContext,
