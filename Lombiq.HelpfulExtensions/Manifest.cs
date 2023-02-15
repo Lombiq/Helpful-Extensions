@@ -101,3 +101,14 @@ using static Lombiq.HelpfulExtensions.FeatureIds;
         "OrchardCore.Markdown",
     }
 )]
+
+[assembly: Feature(
+    Id = Workflows,
+    Name = "Lombiq Helpful Extensions - Workflows",
+    Category = "Workflows",
+    Description = "Adds useful workflow activities (e.g., generate reset password token).",
+    Dependencies = new[]
+    {
+        "OrchardCore.Workflows",
+    }
+)]

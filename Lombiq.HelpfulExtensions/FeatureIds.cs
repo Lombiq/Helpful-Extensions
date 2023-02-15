@@ -13,4 +13,5 @@ public static class FeatureIds
     public const string Security = FeatureIdPrefix + nameof(Security);
     public const string TargetBlank = FeatureIdPrefix + nameof(TargetBlank);
     public const string SiteTexts = FeatureIdPrefix + nameof(SiteTexts);
+    public const string Workflows = FeatureIdPrefix + nameof(Workflows);
 }

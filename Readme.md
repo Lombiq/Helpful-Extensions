@@ -102,6 +102,10 @@ Use the `ShellScope.Current.SendEmailDeferred()` for sending emails. It'll send 
 
 Gives all external links the `target="_blank"` attribute.
 
+### Workflows
+
+Adds useful Workflows activities such as the `GenerateResetPasswordTask` that can be used to generate a reset password token to a Workflow context~~~~.
+
 ## Contributing and support
 
 Bug reports, feature requests, comments, questions, code contributions and love letters are warmly welcome. You can send them to us via GitHub issues and pull requests. Please adhere to our [open-source guidelines](https://lombiq.com/open-source-guidelines) while doing so.
