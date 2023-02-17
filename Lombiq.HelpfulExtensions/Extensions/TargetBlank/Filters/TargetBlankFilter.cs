@@ -1,3 +1,4 @@
+using Lombiq.HelpfulExtensions.Constants;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using OrchardCore.ResourceManagement;
@@ -20,7 +21,7 @@ public class TargetBlankFilter : IAsyncResultFilter
             return;
         }
 
-        _resourceManager.RegisterResource("script", "TargetBlank").AtFoot();
+        _resourceManager.RegisterResource("script", ResourceNames.TargetBlank).AtFoot();
 
         await next();
     }

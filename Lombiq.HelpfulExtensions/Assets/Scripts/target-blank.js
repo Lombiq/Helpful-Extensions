@@ -3,11 +3,10 @@ function targetBlank() {
     const currentHostname = window.location.hostname;
 
     for (let i = 0; i < links.length; i++) {
-        const link = links[i];
-        const linkHostname = link.hostname;
 
-        if (linkHostname !== currentHostname && link.href && !link.href.startsWith('#') && !link.getAttribute('rel') && !link.target) {
-            link.setAttribute('target', '_blank');
+        if (!links[i].href.match(/^mailto:/) &&
+            (links[i].hostname !== currentHostname && (!links[i].href.match('javascript:')))) {
+            links[i].setAttribute('target', '_blank');
         }
     }
 }
