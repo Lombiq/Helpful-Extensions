@@ -1,14 +1,19 @@
 function targetBlank() {
-    const x = document.querySelectorAll('a');
-    for (let i = 0; i < x.length; i++) {
-        if (!x[i].href.match(/^mailto:/) && (x[i].hostname !== location.hostname && (!x[i].href.match('javascript:')))) {
-            x[i].setAttribute('target', '_blank');
+    const links = document.querySelectorAll('a');
+    const currentHostname = window.location.hostname;
+
+    for (let i = 0; i < links.length; i++) {
+        const link = links[i];
+        const linkHostname = link.hostname;
+
+        if (linkHostname !== currentHostname && link.href && !link.href.startsWith('#') && !link.getAttribute('rel') && !link.target) {
+            link.setAttribute('target', '_blank');
         }
     }
 }
 window.addEventListener(
     'load',
-    function () {
+    () => {
         window.setTimeout(targetBlank, 100)
     },
     false);
