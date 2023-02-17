@@ -1,4 +1,4 @@
-(function () {
+(function initTargetBlank() {
     function targetBlank() {
         const links = document.querySelectorAll('a');
         const currentHostname = window.location.hostname;
