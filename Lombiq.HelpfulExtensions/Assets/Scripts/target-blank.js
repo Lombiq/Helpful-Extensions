@@ -14,6 +14,6 @@ function targetBlank() {
 window.addEventListener(
     'load',
     () => {
-        window.setTimeout(targetBlank, 100)
+        window.setTimeout(targetBlank, 100);
     },
     false);
