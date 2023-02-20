@@ -12,7 +12,7 @@ public class ResourceManagementOptionsConfiguration : IConfigureOptions<Resource
     static ResourceManagementOptionsConfiguration() =>
         _manifest
             .DefineScript(TargetBlank)
-            .SetUrl(WwwRoot + "scripts/target-blank.min.js", WwwRoot + "scripts/target-blank.js")
+            .SetUrl(WwwRoot + "js/target-blank.min.js", WwwRoot + "js/target-blank.js")
             .SetVersion("1.0.0");
 
     public void Configure(ResourceManagementOptions options) => options.ResourceManifests.Add(_manifest);
