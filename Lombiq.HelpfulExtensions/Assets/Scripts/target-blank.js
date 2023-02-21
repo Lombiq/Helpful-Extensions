@@ -1,15 +1,15 @@
 (function initTargetBlank() {
-    function targetBlank() {
+    function addTargetBlank() {
         const links = document.querySelectorAll('a');
         const currentHostname = window.location.hostname;
 
         for (let i = 0; i < links.length; i++) {
-            if (!links[i].href.match(/^mailto:/) &&
-                links[i].hostname !== currentHostname &&
-                !links[i].href.match(/^javascript:/i)) {
+            if (links[i].hostname !== currentHostname &&
+                !links[i].href.startsWith('javascript:') &&
+                !links[i].href.startsWith('mailto:')) {
                 links[i].setAttribute('target', '_blank');
             }
         }
     }
-    document.addEventListener('DOMContentLoaded', targetBlank);
+    document.addEventListener('DOMContentLoaded', addTargetBlank);
 })();
