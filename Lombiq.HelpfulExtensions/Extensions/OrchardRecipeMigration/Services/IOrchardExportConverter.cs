@@ -8,7 +8,7 @@ namespace LombiqDotCom.Services;
 /// <summary>
 /// A converter for the whole Orchard 1 XML export file.
 /// </summary>
-public interface IOrchardConverter
+public interface IOrchardExportConverter
 {
     /// <summary>
     /// Updates the collection of <paramref name="contentItems"/> using data from the whole XML file. This is invoked

@@ -15,21 +15,21 @@ public class OrchardExportToRecipeConverter : IOrchardExportToRecipeConverter
 {
     private readonly IContentManager _contentManager;
     private readonly IIdGenerator _idGenerator;
-    private readonly IEnumerable<IOrchardConverter> _recipeConverters;
+    private readonly IEnumerable<IOrchardExportConverter> _exportConverters;
     private readonly IEnumerable<IOrchardContentConverter> _contentConverters;
 
-    private ICollection<string> _contentTypes;
+    private readonly ICollection<string> _contentTypes;
 
     public OrchardExportToRecipeConverter(
         IContentDefinitionManager contentDefinitionManager,
         IContentManager contentManager,
         IIdGenerator idGenerator,
-        IEnumerable<IOrchardConverter> recipeConverters,
+        IEnumerable<IOrchardExportConverter> exportConverters,
         IEnumerable<IOrchardContentConverter> contentConverters)
     {
         _contentManager = contentManager;
         _idGenerator = idGenerator;
-        _recipeConverters = recipeConverters;
+        _exportConverters = exportConverters;
         _contentConverters = contentConverters;
 
         _contentTypes = contentDefinitionManager
@@ -58,13 +58,13 @@ public class OrchardExportToRecipeConverter : IOrchardExportToRecipeConverter
             contentItems.Add(contentItem);
         }
 
-        foreach (var converter in _recipeConverters)
+        foreach (var converter in _exportConverters)
         {
             await converter.UpdateContentItemsAsync(export, contentItems);
         }
 
         var recipe = JObject.FromObject(new RecipeDescriptor());
-        recipe["steps"] = JArray.FromObject(new[] { new { Name = "content", Data = contentItems } });
+        recipe["steps"] = JArray.FromObject(new[] { new { name = "content", data = contentItems } });
 
         return recipe.ToString();
     }
