@@ -101,3 +101,13 @@ using static Lombiq.HelpfulExtensions.FeatureIds;
         "OrchardCore.Markdown",
     }
 )]
+
+[assembly: Feature(
+    Id = OrchardRecipeMigration,
+    Name = "Lombiq Helpful Extensions - Orchard 1 Recipe Migration",
+    Category = "Development",
+    Description =
+        "Convert Orchard 1's export XML files into Orchard Core recipes. This feature contains the basics like " +
+        "CommonPart and BodyPart, but can be extended with additional converters that only have to handle more " +
+        "specialized export data."
+)]
