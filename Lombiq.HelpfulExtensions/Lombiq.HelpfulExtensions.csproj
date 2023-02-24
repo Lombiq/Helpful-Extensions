@@ -35,6 +35,7 @@
 
   <ItemGroup>
     <PackageReference Include="OrchardCore.Autoroute" Version="1.5.0" />
+    <PackageReference Include="OrchardCore.ContentFields" Version="1.5.0" />
     <PackageReference Include="OrchardCore.Contents" Version="1.5.0" />
     <PackageReference Include="OrchardCore.Flows" Version="1.5.0" />
     <PackageReference Include="OrchardCore.Html" Version="1.5.0" />
