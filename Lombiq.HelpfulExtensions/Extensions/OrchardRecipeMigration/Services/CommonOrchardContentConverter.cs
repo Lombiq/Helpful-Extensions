@@ -1,4 +1,5 @@
-﻿using OrchardCore.Alias.Models;
+﻿using LombiqDotCom.Models;
+using OrchardCore.Alias.Models;
 using OrchardCore.Autoroute.Models;
 using OrchardCore.ContentManagement;
 using OrchardCore.Html.Models;
@@ -24,9 +25,11 @@ public class CommonOrchardContentConverter : IOrchardContentConverter
             return !string.IsNullOrWhiteSpace(value);
         }
 
-        if (element.Attribute("Id")?.Value is { } alias && alias.StartsWithOrdinal("/alias="))
+        var exportId = element.Attribute("Id")?.Value.Trim();
+        contentItem.Alter<OrchardIds>(ids => ids.ExportId = exportId);
+        if (exportId?.StartsWithOrdinal("/alias=") == true)
         {
-            AlterIfPartExists<AliasPart>(contentItem, part => part.Alias = GetAlias(alias));
+            AlterIfPartExists<AliasPart>(contentItem, part => part.Alias = GetAlias(exportId));
         }
 
         if (element.Attribute("Status")?.Value == "Published")
