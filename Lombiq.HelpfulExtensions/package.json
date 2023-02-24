@@ -1,0 +1,9 @@
+{
+  "private": true,
+  "scripts": {
+    "build:assets": "npm explore nodejs-extensions -- pnpm build:assets",
+    "build:scripts": "npm explore nodejs-extensions -- pnpm build:scripts",
+    "clean:scripts": "npm explore nodejs-extensions -- pnpm clean:scripts",
+    "watch:scripts": "npm explore nodejs-extensions -- pnpm watch:scripts"
+  }
+}
