@@ -12,5 +12,6 @@ public class Startup : StartupBase
         services.AddScoped<IOrchardExportToRecipeConverter, OrchardExportToRecipeConverter>();
         services.AddScoped<IOrchardContentConverter, CommonOrchardContentConverter>();
         services.AddScoped<IOrchardContentConverter, GraphMetadataOrchardContentConverter>();
+        services.AddScoped<IOrchardExportConverter, ListPartOrchardExportConverter>();
     }
 }
