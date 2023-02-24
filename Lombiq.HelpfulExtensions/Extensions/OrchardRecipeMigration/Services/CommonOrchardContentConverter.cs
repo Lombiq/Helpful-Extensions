@@ -1,4 +1,5 @@
 ﻿using LombiqDotCom.Models;
+using Microsoft.Extensions.Primitives;
 using OrchardCore.Alias.Models;
 using OrchardCore.Autoroute.Models;
 using OrchardCore.ContentManagement;
@@ -6,6 +7,7 @@ using OrchardCore.Html.Models;
 using OrchardCore.Title.Models;
 using System;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 
@@ -61,9 +63,10 @@ public class CommonOrchardContentConverter : IOrchardContentConverter
             AlterIfPartExists<TitlePart>(contentItem, part => part.Title = title);
         }
 
-        if (HasElementAttribute("IdentityPart", "Identifier", out var id) && id.Length <= 26)
+        if (HasElementAttribute("IdentityPart", "Identifier", out var id))
         {
-            contentItem.ContentItemId = id;
+            if (id.Length < 26) id = new StringBuilder(id).Append('0', 26 - id.Length).ToString();
+            contentItem.ContentItemId = id[..26];
         }
 
         return Task.CompletedTask;
