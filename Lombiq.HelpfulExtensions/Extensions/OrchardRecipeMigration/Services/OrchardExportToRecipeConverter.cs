@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 using System.Xml.Linq;
 using System.Xml.XPath;
 
-namespace LombiqDotCom.Services;
+namespace Lombiq.HelpfulExtensions.Extensions.OrchardRecipeMigration.Services;
 
 public class OrchardExportToRecipeConverter : IOrchardExportToRecipeConverter
 {

@@ -4,7 +4,7 @@ using System;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 
-namespace LombiqDotCom.Services;
+namespace Lombiq.HelpfulExtensions.Extensions.OrchardRecipeMigration.Services;
 
 public class GraphMetadataOrchardContentConverter : IOrchardContentConverter
 {

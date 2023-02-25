@@ -1,6 +1,6 @@
 ﻿using OrchardCore.ContentManagement;
 
-namespace LombiqDotCom.Models;
+namespace Lombiq.HelpfulExtensions.Extensions.OrchardRecipeMigration.Models;
 
 /// <summary>
 /// Stores Orchard 1 ID and container ID.

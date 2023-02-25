@@ -1,7 +1,7 @@
 ﻿using System.Threading.Tasks;
 using System.Xml.Linq;
 
-namespace LombiqDotCom.Services;
+namespace Lombiq.HelpfulExtensions.Extensions.OrchardRecipeMigration.Services;
 
 /// <summary>
 /// Converts old Orchard 1 export files into Orchard Core recipe files. Besides the built-in content conversion for some

@@ -2,7 +2,7 @@
 using System.Threading.Tasks;
 using System.Xml.Linq;
 
-namespace LombiqDotCom.Services;
+namespace Lombiq.HelpfulExtensions.Extensions.OrchardRecipeMigration.Services;
 
 /// <summary>
 /// A converter used to port information from a &lt;Content&gt; item from an Orchard 1 XML export into an Orchard Core

@@ -1,4 +1,4 @@
-﻿using LombiqDotCom.Models;
+﻿using Lombiq.HelpfulExtensions.Extensions.OrchardRecipeMigration.Models;
 using OrchardCore.ContentManagement;
 using OrchardCore.Lists.Models;
 using System.Collections.Generic;
@@ -6,7 +6,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 
-namespace LombiqDotCom.Services;
+namespace Lombiq.HelpfulExtensions.Extensions.OrchardRecipeMigration.Services;
 
 /// <summary>
 /// A post-processing converter that looks for added <see cref="OrchardIds"/> content parts in the prepared list of

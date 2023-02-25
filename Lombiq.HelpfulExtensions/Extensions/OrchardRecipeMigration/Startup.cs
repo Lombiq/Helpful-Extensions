@@ -1,4 +1,5 @@
-using LombiqDotCom.Services;
+using Lombiq.HelpfulExtensions.Extensions.OrchardRecipeMigration.Navigation;
+using Lombiq.HelpfulExtensions.Extensions.OrchardRecipeMigration.Services;
 using Microsoft.Extensions.DependencyInjection;
 using OrchardCore.Modules;
 using OrchardCore.Navigation;

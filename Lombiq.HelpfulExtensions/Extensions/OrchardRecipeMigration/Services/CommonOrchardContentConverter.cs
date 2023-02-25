@@ -1,4 +1,4 @@
-﻿using LombiqDotCom.Models;
+﻿using Lombiq.HelpfulExtensions.Extensions.OrchardRecipeMigration.Models;
 using OrchardCore.Alias.Models;
 using OrchardCore.Autoroute.Models;
 using OrchardCore.ContentManagement;
@@ -10,7 +10,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 
-namespace LombiqDotCom.Services;
+namespace Lombiq.HelpfulExtensions.Extensions.OrchardRecipeMigration.Services;
 
 public class CommonOrchardContentConverter : IOrchardContentConverter
 {
