@@ -1,6 +1,7 @@
 using LombiqDotCom.Services;
 using Microsoft.Extensions.DependencyInjection;
 using OrchardCore.Modules;
+using OrchardCore.Navigation;
 
 namespace Lombiq.HelpfulExtensions.Extensions.OrchardRecipeMigration;
 
@@ -13,5 +14,7 @@ public class Startup : StartupBase
         services.AddScoped<IOrchardContentConverter, CommonOrchardContentConverter>();
         services.AddScoped<IOrchardContentConverter, GraphMetadataOrchardContentConverter>();
         services.AddScoped<IOrchardExportConverter, ListPartOrchardExportConverter>();
+
+        services.AddScoped<INavigationProvider, AdminMenu>();
     }
 }
