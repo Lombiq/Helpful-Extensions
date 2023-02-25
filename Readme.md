@@ -24,7 +24,11 @@ Generates migration code from content definitions. You can use this to create (o
 
 #### Orchard 1 Recipe Migration
 
-Contains extendable services which convert an _export.xml_ file from Orchard 1 into an Orchard Core recipe JSON file with a `content` step. Content Type exports are not supported, because the service relies on the existence of the target content types to initialize the content items that go into the recipe. To extend the built-in functionality implement these services:
+Contains extendable services which convert an _export.xml_ file from Orchard 1 into an Orchard Core recipe JSON file with a `content` step. Content Type exports are not supported, because the service relies on the existence of the target content types to initialize the content items that go into the recipe.
+
+The converter can be accessed from the Admin dashboard in the **Configuration > Import/Export > Orchard 1 Recipe Migration** menu item.
+
+To extend the built-in functionality implement these services:
 
 - `IOrchardContentConverter`: Used to set up a single new `ContentItem` using the data in the matching `<Content>` entry.
 - `IOrchardExportConverter`: Used to update or filter the final list of content items. It has access to the entire export XML file.
