@@ -33,6 +33,18 @@ To extend the built-in functionality implement these services:
 - `IOrchardContentConverter`: Used to set up a single new `ContentItem` using the data in the matching `<Content>` entry.
 - `IOrchardExportConverter`: Used to update or filter the final list of content items. It has access to the entire export XML file.
 
+The built-in converters handle the following O1 content parts:
+
+- `CommonPart`
+- `AutoroutePart`
+- `BodyPart`
+- `TitlePart`
+- `IdentityPart`
+- `ListPart`
+- `GraphMetadata` (added by <https://github.com/Lombiq/Associativy-Core>)
+
+Additionally, if a custom converter fills in the `OrchardIds` content part's `Parent` property on the generated content item, then it also adds it to the parent content item's `ListPart`.
+
 ### Flows Helpful Extensions
 
 Adds additional styling capabilities to the OrchardCore.Flows feature by making it possible to add classes to widgets in the Flow Part editor. Just add `AdditionalStylingPart` to the content type using `FlowPart`.
