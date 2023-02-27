@@ -103,12 +103,13 @@ using static Lombiq.HelpfulExtensions.FeatureIds;
 )]
 
 [assembly: Feature(
-    Id = Workflows,
-    Name = "Lombiq Helpful Extensions - Workflows",
-    Category = "Workflows",
-    Description = "Adds useful workflow activities (e.g., generate reset password token).",
+    Id = ResetPasswordActivity,
+    Name = "Lombiq Helpful Extensions - Reset password workflow activity",
+    Category = "Security",
+    Description = "Adds generate reset password token activity.",
     Dependencies = new[]
     {
+        "OrchardCore.Users.ResetPassword",
         "OrchardCore.Workflows",
     }
 )]

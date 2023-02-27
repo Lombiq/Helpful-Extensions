@@ -102,11 +102,9 @@ Use the `ShellScope.Current.SendEmailDeferred()` for sending emails. It'll send 
 
 Gives all external links the `target="_blank"` attribute.
 
-### Workflows
+### Reset Password activity
 
-Adds useful Workflows activities.
-
-- GenerateResetPasswordTask: Generates a reset password token for the user found in the Workflow context or the current user. The token is set to the Workflow properties to the `ResetPasswordToken` key. It also generates a URL for the built-in reset password page; it'll be set to the `ResetPasswordUrl` key. If you want to use the URL, make sure you have the Reset Password feature enabled and you have allowed users to reset their password by going to Admin UI > Security > Settings > Reset Password > tick "Allow the users to reset their password".
+Adds a workflow activity that generates a reset password token for the specified user. You can define the source of the User object or ID using activity parameters. It will set the token or the URL to the workflow context to a key that you define as an activity parameter.
 
 ## Contributing and support
 
