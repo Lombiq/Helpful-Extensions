@@ -103,6 +103,16 @@ using static Lombiq.HelpfulExtensions.FeatureIds;
 )]
 
 [assembly: Feature(
+    Id = OrchardRecipeMigration,
+    Name = "Lombiq Helpful Extensions - Orchard 1 Recipe Migration",
+    Category = "Development",
+    Description =
+        "Convert Orchard 1's export XML files into Orchard Core recipes. This feature contains the basics like " +
+        "CommonPart and BodyPart (full list is in the Helpful Extensions repository readme), but can be extended " +
+        "with additional converters that only have to handle more specialized export data."
+)]
+
+[assembly: Feature(
     Id = ResetPasswordActivity,
     Name = "Lombiq Helpful Extensions - Reset password workflow activity",
     Category = "Security",
