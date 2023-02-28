@@ -111,3 +111,15 @@ using static Lombiq.HelpfulExtensions.FeatureIds;
         "CommonPart and BodyPart (full list is in the Helpful Extensions repository readme), but can be extended " +
         "with additional converters that only have to handle more specialized export data."
 )]
+
+[assembly: Feature(
+    Id = ResetPasswordActivity,
+    Name = "Lombiq Helpful Extensions - Reset password workflow activity",
+    Category = "Security",
+    Description = "Adds generate reset password token activity.",
+    Dependencies = new[]
+    {
+        "OrchardCore.Users.ResetPassword",
+        "OrchardCore.Workflows",
+    }
+)]
