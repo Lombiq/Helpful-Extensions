@@ -69,9 +69,7 @@ public class GenerateResetPasswordTokenTask : TaskActivity
         WorkflowExecutionContext workflowContext,
         ActivityContext activityContext)
     {
-        var user = !string.IsNullOrEmpty(User.Expression)
-            ? await _workflowScriptEvaluator.EvaluateAsync(User, workflowContext)
-            : null;
+        var user = await _workflowScriptEvaluator.EvaluateAsync(User, workflowContext);
 
         if (user == null) return Outcomes("Error");
 
