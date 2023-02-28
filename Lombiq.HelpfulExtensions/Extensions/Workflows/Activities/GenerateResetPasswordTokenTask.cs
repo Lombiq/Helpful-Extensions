@@ -1,10 +1,10 @@
+using Lombiq.HelpfulExtensions.Extensions.Workflows.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.Localization;
 using OrchardCore.Users;
 using OrchardCore.Users.Models;
-using OrchardCore.Users.Services;
 using OrchardCore.Workflows.Abstractions.Models;
 using OrchardCore.Workflows.Activities;
 using OrchardCore.Workflows.Models;
@@ -22,28 +22,27 @@ public class GenerateResetPasswordTokenTask : TaskActivity
     private readonly LinkGenerator _linkGenerator;
     private readonly IHttpContextAccessor _hca;
     private readonly UserManager<IUser> _userManager;
-    private readonly IUserService _userService;
-    private readonly IWorkflowExpressionEvaluator _expressionEvaluator;
+    private readonly IWorkflowScriptEvaluator _workflowScriptEvaluator;
 
     public override string Name => nameof(GenerateResetPasswordTokenTask);
     public override LocalizedString DisplayText => T["Generate reset password token"];
     public override LocalizedString Category => T["User"];
 
-    public WorkflowExpression<string> UserPropertyKey
+    public WorkflowExpression<User> User
     {
-        get => GetProperty(() => new WorkflowExpression<string>());
+        get => GetProperty(() => new WorkflowExpression<User>());
         set => SetProperty(value);
     }
 
-    public WorkflowExpression<string> ResetPasswordTokenPropertyKey
+    public string ResetPasswordTokenPropertyKey
     {
-        get => GetProperty(() => new WorkflowExpression<string>());
+        get => GetProperty<string>();
         set => SetProperty(value);
     }
 
-    public WorkflowExpression<string> ResetPasswordUrlPropertyKey
+    public string ResetPasswordUrlPropertyKey
     {
-        get => GetProperty(() => new WorkflowExpression<string>());
+        get => GetProperty<string>();
         set => SetProperty(value);
     }
 
@@ -52,15 +51,13 @@ public class GenerateResetPasswordTokenTask : TaskActivity
         LinkGenerator linkGenerator,
         IHttpContextAccessor hca,
         UserManager<IUser> userManager,
-        IUserService userService,
-        IWorkflowExpressionEvaluator expressionEvaluator)
+        IWorkflowScriptEvaluator workflowScriptEvaluator)
     {
         T = localizer;
         _linkGenerator = linkGenerator;
         _hca = hca;
         _userManager = userManager;
-        _userService = userService;
-        _expressionEvaluator = expressionEvaluator;
+        _workflowScriptEvaluator = workflowScriptEvaluator;
     }
 
     public override IEnumerable<Outcome> GetPossibleOutcomes(
@@ -72,39 +69,34 @@ public class GenerateResetPasswordTokenTask : TaskActivity
         WorkflowExecutionContext workflowContext,
         ActivityContext activityContext)
     {
-        var userPropertyKey = !string.IsNullOrEmpty(UserPropertyKey.Expression)
-            ? await _expressionEvaluator.EvaluateAsync(UserPropertyKey, workflowContext, encoder: null)
+        var user = !string.IsNullOrEmpty(User.Expression)
+            ? await _workflowScriptEvaluator.EvaluateAsync(User, workflowContext)
             : null;
-
-        var user = string.IsNullOrEmpty(userPropertyKey)
-            ? workflowContext.Input.GetMaybe("User") as User
-            : workflowContext.Properties.GetMaybe(userPropertyKey) as User ??
-                await _userService.GetUserByUniqueIdAsync(workflowContext.Properties.GetMaybe(userPropertyKey) as string) as User;
 
         if (user == null) return Outcomes("Error");
 
-        var resetPasswordTokenPropertyKey = !string.IsNullOrEmpty(ResetPasswordTokenPropertyKey.Expression)
-            ? await _expressionEvaluator.EvaluateAsync(ResetPasswordTokenPropertyKey, workflowContext, encoder: null)
-            : null;
-        var resetPasswordUrlPropertyKey = !string.IsNullOrEmpty(ResetPasswordUrlPropertyKey.Expression)
-            ? await _expressionEvaluator.EvaluateAsync(ResetPasswordUrlPropertyKey, workflowContext, encoder: null)
-            : null;
-
         var generatedToken = await _userManager.GeneratePasswordResetTokenAsync(user);
         user.ResetToken = Convert.ToBase64String(Encoding.UTF8.GetBytes(generatedToken));
-        if (!string.IsNullOrEmpty(resetPasswordTokenPropertyKey))
+        var resetPasswordUrl = _linkGenerator.GetUriByAction(
+            _hca.HttpContext,
+            "ResetPassword",
+            "ResetPassword",
+            new { area = "OrchardCore.Users", code = user.ResetToken });
+
+        workflowContext.LastResult = new GenerateResetPasswordTokenResult
         {
-            workflowContext.Properties[resetPasswordTokenPropertyKey] = user.ResetToken;
+            ResetPasswordToken = user.ResetToken,
+            ResetPasswordUrl = resetPasswordUrl,
+        };
+
+        if (!string.IsNullOrEmpty(ResetPasswordTokenPropertyKey))
+        {
+            workflowContext.Properties[ResetPasswordTokenPropertyKey] = user.ResetToken;
         }
 
-        if (!string.IsNullOrEmpty(resetPasswordUrlPropertyKey))
+        if (!string.IsNullOrEmpty(ResetPasswordUrlPropertyKey))
         {
-            var resetPasswordUrl = _linkGenerator.GetUriByAction(
-                _hca.HttpContext,
-                "ResetPassword",
-                "ResetPassword",
-                new { area = "OrchardCore.Users", code = user.ResetToken });
-            workflowContext.Properties[resetPasswordUrlPropertyKey] = resetPasswordUrl;
+            workflowContext.Properties[ResetPasswordUrlPropertyKey] = resetPasswordUrl;
         }
 
         return Outcomes("Done");
