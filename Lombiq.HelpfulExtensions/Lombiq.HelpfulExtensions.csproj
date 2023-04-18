@@ -20,6 +20,10 @@
     <PackageLicenseFile>License.md</PackageLicenseFile>
   </PropertyGroup>
 
+  <PropertyGroup>
+    <AnalyzeByOSOCE>true</AnalyzeByOSOCE>
+  </PropertyGroup>
+
   <ItemGroup>
     <None Include="License.md" Pack="true" PackagePath="" />
     <None Include="..\Readme.md" />
