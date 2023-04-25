@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk.Razor">
-  
+
   <Import Condition="'$(NuGetBuild)' != 'true'" Project="..\..\..\Utilities\Lombiq.NodeJs.Extensions\Lombiq.NodeJs.Extensions\Lombiq.NodeJs.Extensions.props" />
-  
+
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
     <AddRazorSupportForMvc>true</AddRazorSupportForMvc>
@@ -36,16 +36,16 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="OrchardCore.Autoroute" Version="1.5.0" />
-    <PackageReference Include="OrchardCore.ContentFields" Version="1.5.0" />
-    <PackageReference Include="OrchardCore.Contents" Version="1.5.0" />
-    <PackageReference Include="OrchardCore.Flows" Version="1.5.0" />
-    <PackageReference Include="OrchardCore.Html" Version="1.5.0" />
-    <PackageReference Include="OrchardCore.Lists" Version="1.5.0" />
-    <PackageReference Include="OrchardCore.Markdown" Version="1.5.0" />
-    <PackageReference Include="OrchardCore.MetaWeblog.Abstractions" Version="1.5.0" />
-    <PackageReference Include="OrchardCore.Module.Targets" Version="1.5.0" />
-    <PackageReference Include="OrchardCore.Workflows" Version="1.5.0" />
+    <PackageReference Include="OrchardCore.Autoroute" Version="1.6.0" />
+    <PackageReference Include="OrchardCore.ContentFields" Version="1.6.0" />
+    <PackageReference Include="OrchardCore.Contents" Version="1.6.0" />
+    <PackageReference Include="OrchardCore.Flows" Version="1.6.0" />
+    <PackageReference Include="OrchardCore.Html" Version="1.6.0" />
+    <PackageReference Include="OrchardCore.Lists" Version="1.6.0" />
+    <PackageReference Include="OrchardCore.Markdown" Version="1.6.0" />
+    <PackageReference Include="OrchardCore.MetaWeblog.Abstractions" Version="1.6.0" />
+    <PackageReference Include="OrchardCore.Module.Targets" Version="1.6.0" />
+    <PackageReference Include="OrchardCore.Workflows" Version="1.6.0" />
   </ItemGroup>
 
   <ItemGroup Condition="'$(NuGetBuild)' != 'true'">
@@ -54,10 +54,10 @@
   </ItemGroup>
 
   <ItemGroup Condition="'$(NuGetBuild)' == 'true'">
-    <PackageReference Include="Lombiq.HelpfulLibraries.OrchardCore" Version="5.1.1" />
-    <PackageReference Include="Lombiq.NodeJs.Extensions" Version="1.2.0" />
+    <PackageReference Include="Lombiq.HelpfulLibraries.OrchardCore" Version="5.1.2" />
+    <PackageReference Include="Lombiq.NodeJs.Extensions" Version="1.2.2" />
   </ItemGroup>
 
   <Import Condition="'$(NuGetBuild)' != 'true'" Project="..\..\..\Utilities\Lombiq.NodeJs.Extensions\Lombiq.NodeJs.Extensions\Lombiq.NodeJs.Extensions.targets" />
-  
+
 </Project>
