@@ -1,7 +1,7 @@
 @using Lombiq.HelpfulExtensions.Extensions.Widgets.ViewModels
+@using Lombiq.HelpfulLibraries.Common.Utilities;
 @using Microsoft.AspNetCore.Http.Extensions
 @using OrchardCore.Navigation
-@using System.Globalization;
 <style asp-name="font-awesome"></style>
 
 @{
@@ -13,7 +13,7 @@
     const string dropdownElementName = blockName + "__dropdown";
     const string dropdownItemElementName = blockName + "__dropdownItem";
 
-    var contentIdName = string.Create(CultureInfo.InvariantCulture, $"{contentElementName}_{Guid.NewGuid()}");
+    var contentIdName = StringHelper.CreateInvariant($"{contentElementName}_{Guid.NewGuid()}");
 
     var baseUri = new Uri(Context.Request.GetDisplayUrl());
 
@@ -51,7 +51,7 @@
             <ul class="navbar-nav me-auto mb-lg-0">
                 @foreach (var menuItem in menuItems)
                 {
-                    var dropdownIdName = string.Create(CultureInfo.InvariantCulture, $"{dropdownElementName}_{Guid.NewGuid()}");
+                    var dropdownIdName = StringHelper.CreateInvariant($"{dropdownElementName}_{Guid.NewGuid()}");
                     @if (menuItem.Items.Any())
                     {
                         var submenuItems = menuItem
