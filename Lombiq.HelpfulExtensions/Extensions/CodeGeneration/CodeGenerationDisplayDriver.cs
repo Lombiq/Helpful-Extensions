@@ -153,7 +153,7 @@ public class CodeGenerationDisplayDriver : ContentTypeDefinitionDisplayDriver
         var items = jArray.Select(item => ConvertJToken(item, indentationDepth + 8)).ToList();
 
         // If the items are formatted (for ListValueOption) then don't inject line-by-line formatting.
-        if (items.Any(item => item.ContainsOrdinalIgnoreCase(Environment.NewLine)))
+        if (items.Exists(item => item.ContainsOrdinalIgnoreCase(Environment.NewLine)))
         {
             var token = string.Join(string.Empty, items);
             return $"new[]\n{indentation}{{\n{token}{indentation}}}";
