@@ -2,7 +2,7 @@ using OrchardCore.DisplayManagement.Descriptors;
 
 namespace Lombiq.HelpfulExtensions.Extensions.Flows;
 
-internal class FlowPartShapeTableProvider : IShapeTableProvider
+internal sealed class FlowPartShapeTableProvider : IShapeTableProvider
 {
     public void Discover(ShapeTableBuilder builder) => builder
         .Describe("FlowPart")
