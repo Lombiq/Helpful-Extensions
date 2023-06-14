@@ -45,6 +45,7 @@
     <PackageReference Include="OrchardCore.Markdown" Version="1.5.0" />
     <PackageReference Include="OrchardCore.MetaWeblog.Abstractions" Version="1.5.0" />
     <PackageReference Include="OrchardCore.Module.Targets" Version="1.5.0" />
+    <PackageReference Include="OrchardCore.Rules.Abstractions" Version="1.5.0" />
     <PackageReference Include="OrchardCore.Workflows" Version="1.5.0" />
   </ItemGroup>
 
