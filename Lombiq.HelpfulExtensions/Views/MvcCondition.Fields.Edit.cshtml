@@ -1,0 +1,78 @@
+@using Newtonsoft.Json
+@model MvcConditionViewModel
+
+@{
+    var other = Enumerable.Range(0, Model.OtherRouteNames.Count)
+        .Select(index => new
+        {
+            name = Model.OtherRouteNames[index],
+            value = Model.OtherRouteValues[index],
+        })
+        .OrderBy(item => item.name);
+        
+}
+
+<fieldset asp-for="Area" label="@T["Area"]" hint="@T["Usually the module's name."]"></fieldset>
+<fieldset asp-for="Controller" label="@T["Controller"]" hint="@T["Without the \"Controller\" suffix."]"></fieldset>
+<fieldset asp-for="Action" label="@T["Action"]"></fieldset>
+
+<fieldset class="form-group mb-3 col-xl-6">
+    <label>@T["Other route values"]</label>
+    <table class="mvcConditionOther table" 
+           data-model="@JsonConvert.SerializeObject(other)"
+           data-form-name="@Html.NameFor(model => model.OtherRouteNames)"
+           data-form-value="@Html.NameFor(model => model.OtherRouteValues)">
+        <thead>
+        <tr>
+            <th>@T["Name"]</th>
+            <th>@T["Value"]</th>
+            <th>@T["Action"]</th>
+        </tr>
+        </thead>
+            
+        <tbody>
+        <tr v-for="(item, index) in routeValues" :key="">
+            <td>
+                <input type="text" :name="`${formName}[${index}]`" v-model="item.name"/>
+            </td>
+            <td>
+                <input type="text" :name="`${formValue}[${index}]`" v-model="item.value"/>
+            </td>
+            <td>
+                <a class="btn btn-sm btn-danger delete" @@click.prevent="onDelete(index)">@T["Delete"]</a>
+            </td>
+        </tr>
+        </tbody>
+        
+        <tfoot>
+        <tr>
+            <td colspan="3">
+                <a class="btn btn-sm btn-secondary new" @@click.prevent="onNew()">@T["New"]</a>
+            </td>
+        </tr>
+        </tfoot>
+    </table>
+</fieldset>
+
+<script asp-name="vuejs" at="Head"></script>
+<script asp-name="MvcConditionOtherRouteValues" at="Foot" depends-on="vuejs">
+Array.from(document.querySelectorAll('.mvcConditionOther'))
+    .forEach((element) => {
+        new Vue({
+            el: element,
+            data: {
+                routeValues: JSON.parse(element.getAttribute('data-model')),
+                formName: element.getAttribute('data-form-name'),
+                formValue: element.getAttribute('data-form-value'),
+            },
+            methods: {
+                onDelete(index) {
+                    Vue.delete(this.routeValues, index);
+                },
+                onNew() {
+                    Vue.set(this.routeValues, this.routeValues.length, { name: '', value: '' });
+                },
+            },
+        });
+    });
+</script>
