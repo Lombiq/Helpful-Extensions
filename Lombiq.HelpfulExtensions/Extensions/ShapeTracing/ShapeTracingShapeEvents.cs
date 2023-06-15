@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Lombiq.HelpfulExtensions.Extensions.ShapeTracing;
 
-internal class ShapeTracingShapeEvents : IShapeDisplayEvents
+internal sealed class ShapeTracingShapeEvents : IShapeDisplayEvents
 {
     private readonly IHttpContextAccessor _hca;
 

@@ -1,11 +1,10 @@
-﻿using Lombiq.HelpfulExtensions.Extensions.OrchardRecipeMigration.Models;
+using Lombiq.HelpfulExtensions.Extensions.OrchardRecipeMigration.Models;
 using OrchardCore.Alias.Models;
 using OrchardCore.Autoroute.Models;
 using OrchardCore.ContentManagement;
 using OrchardCore.Html.Models;
 using OrchardCore.Title.Models;
 using System;
-using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
@@ -71,7 +70,7 @@ public class CommonOrchardContentConverter : IOrchardContentConverter
         return Task.CompletedTask;
     }
 
-    private static string GetAlias(string value) => value.Split("/alias=").Last().Trim().Replace("\\/", "/");
+    private static string GetAlias(string value) => value.Split("/alias=")[^1].Trim().Replace("\\/", "/");
 
     private static void AlterIfPartExists<TPart>(ContentItem contentItem, Action<TPart> action)
         where TPart : ContentPart, new()
