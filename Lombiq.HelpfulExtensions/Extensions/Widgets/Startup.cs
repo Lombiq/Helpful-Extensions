@@ -4,6 +4,7 @@ using Lombiq.HelpfulLibraries.OrchardCore.TagHelpers;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.DependencyInjection;
+using OrchardCore.ContentManagement;
 using OrchardCore.ContentManagement.Display.ContentDisplay;
 using OrchardCore.DisplayManagement.Handlers;
 using OrchardCore.Modules;
@@ -25,6 +26,9 @@ public class Startup : StartupBase
             .AddScoped(sp => (IContentDisplayDriver)sp.GetRequiredService<MvcConditionEvaluatorDriver>());
 
         services.AddTagHelpers<EditorFieldSetTagHelper>();
+
+        services.AddContentPart<ContentItemWidget>()
+            .UseDetailOnlyDriver();
     }
 
     public override void Configure(IApplicationBuilder app, IEndpointRouteBuilder routes, IServiceProvider serviceProvider)
