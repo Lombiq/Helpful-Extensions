@@ -6,7 +6,6 @@ using Microsoft.Extensions.Localization;
 using Newtonsoft.Json;
 using OrchardCore.DisplayManagement.ModelBinding;
 using OrchardCore.DisplayManagement.Views;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 

@@ -25,7 +25,7 @@ public abstract class ConditionDisplayDriver<TCondition> : DisplayDriver<Conditi
 
     private ShapeResult InitializeDisplayType(string displayType, TCondition model, string shapeTypeSuffix = null) =>
         Initialize<ConditionViewModel>(
-                string.Join("_", new[] { "Condition", "Fields", displayType, shapeTypeSuffix }.WhereNot(string.IsNullOrEmpty)),
+                string.Join('_', new[] { "Condition", "Fields", displayType, shapeTypeSuffix }.WhereNot(string.IsNullOrEmpty)),
                 target => GetConditionViewModel(model).CopyTo(target))
             .Location(displayType, CommonLocationNames.Content);
 }
