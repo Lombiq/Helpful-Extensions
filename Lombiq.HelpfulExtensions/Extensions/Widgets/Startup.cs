@@ -4,6 +4,7 @@ using Lombiq.HelpfulLibraries.OrchardCore.TagHelpers;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.DependencyInjection;
+using OrchardCore.Data.Migration;
 using OrchardCore.ContentManagement;
 using OrchardCore.ContentManagement.Display.ContentDisplay;
 using OrchardCore.DisplayManagement.Handlers;
