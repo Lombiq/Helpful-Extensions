@@ -34,9 +34,9 @@
 
 @if (!viewModel.NoWrapper)
 {
-    @:<nav class="navbar navbar-expand-md">
+    @:<nav class="navbar navbar-expand-md @viewModel.HtmlClasses">
 }
-    <div class="container-fluid">
+    <div class="container-fluid @(viewModel.NoWrapper ? viewModel.HtmlClasses : string.Empty)">
         <button class="navbar-toggler @togglerElementName"
                 type="button"
                 data-bs-toggle="collapse"
