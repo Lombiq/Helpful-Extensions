@@ -1,0 +1,25 @@
+@using OrchardCore.ContentManagement
+@using Lombiq.HelpfulExtensions.Extensions.Widgets.Models
+@using OrchardCore.ContentManagement.Display
+@using OrchardCore.DisplayManagement.ModelBinding
+
+@inject IContentManager ContentManager
+@inject IContentItemDisplayManager ContentItemDisplayManager
+@inject IUpdateModelAccessor UpdateModelAccessor
+
+@{
+    if ((Model.ContentItem as ContentItem)?.As<ContentItemWidget>() is not { } part) { return; }
+
+    var ids = part.ContentToDisplay?.ContentItemIds ?? Array.Empty<string>();
+    var contentItems = await ContentManager.GetAsync(ids);
+    
+    var updater = UpdateModelAccessor.ModelUpdater;
+    var displayType = string.IsNullOrWhiteSpace(part.DisplayType?.Text) ? string.Empty : part.DisplayType.Text;
+    var groupId = string.IsNullOrWhiteSpace(part.GroupId?.Text) ? string.Empty : part.GroupId.Text;
+}
+
+@foreach (var content in contentItems)
+{
+    var shape = await ContentItemDisplayManager.BuildDisplayAsync(content, updater, displayType, groupId);
+    @await DisplayAsync(shape)
+}
