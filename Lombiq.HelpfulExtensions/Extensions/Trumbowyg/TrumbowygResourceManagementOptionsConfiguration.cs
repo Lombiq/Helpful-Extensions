@@ -17,12 +17,12 @@ public class TrumbowygResourceManagementOptionsConfiguration : IConfigureOptions
     {
         _manifest
             .DefineScript(Prism)
-            .SetUrl(Vendors + "prism/scripts/prism.js")
+            .SetUrl(Vendors + "prism/Scripts/prism.js")
             .SetVersion("1.29.0");
 
         _manifest
             .DefineStyle(Prism)
-            .SetUrl(Vendors + "prism/styles/prism.css")
+            .SetUrl(Vendors + "prism/Styles/prism.css")
             .SetVersion("1.29.0");
 
         _manifest
