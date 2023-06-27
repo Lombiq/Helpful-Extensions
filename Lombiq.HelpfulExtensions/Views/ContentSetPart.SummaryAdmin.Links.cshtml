@@ -1,0 +1,51 @@
+@using Microsoft.AspNetCore.Mvc.TagHelpers
+@model Lombiq.HelpfulExtensions.Extensions.ContentSets.ViewModels.ContentSetPartViewModel
+
+@{
+    if (string.IsNullOrEmpty(Model.ContentSet) || !Model.MemberLinks.Any()) { return; }
+
+    var title = T[Model.Definition.PartDefinition.Name];
+}
+
+<div class="btn-group" title="@title">
+    <button type="button"
+            class="btn btn-sm btn-info dropdown-toggle localizations"
+            data-bs-toggle="dropdown"
+            aria-haspopup="true"
+            aria-expanded="false">
+        <span>@title</span>
+    </button>
+    <ul class="dropdown-menu dropdown-menu-end">
+        @foreach (var link in Model.MemberLinks)
+        {
+            <li>
+                @if (!string.IsNullOrEmpty(link.ContentItemId))
+                {
+                    <a class="dropdown-item btn-sm"
+                       asp-action="Edit"
+                       asp-controller="Admin"
+                       asp-route-area="OrchardCore.Contents"
+                       asp-route-contentItemId="@link.ContentItemId"
+                       data-url-af="UnsafeUrl"
+                       title=@T["Edit {0}", link.DisplayText]>
+                        <i class="fa-solid fa-edit" aria-hidden="true"></i> @link.DisplayText
+                    </a>
+                }
+                else
+                {
+                    <a class="dropdown-item btn-sm"
+                       data-url-af="UnsafeUrl"
+                       asp-action="Create"
+                       asp-controller="ContentSet"
+                       asp-route-area="Lombiq.HelpfulExtensions.ContentSets"
+                       asp-route-fromContentItemId="@Model.ContentSetPart.ContentItem.ContentItemId"
+                       asp-route-fromPartName="@Model.Definition.PartDefinition.Name"
+                       asp-route-newKey="@link.Key"
+                       title=@T["Create {0}", link.DisplayText]>
+                        <i class="fa-solid fa-plus" aria-hidden="true"></i> @link.DisplayText
+                    </a>
+                }
+            </li>
+        }
+    </ul>
+</div>
