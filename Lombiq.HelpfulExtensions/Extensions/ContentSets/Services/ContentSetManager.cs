@@ -8,7 +8,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using YesSql;
-using IIdGenerator=OrchardCore.Entities.IIdGenerator;
+
+using IIdGenerator = OrchardCore.Entities.IIdGenerator;
 
 namespace Lombiq.HelpfulExtensions.Extensions.ContentSets.Services;
 
@@ -41,7 +42,7 @@ public class ContentSetManager : IContentSetManager
     public async Task<IEnumerable<ContentItem>> GetContentItemsAsync(string setId) =>
         await _contentManager.GetAsync(await GetContentItemIdsAsync(setId));
 
-    public async Task<ContentItem> CloneContentItem(string fromContentItemId, string fromPartName, string newKey)
+    public async Task<ContentItem> CloneContentItemAsync(string fromContentItemId, string fromPartName, string newKey)
     {
         if (string.IsNullOrEmpty(fromPartName)) fromPartName = nameof(ContentSetPart);
 

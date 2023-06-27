@@ -43,4 +43,3 @@ public class ContentSetIndexProvider : IndexProvider<ContentItem>
                 .Where(info => info.Part != null)
                 .Select(info => ContentSetIndex.FromPart(info.Part, info.Name)));
 }
-
