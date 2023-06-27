@@ -1,5 +1,6 @@
 using Lombiq.HelpfulExtensions.Extensions.SiteTexts.Services;
 using Microsoft.Extensions.DependencyInjection;
+using OrchardCore.Data.Migration;
 using OrchardCore.Modules;
 
 namespace Lombiq.HelpfulExtensions.Extensions.SiteTexts;
