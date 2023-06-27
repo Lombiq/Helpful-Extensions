@@ -3,10 +3,12 @@ using Lombiq.HelpfulExtensions.Extensions.ContentSets.Indexes;
 using Lombiq.HelpfulExtensions.Extensions.ContentSets.Models;
 using OrchardCore.ContentManagement;
 using OrchardCore.ContentManagement.Metadata;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using YesSql;
+using IIdGenerator=OrchardCore.Entities.IIdGenerator;
 
 namespace Lombiq.HelpfulExtensions.Extensions.ContentSets.Services;
 
@@ -15,14 +17,14 @@ public class ContentSetManager : IContentSetManager
     private readonly IContentDefinitionManager _contentDefinitionManager;
     private readonly IContentManager _contentManager;
     private readonly IEnumerable<IContentSetEventHandler> _contentSetEventHandlers;
-    private readonly OrchardCore.Entities.IIdGenerator _idGenerator;
+    private readonly IIdGenerator _idGenerator;
     private readonly ISession _session;
 
     public ContentSetManager(
         IContentDefinitionManager contentDefinitionManager,
         IContentManager contentManager,
         IEnumerable<IContentSetEventHandler> contentSetEventHandlers,
-        OrchardCore.Entities.IIdGenerator idGenerator,
+        IIdGenerator idGenerator,
         ISession session)
     {
         _contentDefinitionManager = contentDefinitionManager;
@@ -45,6 +47,11 @@ public class ContentSetManager : IContentSetManager
 
         if (await _contentManager.GetAsync(fromContentItemId) is not { } content) return null;
         if (content.Get<ContentSetPart>(fromPartName)?.ContentSet is not { } contentSet) return null;
+
+        var exists = await _session
+            .QueryIndex<ContentSetIndex>(index => index.ContentSet == contentSet && index.Key == newKey)
+            .FirstOrDefaultAsync() is not null;
+        if (exists) throw new InvalidOperationException($"The key \"{newKey}\" already exists for the content set \"{contentSet}\".");
 
         content.ContentItemId = _idGenerator.GenerateUniqueId();
         content.ContentItemVersionId = _idGenerator.GenerateUniqueId();
