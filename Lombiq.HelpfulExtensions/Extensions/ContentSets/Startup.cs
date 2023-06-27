@@ -1,4 +1,5 @@
 ﻿using Lombiq.HelpfulExtensions.Extensions.ContentSets.Drivers;
+using Lombiq.HelpfulExtensions.Extensions.ContentSets.Indexes;
 using Lombiq.HelpfulExtensions.Extensions.ContentSets.Models;
 using Lombiq.HelpfulExtensions.Extensions.ContentSets.Services;
 using Microsoft.AspNetCore.Builder;
@@ -18,7 +19,9 @@ public class Startup : StartupBase
     {
         services
             .AddContentPart<ContentSetPart>()
-            .UseDisplayDriver<ContentSetPartDisplayDriver>();
+            .UseDisplayDriver<ContentSetPartDisplayDriver>()
+            .WithIndex<ContentSetIndexProvider>()
+            .WithMigration<Migrations>();
 
         services.AddScoped<IContentSetManager, ContentSetManager>();
     }
