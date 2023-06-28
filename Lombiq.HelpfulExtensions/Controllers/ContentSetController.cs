@@ -4,7 +4,7 @@ using OrchardCore;
 using OrchardCore.Modules;
 using System.Threading.Tasks;
 
-namespace Lombiq.HelpfulExtensions.Extensions.OrchardRecipeMigration.Controllers;
+namespace Lombiq.HelpfulExtensions.Extensions.ContentSets.Controllers;
 
 [Feature(FeatureIds.ContentSets)]
 public class ContentSetController : Controller
