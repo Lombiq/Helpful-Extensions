@@ -10,5 +10,4 @@ public class Startup : StartupBase
 {
     public override void ConfigureServices(IServiceCollection services) =>
         services.AddTransient<IConfigureOptions<ResourceManagementOptions>, TrumbowygResourceManagementOptionsConfiguration>();
-
 }
