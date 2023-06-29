@@ -1,4 +1,6 @@
+using Lombiq.HelpfulExtensions.Extensions.Widgets.Models;
 using Lombiq.HelpfulLibraries.OrchardCore.Contents;
+using OrchardCore.ContentFields.Settings;
 using OrchardCore.ContentManagement.Metadata;
 using OrchardCore.ContentManagement.Metadata.Settings;
 using OrchardCore.Data.Migration;
@@ -55,7 +57,25 @@ public class Migrations : DataMigration
             )
         );
 
-        return 4;
+        var contentItemWidgetPartName = _contentDefinitionManager.AlterPartDefinition<ContentItemWidget>(builder => builder
+            .WithField(part => part.ContentToDisplay, field => field
+                .WithDisplayName("Content to display")
+                .WithSettings(new ContentPickerFieldSettings
+                {
+                    DisplayAllContentTypes = true,
+                    Multiple = true,
+                }))
+            .WithField(part => part.DisplayType, field => field.WithDisplayName("Display type"))
+            .WithField(part => part.GroupId, field => field.WithDisplayName("Group ID"))
+        );
+
+        _contentDefinitionManager.AlterTypeDefinition(WidgetTypes.ContentItemWidget, builder => builder
+            .Securable()
+            .Stereotype(CommonStereotypes.Widget)
+            .WithPart(contentItemWidgetPartName)
+        );
+
+        return 5;
     }
 
     public int UpdateFrom1()
@@ -89,5 +109,22 @@ public class Migrations : DataMigration
         );
 
         return 4;
+    }
+
+    public int UpdateFrom4()
+    {
+        var contentItemWidgetPartName = _contentDefinitionManager.AlterPartDefinition<ContentItemWidget>(builder => builder
+            .WithField(part => part.ContentToDisplay, field => field.WithDisplayName("Content to display"))
+            .WithField(part => part.DisplayType, field => field.WithDisplayName("Display type"))
+            .WithField(part => part.GroupId, field => field.WithDisplayName("Group ID"))
+        );
+
+        _contentDefinitionManager.AlterTypeDefinition(WidgetTypes.ContentItemWidget, builder => builder
+            .Securable()
+            .Stereotype(CommonStereotypes.Widget)
+            .WithPart(contentItemWidgetPartName)
+        );
+
+        return 5;
     }
 }
