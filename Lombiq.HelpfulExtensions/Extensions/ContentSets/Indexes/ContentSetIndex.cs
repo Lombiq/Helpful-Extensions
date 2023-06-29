@@ -1,6 +1,7 @@
 ﻿using Lombiq.HelpfulExtensions.Extensions.ContentSets.Models;
 using OrchardCore.ContentManagement;
 using OrchardCore.ContentManagement.Metadata;
+using System;
 using System.Linq;
 using YesSql.Indexes;
 
@@ -27,15 +28,16 @@ public class ContentSetIndex : MapIndex
 
 public class ContentSetIndexProvider : IndexProvider<ContentItem>
 {
-    private readonly IContentDefinitionManager _contentDefinitionManager;
+    private readonly Lazy<IContentDefinitionManager> _contentDefinitionManager;
 
-    public ContentSetIndexProvider(IContentDefinitionManager contentDefinitionManager) =>
+    public ContentSetIndexProvider(Lazy<IContentDefinitionManager> contentDefinitionManager) =>
         _contentDefinitionManager = contentDefinitionManager;
 
     public override void Describe(DescribeContext<ContentItem> context) =>
         context.For<ContentSetIndex>().Map(contentItem => !contentItem.Latest
             ? Enumerable.Empty<ContentSetIndex>()
             : _contentDefinitionManager
+                .Value
                 .GetTypeDefinition(contentItem.ContentType)
                 .Parts
                 .Where(part => part.PartDefinition.Name == nameof(ContentSetPart))
