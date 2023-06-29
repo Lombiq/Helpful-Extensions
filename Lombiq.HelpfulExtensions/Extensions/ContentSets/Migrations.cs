@@ -18,6 +18,8 @@ public class Migrations : DataMigration
     public int Create()
     {
         _contentDefinitionManager.AlterPartDefinition(nameof(ContentSetPart), builder => builder
+            .Attachable()
+            .Reusable()
             .WithDisplayName("Content Set"));
 
         SchemaBuilder.CreateMapIndexTable<ContentSetIndex>(table => table
