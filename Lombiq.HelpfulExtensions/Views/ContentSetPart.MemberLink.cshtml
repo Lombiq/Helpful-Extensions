@@ -1,0 +1,34 @@
+@using Lombiq.HelpfulExtensions.Extensions.ContentSets.ViewModels
+
+@{
+    if (Model.Link is not ContentSetLinkViewModel link) { return; }
+}
+
+<li>
+    @if (!string.IsNullOrEmpty(link.ContentItemId))
+    {
+        <a class="dropdown-item btn-sm"
+           asp-action="Edit"
+           asp-controller="Admin"
+           asp-route-area="OrchardCore.Contents"
+           asp-route-contentItemId="@link.ContentItemId"
+           data-url-af="UnsafeUrl"
+           title=@T["Edit {0}", link.DisplayText]>
+            <i class="fa-solid fa-edit" aria-hidden="true"></i> @link.DisplayText
+        </a>
+    }
+    else
+    {
+        <a class="dropdown-item btn-sm"
+           data-url-af="UnsafeUrl"
+           asp-action="Create"
+           asp-controller="ContentSet"
+           asp-route-area="Lombiq.HelpfulExtensions.ContentSets"
+           asp-route-fromContentItemId="@Model.ContentSetPart.ContentItem.ContentItemId"
+           asp-route-fromPartName="@Model.Definition.PartDefinition.Name"
+           asp-route-newKey="@link.Key"
+           title=@T["Create {0}", link.DisplayText]>
+            <i class="fa-solid fa-plus" aria-hidden="true"></i> @link.DisplayText
+        </a>
+    }
+</li>

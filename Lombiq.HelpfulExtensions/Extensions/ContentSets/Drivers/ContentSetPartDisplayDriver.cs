@@ -52,8 +52,9 @@ public class ContentSetPartDisplayDriver : ContentPartDisplayDriver<ContentSetPa
 
     public override IDisplayResult Edit(ContentSetPart part, BuildPartEditorContext context) =>
         Initialize<ContentSetPartViewModel>(
-            $"{nameof(ContentSetPart)}_Edit",
-            model => BuildViewModelAsync(model, part, context.TypePartDefinition));
+                $"{nameof(ContentSetPart)}_Edit",
+                model => BuildViewModelAsync(model, part, context.TypePartDefinition))
+            .Location($"Parts:0%{context.TypePartDefinition.Name};0");
 
     public override async Task<IDisplayResult> UpdateAsync(
         ContentSetPart part,
