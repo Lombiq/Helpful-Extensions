@@ -2,6 +2,8 @@
 
 @{
     if (Model.Link is not ContentSetLinkViewModel link) { return; }
+    var contentSetPart = Model.ContentSetPart;
+    var definition = Model.Definition;
 }
 
 <li>
@@ -24,8 +26,8 @@
            asp-action="Create"
            asp-controller="ContentSet"
            asp-route-area="Lombiq.HelpfulExtensions.ContentSets"
-           asp-route-fromContentItemId="@Model.ContentSetPart.ContentItem.ContentItemId"
-           asp-route-fromPartName="@Model.Definition.PartDefinition.Name"
+           asp-route-fromContentItemId="@contentSetPart.ContentItem.ContentItemId"
+           asp-route-fromPartName="@definition.PartDefinition.Name"
            asp-route-newKey="@link.Key"
            title=@T["Create {0}", link.DisplayText]>
             <i class="fa-solid fa-plus" aria-hidden="true"></i> @link.DisplayText
