@@ -1,0 +1,27 @@
+.trumbowyg-highlight-form-group {
+    margin: 15px 10px;
+
+    .trumbowyg-highlight-form-control {
+        width: 100%;
+        border: 1px solid #dedede;
+        font-size: 14px;
+        padding: 7px;
+
+        &.code {
+            height: 200px;
+        }
+    }
+}
+
+/* It is essential to override this specific styling. */
+/* stylelint-disable selector-no-qualifying-type */
+html[data-theme="darkmode"] {
+    .trumbowyg-modal,
+    .trumbowyg-modal-box,
+    .trumbowyg-modal-box .trumbowyg-modal-title,
+    .trumbowyg-highlight-form-control {
+        background: #181a1b;
+        color: #fff;
+    }
+}
+/* stylelint-enable selector-no-qualifying-type */
