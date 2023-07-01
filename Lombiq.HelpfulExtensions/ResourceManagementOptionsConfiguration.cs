@@ -6,7 +6,8 @@ namespace Lombiq.HelpfulExtensions;
 
 public class ResourceManagementOptionsConfiguration : IConfigureOptions<ResourceManagementOptions>
 {
-    private const string ScriptRoot = "~/Lombiq.HelpfulExtensions/js/";
+    private const string WwwRoot = "~/" + FeatureIds.Base + "/";
+    private const string ScriptRoot = WwwRoot + "js/";
     private static readonly ResourceManifest _manifest = new();
 
     static ResourceManagementOptionsConfiguration() =>

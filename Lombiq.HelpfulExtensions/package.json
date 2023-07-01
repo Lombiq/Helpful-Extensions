@@ -1,9 +1,26 @@
 {
   "private": true,
   "scripts": {
+    "build": "npm explore nodejs-extensions -- pnpm build",
     "build:assets": "npm explore nodejs-extensions -- pnpm build:assets",
     "build:scripts": "npm explore nodejs-extensions -- pnpm build:scripts",
     "clean:scripts": "npm explore nodejs-extensions -- pnpm clean:scripts",
     "watch:scripts": "npm explore nodejs-extensions -- pnpm watch:scripts"
+  },
+  "nodejsExtensions": {
+    "assetsToCopy": [
+      {
+        "sources": [ "Assets/Vendors/Prism" ],
+        "target": "wwwroot/vendors/prism"
+      },
+      {
+        "sources": [ "Assets/Vendors/Trumbowyg/plugins" ],
+        "target": "wwwroot/vendors/trumbowyg/plugins"
+      }
+    ],
+    "styles": {
+      "source": "Assets/Styles",
+      "target": "wwwroot/css"
+    }
   }
 }

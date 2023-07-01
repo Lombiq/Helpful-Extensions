@@ -123,3 +123,10 @@ using static Lombiq.HelpfulExtensions.FeatureIds;
         "OrchardCore.Workflows",
     }
 )]
+
+[assembly: Feature(
+    Id = Trumbowyg,
+    Name = "Lombiq Helpful Extensions - Trumbowyg code-snippet",
+    Category = "Content",
+    Description = "Adds option for inserting code snippets in Trumbowyg editor."
+)]
