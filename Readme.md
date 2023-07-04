@@ -12,6 +12,7 @@ We at [Lombiq](https://lombiq.com/) also used this module for the following proj
 - The new [Smithsonian Folkways Recordings website](https://folkways.si.edu/) when migrating it from Orchard 1 to Orchard Core ([see case study](https://lombiq.com/blog/smithsonian-folkways-recordings-now-upgraded-to-orchard-core)).
 - The new [Xero4PowerBI website](https://xero4powerbi.com/) ([see case study](https://dotnest.com/blog/xero4powerbi-website-case-study-migration-to-orchard-core)).<!-- #spell-check-ignore-line -->
 - The new [Lombiq website](https://lombiq.com/) when migrating it from Orchard 1 to Orchard Core ([see case study](https://lombiq.com/blog/how-we-renewed-and-migrated-lombiq-com-from-orchard-1-to-orchard-core)).
+- The new [Ik wil een taart website](https://ikwileentaart.nl/) ([see case study](https://dotnest.com/blog/revamping-ik-wil-een-taart-migrating-an-old-version-of-orchard-core-website-with-custom-theme-and-commerce-logic-to-dotnest)).<!-- #spell-check-ignore-line -->
 
 This module is also available on all sites of [DotNest, the Orchard SaaS](https://dotnest.com/).
 
@@ -137,6 +138,54 @@ Gives all external links the `target="_blank"` attribute.
 ### Reset Password activity
 
 Adds a workflow activity that generates a reset password token for the specified user. You can define the source of the User object using a JavaScript expression. It will set the token and the URL to the workflow `LastResult` property and optionally it can set them to the `Properties` dictionary to a key that you define as an activity parameter.
+
+### Trumbowyg code-snippet
+
+Adds prettified code-snippet inserting functionality to Trumbowyg editor by using a slightly modified version of [Trumbowyg highlight plugin](https://alex-d.github.io/Trumbowyg/documentation/plugins/#plugin-highlight). You need to add the highlight button to your Trumbowyg editor options to enable it.
+
+```text
+{
+    btns: [
+        ['highlight']
+    ],
+}
+```
+
+[Prism](https://prismjs.com/) is used to prettify the code. Currently the following formats are supported:
+
+- clike
+- cpp
+- cs
+- csharp
+- css
+- dotnet
+- graphql
+- html
+- js
+- json
+- markup-templating
+- mathml
+- md
+- plsql
+- powershell
+- scss
+- sql
+- ssml
+- svg
+- ts
+- xml
+- yaml
+- yml
+
+Then you need to link the Trumbowyg and Prism styles and scripts where you want it to be used. E.g. if you want to add it to BlogPost content type you can do it with the help of [Lombiq.HelpfulLibraries.OrchardCore](https://github.com/Lombiq/Helpful-Libraries/blob/dev/Lombiq.HelpfulLibraries.OrchardCore/Readme.md) in a IResourceFilterProvider:
+
+```csharp
+builder.WhenContentType("BlogPost").RegisterStylesheet(Lombiq.HelpfulExtensions.Constants.ResourceNames.Prism);
+builder.WhenContentType("BlogPost").RegisterFootScript(Lombiq.HelpfulExtensions.Constants.ResourceNames.Prism);
+
+builder.WhenContentTypeEditor("BlogPost").RegisterFootScript(Lombiq.HelpfulExtensions.Constants.ResourceNames.TrumbowygHighlight);
+builder.WhenContentTypeEditor("BlogPost").RegisterStylesheet(Lombiq.HelpfulExtensions.Constants.ResourceNames.TrumbowygHighlight);
+```
 
 ## Contributing and support
 

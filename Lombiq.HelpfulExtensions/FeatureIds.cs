@@ -2,7 +2,8 @@ namespace Lombiq.HelpfulExtensions;
 
 public static class FeatureIds
 {
-    private const string FeatureIdPrefix = "Lombiq.HelpfulExtensions.";
+    public const string Base = "Lombiq.HelpfulExtensions";
+    private const string FeatureIdPrefix = Base + ".";
 
     public const string CodeGeneration = FeatureIdPrefix + nameof(CodeGeneration);
     public const string ContentSets = FeatureIdPrefix + nameof(ContentSets);
@@ -16,5 +17,6 @@ public static class FeatureIds
     public const string SiteTexts = FeatureIdPrefix + nameof(SiteTexts);
     public const string OrchardRecipeMigration = FeatureIdPrefix + nameof(OrchardRecipeMigration);
     public const string Workflows = FeatureIdPrefix + nameof(Workflows);
+    public const string Trumbowyg = FeatureIdPrefix + nameof(Trumbowyg);
     public const string ResetPasswordActivity = Workflows + "." + nameof(ResetPasswordActivity);
 }
