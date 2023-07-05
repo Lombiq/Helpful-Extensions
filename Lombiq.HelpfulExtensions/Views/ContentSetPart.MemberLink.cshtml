@@ -23,7 +23,7 @@
     {
         var url = Orchard.Action<ContentSetController>(controller => controller.Create(
             contentSetPart.ContentItem.ContentItemId,
-            definition.PartDefinition.Name,
+            definition.Name,
             link.Key));
         <a class="dropdown-item btn-sm" href="@url" title=@T["Create {0}", link.DisplayText]>
             <i class="fa-solid fa-plus" aria-hidden="true"></i> @link.DisplayText

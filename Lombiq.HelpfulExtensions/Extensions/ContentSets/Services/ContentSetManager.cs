@@ -68,6 +68,7 @@ public class ContentSetManager : IContentSetManager
             await handler.CreatingAsync(content, contentTypePartDefinition, contentSet, newKey);
         }
 
+        content.Published = false;
         await _contentManager.PublishAsync(content);
         return content;
     }
