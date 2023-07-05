@@ -84,36 +84,44 @@ public class ContentSetPartDisplayDriver : ContentPartDisplayDriver<ContentSetPa
         ContentTypePartDefinition definition,
         bool isNew)
     {
+        string GetKey(IContent content) => content?.ContentItem?.Get<ContentSetPart>(definition.Name)?.Key;
+
         model.Key = part.Key;
         model.ContentSet = part.ContentSet;
         model.ContentSetPart = part;
         model.Definition = definition;
         model.IsNew = isNew;
 
-        var supportedOptions = (await _contentSetEventHandlers.AwaitEachAsync(item => item.GetSupportedOptionsAsync(part, definition)))
-            .Where(results => results != null)
-            .SelectMany(results => results)
-            .Where(option => option.Key != model.Key)
-            .ToDictionary(option => option.Key);
+        var existingContentItems = (await _contentSetManager.GetContentItemsAsync(part.ContentSet)).AsList();
+        var options = new Dictionary<string, ContentSetLinkViewModel>
+        {
+            [ContentSetPart.Default] = new(
+                IsDeleted: false,
+                T["Default content item"],
+                existingContentItems.SingleOrDefault(item => GetKey(item) == ContentSetPart.Default)?.ContentItemId,
+                ContentSetPart.Default),
+        };
 
-        // Content items that have been translated but the culture was removed from the settings page
-        var existingContentItems = await _contentSetManager.GetContentItemsAsync(part.ContentSet);
-        var deletedCultureTranslations = existingContentItems
-            .Where(item =>
-                item.ContentItemId != part.ContentItem.ContentItemId &&
-                item.Get<ContentSetPart>(definition.Name)?.Key != model.Key &&
-                !supportedOptions.ContainsKey(item.ContentItemId))
+        var supportedOptions = (await _contentSetEventHandlers.AwaitEachAsync(item => item.GetSupportedOptionsAsync(part, definition)))
+            .SelectMany(links => links ?? Enumerable.Empty<ContentSetLinkViewModel>());
+        options.AddRange(supportedOptions, link => link.Key);
+
+        // Content items that have been added to the set but no longer generate a valid option matching their key.
+        var inapplicableSetMembers = existingContentItems
+            .Where(item => !options.ContainsKey(item.ContentItemId))
             .Select(item => new ContentSetLinkViewModel(
                 IsDeleted: true,
                 T["{0} (No longer applicable)", item.DisplayText].Value,
                 item.ContentItemId,
-                item.Get<ContentSetPart>(definition.Name)?.Key))
-            .ToList();
+                GetKey(item)));
+        options.AddRange(inapplicableSetMembers, link => link.Key);
 
-        model.MemberLinks = supportedOptions
+        model.MemberLinks = options
             .Values
-            .Concat(deletedCultureTranslations)
-            .OrderBy(link => link.DisplayText)
+            .Where(link => link.Key != model.Key && link.ContentItemId != part.ContentItem.ContentItemId)
+            .OrderBy(link => string.IsNullOrEmpty(link.ContentItemId) ? 1 : 0)
+            .ThenBy(link => link.IsDeleted ? 1 : 0)
+            .ThenBy(link => link.DisplayText)
             .ToList();
     }
 }
