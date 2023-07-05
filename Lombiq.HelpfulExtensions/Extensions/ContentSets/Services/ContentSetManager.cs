@@ -9,8 +9,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using YesSql;
 
-using IIdGenerator = OrchardCore.Entities.IIdGenerator;
-
 namespace Lombiq.HelpfulExtensions.Extensions.ContentSets.Services;
 
 public class ContentSetManager : IContentSetManager
@@ -18,20 +16,17 @@ public class ContentSetManager : IContentSetManager
     private readonly IContentDefinitionManager _contentDefinitionManager;
     private readonly IContentManager _contentManager;
     private readonly IEnumerable<IContentSetEventHandler> _contentSetEventHandlers;
-    private readonly IIdGenerator _idGenerator;
     private readonly ISession _session;
 
     public ContentSetManager(
         IContentDefinitionManager contentDefinitionManager,
         IContentManager contentManager,
         IEnumerable<IContentSetEventHandler> contentSetEventHandlers,
-        IIdGenerator idGenerator,
         ISession session)
     {
         _contentDefinitionManager = contentDefinitionManager;
         _contentManager = contentManager;
         _contentSetEventHandlers = contentSetEventHandlers;
-        _idGenerator = idGenerator;
         _session = session;
     }
 
@@ -46,17 +41,23 @@ public class ContentSetManager : IContentSetManager
     {
         if (string.IsNullOrEmpty(fromPartName)) fromPartName = nameof(ContentSetPart);
 
-        if (await _contentManager.GetAsync(fromContentItemId) is not { } content) return null;
-        if (content.Get<ContentSetPart>(fromPartName)?.ContentSet is not { } contentSet) return null;
+        if (await _contentManager.GetAsync(fromContentItemId) is not { } original ||
+            original.Get<ContentSetPart>(fromPartName)?.ContentSet is not { } contentSet ||
+            await _contentManager.CloneAsync(original) is not { } content)
+        {
+            return null;
+        }
 
         var exists = await _session
             .QueryIndex<ContentSetIndex>(index => index.ContentSet == contentSet && index.Key == newKey)
             .FirstOrDefaultAsync() is not null;
         if (exists) throw new InvalidOperationException($"The key \"{newKey}\" already exists for the content set \"{contentSet}\".");
 
-        content.ContentItemId = _idGenerator.GenerateUniqueId();
-        content.ContentItemVersionId = _idGenerator.GenerateUniqueId();
-        content.Alter<ContentSetPart>(fromPartName, part => part.Key = newKey);
+        content.Alter<ContentSetPart>(fromPartName, part =>
+        {
+            part.ContentSet = contentSet;
+            part.Key = newKey;
+        });
 
         var contentTypePartDefinition = _contentDefinitionManager
             .GetTypeDefinition(content.ContentType)
@@ -68,7 +69,6 @@ public class ContentSetManager : IContentSetManager
             await handler.CreatingAsync(content, contentTypePartDefinition, contentSet, newKey);
         }
 
-        content.Published = false;
         await _contentManager.PublishAsync(content);
         return content;
     }
