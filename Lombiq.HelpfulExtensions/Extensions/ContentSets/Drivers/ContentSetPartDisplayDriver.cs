@@ -84,21 +84,21 @@ public class ContentSetPartDisplayDriver : ContentPartDisplayDriver<ContentSetPa
         ContentTypePartDefinition definition,
         bool isNew)
     {
-        string GetKey(IContent content) => content?.ContentItem?.Get<ContentSetPart>(definition.Name)?.Key;
-
         model.Key = part.Key;
         model.ContentSet = part.ContentSet;
         model.ContentSetPart = part;
         model.Definition = definition;
         model.IsNew = isNew;
 
-        var existingContentItems = (await _contentSetManager.GetContentItemsAsync(part.ContentSet)).AsList();
+        var existingContentItems = (await _contentSetManager.GetContentItemsAsync(part.ContentSet))
+            .ToDictionary(item => item.Get<ContentSetPart>(definition.Name)?.Key);
+
         var options = new Dictionary<string, ContentSetLinkViewModel>
         {
             [ContentSetPart.Default] = new(
                 IsDeleted: false,
                 T["Default content item"],
-                existingContentItems.SingleOrDefault(item => GetKey(item) == ContentSetPart.Default)?.ContentItemId,
+                existingContentItems.GetMaybe(ContentSetPart.Default)?.ContentItemId,
                 ContentSetPart.Default),
         };
 
@@ -106,14 +106,19 @@ public class ContentSetPartDisplayDriver : ContentPartDisplayDriver<ContentSetPa
             .SelectMany(links => links ?? Enumerable.Empty<ContentSetLinkViewModel>());
         options.AddRange(supportedOptions, link => link.Key);
 
+        // Ensure the existing content item IDs are applied to the supported option links.
+        existingContentItems
+            .Where(pair => options.GetMaybe(pair.Key)?.ContentItemId != pair.Value.ContentItemId)
+            .ForEach(pair => options[pair.Key] = options[pair.Key] with { ContentItemId = pair.Value.ContentItemId });
+
         // Content items that have been added to the set but no longer generate a valid option matching their key.
         var inapplicableSetMembers = existingContentItems
-            .Where(item => !options.ContainsKey(item.ContentItemId))
-            .Select(item => new ContentSetLinkViewModel(
+            .Where(pair => !options.ContainsKey(pair.Key))
+            .Select(pair => new ContentSetLinkViewModel(
                 IsDeleted: true,
-                T["{0} (No longer applicable)", item.DisplayText].Value,
-                item.ContentItemId,
-                GetKey(item)));
+                T["{0} (No longer applicable)", pair.Value.DisplayText].Value,
+                pair.Value.ContentItemId,
+                pair.Key));
         options.AddRange(inapplicableSetMembers, link => link.Key);
 
         model.MemberLinks = options

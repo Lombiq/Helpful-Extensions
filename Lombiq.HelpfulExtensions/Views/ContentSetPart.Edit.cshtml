@@ -9,7 +9,7 @@
     <fieldset class="form-group mb-3 col-xl-6">
         <label>@T["Other members of this content set"]</label>
         <ul>
-            @foreach (var link in Model.MemberLinks.Where(link => link.Key != Model.Key))
+            @foreach (var link in Model.MemberLinks)
             {
                 <shape type="ContentSetPart_MemberLink"
                        prop-Link="@link"
