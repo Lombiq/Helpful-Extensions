@@ -42,18 +42,18 @@ public class ContentSetPartDisplayDriver : ContentPartDisplayDriver<ContentSetPa
         Combine(
             Initialize<ContentSetPartViewModel>(
                     $"{ShapeType}_Tags",
-                    model => BuildViewModelAsync(model, part, context.TypePartDefinition))
+                    model => BuildViewModelAsync(model, part, context.TypePartDefinition, isNew: false))
                 .Location(CommonContentDisplayTypes.SummaryAdmin, "Tags:11"),
             Initialize<ContentSetPartViewModel>(
                     $"{ShapeType}_Links",
-                    model => BuildViewModelAsync(model, part, context.TypePartDefinition))
+                    model => BuildViewModelAsync(model, part, context.TypePartDefinition, isNew: false))
                 .Location(CommonContentDisplayTypes.SummaryAdmin, "Actions:5")
         );
 
     public override IDisplayResult Edit(ContentSetPart part, BuildPartEditorContext context) =>
         Initialize<ContentSetPartViewModel>(
                 $"{nameof(ContentSetPart)}_Edit",
-                model => BuildViewModelAsync(model, part, context.TypePartDefinition))
+                model => BuildViewModelAsync(model, part, context.TypePartDefinition, context.IsNew))
             .Location($"Parts:0%{context.TypePartDefinition.Name};0");
 
     public override async Task<IDisplayResult> UpdateAsync(
@@ -81,14 +81,14 @@ public class ContentSetPartDisplayDriver : ContentPartDisplayDriver<ContentSetPa
     public async ValueTask BuildViewModelAsync(
         ContentSetPartViewModel model,
         ContentSetPart part,
-        ContentTypePartDefinition definition)
+        ContentTypePartDefinition definition,
+        bool isNew)
     {
-        var existingContentItems = await _contentSetManager.GetContentItemsAsync(part.ContentSet);
-
         model.Key = part.Key;
         model.ContentSet = part.ContentSet;
         model.ContentSetPart = part;
         model.Definition = definition;
+        model.IsNew = isNew;
 
         var supportedOptions = (await _contentSetEventHandlers.AwaitEachAsync(item => item.GetSupportedOptionsAsync(part, definition)))
             .Where(results => results != null)
@@ -97,17 +97,17 @@ public class ContentSetPartDisplayDriver : ContentPartDisplayDriver<ContentSetPa
             .ToDictionary(option => option.Key);
 
         // Content items that have been translated but the culture was removed from the settings page
+        var existingContentItems = await _contentSetManager.GetContentItemsAsync(part.ContentSet);
         var deletedCultureTranslations = existingContentItems
             .Where(item =>
-            {
-                var key = item.As<ContentSetPart>()?.Key;
-                return key != model.Key && !supportedOptions.ContainsKey(item.ContentItemId);
-            })
+                item.ContentItemId != part.ContentItem.ContentItemId &&
+                item.Get<ContentSetPart>(definition.Name)?.Key != model.Key &&
+                !supportedOptions.ContainsKey(item.ContentItemId))
             .Select(item => new ContentSetLinkViewModel(
                 IsDeleted: true,
                 T["{0} (No longer applicable)", item.DisplayText].Value,
                 item.ContentItemId,
-                item.As<ContentSetPart>()?.Key))
+                item.Get<ContentSetPart>(definition.Name)?.Key))
             .ToList();
 
         model.MemberLinks = supportedOptions

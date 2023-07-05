@@ -4,15 +4,18 @@
 
 <fieldset asp-for="Key" label="@T["Key"]" readonly="true"></fieldset>
 
-<fieldset class="form-group mb-3 col-xl-6">
-    <label>@T["Other members of this content set"]</label>
-    <ul>
-        @foreach (var link in Model.MemberLinks.Where(link => link.Key != Model.Key))
-        {
-            <shape type="ContentSetPart_MemberLink"
-                   prop-Link="@link"
-                   prop-ContentSetPart="@Model.ContentSetPart"
-                   prop-Definition="@Model.Definition"></shape>
-        }
-    </ul>
-</fieldset>
+@if (!Model.IsNew)
+{
+    <fieldset class="form-group mb-3 col-xl-6">
+        <label>@T["Other members of this content set"]</label>
+        <ul>
+            @foreach (var link in Model.MemberLinks.Where(link => link.Key != Model.Key))
+            {
+                <shape type="ContentSetPart_MemberLink"
+                       prop-Link="@link"
+                       prop-ContentSetPart="@Model.ContentSetPart"
+                       prop-Definition="@Model.Definition"></shape>
+            }
+        </ul>
+    </fieldset>
+}

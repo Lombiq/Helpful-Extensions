@@ -19,6 +19,9 @@ public class ContentSetPartViewModel
 
     [BindNever]
     public IEnumerable<ContentSetLinkViewModel> MemberLinks { get; set; } = Enumerable.Empty<ContentSetLinkViewModel>();
+
+    [BindNever]
+    public bool IsNew { get; set; }
 }
 
 public record ContentSetLinkViewModel(bool IsDeleted, string DisplayText, string ContentItemId, string Key);
