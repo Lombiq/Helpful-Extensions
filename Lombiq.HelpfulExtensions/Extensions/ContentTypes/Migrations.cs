@@ -33,7 +33,11 @@ public class Migrations : DataMigration
             .WithPart("FlowPart", part => part.WithPosition("2"))
         );
 
-        return 2;
+        _contentDefinitionManager.AlterTypeDefinition(Empty, builder => builder
+            .WithDescription("A base content type for ad-hoc welding parts or fields on.")
+        );
+
+        return 3;
     }
 
     public int UpdateFrom1()
@@ -45,5 +49,14 @@ public class Migrations : DataMigration
         );
 
         return 2;
+    }
+
+    public int UpdateFrom2()
+    {
+        _contentDefinitionManager.AlterTypeDefinition(Empty, builder => builder
+            .WithDescription("A base content type for ad-hoc welding parts or fields on.")
+        );
+
+        return 3;
     }
 }
