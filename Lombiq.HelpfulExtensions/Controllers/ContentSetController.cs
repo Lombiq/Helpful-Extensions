@@ -20,6 +20,6 @@ public class ContentSetController : Controller
 
     public async Task<IActionResult> Create(string fromContentItemId, string fromPartName, string newKey) =>
         await _contentSetManager.CloneContentItemAsync(fromContentItemId, fromPartName, newKey) is { } content
-            ? Redirect(await _orchardHelper.GetItemEditUrlAsync(content))
+            ? Redirect(_orchardHelper.GetItemEditUrl(content))
             : NotFound();
 }
