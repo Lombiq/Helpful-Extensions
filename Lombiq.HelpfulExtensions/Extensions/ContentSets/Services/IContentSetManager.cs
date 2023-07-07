@@ -1,3 +1,4 @@
+using Lombiq.HelpfulExtensions.Extensions.ContentSets.Indexes;
 using Lombiq.HelpfulExtensions.Extensions.ContentSets.Models;
 using OrchardCore.ContentManagement;
 using System.Collections.Generic;
@@ -11,9 +12,9 @@ namespace Lombiq.HelpfulExtensions.Extensions.ContentSets.Services;
 public interface IContentSetManager
 {
     /// <summary>
-    /// Returns all content item IDs in a content set with the given <paramref name="setId"/>.
+    /// Returns all <see cref="ContentSetIndex"/> entries for the content set with the given <paramref name="setId"/>.
     /// </summary>
-    Task<IEnumerable<string>> GetContentItemIdsAsync(string setId);
+    Task<IEnumerable<ContentSetIndex>> GetIndexAsync(string setId);
 
     /// <summary>
     /// Returns all content items in a content set with the given <paramref name="setId"/>.

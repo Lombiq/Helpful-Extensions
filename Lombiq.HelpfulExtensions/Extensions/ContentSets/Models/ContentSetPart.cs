@@ -1,4 +1,5 @@
 ﻿using OrchardCore.ContentManagement;
+using System.Text.Json.Serialization;
 
 namespace Lombiq.HelpfulExtensions.Extensions.ContentSets.Models;
 
@@ -8,4 +9,7 @@ public class ContentSetPart : ContentPart
 
     public string ContentSet { get; set; }
     public string Key { get; set; } = Default;
+
+    [JsonIgnore]
+    public bool IsDefault => Key == Default;
 }
