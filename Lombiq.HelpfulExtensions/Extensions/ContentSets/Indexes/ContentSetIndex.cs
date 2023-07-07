@@ -45,11 +45,12 @@ public class ContentSetIndexProvider : IndexProvider<ContentItem>
             var contentDefinitionManager = scope.ServiceProvider.GetRequiredService<IContentDefinitionManager>();
 
             return contentDefinitionManager
-                    .GetTypeDefinition(contentItem.ContentType)
-                    .Parts
-                    .Where(part => part.PartDefinition.Name == nameof(ContentSetPart))
-                    .Select(part => new { Part = contentItem.Get<ContentSetPart>(part.Name), part.Name })
-                    .Where(info => info.Part != null)
-                    .Select(info => ContentSetIndex.FromPart(info.Part, info.Name));
+                .GetTypeDefinition(contentItem.ContentType)
+                .Parts
+                .Where(part => part.PartDefinition.Name == nameof(ContentSetPart))
+                .Select(part => new { Part = contentItem.Get<ContentSetPart>(part.Name), part.Name })
+                .Where(info => info.Part != null)
+                .Select(info => ContentSetIndex.FromPart(info.Part, info.Name))
+                .Where(index => index.ContentSet != null);
         });
 }
