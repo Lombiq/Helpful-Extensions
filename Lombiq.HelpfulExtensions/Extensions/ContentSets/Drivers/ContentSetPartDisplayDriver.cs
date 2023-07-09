@@ -22,18 +22,18 @@ public class ContentSetPartDisplayDriver : ContentPartDisplayDriver<ContentSetPa
     private const string ShapeType = $"{nameof(ContentSetPart)}_{CommonContentDisplayTypes.SummaryAdmin}";
 
     private readonly IContentSetManager _contentSetManager;
-    private readonly IIdGenerator _iidGenerator;
+    private readonly IIdGenerator _idGenerator;
     private readonly IEnumerable<IContentSetEventHandler> _contentSetEventHandlers;
     private readonly IStringLocalizer<ContentSetPartDisplayDriver> T;
 
     public ContentSetPartDisplayDriver(
         IContentSetManager contentSetManager,
-        IIdGenerator iidGenerator,
+        IIdGenerator idGenerator,
         IEnumerable<IContentSetEventHandler> contentSetEventHandlers,
         IStringLocalizer<ContentSetPartDisplayDriver> stringLocalizer)
     {
         _contentSetManager = contentSetManager;
-        _iidGenerator = iidGenerator;
+        _idGenerator = idGenerator;
         _contentSetEventHandlers = contentSetEventHandlers;
         T = stringLocalizer;
     }
@@ -71,7 +71,7 @@ public class ContentSetPartDisplayDriver : ContentPartDisplayDriver<ContentSetPa
             // item has not been saved yet.
             if (string.IsNullOrEmpty(part.ContentSet))
             {
-                part.ContentSet = _iidGenerator.GenerateUniqueId();
+                part.ContentSet = _idGenerator.GenerateUniqueId();
             }
         }
 
