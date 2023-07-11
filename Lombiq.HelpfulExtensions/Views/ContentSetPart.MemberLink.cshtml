@@ -1,0 +1,32 @@
+@using OrchardCore
+@using OrchardCore.ContentManagement.Metadata.Models
+@using OrchardCore.Contents.Controllers
+@using Lombiq.HelpfulExtensions.Extensions.ContentSets.Controllers
+@using Lombiq.HelpfulExtensions.Extensions.ContentSets.Models
+@using Lombiq.HelpfulExtensions.Extensions.ContentSets.ViewModels
+@{
+    if (Model.Link is not ContentSetLinkViewModel link) { return; }
+    var contentSetPart = Model.ContentSetPart as ContentSetPart;
+    var definition = Model.Definition as ContentTypePartDefinition;
+}
+
+<li>
+    @if (!string.IsNullOrEmpty(link.ContentItemId))
+    {
+        var url = Orchard.Action<AdminController>(controller => controller.Edit(
+            link.ContentItemId));
+        <a class="dropdown-item btn-sm" href="@url" title=@T["Edit {0}", link.DisplayText]>
+            <i class="fa-solid fa-edit" aria-hidden="true"></i> @link.DisplayText
+        </a>
+    }
+    else
+    {
+        var url = Orchard.Action<ContentSetController>(controller => controller.Create(
+            contentSetPart.ContentItem.ContentItemId,
+            definition.Name,
+            link.Key));
+        <a class="dropdown-item btn-sm" href="@url" title=@T["Create {0}", link.DisplayText]>
+            <i class="fa-solid fa-plus" aria-hidden="true"></i> @link.DisplayText
+        </a>
+    }
+</li>

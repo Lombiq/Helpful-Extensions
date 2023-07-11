@@ -20,6 +20,17 @@ using static Lombiq.HelpfulExtensions.FeatureIds;
 )]
 
 [assembly: Feature(
+    Id = ContentSets,
+    Name = "Lombiq Helpful Extensions - Content Sets",
+    Category = "Development",
+    Description = "Create arbitrary collections of content items.",
+    Dependencies = new[]
+    {
+        "OrchardCore.ContentManagement",
+    }
+)]
+
+[assembly: Feature(
     Id = Flows,
     Name = "Lombiq Helpful Extensions - Flows Helpful Extensions",
     Category = "Content",
