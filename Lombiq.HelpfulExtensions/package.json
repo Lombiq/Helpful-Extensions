@@ -21,6 +21,10 @@
     "styles": {
       "source": "Assets/Styles",
       "target": "wwwroot/css"
+    },
+    "scripts": {
+      "source": "Assets/Scripts",
+      "target": "wwwroot/js"
     }
   }
 }
