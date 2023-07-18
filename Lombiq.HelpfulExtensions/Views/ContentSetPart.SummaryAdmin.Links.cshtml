@@ -1,0 +1,26 @@
+@model Lombiq.HelpfulExtensions.Extensions.ContentSets.ViewModels.ContentSetPartViewModel
+
+@{
+    if (string.IsNullOrEmpty(Model.ContentSet) || !Model.MemberLinks.Any()) { return; }
+
+    var title = T[Model.Definition.Name];
+}
+
+<div class="btn-group" title="@title">
+    <button type="button"
+            class="btn btn-sm btn-info dropdown-toggle localizations"
+            data-bs-toggle="dropdown"
+            aria-haspopup="true"
+            aria-expanded="false">
+        <span>@title</span>
+    </button>
+    <ul class="dropdown-menu dropdown-menu-end">
+        @foreach (var link in Model.MemberLinks)
+        {
+            <shape type="ContentSetPart_MemberLink"
+                   prop-link="@link"
+                   prop-ContentSetPart="@Model.ContentSetPart"
+                   prop-Definition="@Model.Definition"></shape>
+        }
+    </ul>
+</div>
