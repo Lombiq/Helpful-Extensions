@@ -57,7 +57,7 @@
 
   <ItemGroup Condition="'$(NuGetBuild)' == 'true'">
     <PackageReference Include="Lombiq.HelpfulLibraries.OrchardCore" Version="6.0.1-alpha.0.gov-15" />
-    <PackageReference Include="Lombiq.NodeJs.Extensions" Version="1.2.4" />
+    <PackageReference Include="Lombiq.NodeJs.Extensions" Version="1.2.5-alpha.1.osoe-603" />
   </ItemGroup>
 
   <Import Condition="'$(NuGetBuild)' != 'true'" Project="..\..\..\Utilities\Lombiq.NodeJs.Extensions\Lombiq.NodeJs.Extensions\Lombiq.NodeJs.Extensions.targets" />
