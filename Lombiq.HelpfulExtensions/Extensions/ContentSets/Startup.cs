@@ -1,4 +1,5 @@
 ﻿using Lombiq.HelpfulExtensions.Extensions.ContentSets.Drivers;
+using Lombiq.HelpfulExtensions.Extensions.ContentSets.Events;
 using Lombiq.HelpfulExtensions.Extensions.ContentSets.Indexes;
 using Lombiq.HelpfulExtensions.Extensions.ContentSets.Models;
 using Lombiq.HelpfulExtensions.Extensions.ContentSets.Services;
@@ -30,4 +31,11 @@ public class Startup : StartupBase
     {
         // No need for anything here yet.
     }
+}
+
+[RequireFeatures("OrchardCore.Workflows")]
+public class WorkflowsStartup : StartupBase
+{
+    public override void ConfigureServices(IServiceCollection services) =>
+        services.AddScoped<IContentSetEventHandler, WorkflowContentSetEventHandler>();
 }
