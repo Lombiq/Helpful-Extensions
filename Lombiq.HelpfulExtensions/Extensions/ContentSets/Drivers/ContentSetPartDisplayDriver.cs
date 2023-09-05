@@ -103,7 +103,8 @@ public class ContentSetPartDisplayDriver : ContentPartDisplayDriver<ContentSetPa
         };
 
         var supportedOptions = (await _contentSetEventHandlers.AwaitEachAsync(item => item.GetSupportedOptionsAsync(part, definition)))
-            .SelectMany(links => links ?? Enumerable.Empty<ContentSetLinkViewModel>());
+            .Where(links => links != null)
+            .SelectMany(links => links);
         options.AddRange(supportedOptions, link => link.Key);
 
         // Ensure the existing content item IDs are applied to the supported option links.
