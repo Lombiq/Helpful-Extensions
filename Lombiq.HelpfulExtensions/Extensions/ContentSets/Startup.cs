@@ -1,4 +1,5 @@
-﻿using Lombiq.HelpfulExtensions.Extensions.ContentSets.Drivers;
+﻿using Lombiq.HelpfulExtensions.Extensions.Activities;
+using Lombiq.HelpfulExtensions.Extensions.ContentSets.Drivers;
 using Lombiq.HelpfulExtensions.Extensions.ContentSets.Events;
 using Lombiq.HelpfulExtensions.Extensions.ContentSets.Indexes;
 using Lombiq.HelpfulExtensions.Extensions.ContentSets.Models;
@@ -9,6 +10,7 @@ using Microsoft.Extensions.DependencyInjection;
 using OrchardCore.ContentManagement;
 using OrchardCore.ContentManagement.Display.ContentDisplay;
 using OrchardCore.Modules;
+using OrchardCore.Workflows.Helpers;
 using System;
 
 namespace Lombiq.HelpfulExtensions.Extensions.ContentSets;
@@ -36,6 +38,9 @@ public class Startup : StartupBase
 [RequireFeatures("OrchardCore.Workflows")]
 public class WorkflowsStartup : StartupBase
 {
-    public override void ConfigureServices(IServiceCollection services) =>
+    public override void ConfigureServices(IServiceCollection services)
+    {
+        services.AddActivity<ContentSetGetSupportedOptionsEvent, ContentSetGetSupportedOptionsEventDisplayDriver>();
         services.AddScoped<IContentSetEventHandler, WorkflowContentSetEventHandler>();
+    }
 }

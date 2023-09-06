@@ -1,4 +1,5 @@
-﻿using Lombiq.HelpfulExtensions.Extensions.ContentSets.Models;
+﻿using Lombiq.HelpfulExtensions.Extensions.Activities;
+using Lombiq.HelpfulExtensions.Extensions.ContentSets.Models;
 using Lombiq.HelpfulExtensions.Extensions.ContentSets.ViewModels;
 using Lombiq.HelpfulLibraries.OrchardCore.Workflow;
 using Newtonsoft.Json;
@@ -23,7 +24,6 @@ public class WorkflowContentSetEventHandler : IContentSetEventHandler
     {
         _workflowManager = workflowManager;
         _workflowTypeStore = workflowTypeStore;
-
     }
 
     public async Task<IEnumerable<ContentSetLinkViewModel>> GetSupportedOptionsAsync(
@@ -32,13 +32,10 @@ public class WorkflowContentSetEventHandler : IContentSetEventHandler
     {
         var links = new List<ContentSetLinkViewModel>();
 
-        var values = new Dictionary<string, object>
-        {
-            [nameof(ContentSetPart)] = part,
-            [nameof(part.ContentItem)] = part.ContentItem,
-            [nameof(ContentSetPartViewModel.Definition)] = definition,
-        };
-        var workflowContexts = await _workflowManager.TriggerEventAndGetContextsAsync<>(_workflowTypeStore, values);
+        var values = new GetSupportedOptionsContext(definition, part).ToDictionary();
+
+        var workflowContexts = await _workflowManager
+            .TriggerEventAndGetContextsAsync<ContentSetGetSupportedOptionsEvent>(_workflowTypeStore, values);
 
         foreach (var context in workflowContexts)
         {
