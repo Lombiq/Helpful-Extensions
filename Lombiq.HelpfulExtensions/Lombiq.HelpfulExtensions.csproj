@@ -36,18 +36,18 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="OrchardCore.Autoroute" Version="1.6.0" />
-    <PackageReference Include="OrchardCore.ContentFields" Version="1.6.0" />
-    <PackageReference Include="OrchardCore.Contents" Version="1.6.0" />
-    <PackageReference Include="OrchardCore.Flows" Version="1.6.0" />
-    <PackageReference Include="OrchardCore.Html" Version="1.6.0" />
-    <PackageReference Include="OrchardCore.Lists" Version="1.6.0" />
-    <PackageReference Include="OrchardCore.Liquid.Abstractions" Version="1.6.0" />
-    <PackageReference Include="OrchardCore.Markdown" Version="1.6.0" />
-    <PackageReference Include="OrchardCore.MetaWeblog.Abstractions" Version="1.6.0" />
-    <PackageReference Include="OrchardCore.Module.Targets" Version="1.6.0" />
-    <PackageReference Include="OrchardCore.Rules.Abstractions" Version="1.6.0" />
-    <PackageReference Include="OrchardCore.Workflows" Version="1.6.0" />
+    <PackageReference Include="OrchardCore.Autoroute" Version="1.7.0" />
+    <PackageReference Include="OrchardCore.ContentFields" Version="1.7.0" />
+    <PackageReference Include="OrchardCore.Contents" Version="1.7.0" />
+    <PackageReference Include="OrchardCore.Flows" Version="1.7.0" />
+    <PackageReference Include="OrchardCore.Html" Version="1.7.0" />
+    <PackageReference Include="OrchardCore.Lists" Version="1.7.0" />
+    <PackageReference Include="OrchardCore.Liquid.Abstractions" Version="1.7.0" />
+    <PackageReference Include="OrchardCore.Markdown" Version="1.7.0" />
+    <PackageReference Include="OrchardCore.MetaWeblog.Abstractions" Version="1.7.0" />
+    <PackageReference Include="OrchardCore.Module.Targets" Version="1.7.0" />
+    <PackageReference Include="OrchardCore.Rules.Abstractions" Version="1.7.0" />
+    <PackageReference Include="OrchardCore.Workflows" Version="1.7.0" />
   </ItemGroup>
 
   <ItemGroup Condition="'$(NuGetBuild)' != 'true'">
@@ -56,7 +56,7 @@
   </ItemGroup>
 
   <ItemGroup Condition="'$(NuGetBuild)' == 'true'">
-    <PackageReference Include="Lombiq.HelpfulLibraries.OrchardCore" Version="7.0.0" />
+    <PackageReference Include="Lombiq.HelpfulLibraries.OrchardCore" Version="7.0.1-alpha.8.osoe-682" />
     <PackageReference Include="Lombiq.NodeJs.Extensions" Version="1.3.0" />
   </ItemGroup>
 
