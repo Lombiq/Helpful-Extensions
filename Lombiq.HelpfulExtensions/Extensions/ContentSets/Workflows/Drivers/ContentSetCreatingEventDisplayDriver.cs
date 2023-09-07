@@ -1,8 +1,8 @@
-﻿using Lombiq.HelpfulExtensions.Extensions.Activities;
+﻿using Lombiq.HelpfulExtensions.Extensions.ContentSets.Workflows.Activities;
 using Lombiq.HelpfulLibraries.OrchardCore.Workflow;
 using Microsoft.AspNetCore.Mvc.Localization;
 
-namespace Lombiq.HelpfulExtensions.Extensions.ContentSets.Drivers;
+namespace Lombiq.HelpfulExtensions.Extensions.ContentSets.Workflows.Drivers;
 
 public class ContentSetCreatingEventDisplayDriver : SimpleEventActivityDisplayDriverBase<ContentSetCreatingEvent>
 {

@@ -1,7 +1,7 @@
 ﻿using Lombiq.HelpfulLibraries.OrchardCore.Workflow;
 using Microsoft.Extensions.Localization;
 
-namespace Lombiq.HelpfulExtensions.Extensions.Activities;
+namespace Lombiq.HelpfulExtensions.Extensions.ContentSets.Workflows.Activities;
 
 public class ContentSetCreatingEvent : SimpleEventActivityBase
 {

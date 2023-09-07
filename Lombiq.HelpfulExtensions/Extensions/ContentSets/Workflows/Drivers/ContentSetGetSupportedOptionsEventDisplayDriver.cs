@@ -1,12 +1,12 @@
-﻿using Lombiq.HelpfulExtensions.Extensions.Activities;
-using Lombiq.HelpfulExtensions.Extensions.ContentSets.Models;
+﻿using Lombiq.HelpfulExtensions.Extensions.ContentSets.Models;
 using Lombiq.HelpfulExtensions.Extensions.ContentSets.ViewModels;
+using Lombiq.HelpfulExtensions.Extensions.ContentSets.Workflows.Activities;
 using Lombiq.HelpfulLibraries.OrchardCore.Workflow;
 using Microsoft.AspNetCore.Html;
 using Microsoft.AspNetCore.Mvc.Localization;
 using Newtonsoft.Json;
 
-namespace Lombiq.HelpfulExtensions.Extensions.ContentSets.Drivers;
+namespace Lombiq.HelpfulExtensions.Extensions.ContentSets.Workflows.Drivers;
 
 public class ContentSetGetSupportedOptionsEventDisplayDriver : SimpleEventActivityDisplayDriverBase<ContentSetGetSupportedOptionsEvent>
 {
