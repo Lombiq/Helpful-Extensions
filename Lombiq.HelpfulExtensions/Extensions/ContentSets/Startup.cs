@@ -36,7 +36,7 @@ public class Startup : StartupBase
 }
 
 [RequireFeatures("OrchardCore.Workflows")]
-public class WorkflowsStartup : StartupBase
+public class WorkflowStartup : StartupBase
 {
     public override void ConfigureServices(IServiceCollection services)
     {
