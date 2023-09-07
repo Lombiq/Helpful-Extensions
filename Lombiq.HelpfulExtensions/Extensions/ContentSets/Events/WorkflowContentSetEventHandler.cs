@@ -71,14 +71,8 @@ public class WorkflowContentSetEventHandler : IContentSetEventHandler
         ContentTypePartDefinition definition,
         string contentSet,
         string newKey) =>
-        _workflowManager.TriggerEventAsync<>(
-            new
-            {
-                ContentItem = content,
-                Definition = definition,
-                ContentSet = content,
-                NewKey = newKey,
-            },
+        _workflowManager.TriggerEventAsync<ContentSetCreatingEvent>(
+            new CreatingContext(content, definition, contentSet, newKey),
             $"{nameof(WorkflowContentSetEventHandler)}.{nameof(CreatingAsync)}" +
-            $"({content.ContentItemId}, {definition.Name}, {content}, {newKey})");
+            $"({content.ContentItemId}, {definition.Name}, {contentSet}, {newKey})");
 }

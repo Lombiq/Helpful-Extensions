@@ -41,6 +41,7 @@ public class WorkflowsStartup : StartupBase
     public override void ConfigureServices(IServiceCollection services)
     {
         services.AddActivity<ContentSetGetSupportedOptionsEvent, ContentSetGetSupportedOptionsEventDisplayDriver>();
+        services.AddActivity<ContentSetCreatingEvent, ContentSetCreatingEventDisplayDriver>();
         services.AddScoped<IContentSetEventHandler, WorkflowContentSetEventHandler>();
     }
 }
