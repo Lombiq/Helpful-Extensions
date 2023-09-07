@@ -8,7 +8,7 @@ public class ContentSetCreatingEvent : SimpleEventActivityBase
     public override LocalizedString DisplayText => T["Creating Content Set"];
     public override LocalizedString Category => T["Content Sets"];
 
-    public ContentSetCreatingEvent(IStringLocalizer stringLocalizer)
+    public ContentSetCreatingEvent(IStringLocalizer<ContentSetCreatingEvent> stringLocalizer)
         : base(stringLocalizer)
     {
     }

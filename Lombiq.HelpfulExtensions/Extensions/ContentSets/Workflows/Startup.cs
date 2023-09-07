@@ -8,6 +8,7 @@ using OrchardCore.Workflows.Helpers;
 
 namespace Lombiq.HelpfulExtensions.Extensions.ContentSets.Workflows;
 
+[Feature(FeatureIds.ContentSets)]
 [RequireFeatures("OrchardCore.Workflows")]
 public class Startup : StartupBase
 {

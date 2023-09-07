@@ -10,7 +10,7 @@ public class ContentSetGetSupportedOptionsEvent : SimpleEventActivityBase
     public override LocalizedString DisplayText => T["Get Supported Content Set Options"];
     public override LocalizedString Category => T["Content Sets"];
 
-    public ContentSetGetSupportedOptionsEvent(IStringLocalizer stringLocalizer)
+    public ContentSetGetSupportedOptionsEvent(IStringLocalizer<ContentSetGetSupportedOptionsEvent> stringLocalizer)
         : base(stringLocalizer)
     {
     }
