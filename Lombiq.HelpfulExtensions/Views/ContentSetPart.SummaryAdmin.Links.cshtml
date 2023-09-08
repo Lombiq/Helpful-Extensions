@@ -1,14 +1,15 @@
+@using OrchardCore.ContentManagement.Metadata.Settings
 @model Lombiq.HelpfulExtensions.Extensions.ContentSets.ViewModels.ContentSetPartViewModel
 
 @{
     if (string.IsNullOrEmpty(Model.ContentSet) || !Model.MemberLinks.Any()) { return; }
 
-    var title = T[Model.Definition.Name];
+    var title = T[Model.Displaytext];
 }
 
 <div class="btn-group" title="@title">
     <button type="button"
-            class="btn btn-sm btn-info dropdown-toggle localizations"
+            class="btn btn-sm btn-info dropdown-toggle content-set"
             data-bs-toggle="dropdown"
             aria-haspopup="true"
             aria-expanded="false">

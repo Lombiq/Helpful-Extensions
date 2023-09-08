@@ -1,6 +1,7 @@
 ﻿using Lombiq.HelpfulExtensions.Extensions.ContentSets.Models;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using OrchardCore.ContentManagement.Metadata.Models;
+using OrchardCore.ContentManagement.Metadata.Settings;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -22,6 +23,15 @@ public class ContentSetPartViewModel
 
     [BindNever]
     public bool IsNew { get; set; }
+
+    [BindNever]
+    public string Displaytext =>
+        Definition?
+            .Settings?
+            .Property(nameof(ContentTypePartSettings))?
+            .Value
+            .ToObject<ContentTypePartSettings>()?
+            .DisplayName ?? Definition?.Name;
 }
 
 public record ContentSetLinkViewModel(bool IsDeleted, string DisplayText, string ContentItemId, string Key);

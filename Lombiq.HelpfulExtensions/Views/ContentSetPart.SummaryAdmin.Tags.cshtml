@@ -2,8 +2,8 @@
 
 @if (Model.ContentSetPart.Key != null)
 {
-    <span class="badge ta-badge font-weight-normal" data-bs-toggle="tooltip" title="@T[Model.Definition.Name]">
+    <span class="badge ta-badge font-weight-normal" data-bs-toggle="tooltip" title="@T["Content set type and key"]">
         <i class="fa-solid fa-ellipsis" aria-hidden="true"></i>
-        @T[Model.Definition.Name]: @Model.ContentSetPart.Key
+        @T[Model.Displaytext]: @Model.ContentSetPart.Key
     </span>
 }
