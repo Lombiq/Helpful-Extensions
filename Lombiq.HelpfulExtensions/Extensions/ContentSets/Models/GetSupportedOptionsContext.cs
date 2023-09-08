@@ -15,7 +15,7 @@ public record GetSupportedOptionsContext(
         new Dictionary<string, object>
         {
             // We create a new type here to avoid circular references which break JSON serialization.
-            [nameof(Definition)] = new
+            [nameof(Definition)] = Definition == null ? null : new
             {
                 Definition.Name,
                 Definition.Settings,

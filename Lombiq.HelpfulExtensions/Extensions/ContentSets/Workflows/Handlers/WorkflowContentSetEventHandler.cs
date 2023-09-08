@@ -10,6 +10,8 @@ using OrchardCore.ContentManagement.Metadata.Models;
 using OrchardCore.Workflows.Models;
 using OrchardCore.Workflows.Services;
 using System.Collections.Generic;
+using System.Dynamic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace Lombiq.HelpfulExtensions.Extensions.ContentSets.Workflows.Handlers;
@@ -51,11 +53,11 @@ public class WorkflowContentSetEventHandler : IContentSetEventHandler
                 case ContentSetLinkViewModel viewModel:
                     links.Add(viewModel);
                     break;
-                case JArray jsonArray:
-                    links.AddRange(jsonArray.ToObject<IEnumerable<ContentSetLinkViewModel>>());
+                case IEnumerable<object> collection when collection.CastWhere<ExpandoObject>() is { } objects && objects.Any():
+                    links.AddRange(JToken.FromObject(objects).ToObject<IEnumerable<ContentSetLinkViewModel>>());
                     break;
-                case JObject jsonObject:
-                    links.Add(jsonObject.ToObject<ContentSetLinkViewModel>());
+                case ExpandoObject expandoObject:
+                    links.Add(JToken.FromObject(expandoObject).ToObject<ContentSetLinkViewModel>());
                     break;
                 case string json when !string.IsNullOrWhiteSpace(json):
                     links.AddRange(JsonConvert.DeserializeObject<List<ContentSetLinkViewModel>>(json));
