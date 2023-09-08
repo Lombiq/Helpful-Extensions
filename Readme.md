@@ -55,6 +55,22 @@ The built-in converters handle the following O1 content parts:
 
 Additionally, if a custom converter fills in the `OrchardIds` content part's `Parent` property on the generated content item, then it also adds it to the parent content item's `ListPart`.
 
+### Content Sets
+
+Adds an attachable (named) content part that ties together a content item and a set of variants for it. This is similar to Content Localization part, but generic and not tied to the culture options. The `IContentSetEventHandler.GetSupportedOptionsAsync()` extension point is used to generate the valid options for a content item with an attached `ContentSetPart`.
+
+The content items are indexed into the `ContentSetIndex`. The `IContentSetManager` has methods to retrieve the existing content items (or just the IDs) for a specific content set.
+
+When the content part is attached, you will see a new dropdown in the content items list on the admin dashboard, just like it is with the Content Localization part, but this is uses the named part's display text as its label. You can use the dropdown or the editor view to select an options. Then the content item is cloned and that option's key assigned to it.
+
+#### Generating content set options
+
+You can generate your custom content set options two ways:
+- Create a service which implements the `IContentSetEventHandler` interface.
+- Create a workflow with the _Creating Content Set_ startup event. The workflow should return an output `MemberLinks` which should contain an array of `{ "Key": string, "DisplayText": string }` objects. Further details can be seen on the event's editor screen.
+
+The latter can be used even if you don't have access to the code, e.g. on DotNest. With either approach you only have to provide the `Key` and `DisplayText` properties, anything else is automatically filled in by the module. In both cases you have access to the context such as the current content item's key, the related part's part definition, etc. You can use this information to only create options selectively.
+
 ### Flows Helpful Extensions
 
 Adds additional styling capabilities to the OrchardCore.Flows feature by making it possible to add classes to widgets in the Flow Part editor. Just add `AdditionalStylingPart` to the content type using `FlowPart`.

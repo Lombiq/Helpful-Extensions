@@ -32,11 +32,8 @@ public class ContentSetGetSupportedOptionsEventDisplayDriver :
 
     public override IDictionary<string, string> ExpectedOutputs { get; } = new Dictionary<string, string>
     {
-        [ContentSetGetSupportedOptionsEvent.OutputName] = JsonConvert.SerializeObject(new ContentSetLinkViewModel(
-            IsDeleted: false,
-            "string",
-            "string",
-            "string")) + "[]",
+        [ContentSetGetSupportedOptionsEvent.OutputName] =
+            $"{{ \"{nameof(ContentSetLinkViewModel.Key)}\": string, \"{nameof(ContentSetLinkViewModel.DisplayText)}\": string }}[]",
     };
 
     public ContentSetGetSupportedOptionsEventDisplayDriver(
