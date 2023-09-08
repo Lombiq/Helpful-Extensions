@@ -1,5 +1,5 @@
-﻿using Lombiq.HelpfulExtensions.Extensions.ContentSets.Models;
-using Lombiq.HelpfulExtensions.Extensions.ContentSets.Workflows.Activities;
+﻿using Lombiq.HelpfulExtensions.Extensions.ContentSets.Workflows.Activities;
+using Lombiq.HelpfulExtensions.Extensions.ContentSets.Workflows.Models;
 using Lombiq.HelpfulLibraries.OrchardCore.Workflow;
 using Microsoft.AspNetCore.Mvc.Localization;
 using Microsoft.Extensions.Localization;

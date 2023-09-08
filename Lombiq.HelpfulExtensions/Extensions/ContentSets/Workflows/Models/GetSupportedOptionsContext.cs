@@ -1,9 +1,10 @@
-﻿using OrchardCore.ContentManagement;
+﻿using Lombiq.HelpfulExtensions.Extensions.ContentSets.Models;
+using OrchardCore.ContentManagement;
 using OrchardCore.ContentManagement.Metadata.Models;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Lombiq.HelpfulExtensions.Extensions.ContentSets.Models;
+namespace Lombiq.HelpfulExtensions.Extensions.ContentSets.Workflows.Models;
 
 public record GetSupportedOptionsContext(
     ContentTypePartDefinition Definition,
