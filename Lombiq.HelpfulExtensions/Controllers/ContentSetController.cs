@@ -1,9 +1,7 @@
-﻿using Lombiq.HelpfulExtensions.Extensions.ContentSets.Models;
-using Lombiq.HelpfulExtensions.Extensions.ContentSets.Services;
+﻿using Lombiq.HelpfulExtensions.Extensions.ContentSets.Services;
 using Microsoft.AspNetCore.Mvc;
 using OrchardCore;
 using OrchardCore.Modules;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace Lombiq.HelpfulExtensions.Extensions.ContentSets.Controllers;
@@ -24,19 +22,4 @@ public class ContentSetController : Controller
         await _contentSetManager.CloneContentItemAsync(fromContentItemId, fromPartName, newKey) is { } content
             ? Redirect(_orchardHelper.GetItemEditUrl(content))
             : NotFound();
-
-    [Route("Lombiq.HelpfulExtensions/ContentSet/Display/{setId}/{key}")]
-    public async Task<IActionResult> Display(string setId, string key, bool exactKey)
-    {
-        if (string.IsNullOrEmpty(setId)) return NotFound();
-        if (string.IsNullOrEmpty(key)) return NotFound();
-
-        var indexes = await _contentSetManager.GetIndexAsync(setId);
-        var ids = indexes.ToDictionary(index => index.Key, index => index.ContentItemId);
-
-        if (ids.TryGetValue(key, out var exactMatch)) return this.RedirectToContentDisplay(exactMatch);
-        if (exactKey) return NotFound();
-
-        return this.RedirectToContentDisplay(ids[ContentSetPart.Default]);
-    }
 }

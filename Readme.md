@@ -71,6 +71,10 @@ You can generate your custom content set options two ways:
 
 The latter can be used even if you don't have access to the code, e.g. on DotNest. With either approach you only have to provide the `Key` and `DisplayText` properties, anything else is automatically filled in by the module. In both cases you have access to the context such as the current content item's key, the related part's part definition, etc. You can use this information to only create options selectively.
 
+#### Content Set Content Picker Field
+
+You can add this content field to any content item that also has a Content Set part. The field's technical name should be the same as the attached part's technical name. Besides that, no further configuration is needed. If there are available variants for a content item with this field, it will display a comma separated list of links where the option names are the link text.
+
 ### Flows Helpful Extensions
 
 Adds additional styling capabilities to the OrchardCore.Flows feature by making it possible to add classes to widgets in the Flow Part editor. Just add `AdditionalStylingPart` to the content type using `FlowPart`.
