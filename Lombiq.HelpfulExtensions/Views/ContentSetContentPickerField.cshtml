@@ -1,9 +1,13 @@
 @model Lombiq.HelpfulExtensions.Extensions.ContentSets.ViewModels.ContentSetContentPickerFieldViewModel
 @using OrchardCore.ContentManagement.Utilities
 @using OrchardCore
+@using OrchardCore.ContentManagement.Metadata.Settings
 
 @{
     var name = (Model.PartFieldDefinition.PartDefinition.Name + "-" + Model.PartFieldDefinition.Name).HtmlClassify();
+
+    var settings = Model.PartFieldDefinition.Settings.GetMaybe(nameof(ContentPartFieldSettings));
+    var displayName = settings?.ToObject<ContentPartFieldSettings>()?.DisplayName ?? Model.PartFieldDefinition.Name;
 
     var links = Model
         .MemberLinks
@@ -16,13 +20,12 @@
 }
 
 <div class="field field-type-localizationsetpickerfield field-name-@name">
-    <span class="name">@Model.DisplayName</span>
+    <span class="name">@displayName</span>
     @for (var i = 0; i < links.Count; i++)
     {
         var link = links[i];
-        if (i > 0) { <span>,</span> }
-        <span class="value">
-            <a href="@Orchard.GetItemDisplayUrl(link.ContentItemId)">@link.DisplayText</a>
-        </span>
+        var url = Orchard.GetItemDisplayUrl(link.ContentItemId);
+        var separator = i < (links.Count - 1) ? ", " : string.Empty;
+        <span class="value"><a href="@url">@link.DisplayText</a></span>@separator
     }
 </div>

@@ -15,7 +15,7 @@
     {
         var url = Orchard.Action<AdminController>(controller => controller.Edit(
             link.ContentItemId));
-        <a class="dropdown-item btn-sm" href="@url" title=@T["Edit {0}", link.DisplayText]>
+        <a class="dropdown-item btn-sm" href="@url" title="@T["Edit {0}", link.DisplayText]">
             <i class="fa-solid fa-edit" aria-hidden="true"></i> @link.DisplayText
         </a>
     }
@@ -25,7 +25,7 @@
             contentSetPart.ContentItem.ContentItemId,
             definition.Name,
             link.Key));
-        <a class="dropdown-item btn-sm" href="@url" title=@T["Create {0}", link.DisplayText]>
+        <a class="dropdown-item btn-sm" href="@url" title="@T["Create {0}", link.DisplayText]">
             <i class="fa-solid fa-plus" aria-hidden="true"></i> @link.DisplayText
         </a>
     }
