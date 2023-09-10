@@ -66,6 +66,7 @@ When the content part is attached, you will see a new dropdown in the content it
 #### Generating content set options
 
 You can generate your custom content set options two ways:
+
 - Create a service which implements the `IContentSetEventHandler` interface.
 - Create a workflow with the _Creating Content Set_ startup event. The workflow should return an output `MemberLinks` which should contain an array of `{ "Key": string, "DisplayText": string }` objects. Further details can be seen on the event's editor screen.
 
