@@ -206,7 +206,7 @@
       "name": "content",
       "data": [
         {
-          "ContentItemId": "[js:uuid()]",
+          "ContentItemId": "contentsetexample000000000",
           "ContentItemVersionId": "[js:uuid()]",
           "ContentType": "ContentSetExample",
           "DisplayText": "Default Content Set Example",
@@ -224,7 +224,7 @@
             "Title": "Default Content Set Example"
           },
           "LiquidPart": {
-            "Liquid": "Some generic text."
+            "Liquid": "<div class=\"content-set-example-body\">Some generic text.</div>"
           },
           "ContentSetType": {
             "ContentSet": "4nbddxahchth32xeg28am0mack",
@@ -233,7 +233,7 @@
           }
         },
         {
-          "ContentItemId": "[js:uuid()]",
+          "ContentItemId": "contentsetexample000000001",
           "ContentItemVersionId": "[js:uuid()]",
           "ContentType": "ContentSetExample",
           "DisplayText": "First Content Set Variant",
@@ -251,7 +251,7 @@
             "Title": "First Content Set Variant"
           },
           "LiquidPart": {
-            "Liquid": "Some generic text v1."
+            "Liquid": "<div class=\"content-set-example-body\">Some generic text v1.</div>"
           },
           "ContentSetType": {
             "ContentSet": "4nbddxahchth32xeg28am0mack",
@@ -260,7 +260,7 @@
           }
         },
         {
-          "ContentItemId": "[js:uuid()]",
+          "ContentItemId": "contentsetexample000000002",
           "ContentItemVersionId": "[js:uuid()]",
           "ContentType": "ContentSetExample",
           "DisplayText": "Second Content Set Variant",
@@ -278,7 +278,7 @@
             "Title": "Second Content Set Variant"
           },
           "LiquidPart": {
-            "Liquid": "Some generic text v2."
+            "Liquid": "<div class=\"content-set-example-body\">Some generic text v2.</div>"
           },
           "ContentSetType": {
             "ContentSet": "4nbddxahchth32xeg28am0mack",
