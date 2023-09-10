@@ -25,7 +25,7 @@ public class ContentSetPartViewModel
     public bool IsNew { get; set; }
 
     [BindNever]
-    public string Displaytext =>
+    public string DisplayName =>
         Definition?
             .Settings?
             .Property(nameof(ContentTypePartSettings))?

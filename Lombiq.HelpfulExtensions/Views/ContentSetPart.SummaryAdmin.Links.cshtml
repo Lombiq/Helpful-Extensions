@@ -3,7 +3,7 @@
 @{
     if (string.IsNullOrEmpty(Model.ContentSet) || !Model.MemberLinks.Any()) { return; }
 
-    var title = T[Model.Displaytext];
+    var title = T[Model.DisplayName];
 }
 
 <div class="btn-group" title="@title">
