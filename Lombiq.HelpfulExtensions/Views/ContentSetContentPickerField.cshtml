@@ -1,0 +1,28 @@
+@model Lombiq.HelpfulExtensions.Extensions.ContentSets.ViewModels.ContentSetContentPickerFieldViewModel
+@using OrchardCore.ContentManagement.Utilities
+@using OrchardCore
+
+@{
+    var name = (Model.PartFieldDefinition.PartDefinition.Name + "-" + Model.PartFieldDefinition.Name).HtmlClassify();
+
+    var links = Model
+        .MemberLinks
+        .Where(link =>
+            !link.IsDeleted &&
+            link.ContentItemId != null &&
+            link.ContentItemId != Model.ContentSetPart.ContentItem.ContentItemId)
+        .ToList();
+    if (!links.Any()) { return; }
+}
+
+<div class="field field-type-localizationsetpickerfield field-name-@name">
+    <span class="name">@Model.DisplayName</span>
+    @for (var i = 0; i < links.Count; i++)
+    {
+        var link = links[i];
+        if (i > 0) { <span>,</span> }
+        <span class="value">
+            <a href="@Orchard.GetItemDisplayUrl(link.ContentItemId)">@link.DisplayText</a>
+        </span>
+    }
+</div>

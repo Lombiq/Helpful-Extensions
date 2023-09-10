@@ -24,6 +24,9 @@ public class Startup : StartupBase
             .WithMigration<Migrations>();
 
         services.AddScoped<IContentSetManager, ContentSetManager>();
+
+        services.AddContentField<ContentSetContentPickerField>()
+            .UseDisplayDriver<ContentSetContentPickerFieldDisplayDriver>();
     }
 
     public override void Configure(IApplicationBuilder app, IEndpointRouteBuilder routes, IServiceProvider serviceProvider)
