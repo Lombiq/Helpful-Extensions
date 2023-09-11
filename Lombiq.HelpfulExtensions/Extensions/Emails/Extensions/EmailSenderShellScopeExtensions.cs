@@ -28,7 +28,7 @@ public static class EmailSenderShellScopeExtensions
                 Subject = parameters.Subject,
                 ReplyTo = parameters.ReplyTo,
                 Body = parameters.Body,
-                IsBodyHtml = true,
+                IsHtmlBody = true,
             });
 
             if (!result.Succeeded)
