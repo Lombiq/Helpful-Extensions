@@ -1,7 +1,7 @@
 @model Lombiq.HelpfulExtensions.Extensions.ContentSets.ViewModels.ContentSetContentPickerFieldViewModel
-@using OrchardCore.ContentManagement.Utilities
 @using OrchardCore
 @using OrchardCore.ContentManagement.Metadata.Settings
+@using OrchardCore.Mvc.Utilities
 
 @{
     var name = (Model.PartFieldDefinition.PartDefinition.Name + "-" + Model.PartFieldDefinition.Name).HtmlClassify();
