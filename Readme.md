@@ -62,7 +62,7 @@ Adds an attachable (named) content part that ties together a content item and a 
 
 The content items are indexed into the `ContentSetIndex`. The `IContentSetManager` has methods to retrieve the existing content items (or just the index rows) for a specific content set.
 
-When the content part is attached, you will see a new dropdown in the content items list on the admin dashboard, just like it is with the Content Localization part, but this is uses the named part's display text as its label. You can use the dropdown or the editor view to select an options. Then the content item is cloned and that option's key assigned to it.
+When the content part is attached, a new dropdown is added to the content item in the admin dashboard's content items list. This is similar in design to the dropdown added by the Content Localization part. The label is the named part's display text and you can use the dropdown (or the listing in the editor view) to select an option. When an option is selected the content item is cloned and that option's key assigned to it.
 
 #### Generating content set options
 
