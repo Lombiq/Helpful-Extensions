@@ -39,25 +39,23 @@ public class ContentSetContentPickerFieldDisplayDriver : ContentFieldDisplayDriv
         BuildFieldDisplayContext fieldDisplayContext)
     {
         var name = fieldDisplayContext.PartFieldDefinition.Name;
-        return field.ContentItem.Get<ContentSetPart>(name) is { } part
-            ? Initialize<ContentSetContentPickerFieldViewModel>(
-                    GetDisplayShapeType(fieldDisplayContext),
-                    model =>
-                    {
-                        model.PartFieldDefinition = fieldDisplayContext.PartFieldDefinition;
-                        return model.InitializeAsync(
-                            _contentSetManager,
-                            _contentSetEventHandlers,
-                            T,
-                            part,
-                            new ContentTypePartDefinition(
-                                name,
-                                _contentDefinitionManager.GetPartDefinition(nameof(ContentSetPart)),
-                                new JObject()),
-                            isNew: false);
-                    })
-                .Location(CommonContentDisplayTypes.Detail, CommonLocationNames.Content)
-                .Location(CommonContentDisplayTypes.Summary, CommonLocationNames.Content)
-            : null;
+        if (field.ContentItem.Get<ContentSetPart>(name) is not { } part) return null;
+
+        return Initialize<ContentSetContentPickerFieldViewModel>(GetDisplayShapeType(fieldDisplayContext), model =>
+            {
+                model.PartFieldDefinition = fieldDisplayContext.PartFieldDefinition;
+                return model.InitializeAsync(
+                    _contentSetManager,
+                    _contentSetEventHandlers,
+                    T,
+                    part,
+                    new ContentTypePartDefinition(
+                        name,
+                        _contentDefinitionManager.GetPartDefinition(nameof(ContentSetPart)),
+                        new JObject()),
+                    isNew: false);
+            })
+            .Location(CommonContentDisplayTypes.Detail, CommonLocationNames.Content)
+            .Location(CommonContentDisplayTypes.Summary, CommonLocationNames.Content);
     }
 }
