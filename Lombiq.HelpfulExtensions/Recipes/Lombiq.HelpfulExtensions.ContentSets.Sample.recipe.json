@@ -1,0 +1,292 @@
+{
+  "name": "Lombiq.HelpfulExtensions.ContentSets.Samples",
+  "displayName": "Lombiq Helpful Extensions - Content Sets - Sample",
+  "description": "Sample content type, content items and workflow for the Content Sets feature.",
+  "author": "Lombiq Technologies",
+  "website": "https://github.com/Lombiq/Helpful-Extensions/",
+  "version": "1.0",
+  "issetuprecipe": false,
+  "categories": [
+    "test"
+  ],
+  "tags": [
+    "test"
+  ],
+  "steps": [
+    {
+      "name": "feature",
+      "enable": [
+        "Lombiq.HelpfulExtensions.ContentSets"
+      ]
+    },
+    {
+      "name": "ContentDefinition",
+      "ContentTypes": [
+        {
+          "Name": "ContentSetExample",
+          "DisplayName": "Content Set Example",
+          "Settings": {
+            "ContentTypeSettings": {
+              "Creatable": true,
+              "Listable": true,
+              "Draftable": false,
+              "Versionable": false,
+              "Securable": false
+            },
+            "FullTextAspectSettings": {},
+            "GraphQLContentTypeSettings": {}
+          },
+          "ContentTypePartDefinitionRecords": [
+            {
+              "PartName": "TitlePart",
+              "Name": "TitlePart",
+              "Settings": {
+                "ContentTypePartSettings": {
+                  "Position": "0"
+                }
+              }
+            },
+            {
+              "PartName": "ContentSetExample",
+              "Name": "ContentSetExample",
+              "Settings": {
+                "ContentTypePartSettings": {
+                  "Position": "1"
+                }
+              }
+            },
+            {
+              "PartName": "LiquidPart",
+              "Name": "LiquidPart",
+              "Settings": {
+                "ContentTypePartSettings": {
+                  "Position": "2"
+                }
+              }
+            },
+            {
+              "PartName": "ContentSetPart",
+              "Name": "ContentSetType",
+              "Settings": {
+                "ContentTypePartSettings": {
+                  "DisplayName": "Content Set Type",
+                  "Position": "3"
+                }
+              }
+            }
+          ]
+        }
+      ],
+      "ContentParts": [
+        {
+          "Name": "ContentSetPart",
+          "Settings": {
+            "ContentPartSettings": {
+              "Attachable": true,
+              "Reusable": true,
+              "DisplayName": "Content Set"
+            }
+          },
+          "ContentPartFieldDefinitionRecords": []
+        },
+        {
+          "Name": "ContentSetExample",
+          "Settings": {},
+          "ContentPartFieldDefinitionRecords": [
+            {
+              "FieldName": "ContentSetContentPickerField",
+              "Name": "ContentSetType",
+              "Settings": {
+                "ContentPartFieldSettings": {
+                  "DisplayName": "Content Set Type",
+                  "Position": "0"
+                }
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "WorkflowType",
+      "data": [
+        {
+          "WorkflowTypeId": "[js:uuid()]",
+          "Name": "Content Set Example Workflow",
+          "IsEnabled": true,
+          "IsSingleton": false,
+          "LockTimeout": 0,
+          "LockExpiration": 0,
+          "DeleteFinishedWorkflows": false,
+          "Activities": [
+            {
+              "ActivityId": "4sbqa4xvasnrazvks7bnmkz04s",
+              "Name": "ContentSetGetSupportedOptionsEvent",
+              "X": 40,
+              "Y": 160,
+              "IsStart": true,
+              "Properties": {
+                "ActivityMetadata": {
+                  "Title": null
+                }
+              }
+            },
+            {
+              "ActivityId": "4az0g1kk6eh2g135cr45zkdpw8",
+              "Name": "IfElseTask",
+              "X": 420,
+              "Y": 160,
+              "IsStart": false,
+              "Properties": {
+                "ActivityMetadata": {
+                  "Title": null
+                },
+                "Condition": {
+                  "Expression": "input('Definition').Name == 'ContentSetType'"
+                }
+              }
+            },
+            {
+              "ActivityId": "47wbveez2chjdsygwdgqezwcdq",
+              "Name": "LogTask",
+              "X": 830,
+              "Y": 40,
+              "IsStart": false,
+              "Properties": {
+                "ActivityMetadata": {
+                  "Title": null
+                },
+                "LogLevel": 2,
+                "Text": {
+                  "Expression": "Definition: \"{{ Workflow.Input.Definition | json }}\"."
+                }
+              }
+            },
+            {
+              "ActivityId": "4pg64655zjgqgzk5s1ysj2p8mp",
+              "Name": "SetOutputTask",
+              "X": 830,
+              "Y": 280,
+              "IsStart": false,
+              "Properties": {
+                "ActivityMetadata": {
+                  "Title": null
+                },
+                "OutputName": "MemberLinks",
+                "Value": {
+                  "Expression": "[ { \"Key\": \"Example1\", \"DisplayText\": \"Some Example\" }, { \"Key\": \"Example2\", \"DisplayText\": \"Other Example\" }, { \"Key\": \"Example3\", \"DisplayText\": \"Final Example\" } ]"
+                }
+              }
+            }
+          ],
+          "Transitions": [
+            {
+              "Id": 0,
+              "SourceActivityId": "4sbqa4xvasnrazvks7bnmkz04s",
+              "SourceOutcomeName": "Done",
+              "DestinationActivityId": "4az0g1kk6eh2g135cr45zkdpw8"
+            },
+            {
+              "Id": 0,
+              "SourceActivityId": "4az0g1kk6eh2g135cr45zkdpw8",
+              "SourceOutcomeName": "False",
+              "DestinationActivityId": "47wbveez2chjdsygwdgqezwcdq"
+            },
+            {
+              "Id": 0,
+              "SourceActivityId": "4az0g1kk6eh2g135cr45zkdpw8",
+              "SourceOutcomeName": "True",
+              "DestinationActivityId": "4pg64655zjgqgzk5s1ysj2p8mp"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "content",
+      "data": [
+        {
+          "ContentItemId": "contentsetexample000000000",
+          "ContentItemVersionId": "[js:uuid()]",
+          "ContentType": "ContentSetExample",
+          "DisplayText": "Default Content Set Example",
+          "Latest": true,
+          "Published": true,
+          "ModifiedUtc": "2023-09-10T05:39:27.0460202Z",
+          "PublishedUtc": "2023-09-10T05:39:27.0833929Z",
+          "CreatedUtc": "2023-09-10T05:39:27.0460202Z",
+          "Owner": null,
+          "Author": "admin",
+          "ContentSetExample": {
+            "ContentSetType": {}
+          },
+          "TitlePart": {
+            "Title": "Default Content Set Example"
+          },
+          "LiquidPart": {
+            "Liquid": "<div class=\"content-set-example-body\">Some generic text.</div>"
+          },
+          "ContentSetType": {
+            "ContentSet": "4nbddxahchth32xeg28am0mack",
+            "Key": "Default",
+            "IsDefault": true
+          }
+        },
+        {
+          "ContentItemId": "contentsetexample000000001",
+          "ContentItemVersionId": "[js:uuid()]",
+          "ContentType": "ContentSetExample",
+          "DisplayText": "First Content Set Variant",
+          "Latest": true,
+          "Published": true,
+          "ModifiedUtc": "2023-09-10T05:48:28.9723912Z",
+          "PublishedUtc": "2023-09-10T05:48:28.9799812Z",
+          "CreatedUtc": "2023-09-10T05:48:08.4129272Z",
+          "Owner": null,
+          "Author": "admin",
+          "ContentSetExample": {
+            "ContentSetType": {}
+          },
+          "TitlePart": {
+            "Title": "First Content Set Variant"
+          },
+          "LiquidPart": {
+            "Liquid": "<div class=\"content-set-example-body\">Some generic text v1.</div>"
+          },
+          "ContentSetType": {
+            "ContentSet": "4nbddxahchth32xeg28am0mack",
+            "Key": "Example1",
+            "IsDefault": false
+          }
+        },
+        {
+          "ContentItemId": "contentsetexample000000002",
+          "ContentItemVersionId": "[js:uuid()]",
+          "ContentType": "ContentSetExample",
+          "DisplayText": "Second Content Set Variant",
+          "Latest": true,
+          "Published": true,
+          "ModifiedUtc": "2023-09-10T15:15:33.2219943Z",
+          "PublishedUtc": "2023-09-10T15:15:33.2624978Z",
+          "CreatedUtc": "2023-09-10T15:15:25.0407535Z",
+          "Owner": null,
+          "Author": "admin",
+          "ContentSetExample": {
+            "ContentSetType": {}
+          },
+          "TitlePart": {
+            "Title": "Second Content Set Variant"
+          },
+          "LiquidPart": {
+            "Liquid": "<div class=\"content-set-example-body\">Some generic text v2.</div>"
+          },
+          "ContentSetType": {
+            "ContentSet": "4nbddxahchth32xeg28am0mack",
+            "Key": "Example2",
+            "IsDefault": false
+          }
+        }
+      ]
+    }
+  ]
+}
