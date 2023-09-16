@@ -5,6 +5,7 @@ using OrchardCore.ContentManagement;
 using OrchardCore.Html.Models;
 using OrchardCore.Title.Models;
 using System;
+using System.Globalization;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
@@ -78,13 +79,17 @@ public class CommonOrchardContentConverter : IOrchardContentConverter
         if (contentItem.Has<TPart>()) contentItem.Alter(action);
     }
 
-    public static void ImportCommonPart(ContentItem contentItem, XElement parentElement)
+    private static void ImportCommonPart(ContentItem contentItem, XElement parentElement)
     {
         if (parentElement.Element("CommonPart") is not { } commonPart) return;
 
         string Attribute(string name) => commonPart.Attribute(name)?.Value;
 
-        DateTime? Date(string name) => DateTime.TryParse(Attribute(name), out var date) ? date : null;
+        DateTime? Date(string name) => DateTime.TryParse(
+            Attribute(name),
+            CultureInfo.CurrentCulture,
+            DateTimeStyles.None,
+            out var date) ? date : null;
 
         if (Attribute("Owner")?.Replace("/User.UserName=", string.Empty) is { } owner)
         {
