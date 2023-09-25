@@ -36,18 +36,18 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="OrchardCore.Autoroute" Version="1.7.0" />
-    <PackageReference Include="OrchardCore.ContentFields" Version="1.7.0" />
-    <PackageReference Include="OrchardCore.Contents" Version="1.7.0" />
-    <PackageReference Include="OrchardCore.Flows" Version="1.7.0" />
-    <PackageReference Include="OrchardCore.Html" Version="1.7.0" />
-    <PackageReference Include="OrchardCore.Lists" Version="1.7.0" />
-    <PackageReference Include="OrchardCore.Liquid.Abstractions" Version="1.7.0" />
-    <PackageReference Include="OrchardCore.Markdown" Version="1.7.0" />
-    <PackageReference Include="OrchardCore.MetaWeblog.Abstractions" Version="1.7.0" />
-    <PackageReference Include="OrchardCore.Module.Targets" Version="1.7.0" />
-    <PackageReference Include="OrchardCore.Rules.Abstractions" Version="1.7.0" />
-    <PackageReference Include="OrchardCore.Workflows" Version="1.7.0" />
+    <PackageReference Include="OrchardCore.Autoroute" Version="420.69.0" />
+    <PackageReference Include="OrchardCore.ContentFields" Version="420.69.0" />
+    <PackageReference Include="OrchardCore.Contents" Version="420.69.0" />
+    <PackageReference Include="OrchardCore.Flows" Version="420.69.0" />
+    <PackageReference Include="OrchardCore.Html" Version="420.69.0" />
+    <PackageReference Include="OrchardCore.Lists" Version="420.69.0" />
+    <PackageReference Include="OrchardCore.Liquid.Abstractions" Version="420.69.0" />
+    <PackageReference Include="OrchardCore.Markdown" Version="420.69.0" />
+    <PackageReference Include="OrchardCore.MetaWeblog.Abstractions" Version="420.69.0" />
+    <PackageReference Include="OrchardCore.Module.Targets" Version="420.69.0" />
+    <PackageReference Include="OrchardCore.Rules.Abstractions" Version="420.69.0" />
+    <PackageReference Include="OrchardCore.Workflows" Version="420.69.0" />
   </ItemGroup>
 
   <ItemGroup Condition="'$(NuGetBuild)' != 'true'">
