@@ -1,4 +1,4 @@
-﻿@using Lombiq.HelpfulExtensions.Extensions.OrchardRecipeMigration.Controllers
+@using Lombiq.HelpfulExtensions.Extensions.OrchardRecipeMigration.Controllers
 
 <h1>@T["Orchard 1 Recipe Migration"]</h1>
 
@@ -8,11 +8,13 @@
 
     <ol>
         <li>@T["Go to Admin > Import/Export in the Orchard 1 site and select the Export tab."]</li>
-        <li>@T["Tick <i>Content and Content Definition</i> and then the <i>Content</i> checkbox for the desired types, e.g. <i>Blog Post</i>, <i>Comment</i> and <i>Tag Node</i>."]</li>
+        <li>@T["Tick <i>Content and Content Definition</i> and then the <i>Content</i> checkbox for the desired types, e.g. <i>User</i>, <i>Blog Post</i>, <i>Comment</i> and <i>Tag Node</i>."]</li>
         <li>@T["Click the <i>Export</i> button and save the <i>export.xml</i> file."]</li>
         <li>@T["Upload the file here to receive a converted <i>export.recipe.json</i> file."]</li>
         <li>@T["Go to Admin > Configuration > Import/Export > Package Import and upload the newly generated <i>export.recipe.json</i> file."]</li>
     </ol>
+
+    <p>@T["The downloaded file will not contain anything for users, since these are generated upon the <i>export.xml</i> file import. Make sure to convert the users first if they are related to other converted content."]</p>
 
     <div class="mb-3">
         <label for="file" class="form-label">@T["Select an Orchard 1 export.xml"]</label>
