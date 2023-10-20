@@ -66,13 +66,8 @@ public class OrchardExportToRecipeConverter : IOrchardExportToRecipeConverter
             else
             {
                 var customUserConverter = _userConverters.FirstOrDefault(converter => converter.IgnoreDefaultConverter);
-
-                var userConverter = customUserConverter ?? _userConverters.FirstOrDefault();
-
-                if (userConverter != null)
-                {
-                    await userConverter.ImportAsync(content);
-                }
+                var userConverter = customUserConverter ?? _userConverters.First();
+                await userConverter.ImportAsync(content);
             }
         }
 
