@@ -16,11 +16,6 @@ public interface IOrchardUserConverter
     bool IgnoreDefaultConverter => true;
 
     /// <summary>
-    /// Returns <see langword="true"/> if this converter can use the given <paramref name="element"/>.
-    /// </summary>
-    bool IsApplicable(XElement element);
-
-    /// <summary>
     /// Processes further content in the <paramref name="element"/>.
     /// </summary>
     Task ImportAsync(XElement element);

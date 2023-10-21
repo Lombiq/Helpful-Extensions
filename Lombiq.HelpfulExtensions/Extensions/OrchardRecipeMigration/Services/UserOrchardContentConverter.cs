@@ -24,8 +24,6 @@ public class UserOrchardContentConverter : IOrchardUserConverter
 
     public bool IgnoreDefaultConverter => false;
 
-    public bool IsApplicable(XElement element) => element.Name == nameof(User);
-
     public async Task ImportAsync(XElement element)
     {
         if (element.Element("UserPart") is not { } userPart)
