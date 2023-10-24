@@ -61,7 +61,7 @@ Additionally, if a custom converter fills in the `OrchardIds` content part's `Pa
 
 #### User Migration
 
-Migrating users from Orchard 1 is also possible with this feature: Import the same way as other Orchard 1 contents, and users will generate automatically, meaning you don't have to do anything else.
+Migrating users from Orchard 1 is also possible with this feature: Import the same way as other Orchard 1 contents, and users will be generated automatically, meaning you don't have to do anything else.
 
 Each generated user will have the corresponding email, user-name, roles, and a new random password. **Keep in mind that in Orchard 1, user-names could contain any characters, but in Orchard Core, it is limited by default.** [Check out the default configuration](https://github.com/OrchardCMS/OrchardCore/blob/main/src/OrchardCore.Modules/OrchardCore.Setup/Startup.cs#L44) and adjust it in your application if needed.
 
