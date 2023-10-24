@@ -37,7 +37,7 @@ public class UserOrchardContentConverter : IOrchardUserConverter
             {
                 UserName = userPart.Attribute("UserName")?.Value,
                 Email = userPart.Attribute("Email")?.Value,
-                EmailConfirmed = true,
+                EmailConfirmed = userPart.Attribute("EmailStatus")?.Value == "Approved",
                 IsEnabled = true,
                 RoleNames = rolesList,
             },

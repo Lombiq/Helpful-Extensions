@@ -49,10 +49,8 @@ public class OrchardExportToRecipeConverter : IOrchardExportToRecipeConverter
 
         foreach (var content in contents)
         {
-            if (content.Name != nameof(User))
+            if (await CreateContentItemAsync(content) is { } contentItem)
             {
-                if (await CreateContentItemAsync(content) is not { } contentItem) continue;
-
                 contentItem.ContentItemId ??= _idGenerator.GenerateUniqueId();
                 contentItem.ContentItemVersionId ??= _idGenerator.GenerateUniqueId();
 
@@ -63,7 +61,7 @@ public class OrchardExportToRecipeConverter : IOrchardExportToRecipeConverter
 
                 contentItems.Add(contentItem);
             }
-            else
+            else if (content.Name == nameof(User))
             {
                 var customUserConverter = _userConverters.FirstOrDefault(converter => converter.IgnoreDefaultConverter);
                 var userConverter = customUserConverter ?? _userConverters.First();
