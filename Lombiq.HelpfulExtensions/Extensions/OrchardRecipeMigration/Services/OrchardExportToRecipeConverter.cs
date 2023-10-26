@@ -1,8 +1,9 @@
-﻿using Newtonsoft.Json.Linq;
+using Newtonsoft.Json.Linq;
 using OrchardCore.ContentManagement;
 using OrchardCore.ContentManagement.Metadata;
 using OrchardCore.Entities;
 using OrchardCore.Recipes.Models;
+using OrchardCore.Users.Models;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -17,6 +18,7 @@ public class OrchardExportToRecipeConverter : IOrchardExportToRecipeConverter
     private readonly IIdGenerator _idGenerator;
     private readonly IEnumerable<IOrchardExportConverter> _exportConverters;
     private readonly IEnumerable<IOrchardContentConverter> _contentConverters;
+    private readonly IEnumerable<IOrchardUserConverter> _userConverters;
 
     private readonly ICollection<string> _contentTypes;
 
@@ -25,12 +27,14 @@ public class OrchardExportToRecipeConverter : IOrchardExportToRecipeConverter
         IContentManager contentManager,
         IIdGenerator idGenerator,
         IEnumerable<IOrchardExportConverter> exportConverters,
-        IEnumerable<IOrchardContentConverter> contentConverters)
+        IEnumerable<IOrchardContentConverter> contentConverters,
+        IEnumerable<IOrchardUserConverter> userConverters)
     {
         _contentManager = contentManager;
         _idGenerator = idGenerator;
         _exportConverters = exportConverters;
         _contentConverters = contentConverters;
+        _userConverters = userConverters;
 
         _contentTypes = contentDefinitionManager
             .ListTypeDefinitions()
@@ -45,17 +49,24 @@ public class OrchardExportToRecipeConverter : IOrchardExportToRecipeConverter
 
         foreach (var content in contents)
         {
-            if (await CreateContentItemAsync(content) is not { } contentItem) continue;
+            if (await CreateContentItemAsync(content) is { } contentItem)
+            {
+                contentItem.ContentItemId ??= _idGenerator.GenerateUniqueId();
+                contentItem.ContentItemVersionId ??= _idGenerator.GenerateUniqueId();
 
-            contentItem.ContentItemId ??= _idGenerator.GenerateUniqueId();
-            contentItem.ContentItemVersionId ??= _idGenerator.GenerateUniqueId();
+                await _contentConverters
+                    .Where(converter => converter.IsApplicable(content))
+                    .OrderBy(converter => converter.Order)
+                    .AwaitEachAsync(converter => converter.ImportAsync(content, contentItem));
 
-            await _contentConverters
-                .Where(converter => converter.IsApplicable(content))
-                .OrderBy(converter => converter.Order)
-                .AwaitEachAsync(converter => converter.ImportAsync(content, contentItem));
-
-            contentItems.Add(contentItem);
+                contentItems.Add(contentItem);
+            }
+            else if (content.Name == nameof(User))
+            {
+                var customUserConverter = _userConverters.FirstOrDefault(converter => converter.IgnoreDefaultConverter);
+                var userConverter = customUserConverter ?? _userConverters.First();
+                await userConverter.ImportAsync(content);
+            }
         }
 
         foreach (var converter in _exportConverters)

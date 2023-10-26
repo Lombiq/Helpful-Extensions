@@ -120,7 +120,11 @@ using static Lombiq.HelpfulExtensions.FeatureIds;
     Description =
         "Convert Orchard 1's export XML files into Orchard Core recipes. This feature contains the basics like " +
         "CommonPart and BodyPart (full list is in the Helpful Extensions repository readme), but can be extended " +
-        "with additional converters that only have to handle more specialized export data."
+        "with additional converters that only have to handle more specialized export data.",
+    Dependencies = new[]
+    {
+        "OrchardCore.Contents",
+    }
 )]
 
 [assembly: Feature(
