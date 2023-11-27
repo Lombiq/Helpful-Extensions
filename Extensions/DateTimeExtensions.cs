@@ -10,6 +10,12 @@ namespace System
 
         public static string ToIsoDateString(this DateTime dateTime) => dateTime.ToString("yyyy-MM-dd");
 
+        public static string ToIsoDateString(this DateTime? dateTime) => dateTime?.ToIsoDateString() ?? string.Empty;
+
+        public static string ToIsoTimeString(this DateTime dateTime) => dateTime.ToString("HH:mm:ss");
+
+        public static string ToIsoTimeString(this DateTime? dateTime) => dateTime?.ToIsoTimeString() ?? string.Empty;
+
         public static DateTime FirstDayOfMonth(this DateTime dateTime) =>
             new DateTime(dateTime.Year, dateTime.Month, 1, 0, 0, 0, dateTime.Kind);
 
