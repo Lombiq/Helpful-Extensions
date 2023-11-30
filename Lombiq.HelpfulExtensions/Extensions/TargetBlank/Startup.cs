@@ -1,6 +1,6 @@
 using Lombiq.HelpfulExtensions.Extensions.TargetBlank.Filters;
+using Lombiq.HelpfulLibraries.OrchardCore.DependencyInjection;
 using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
@@ -16,7 +16,7 @@ public class Startup : StartupBase
     public override void ConfigureServices(IServiceCollection services)
     {
         services.AddTransient<IConfigureOptions<ResourceManagementOptions>, ResourceManagementOptionsConfiguration>();
-        services.Configure<MvcOptions>(options => options.Filters.Add(typeof(TargetBlankFilter)));
+        services.AddAsyncResultFilter<TargetBlankFilter>();
     }
 
     public override void Configure(IApplicationBuilder app, IEndpointRouteBuilder routes, IServiceProvider serviceProvider)
