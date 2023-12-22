@@ -1,5 +1,5 @@
 using Lombiq.HelpfulExtensions.Extensions.TargetBlank.Filters;
-using Lombiq.HelpfulLibraries.OrchardCore.DependencyInjection;
+using Lombiq.HelpfulLibraries.AspNetCore.Extensions;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.DependencyInjection;
