@@ -5,6 +5,7 @@ using OrchardCore.ContentManagement.Metadata.Settings;
 using OrchardCore.Data.Migration;
 using OrchardCore.Markdown.Models;
 using static Lombiq.HelpfulExtensions.Extensions.SiteTexts.Constants.ContentTypes;
+using static Lombiq.HelpfulLibraries.OrchardCore.Contents.ContentFieldEditorEnums;
 
 namespace Lombiq.HelpfulExtensions.Extensions.SiteTexts;
 
@@ -24,7 +25,7 @@ public class SiteTextMigrations : DataMigration
                 draftable: false,
                 listable: true,
                 versionable: false)
-            .WithPart(nameof(MarkdownBodyPart), part => part.WithEditor("Wysiwyg"))
+            .WithPart(nameof(MarkdownBodyPart), part => part.WithEditor(HtmlFieldEditors.Wysiwyg))
             .WithPart(nameof(LocalizationPart)));
 
         return 1;
