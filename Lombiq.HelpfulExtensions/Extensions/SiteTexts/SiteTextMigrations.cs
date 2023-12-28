@@ -25,7 +25,7 @@ public class SiteTextMigrations : DataMigration
                 draftable: false,
                 listable: true,
                 versionable: false)
-            .WithPart(nameof(MarkdownBodyPart), part => part.WithEditor(HtmlFieldEditors.Wysiwyg))
+            .WithPart(nameof(MarkdownBodyPart), part => part.WithEditor(MarkdownFieldEditors.Wysiwyg))
             .WithPart(nameof(LocalizationPart)));
 
         return 1;
