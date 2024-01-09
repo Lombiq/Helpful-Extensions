@@ -10,6 +10,12 @@ namespace System
 
         public static string ToIsoDateString(this DateTime dateTime) => dateTime.ToString("yyyy-MM-dd");
 
+        public static string ToIsoDateString(this DateTime? dateTime) => dateTime?.ToIsoDateString() ?? string.Empty;
+
+        public static string ToIsoTimeString(this DateTime dateTime) => dateTime.ToString("HH:mm:ss");
+
+        public static string ToIsoTimeString(this DateTime? dateTime) => dateTime?.ToIsoTimeString() ?? string.Empty;
+
         public static string ToIsoDateInvariantString(this DateTime dateTime) => dateTime.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture);
 
         public static string ToIsoDateInvariantString(this DateTime? dateTime) => dateTime?.ToIsoDateInvariantString() ?? string.Empty;
