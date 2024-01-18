@@ -4,6 +4,7 @@ using OrchardCore.ContentFields.Settings;
 using OrchardCore.ContentManagement.Metadata;
 using OrchardCore.ContentManagement.Metadata.Settings;
 using OrchardCore.Data.Migration;
+using System.Threading.Tasks;
 using static Lombiq.HelpfulExtensions.Extensions.Widgets.WidgetTypes;
 
 namespace Lombiq.HelpfulExtensions.Extensions.Widgets;
@@ -15,16 +16,16 @@ public class Migrations : DataMigration
     public Migrations(IContentDefinitionManager contentDefinitionManager) =>
         _contentDefinitionManager = contentDefinitionManager;
 
-    public int Create()
+    public async Task<int> CreateAsync()
     {
-        _contentDefinitionManager.AlterTypeDefinition(ContainerWidget, builder => builder
+        await _contentDefinitionManager.AlterTypeDefinitionAsync(ContainerWidget, builder => builder
             .Securable()
             .Stereotype(CommonStereotypes.Widget)
             .WithPart("TitlePart", part => part.WithPosition("0"))
             .WithPart("FlowPart", part => part.WithPosition("1"))
         );
 
-        _contentDefinitionManager.AlterTypeDefinition(HtmlWidget, builder => builder
+        await _contentDefinitionManager.AlterTypeDefinitionAsync(HtmlWidget, builder => builder
             .Securable()
             .Stereotype(CommonStereotypes.Widget)
             .WithPart("HtmlBodyPart", part => part
@@ -36,7 +37,7 @@ public class Migrations : DataMigration
             )
         );
 
-        _contentDefinitionManager.AlterTypeDefinition(LiquidWidget, builder => builder
+        await _contentDefinitionManager.AlterTypeDefinitionAsync(LiquidWidget, builder => builder
             .Securable()
             .Stereotype(CommonStereotypes.Widget)
             .WithPart("LiquidPart", part => part
@@ -44,12 +45,12 @@ public class Migrations : DataMigration
             )
         );
 
-        _contentDefinitionManager.AlterTypeDefinition(MenuWidget, builder => builder
+        await _contentDefinitionManager.AlterTypeDefinitionAsync(MenuWidget, builder => builder
             .Securable()
             .Stereotype(CommonStereotypes.Widget)
         );
 
-        _contentDefinitionManager.AlterTypeDefinition(MarkdownWidget, builder => builder
+        await _contentDefinitionManager.AlterTypeDefinitionAsync(MarkdownWidget, builder => builder
             .Securable()
             .Stereotype(CommonStereotypes.Widget)
             .WithPart("MarkdownBodyPart", part => part
@@ -57,7 +58,7 @@ public class Migrations : DataMigration
             )
         );
 
-        var contentItemWidgetPartName = _contentDefinitionManager.AlterPartDefinition<ContentItemWidget>(builder => builder
+        var contentItemWidgetPartName = await _contentDefinitionManager.AlterPartDefinitionAsync<ContentItemWidget>(builder => builder
             .WithField(part => part.ContentToDisplay, field => field
                 .WithDisplayName("Content to display")
                 .WithSettings(new ContentPickerFieldSettings
@@ -69,7 +70,7 @@ public class Migrations : DataMigration
             .WithField(part => part.GroupId, field => field.WithDisplayName("Group ID"))
         );
 
-        _contentDefinitionManager.AlterTypeDefinition(WidgetTypes.ContentItemWidget, builder => builder
+        await _contentDefinitionManager.AlterTypeDefinitionAsync(WidgetTypes.ContentItemWidget, builder => builder
             .Securable()
             .Stereotype(CommonStereotypes.Widget)
             .WithPart(contentItemWidgetPartName)
@@ -78,9 +79,9 @@ public class Migrations : DataMigration
         return 5;
     }
 
-    public int UpdateFrom1()
+    public async Task<int> UpdateFrom1Async()
     {
-        _contentDefinitionManager.AlterTypeDefinition(ContainerWidget, builder => builder
+        await _contentDefinitionManager.AlterTypeDefinitionAsync(ContainerWidget, builder => builder
             .WithPart("TitlePart", part => part.WithPosition("0"))
             .WithPart("FlowPart", part => part.WithPosition("1"))
         );
@@ -88,9 +89,9 @@ public class Migrations : DataMigration
         return 2;
     }
 
-    public int UpdateFrom2()
+    public async Task<int> UpdateFrom2Async()
     {
-        _contentDefinitionManager.AlterTypeDefinition(MenuWidget, builder => builder
+        await _contentDefinitionManager.AlterTypeDefinitionAsync(MenuWidget, builder => builder
             .Securable()
             .Stereotype(CommonStereotypes.Widget)
         );
@@ -98,9 +99,9 @@ public class Migrations : DataMigration
         return 3;
     }
 
-    public int UpdateFrom3()
+    public async Task<int> UpdateFrom3Async()
     {
-        _contentDefinitionManager.AlterTypeDefinition(MarkdownWidget, builder => builder
+        await _contentDefinitionManager.AlterTypeDefinitionAsync(MarkdownWidget, builder => builder
             .Securable()
             .Stereotype(CommonStereotypes.Widget)
             .WithPart("MarkdownBodyPart", part => part
@@ -111,15 +112,15 @@ public class Migrations : DataMigration
         return 4;
     }
 
-    public int UpdateFrom4()
+    public async Task<int> UpdateFrom4Async()
     {
-        var contentItemWidgetPartName = _contentDefinitionManager.AlterPartDefinition<ContentItemWidget>(builder => builder
+        var contentItemWidgetPartName = await _contentDefinitionManager.AlterPartDefinitionAsync<ContentItemWidget>(builder => builder
             .WithField(part => part.ContentToDisplay, field => field.WithDisplayName("Content to display"))
             .WithField(part => part.DisplayType, field => field.WithDisplayName("Display type"))
             .WithField(part => part.GroupId, field => field.WithDisplayName("Group ID"))
         );
 
-        _contentDefinitionManager.AlterTypeDefinition(WidgetTypes.ContentItemWidget, builder => builder
+        await _contentDefinitionManager.AlterTypeDefinitionAsync(WidgetTypes.ContentItemWidget, builder => builder
             .Securable()
             .Stereotype(CommonStereotypes.Widget)
             .WithPart(contentItemWidgetPartName)

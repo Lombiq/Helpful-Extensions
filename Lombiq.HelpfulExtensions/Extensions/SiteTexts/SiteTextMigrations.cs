@@ -1,9 +1,10 @@
-﻿using OrchardCore.ContentLocalization.Models;
+using OrchardCore.ContentLocalization.Models;
 using OrchardCore.ContentManagement.Metadata;
 using OrchardCore.ContentManagement.Metadata.Builders;
 using OrchardCore.ContentManagement.Metadata.Settings;
 using OrchardCore.Data.Migration;
 using OrchardCore.Markdown.Models;
+using System.Threading.Tasks;
 using static Lombiq.HelpfulExtensions.Extensions.SiteTexts.Constants.ContentTypes;
 using static Lombiq.HelpfulLibraries.OrchardCore.Contents.ContentFieldEditorEnums;
 
@@ -16,9 +17,9 @@ public class SiteTextMigrations : DataMigration
     public SiteTextMigrations(IContentDefinitionManager contentDefinitionManager) =>
         _contentDefinitionManager = contentDefinitionManager;
 
-    public int Create()
+    public async Task<int> CreateAsync()
     {
-        _contentDefinitionManager.AlterTypeDefinition(SiteText, builder => builder
+        await _contentDefinitionManager.AlterTypeDefinitionAsync(SiteText, builder => builder
             .SetAbilities(
                 creatable: true,
                 securable: true,

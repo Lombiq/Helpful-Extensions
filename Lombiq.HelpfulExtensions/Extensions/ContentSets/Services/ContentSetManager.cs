@@ -1,4 +1,4 @@
-﻿using Lombiq.HelpfulExtensions.Extensions.ContentSets.Events;
+using Lombiq.HelpfulExtensions.Extensions.ContentSets.Events;
 using Lombiq.HelpfulExtensions.Extensions.ContentSets.Indexes;
 using Lombiq.HelpfulExtensions.Extensions.ContentSets.Models;
 using OrchardCore.ContentManagement;
@@ -58,8 +58,7 @@ public class ContentSetManager : IContentSetManager
             part.Key = newKey;
         });
 
-        var contentTypePartDefinition = _contentDefinitionManager
-            .GetTypeDefinition(content.ContentType)
+        var contentTypePartDefinition = (await _contentDefinitionManager.GetTypeDefinitionAsync(content.ContentType))
             .Parts
             .Single(definition => definition.Name == fromPartName);
 

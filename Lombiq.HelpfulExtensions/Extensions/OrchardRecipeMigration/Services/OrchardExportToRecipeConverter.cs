@@ -37,7 +37,9 @@ public class OrchardExportToRecipeConverter : IOrchardExportToRecipeConverter
         _userConverters = userConverters;
 
         _contentTypes = contentDefinitionManager
-            .ListTypeDefinitions()
+            .ListTypeDefinitionsAsync()
+            .GetAwaiter()
+            .GetResult()
             .Select(definition => definition.Name)
             .ToList();
     }
