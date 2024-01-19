@@ -1,4 +1,4 @@
-﻿using AngleSharp.Io;
+using AngleSharp.Io;
 using Lombiq.HelpfulExtensions.Extensions.OrchardRecipeMigration.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -55,7 +55,7 @@ public class OrchardRecipeMigrationAdminController : Controller
             json = await _converter.ConvertAsync(XDocument.Load(stream));
         }
 
-        Response.Headers.Add("Content-Disposition", "attachment;filename=export.recipe.json");
+        Response.Headers.Append("Content-Disposition", "attachment;filename=export.recipe.json");
         return Content(json, MimeTypeNames.ApplicationJson, Encoding.UTF8);
     }
 }

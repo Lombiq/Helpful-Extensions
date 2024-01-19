@@ -2,7 +2,6 @@ using Microsoft.Extensions.Logging;
 using OrchardCore.Users.Models;
 using OrchardCore.Users.Services;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 using static Lombiq.HelpfulLibraries.OrchardCore.Users.PasswordHelper;
@@ -30,7 +29,7 @@ public class UserOrchardContentConverter : IOrchardUserConverter
             return;
 
         var roles = element.Element("UserRolesPart").Attribute("Roles")?.Value;
-        var rolesList = string.IsNullOrEmpty(roles) ? new List<string>() : roles.Split(',').ToList();
+        var rolesList = string.IsNullOrEmpty(roles) ? new List<string>() : [.. roles.Split(',')];
 
         await _userService.CreateUserAsync(
             new User
