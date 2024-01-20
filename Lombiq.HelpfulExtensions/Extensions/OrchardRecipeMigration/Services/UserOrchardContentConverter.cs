@@ -8,19 +8,10 @@ using static Lombiq.HelpfulLibraries.OrchardCore.Users.PasswordHelper;
 
 namespace Lombiq.HelpfulExtensions.Extensions.OrchardRecipeMigration.Services;
 
-public class UserOrchardContentConverter : IOrchardUserConverter
+public class UserOrchardContentConverter(
+    IUserService userService,
+    ILogger<UserOrchardContentConverter> logger) : IOrchardUserConverter
 {
-    private readonly IUserService _userService;
-    private readonly ILogger<UserOrchardContentConverter> _logger;
-
-    public UserOrchardContentConverter(
-        IUserService userService,
-        ILogger<UserOrchardContentConverter> logger)
-    {
-        _userService = userService;
-        _logger = logger;
-    }
-
     public bool IgnoreDefaultConverter => false;
 
     public async Task ImportAsync(XElement element)
@@ -31,7 +22,7 @@ public class UserOrchardContentConverter : IOrchardUserConverter
         var roles = element.Element("UserRolesPart").Attribute("Roles")?.Value;
         var rolesList = string.IsNullOrEmpty(roles) ? new List<string>() : [.. roles.Split(',')];
 
-        await _userService.CreateUserAsync(
+        await userService.CreateUserAsync(
             new User
             {
                 UserName = userPart.Attribute("UserName")?.Value,
@@ -41,7 +32,7 @@ public class UserOrchardContentConverter : IOrchardUserConverter
                 RoleNames = rolesList,
             },
             GenerateRandomPassword(32),
-            (_, message) => _logger.LogError("User creation failed: \"{Message}\"", message));
+            (_, message) => logger.LogError("User creation failed: \"{Message}\"", message));
 
         return;
     }

@@ -1,4 +1,4 @@
-﻿using Lombiq.HelpfulExtensions.Extensions.ContentSets.Events;
+using Lombiq.HelpfulExtensions.Extensions.ContentSets.Events;
 using Lombiq.HelpfulExtensions.Extensions.ContentSets.Models;
 using Lombiq.HelpfulExtensions.Extensions.ContentSets.ViewModels;
 using Lombiq.HelpfulExtensions.Extensions.ContentSets.Workflows.Activities;
@@ -17,19 +17,10 @@ using System.Threading.Tasks;
 
 namespace Lombiq.HelpfulExtensions.Extensions.ContentSets.Workflows.Handlers;
 
-public class WorkflowContentSetEventHandler : IContentSetEventHandler
+public class WorkflowContentSetEventHandler(
+    IWorkflowManager workflowManager,
+    IWorkflowTypeStore workflowTypeStore) : IContentSetEventHandler
 {
-    private readonly IWorkflowManager _workflowManager;
-    private readonly IWorkflowTypeStore _workflowTypeStore;
-
-    public WorkflowContentSetEventHandler(
-        IWorkflowManager workflowManager,
-        IWorkflowTypeStore workflowTypeStore)
-    {
-        _workflowManager = workflowManager;
-        _workflowTypeStore = workflowTypeStore;
-    }
-
     public async Task<IEnumerable<ContentSetLinkViewModel>> GetSupportedOptionsAsync(
         ContentSetPart part,
         ContentTypePartDefinition definition)
@@ -38,8 +29,8 @@ public class WorkflowContentSetEventHandler : IContentSetEventHandler
 
         var values = new GetSupportedOptionsContext(definition, part).ToDictionary();
 
-        var workflowContexts = await _workflowManager
-            .TriggerEventAndGetContextsAsync<ContentSetGetSupportedOptionsEvent>(_workflowTypeStore, values);
+        var workflowContexts = await workflowManager
+            .TriggerEventAndGetContextsAsync<ContentSetGetSupportedOptionsEvent>(workflowTypeStore, values);
 
         foreach (var context in workflowContexts)
         {
@@ -75,7 +66,7 @@ public class WorkflowContentSetEventHandler : IContentSetEventHandler
         ContentTypePartDefinition definition,
         string contentSet,
         string newKey) =>
-        _workflowManager.TriggerEventAsync<ContentSetCreatingEvent>(
+        workflowManager.TriggerEventAsync<ContentSetCreatingEvent>(
             new CreatingContext(content, definition, contentSet, newKey),
             $"{nameof(WorkflowContentSetEventHandler)}.{nameof(CreatingAsync)}" +
             $"({content.ContentItemId}, {definition.Name}, {contentSet}, {newKey})");

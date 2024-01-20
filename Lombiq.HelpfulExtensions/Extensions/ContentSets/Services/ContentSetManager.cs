@@ -11,43 +11,30 @@ using YesSql;
 
 namespace Lombiq.HelpfulExtensions.Extensions.ContentSets.Services;
 
-public class ContentSetManager : IContentSetManager
+public class ContentSetManager(
+    IContentDefinitionManager contentDefinitionManager,
+    IContentManager contentManager,
+    IEnumerable<IContentSetEventHandler> contentSetEventHandlers,
+    ISession session) : IContentSetManager
 {
-    private readonly IContentDefinitionManager _contentDefinitionManager;
-    private readonly IContentManager _contentManager;
-    private readonly IEnumerable<IContentSetEventHandler> _contentSetEventHandlers;
-    private readonly ISession _session;
-
-    public ContentSetManager(
-        IContentDefinitionManager contentDefinitionManager,
-        IContentManager contentManager,
-        IEnumerable<IContentSetEventHandler> contentSetEventHandlers,
-        ISession session)
-    {
-        _contentDefinitionManager = contentDefinitionManager;
-        _contentManager = contentManager;
-        _contentSetEventHandlers = contentSetEventHandlers;
-        _session = session;
-    }
-
     public Task<IEnumerable<ContentSetIndex>> GetIndexAsync(string setId) =>
-        _session.QueryIndex<ContentSetIndex>(index => index.ContentSet == setId).ListAsync();
+        session.QueryIndex<ContentSetIndex>(index => index.ContentSet == setId).ListAsync();
 
     public async Task<IEnumerable<ContentItem>> GetContentItemsAsync(string setId) =>
-        await _contentManager.GetAsync((await GetIndexAsync(setId)).Select(index => index.ContentItemId));
+        await contentManager.GetAsync((await GetIndexAsync(setId)).Select(index => index.ContentItemId));
 
     public async Task<ContentItem> CloneContentItemAsync(string fromContentItemId, string fromPartName, string newKey)
     {
         if (string.IsNullOrEmpty(fromPartName)) fromPartName = nameof(ContentSetPart);
 
-        if (await _contentManager.GetAsync(fromContentItemId) is not { } original ||
+        if (await contentManager.GetAsync(fromContentItemId) is not { } original ||
             original.Get<ContentSetPart>(fromPartName)?.ContentSet is not { } contentSet ||
-            await _contentManager.CloneAsync(original) is not { } content)
+            await contentManager.CloneAsync(original) is not { } content)
         {
             return null;
         }
 
-        var exists = await _session
+        var exists = await session
             .QueryIndex<ContentSetIndex>(index => index.ContentSet == contentSet && index.Key == newKey)
             .FirstOrDefaultAsync() is not null;
         if (exists) throw new InvalidOperationException($"The key \"{newKey}\" already exists for the content set \"{contentSet}\".");
@@ -58,16 +45,16 @@ public class ContentSetManager : IContentSetManager
             part.Key = newKey;
         });
 
-        var contentTypePartDefinition = (await _contentDefinitionManager.GetTypeDefinitionAsync(content.ContentType))
+        var contentTypePartDefinition = (await contentDefinitionManager.GetTypeDefinitionAsync(content.ContentType))
             .Parts
             .Single(definition => definition.Name == fromPartName);
 
-        foreach (var handler in _contentSetEventHandlers)
+        foreach (var handler in contentSetEventHandlers)
         {
             await handler.CreatingAsync(content, contentTypePartDefinition, contentSet, newKey);
         }
 
-        await _contentManager.PublishAsync(content);
+        await contentManager.PublishAsync(content);
         return content;
     }
 }

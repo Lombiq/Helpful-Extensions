@@ -16,21 +16,11 @@ namespace Lombiq.HelpfulExtensions.Extensions.OrchardRecipeMigration.Controllers
 
 [Admin]
 [Feature(FeatureIds.OrchardRecipeMigration)]
-public class OrchardRecipeMigrationAdminController : Controller
+public class OrchardRecipeMigrationAdminController(
+    INotifier notifier,
+    IOrchardExportToRecipeConverter converter,
+    IHtmlLocalizer<OrchardRecipeMigrationAdminController> localizer) : Controller
 {
-    private readonly INotifier _notifier;
-    private readonly IOrchardExportToRecipeConverter _converter;
-    private readonly IHtmlLocalizer<OrchardRecipeMigrationAdminController> H;
-    public OrchardRecipeMigrationAdminController(
-        INotifier notifier,
-        IOrchardExportToRecipeConverter converter,
-        IHtmlLocalizer<OrchardRecipeMigrationAdminController> localizer)
-    {
-        _notifier = notifier;
-        _converter = converter;
-        H = localizer;
-    }
-
     public IActionResult Index() => View();
 
     [HttpPost]
@@ -46,13 +36,13 @@ public class OrchardRecipeMigrationAdminController : Controller
         }
         catch (Exception)
         {
-            await _notifier.ErrorAsync(H["Please add a file to import."]);
+            await notifier.ErrorAsync(localizer["Please add a file to import."]);
             return Redirect(nameof(Index));
         }
 
         await using (stream)
         {
-            json = await _converter.ConvertAsync(XDocument.Load(stream));
+            json = await converter.ConvertAsync(XDocument.Load(stream));
         }
 
         Response.Headers.Append("Content-Disposition", "attachment;filename=export.recipe.json");

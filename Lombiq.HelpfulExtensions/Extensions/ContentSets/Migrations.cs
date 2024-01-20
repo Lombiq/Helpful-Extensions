@@ -9,16 +9,11 @@ using YesSql.Sql;
 
 namespace Lombiq.HelpfulExtensions.Extensions.ContentSets;
 
-public class Migrations : DataMigration
+public class Migrations(IContentDefinitionManager contentDefinitionManager) : DataMigration
 {
-    private readonly IContentDefinitionManager _contentDefinitionManager;
-
-    public Migrations(IContentDefinitionManager contentDefinitionManager) =>
-        _contentDefinitionManager = contentDefinitionManager;
-
     public async Task<int> CreateAsync()
     {
-        await _contentDefinitionManager.AlterPartDefinitionAsync(nameof(ContentSetPart), builder => builder
+        await contentDefinitionManager.AlterPartDefinitionAsync(nameof(ContentSetPart), builder => builder
             .Attachable()
             .Reusable()
             .WithDisplayName("Content Set"));

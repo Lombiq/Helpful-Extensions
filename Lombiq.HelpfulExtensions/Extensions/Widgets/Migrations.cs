@@ -9,12 +9,9 @@ using static Lombiq.HelpfulExtensions.Extensions.Widgets.WidgetTypes;
 
 namespace Lombiq.HelpfulExtensions.Extensions.Widgets;
 
-public class Migrations : DataMigration
+public class Migrations(IContentDefinitionManager contentDefinitionManager) : DataMigration
 {
-    private readonly IContentDefinitionManager _contentDefinitionManager;
-
-    public Migrations(IContentDefinitionManager contentDefinitionManager) =>
-        _contentDefinitionManager = contentDefinitionManager;
+    private readonly IContentDefinitionManager _contentDefinitionManager = contentDefinitionManager;
 
     public async Task<int> CreateAsync()
     {

@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Html;
+using Microsoft.AspNetCore.Html;
 using OrchardCore.ContentLocalization;
 using OrchardCore.ContentLocalization.Models;
 using OrchardCore.ContentManagement;
@@ -9,16 +9,12 @@ using System.Threading.Tasks;
 
 namespace Lombiq.HelpfulExtensions.Extensions.SiteTexts.Services;
 
-public class ContentLocalizationSiteTextService : SiteTextServiceBase
+public class ContentLocalizationSiteTextService(
+    IContentManager contentManager,
+    IContentLocalizationManager contentLocalizationManager,
+    IMarkdownService markdownService) : SiteTextServiceBase(contentManager, markdownService)
 {
-    private readonly IContentLocalizationManager _contentLocalizationManager;
-
-    public ContentLocalizationSiteTextService(
-        IContentManager contentManager,
-        IContentLocalizationManager contentLocalizationManager,
-        IMarkdownService markdownService)
-        : base(contentManager, markdownService) =>
-        _contentLocalizationManager = contentLocalizationManager;
+    private readonly IContentLocalizationManager _contentLocalizationManager = contentLocalizationManager;
 
     public override async Task<HtmlString> RenderHtmlByIdAsync(string contentItemId)
     {

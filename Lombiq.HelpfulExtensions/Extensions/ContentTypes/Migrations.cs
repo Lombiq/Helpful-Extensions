@@ -7,16 +7,11 @@ using static Lombiq.HelpfulExtensions.Extensions.ContentTypes.ContentTypes;
 
 namespace Lombiq.HelpfulExtensions.Extensions.ContentTypes;
 
-public class Migrations : DataMigration
+public class Migrations(IContentDefinitionManager contentDefinitionManager) : DataMigration
 {
-    private readonly IContentDefinitionManager _contentDefinitionManager;
-
-    public Migrations(IContentDefinitionManager contentDefinitionManager) =>
-        _contentDefinitionManager = contentDefinitionManager;
-
     public async Task<int> CreateAsync()
     {
-        await _contentDefinitionManager.AlterTypeDefinitionAsync(Page, builder => builder
+        await contentDefinitionManager.AlterTypeDefinitionAsync(Page, builder => builder
             .Creatable()
             .Securable()
             .Draftable()
@@ -34,7 +29,7 @@ public class Migrations : DataMigration
             .WithPart("FlowPart", part => part.WithPosition("2"))
         );
 
-        await _contentDefinitionManager.AlterTypeDefinitionAsync(Empty, builder => builder
+        await contentDefinitionManager.AlterTypeDefinitionAsync(Empty, builder => builder
             .WithDescription("A base content type for ad-hoc welding parts or fields on.")
         );
 
@@ -43,7 +38,7 @@ public class Migrations : DataMigration
 
     public async Task<int> UpdateFrom1Async()
     {
-        await _contentDefinitionManager.AlterTypeDefinitionAsync(Page, builder => builder
+        await contentDefinitionManager.AlterTypeDefinitionAsync(Page, builder => builder
             .WithPart("TitlePart", part => part.WithPosition("0"))
             .WithPart("AutoroutePart", part => part.WithPosition("1"))
             .WithPart("FlowPart", part => part.WithPosition("2"))
@@ -54,7 +49,7 @@ public class Migrations : DataMigration
 
     public async Task<int> UpdateFrom2Async()
     {
-        await _contentDefinitionManager.AlterTypeDefinitionAsync(Empty, builder => builder
+        await contentDefinitionManager.AlterTypeDefinitionAsync(Empty, builder => builder
             .WithDescription("A base content type for ad-hoc welding parts or fields on.")
         );
 
