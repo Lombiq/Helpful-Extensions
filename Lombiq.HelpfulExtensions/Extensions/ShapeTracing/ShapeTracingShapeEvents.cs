@@ -7,15 +7,11 @@ using System.Threading.Tasks;
 
 namespace Lombiq.HelpfulExtensions.Extensions.ShapeTracing;
 
-internal sealed class ShapeTracingShapeEvents : IShapeDisplayEvents
+internal sealed class ShapeTracingShapeEvents(IHttpContextAccessor hca) : IShapeDisplayEvents
 {
-    private readonly IHttpContextAccessor _hca;
-
-    public ShapeTracingShapeEvents(IHttpContextAccessor hca) => _hca = hca;
-
     public Task DisplayedAsync(ShapeDisplayContext context)
     {
-        if (!_hca.HttpContext.IsDevelopment()) return Task.CompletedTask;
+        if (!hca.HttpContext.IsDevelopment()) return Task.CompletedTask;
 
         // We could also use _orchardHelper.ConsoleLog(context.Shape) here but that causes an OutOfMemoryException.
 
@@ -37,7 +33,7 @@ internal sealed class ShapeTracingShapeEvents : IShapeDisplayEvents
             }
         }
 
-        if (shapeMetadata.Alternates.Any())
+        if (shapeMetadata.Alternates.Count != 0)
         {
             builder.AppendHtml("Alternates: ");
             builder.AppendHtmlLine(string.Join(", ", shapeMetadata.Alternates));
@@ -49,7 +45,7 @@ internal sealed class ShapeTracingShapeEvents : IShapeDisplayEvents
             builder.AppendHtmlLine(string.Join(", ", shapeMetadata.BindingSources));
         }
 
-        if (shapeMetadata.Wrappers.Any())
+        if (shapeMetadata.Wrappers.Count != 0)
         {
             builder.AppendHtml("Wrappers: ");
             builder.AppendHtmlLine(string.Join(", ", shapeMetadata.Wrappers));

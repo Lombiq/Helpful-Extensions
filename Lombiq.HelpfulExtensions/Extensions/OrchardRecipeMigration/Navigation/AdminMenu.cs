@@ -8,16 +8,9 @@ using System.Threading.Tasks;
 
 namespace Lombiq.HelpfulExtensions.Extensions.OrchardRecipeMigration.Navigation;
 
-public class AdminMenu : INavigationProvider
+public class AdminMenu(IHttpContextAccessor hca, IStringLocalizer<AdminMenu> stringLocalizer) : INavigationProvider
 {
-    private readonly IHttpContextAccessor _hca;
-    private readonly IStringLocalizer T;
-
-    public AdminMenu(IHttpContextAccessor hca, IStringLocalizer<AdminMenu> stringLocalizer)
-    {
-        _hca = hca;
-        T = stringLocalizer;
-    }
+    private readonly IStringLocalizer T = stringLocalizer;
 
     public Task BuildNavigationAsync(string name, NavigationBuilder builder)
     {
@@ -26,7 +19,7 @@ public class AdminMenu : INavigationProvider
         builder.Add(T["Configuration"], configuration => configuration
             .Add(T["Import/Export"], importExport => importExport
                 .Add(T["Orchard 1 Recipe Migration"], T["Orchard 1 Recipe Migration"], migration => migration
-                    .Action<OrchardRecipeMigrationAdminController>(_hca.HttpContext, controller => controller.Index())
+                    .Action<OrchardRecipeMigrationAdminController>(hca.HttpContext, controller => controller.Index())
                     .LocalNav()
                 )));
 

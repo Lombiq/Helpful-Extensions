@@ -1,4 +1,4 @@
-﻿using Lombiq.HelpfulExtensions.Extensions.ContentSets.Models;
+using Lombiq.HelpfulExtensions.Extensions.ContentSets.Models;
 using Lombiq.HelpfulExtensions.Extensions.ContentSets.ViewModels;
 using Lombiq.HelpfulExtensions.Extensions.ContentSets.Workflows.Activities;
 using Lombiq.HelpfulExtensions.Extensions.ContentSets.Workflows.Models;
@@ -12,15 +12,16 @@ using System.Collections.Generic;
 
 namespace Lombiq.HelpfulExtensions.Extensions.ContentSets.Workflows.Drivers;
 
-public class ContentSetGetSupportedOptionsEventDisplayDriver :
-    DocumentedEventActivityDisplayDriverBase<ContentSetGetSupportedOptionsEvent>
+public class ContentSetGetSupportedOptionsEventDisplayDriver(
+    INotifier notifier,
+    IStringLocalizer<DocumentedEventActivityDisplayDriver> baseLocalizer,
+    IHtmlLocalizer<ContentSetGetSupportedOptionsEventDisplayDriver> htmlLocalizer) :
+    DocumentedEventActivityDisplayDriverBase<ContentSetGetSupportedOptionsEvent>(notifier, baseLocalizer)
 {
-    private readonly IHtmlLocalizer<ContentSetGetSupportedOptionsEventDisplayDriver> H;
-
     public override string IconClass => "fa-circle-half-stroke";
 
     public override LocalizedHtmlString Description =>
-        H["Tries to get a list of links representing the supported options for this content set."];
+        htmlLocalizer["Tries to get a list of links representing the supported options for this content set."];
 
     public override IDictionary<string, string> AvailableInputs { get; } = new Dictionary<string, string>
     {
@@ -34,11 +35,4 @@ public class ContentSetGetSupportedOptionsEventDisplayDriver :
         [ContentSetGetSupportedOptionsEvent.OutputName] =
             $"{{ \"{nameof(ContentSetLinkViewModel.Key)}\": string, \"{nameof(ContentSetLinkViewModel.DisplayText)}\": string }}[]",
     };
-
-    public ContentSetGetSupportedOptionsEventDisplayDriver(
-        INotifier notifier,
-        IStringLocalizer<DocumentedEventActivityDisplayDriver> baseLocalizer,
-        IHtmlLocalizer<ContentSetGetSupportedOptionsEventDisplayDriver> htmlLocalizer)
-        : base(notifier, baseLocalizer) =>
-        H = htmlLocalizer;
 }
