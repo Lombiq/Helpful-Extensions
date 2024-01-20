@@ -24,7 +24,7 @@ public class MenuWidgetLiquidFilter(
     IUrlHelperFactory urlHelperFactory) : ILiquidFilter
 {
     private readonly ILiquidContentDisplayService _liquidContentDisplayService = liquidContentDisplayService;
-    private readonly Lazy<IUrlHelper> _urlHelperLazy = new Lazy<IUrlHelper>(() =>
+    private readonly Lazy<IUrlHelper> _urlHelperLazy = new(() =>
             urlHelperFactory.GetUrlHelper(actionContextAccessor.ActionContext!));
     private readonly IStringLocalizer<MenuWidgetLiquidFilter> T = stringLocalizer;
 
