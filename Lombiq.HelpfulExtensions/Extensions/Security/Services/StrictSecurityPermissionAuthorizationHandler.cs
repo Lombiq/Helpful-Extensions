@@ -14,7 +14,8 @@ using System.Threading.Tasks;
 namespace Lombiq.HelpfulExtensions.Extensions.Security.Services;
 
 [RequireFeatures(FeatureIds.Security)]
-public class StrictSecurityPermissionAuthorizationHandler(IContentDefinitionManager contentDefinitionManager) : AuthorizationHandler<PermissionRequirement>
+public class StrictSecurityPermissionAuthorizationHandler(IContentDefinitionManager contentDefinitionManager)
+    : AuthorizationHandler<PermissionRequirement>
 {
     private static readonly Dictionary<string, IList<string>> _permissionTemplates = ContentTypePermissionsHelper
         .PermissionTemplates
