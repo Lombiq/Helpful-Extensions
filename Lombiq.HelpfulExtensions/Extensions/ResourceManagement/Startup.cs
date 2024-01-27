@@ -9,5 +9,5 @@ namespace Lombiq.HelpfulExtensions.Extensions.ResourceManagement;
 public class Startup : StartupBase
 {
     public override void ConfigureServices(IServiceCollection services) =>
-        services.Decorate<IResourceManager, DecoratedResourceManager>();
+        services.Decorate<IResourceManager, ResourceManagerDecorator>();
 }

@@ -12,7 +12,7 @@ using System.IO;
 using System.Linq;
 
 namespace Lombiq.HelpfulLibraries.OrchardCore.ResourceManagement;
-public class DecoratedResourceManager(
+public class ResourceManagerDecorator(
     IResourceManager resourceManager,
     IThemeManager themeManager,
     IOptions<ResourceManagementOptions> resourceManagementOptions) : IResourceManager
