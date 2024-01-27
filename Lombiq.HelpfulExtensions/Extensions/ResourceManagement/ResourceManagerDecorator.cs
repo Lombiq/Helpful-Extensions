@@ -56,7 +56,43 @@ public class ResourceManagerDecorator(
 
     public RequireSettings RegisterUrl(string resourceType, string resourcePath, string resourceDebugPath) =>
         resourceManager.RegisterUrl(resourceType, resourcePath, resourceDebugPath);
-    public void RenderFootScript(TextWriter writer) => resourceManager.RenderFootScript(writer);
+    public void RenderFootScript(TextWriter writer)
+    {
+        var footScripts = GetRequiredResources("script")
+            .OrderBy(script => !script.Resource.Name.EqualsOrdinalIgnoreCase("jquery"));
+
+        var first = true;
+        foreach (var context in footScripts)
+        {
+            if (context.Settings.Location != ResourceLocation.Foot)
+            {
+                continue;
+            }
+
+            if (!first)
+            {
+                writer.Write(Environment.NewLine);
+            }
+
+            first = false;
+
+            context.WriteTo(writer, _options.ContentBasePath);
+        }
+
+        var registeredFootScripts = GetRegisteredFootScripts().ToArray();
+        for (var i = 0; i < registeredFootScripts.Length; i++)
+        {
+            var context = registeredFootScripts[i];
+            if (!first)
+            {
+                writer.Write(Environment.NewLine);
+            }
+
+            first = false;
+
+            context.WriteTo(writer, NullHtmlEncoder.Default);
+        }
+    }
 
     public void RenderHeadLink(TextWriter writer) => resourceManager.RenderHeadLink(writer);
 
