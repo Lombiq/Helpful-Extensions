@@ -56,19 +56,23 @@ public class ResourceManagerDecorator(
 
     public RequireSettings RegisterUrl(string resourceType, string resourcePath, string resourceDebugPath) =>
         resourceManager.RegisterUrl(resourceType, resourcePath, resourceDebugPath);
+
     public void RenderFootScript(TextWriter writer)
     {
+        static bool CheckResourceNameIsJquery(ResourceRequiredContext context) => context.Resource.Name.EqualsOrdinalIgnoreCase("jquery");
+
         var footScripts = GetRequiredResources("script")
-            .OrderBy(script => !script.Resource.Name.EqualsOrdinalIgnoreCase("jquery"));
+            .Where(footScript => footScript.Settings.Location == ResourceLocation.Foot)
+            .ToList();
+
+        if (footScripts.Exists(CheckResourceNameIsJquery))
+        {
+            footScripts = [.. footScripts.OrderBy(script => !CheckResourceNameIsJquery(script))];
+        }
 
         var first = true;
         foreach (var context in footScripts)
         {
-            if (context.Settings.Location != ResourceLocation.Foot)
-            {
-                continue;
-            }
-
             if (!first)
             {
                 writer.Write(Environment.NewLine);
@@ -108,8 +112,8 @@ public class ResourceManagerDecorator(
     {
         var first = true;
 
-        var styleSheets = GetRequiredResources("stylesheet").ToList();
         var displayedTheme = themeManager.GetThemeAsync().GetAwaiter().GetResult();
+        var styleSheets = GetRequiredResources("stylesheet").ToList();
 
         foreach (var context in styleSheets)
         {
