@@ -12,6 +12,15 @@ using System.IO;
 using System.Linq;
 
 namespace Lombiq.HelpfulLibraries.OrchardCore.ResourceManagement;
+
+/// <summary>
+/// This decorator is replacing the old ReplaceBootstrapMiddleware with the same purpose.
+/// Removes the built-in Bootstrap resource if the currently selected theme uses Lombiq.BaseTheme as its base theme.
+/// Themes derived from Lombiq.BaseTheme use Bootstrap from NPM as it's compiled into their site stylesheet. So this
+/// duplicate resource is not needed and can cause problems if not removed. This situation can arise when a module
+/// (such as Lombiq.DataTables) depends on Bootstrap and doesn't explicitly depend on Lombiq.BaseTheme so the built-in
+/// resource would be injected if this middleware didn't remove it.
+/// </summary>
 public class ResourceManagerDecorator(
     IResourceManager resourceManager,
     IThemeManager themeManager,
@@ -57,46 +66,7 @@ public class ResourceManagerDecorator(
     public RequireSettings RegisterUrl(string resourceType, string resourcePath, string resourceDebugPath) =>
         resourceManager.RegisterUrl(resourceType, resourcePath, resourceDebugPath);
 
-    public void RenderFootScript(TextWriter writer)
-    {
-        static bool CheckResourceNameIsJquery(ResourceRequiredContext context) => context.Resource.Name.EqualsOrdinalIgnoreCase("jquery");
-
-        var footScripts = GetRequiredResources("script")
-            .Where(footScript => footScript.Settings.Location == ResourceLocation.Foot)
-            .ToList();
-
-        if (footScripts.Exists(CheckResourceNameIsJquery))
-        {
-            footScripts = [.. footScripts.OrderBy(script => !CheckResourceNameIsJquery(script))];
-        }
-
-        var first = true;
-        foreach (var context in footScripts)
-        {
-            if (!first)
-            {
-                writer.Write(Environment.NewLine);
-            }
-
-            first = false;
-
-            context.WriteTo(writer, _options.ContentBasePath);
-        }
-
-        var registeredFootScripts = GetRegisteredFootScripts().ToArray();
-        for (var i = 0; i < registeredFootScripts.Length; i++)
-        {
-            var context = registeredFootScripts[i];
-            if (!first)
-            {
-                writer.Write(Environment.NewLine);
-            }
-
-            first = false;
-
-            context.WriteTo(writer, NullHtmlEncoder.Default);
-        }
-    }
+    public void RenderFootScript(TextWriter writer) => resourceManager.RenderFootScript(writer);
 
     public void RenderHeadLink(TextWriter writer) => resourceManager.RenderHeadLink(writer);
 
