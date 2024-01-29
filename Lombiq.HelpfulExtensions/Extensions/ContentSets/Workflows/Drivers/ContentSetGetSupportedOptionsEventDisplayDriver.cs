@@ -18,10 +18,12 @@ public class ContentSetGetSupportedOptionsEventDisplayDriver(
     IHtmlLocalizer<ContentSetGetSupportedOptionsEventDisplayDriver> htmlLocalizer) :
     DocumentedEventActivityDisplayDriverBase<ContentSetGetSupportedOptionsEvent>(notifier, baseLocalizer)
 {
+    private readonly IHtmlLocalizer H = htmlLocalizer;
+
     public override string IconClass => "fa-circle-half-stroke";
 
     public override LocalizedHtmlString Description =>
-        htmlLocalizer["Tries to get a list of links representing the supported options for this content set."];
+        H["Tries to get a list of links representing the supported options for this content set."];
 
     public override IDictionary<string, string> AvailableInputs { get; } = new Dictionary<string, string>
     {
