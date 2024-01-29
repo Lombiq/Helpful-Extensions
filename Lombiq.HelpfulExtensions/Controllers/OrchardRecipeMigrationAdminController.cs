@@ -21,6 +21,8 @@ public class OrchardRecipeMigrationAdminController(
     IOrchardExportToRecipeConverter converter,
     IHtmlLocalizer<OrchardRecipeMigrationAdminController> localizer) : Controller
 {
+    private readonly IHtmlLocalizer H = localizer;
+
     public IActionResult Index() => View();
 
     [HttpPost]
@@ -36,7 +38,7 @@ public class OrchardRecipeMigrationAdminController(
         }
         catch (Exception)
         {
-            await notifier.ErrorAsync(localizer["Please add a file to import."]);
+            await notifier.ErrorAsync(H["Please add a file to import."]);
             return Redirect(nameof(Index));
         }
 
