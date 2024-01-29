@@ -23,7 +23,6 @@ public class MenuWidgetLiquidFilter(
     IStringLocalizer<MenuWidgetLiquidFilter> stringLocalizer,
     IUrlHelperFactory urlHelperFactory) : ILiquidFilter
 {
-    private readonly ILiquidContentDisplayService _liquidContentDisplayService = liquidContentDisplayService;
     private readonly Lazy<IUrlHelper> _urlHelperLazy = new(() =>
             urlHelperFactory.GetUrlHelper(actionContextAccessor.ActionContext!));
     private readonly IStringLocalizer<MenuWidgetLiquidFilter> T = stringLocalizer;
@@ -60,7 +59,7 @@ public class MenuWidgetLiquidFilter(
 
         UpdateMenuItems(menuItems, localNav);
 
-        return _liquidContentDisplayService.DisplayNewAsync<MenuWidgetViewModel>(
+        return liquidContentDisplayService.DisplayNewAsync<MenuWidgetViewModel>(
             WidgetTypes.MenuWidget,
             model =>
             {
