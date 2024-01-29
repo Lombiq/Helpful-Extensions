@@ -12,11 +12,9 @@ namespace Lombiq.HelpfulExtensions.Extensions.SiteTexts;
 
 public class SiteTextMigrations(IContentDefinitionManager contentDefinitionManager) : DataMigration
 {
-    private readonly IContentDefinitionManager _contentDefinitionManager = contentDefinitionManager;
-
     public async Task<int> CreateAsync()
     {
-        await _contentDefinitionManager.AlterTypeDefinitionAsync(SiteText, builder => builder
+        await contentDefinitionManager.AlterTypeDefinitionAsync(SiteText, builder => builder
             .SetAbilities(
                 creatable: true,
                 securable: true,
