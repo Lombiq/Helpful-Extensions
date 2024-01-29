@@ -20,6 +20,8 @@ public class ContentSetContentPickerFieldDisplayDriver(
     IEnumerable<IContentSetEventHandler> contentSetEventHandlers,
     IStringLocalizer<ContentSetPart> stringLocalizer) : ContentFieldDisplayDriver<ContentSetContentPickerField>
 {
+    private readonly IStringLocalizer T = stringLocalizer;
+
     public override IDisplayResult Display(
         ContentSetContentPickerField field,
         BuildFieldDisplayContext fieldDisplayContext)
@@ -33,7 +35,7 @@ public class ContentSetContentPickerFieldDisplayDriver(
                 await model.InitializeAsync(
                     contentSetManager,
                     contentSetEventHandlers,
-                    stringLocalizer,
+                    T,
                     part,
                     new ContentTypePartDefinition(
                         name,
