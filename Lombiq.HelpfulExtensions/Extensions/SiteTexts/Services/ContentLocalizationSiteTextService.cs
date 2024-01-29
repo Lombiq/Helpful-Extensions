@@ -14,8 +14,6 @@ public class ContentLocalizationSiteTextService(
     IContentLocalizationManager contentLocalizationManager,
     IMarkdownService markdownService) : SiteTextServiceBase(contentManager, markdownService)
 {
-    private readonly IContentLocalizationManager _contentLocalizationManager = contentLocalizationManager;
-
     public override async Task<HtmlString> RenderHtmlByIdAsync(string contentItemId)
     {
         var part = await GetSiteTextMarkdownBodyPartByIdAsync(contentItemId);
@@ -23,7 +21,7 @@ public class ContentLocalizationSiteTextService(
 
         if (part.As<LocalizationPart>() is { Culture: { } partCulture, LocalizationSet: { } localizationSet } &&
             partCulture != culture &&
-            await _contentLocalizationManager.GetContentItemAsync(localizationSet, culture) is { } contentItem &&
+            await contentLocalizationManager.GetContentItemAsync(localizationSet, culture) is { } contentItem &&
             contentItem.As<MarkdownBodyPart>() is { } localizedPart)
         {
             part = localizedPart;
