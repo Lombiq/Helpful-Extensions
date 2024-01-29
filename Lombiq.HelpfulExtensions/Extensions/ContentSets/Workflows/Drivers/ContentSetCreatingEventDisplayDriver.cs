@@ -16,8 +16,9 @@ public class ContentSetCreatingEventDisplayDriver(
     IHtmlLocalizer<ContentSetCreatingEventDisplayDriver> htmlLocalizer)
     : DocumentedEventActivityDisplayDriverBase<ContentSetCreatingEvent>(notifier, baseLocalizer)
 {
+    private readonly IHtmlLocalizer H = htmlLocalizer;
     public override string IconClass => "fa-circle-half-stroke";
-    public override LocalizedHtmlString Description => htmlLocalizer["Executes when a new content item is created in the content set."];
+    public override LocalizedHtmlString Description => H["Executes when a new content item is created in the content set."];
     public override IDictionary<string, string> AvailableInputs { get; } = new Dictionary<string, string>
     {
         [nameof(CreatingContext.ContentItem)] = nameof(ContentItem),
