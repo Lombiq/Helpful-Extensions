@@ -22,13 +22,15 @@ public class ContentSetPartDisplayDriver(
 {
     private const string ShapeType = $"{nameof(ContentSetPart)}_{CommonContentDisplayTypes.SummaryAdmin}";
 
+    private readonly IStringLocalizer T = stringLocalizer;
+
     public override IDisplayResult Display(ContentSetPart part, BuildPartDisplayContext context)
     {
         ValueTask InitializeAsync(ContentSetPartViewModel model) =>
             model.InitializeAsync(
                 contentSetManager,
                 contentSetEventHandlers,
-                stringLocalizer,
+                T,
                 part,
                 context.TypePartDefinition,
                 isNew: false);
@@ -45,7 +47,7 @@ public class ContentSetPartDisplayDriver(
         Initialize<ContentSetPartViewModel>($"{nameof(ContentSetPart)}_Edit", model => model.InitializeAsync(
                 contentSetManager,
                 contentSetEventHandlers,
-                stringLocalizer,
+                T,
                 part,
                 context.TypePartDefinition,
                 context.IsNew))
