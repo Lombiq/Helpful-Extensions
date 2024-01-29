@@ -23,9 +23,11 @@ public class GenerateResetPasswordTokenTask(
     UserManager<IUser> userManager,
     IWorkflowScriptEvaluator workflowScriptEvaluator) : TaskActivity
 {
+    private readonly IStringLocalizer T = localizer;
+
     public override string Name => nameof(GenerateResetPasswordTokenTask);
-    public override LocalizedString DisplayText => localizer["Generate reset password token"];
-    public override LocalizedString Category => localizer["User"];
+    public override LocalizedString DisplayText => T["Generate reset password token"];
+    public override LocalizedString Category => T["User"];
 
     public WorkflowExpression<User> User
     {
@@ -48,7 +50,7 @@ public class GenerateResetPasswordTokenTask(
     public override IEnumerable<Outcome> GetPossibleOutcomes(
         WorkflowExecutionContext workflowContext,
         ActivityContext activityContext) =>
-        Outcomes(localizer["Done"], localizer["Error"]);
+        Outcomes(T["Done"], T["Error"]);
 
     public override async Task<ActivityExecutionResult> ExecuteAsync(
         WorkflowExecutionContext workflowContext,
