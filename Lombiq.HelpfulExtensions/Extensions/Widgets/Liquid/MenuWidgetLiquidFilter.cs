@@ -1,4 +1,4 @@
-using Fluid;
+﻿using Fluid;
 using Fluid.Values;
 using Lombiq.HelpfulExtensions.Extensions.Widgets.ViewModels;
 using Lombiq.HelpfulLibraries.OrchardCore.Liquid;
@@ -17,15 +17,25 @@ using System.Threading.Tasks;
 
 namespace Lombiq.HelpfulExtensions.Extensions.Widgets.Liquid;
 
-public class MenuWidgetLiquidFilter(
-    IActionContextAccessor actionContextAccessor,
-    ILiquidContentDisplayService liquidContentDisplayService,
-    IStringLocalizer<MenuWidgetLiquidFilter> stringLocalizer,
-    IUrlHelperFactory urlHelperFactory) : ILiquidFilter
+public class MenuWidgetLiquidFilter : ILiquidFilter
 {
-    private readonly Lazy<IUrlHelper> _urlHelperLazy = new(() =>
+    private readonly ILiquidContentDisplayService _liquidContentDisplayService;
+    private readonly Lazy<IUrlHelper> _urlHelperLazy;
+    private readonly IStringLocalizer<MenuWidgetLiquidFilter> T;
+
+    public MenuWidgetLiquidFilter(
+        IActionContextAccessor actionContextAccessor,
+        ILiquidContentDisplayService liquidContentDisplayService,
+        IStringLocalizer<MenuWidgetLiquidFilter> stringLocalizer,
+        IUrlHelperFactory urlHelperFactory)
+    {
+        _liquidContentDisplayService = liquidContentDisplayService;
+
+        _urlHelperLazy = new Lazy<IUrlHelper>(() =>
             urlHelperFactory.GetUrlHelper(actionContextAccessor.ActionContext!));
-    private readonly IStringLocalizer<MenuWidgetLiquidFilter> T = stringLocalizer;
+
+        T = stringLocalizer;
+    }
 
     public ValueTask<FluidValue> ProcessAsync(FluidValue input, FilterArguments arguments, LiquidTemplateContext context)
     {
@@ -59,7 +69,7 @@ public class MenuWidgetLiquidFilter(
 
         UpdateMenuItems(menuItems, localNav);
 
-        return liquidContentDisplayService.DisplayNewAsync<MenuWidgetViewModel>(
+        return _liquidContentDisplayService.DisplayNewAsync<MenuWidgetViewModel>(
             WidgetTypes.MenuWidget,
             model =>
             {
@@ -88,9 +98,12 @@ public class MenuWidgetLiquidFilter(
         }
     }
 
-    public class LocalizedStringJsonConverter(IStringLocalizer stringLocalizer) : JsonConverter<LocalizedString>
+    public class LocalizedStringJsonConverter : JsonConverter<LocalizedString>
     {
-        private readonly IStringLocalizer T = stringLocalizer;
+        private readonly IStringLocalizer T;
+
+        public LocalizedStringJsonConverter(IStringLocalizer stringLocalizer) =>
+            T = stringLocalizer;
 
         public override void WriteJson(JsonWriter writer, LocalizedString value, JsonSerializer serializer) =>
             writer.WriteValue(value?.Value);

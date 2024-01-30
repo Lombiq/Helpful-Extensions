@@ -1,4 +1,4 @@
-using Lombiq.HelpfulExtensions.Extensions.Widgets.Models;
+﻿using Lombiq.HelpfulExtensions.Extensions.Widgets.Models;
 using Lombiq.HelpfulExtensions.Extensions.Widgets.ViewModels;
 using Microsoft.AspNetCore.Html;
 using Microsoft.AspNetCore.Mvc.Localization;
@@ -11,12 +11,17 @@ using System.Threading.Tasks;
 
 namespace Lombiq.HelpfulExtensions.Extensions.Widgets.Drivers;
 
-public class MvcConditionDisplayDriver(
-    IHtmlLocalizer<MvcConditionDisplayDriver> htmlLocalizer,
-    IStringLocalizer<MvcConditionDisplayDriver> stringLocalizer) : ConditionDisplayDriver<MvcCondition>
+public class MvcConditionDisplayDriver : ConditionDisplayDriver<MvcCondition>
 {
-    private readonly IHtmlLocalizer<MvcConditionDisplayDriver> H = htmlLocalizer;
-    private readonly IStringLocalizer<MvcConditionDisplayDriver> T = stringLocalizer;
+    private readonly IHtmlLocalizer<MvcConditionDisplayDriver> H;
+    private readonly IStringLocalizer<MvcConditionDisplayDriver> T;
+    public MvcConditionDisplayDriver(
+        IHtmlLocalizer<MvcConditionDisplayDriver> htmlLocalizer,
+        IStringLocalizer<MvcConditionDisplayDriver> stringLocalizer)
+    {
+        H = htmlLocalizer;
+        T = stringLocalizer;
+    }
 
     protected override IDisplayResult GetEditor(MvcCondition model) =>
         Initialize<MvcConditionViewModel>("MvcCondition_Fields_Edit", viewModel =>

@@ -7,11 +7,16 @@ using static Lombiq.HelpfulExtensions.Extensions.ContentTypes.ContentTypes;
 
 namespace Lombiq.HelpfulExtensions.Extensions.ContentTypes;
 
-public class Migrations(IContentDefinitionManager contentDefinitionManager) : DataMigration
+public class Migrations : DataMigration
 {
+    private readonly IContentDefinitionManager _contentDefinitionManager;
+
+    public Migrations(IContentDefinitionManager contentDefinitionManager) =>
+        _contentDefinitionManager = contentDefinitionManager;
+
     public async Task<int> CreateAsync()
     {
-        await contentDefinitionManager.AlterTypeDefinitionAsync(Page, builder => builder
+        await _contentDefinitionManager.AlterTypeDefinitionAsync(Page, builder => builder
             .Creatable()
             .Securable()
             .Draftable()
@@ -29,7 +34,7 @@ public class Migrations(IContentDefinitionManager contentDefinitionManager) : Da
             .WithPart("FlowPart", part => part.WithPosition("2"))
         );
 
-        await contentDefinitionManager.AlterTypeDefinitionAsync(Empty, builder => builder
+        await _contentDefinitionManager.AlterTypeDefinitionAsync(Empty, builder => builder
             .WithDescription("A base content type for ad-hoc welding parts or fields on.")
         );
 
@@ -38,7 +43,7 @@ public class Migrations(IContentDefinitionManager contentDefinitionManager) : Da
 
     public async Task<int> UpdateFrom1Async()
     {
-        await contentDefinitionManager.AlterTypeDefinitionAsync(Page, builder => builder
+        await _contentDefinitionManager.AlterTypeDefinitionAsync(Page, builder => builder
             .WithPart("TitlePart", part => part.WithPosition("0"))
             .WithPart("AutoroutePart", part => part.WithPosition("1"))
             .WithPart("FlowPart", part => part.WithPosition("2"))
@@ -49,7 +54,7 @@ public class Migrations(IContentDefinitionManager contentDefinitionManager) : Da
 
     public async Task<int> UpdateFrom2Async()
     {
-        await contentDefinitionManager.AlterTypeDefinitionAsync(Empty, builder => builder
+        await _contentDefinitionManager.AlterTypeDefinitionAsync(Empty, builder => builder
             .WithDescription("A base content type for ad-hoc welding parts or fields on.")
         );
 

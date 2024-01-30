@@ -6,11 +6,16 @@ using static Lombiq.HelpfulExtensions.Extensions.SiteTexts.Constants.ContentType
 
 namespace Lombiq.HelpfulExtensions.Extensions.SiteTexts;
 
-public class LocalizationMigrations(IContentDefinitionManager contentDefinitionManager) : DataMigration
+public class LocalizationMigrations : DataMigration
 {
+    private readonly IContentDefinitionManager _contentDefinitionManager;
+
+    public LocalizationMigrations(IContentDefinitionManager contentDefinitionManager) =>
+        _contentDefinitionManager = contentDefinitionManager;
+
     public async Task<int> CreateAsync()
     {
-        await contentDefinitionManager.AlterTypeDefinitionAsync(SiteText, builder => builder
+        await _contentDefinitionManager.AlterTypeDefinitionAsync(SiteText, builder => builder
             .WithPart(nameof(LocalizationPart)));
 
         return 1;

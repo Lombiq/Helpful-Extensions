@@ -12,20 +12,37 @@ using System.Xml.XPath;
 
 namespace Lombiq.HelpfulExtensions.Extensions.OrchardRecipeMigration.Services;
 
-public class OrchardExportToRecipeConverter(
-    IContentDefinitionManager contentDefinitionManager,
-    IContentManager contentManager,
-    IIdGenerator idGenerator,
-    IEnumerable<IOrchardExportConverter> exportConverters,
-    IEnumerable<IOrchardContentConverter> contentConverters,
-    IEnumerable<IOrchardUserConverter> userConverters) : IOrchardExportToRecipeConverter
+public class OrchardExportToRecipeConverter : IOrchardExportToRecipeConverter
 {
-    private readonly List<string> _contentTypes = contentDefinitionManager
+    private readonly IContentManager _contentManager;
+    private readonly IIdGenerator _idGenerator;
+    private readonly IEnumerable<IOrchardExportConverter> _exportConverters;
+    private readonly IEnumerable<IOrchardContentConverter> _contentConverters;
+    private readonly IEnumerable<IOrchardUserConverter> _userConverters;
+
+    private readonly ICollection<string> _contentTypes;
+
+    public OrchardExportToRecipeConverter(
+        IContentDefinitionManager contentDefinitionManager,
+        IContentManager contentManager,
+        IIdGenerator idGenerator,
+        IEnumerable<IOrchardExportConverter> exportConverters,
+        IEnumerable<IOrchardContentConverter> contentConverters,
+        IEnumerable<IOrchardUserConverter> userConverters)
+    {
+        _contentManager = contentManager;
+        _idGenerator = idGenerator;
+        _exportConverters = exportConverters;
+        _contentConverters = contentConverters;
+        _userConverters = userConverters;
+
+        _contentTypes = contentDefinitionManager
             .ListTypeDefinitionsAsync()
             .GetAwaiter()
             .GetResult()
             .Select(definition => definition.Name)
             .ToList();
+    }
 
     public async Task<string> ConvertAsync(XDocument export)
     {
@@ -36,10 +53,10 @@ public class OrchardExportToRecipeConverter(
         {
             if (await CreateContentItemAsync(content) is { } contentItem)
             {
-                contentItem.ContentItemId ??= idGenerator.GenerateUniqueId();
-                contentItem.ContentItemVersionId ??= idGenerator.GenerateUniqueId();
+                contentItem.ContentItemId ??= _idGenerator.GenerateUniqueId();
+                contentItem.ContentItemVersionId ??= _idGenerator.GenerateUniqueId();
 
-                await contentConverters
+                await _contentConverters
                     .Where(converter => converter.IsApplicable(content))
                     .OrderBy(converter => converter.Order)
                     .AwaitEachAsync(converter => converter.ImportAsync(content, contentItem));
@@ -48,13 +65,13 @@ public class OrchardExportToRecipeConverter(
             }
             else if (content.Name == nameof(User))
             {
-                var customUserConverter = userConverters.FirstOrDefault(converter => converter.IgnoreDefaultConverter);
-                var userConverter = customUserConverter ?? userConverters.First();
+                var customUserConverter = _userConverters.FirstOrDefault(converter => converter.IgnoreDefaultConverter);
+                var userConverter = customUserConverter ?? _userConverters.First();
                 await userConverter.ImportAsync(content);
             }
         }
 
-        foreach (var converter in exportConverters)
+        foreach (var converter in _exportConverters)
         {
             await converter.UpdateContentItemsAsync(export, contentItems);
         }
@@ -67,7 +84,7 @@ public class OrchardExportToRecipeConverter(
 
     private async Task<ContentItem> CreateContentItemAsync(XElement content)
     {
-        foreach (var converter in contentConverters.OrderBy(converter => converter.Order))
+        foreach (var converter in _contentConverters.OrderBy(converter => converter.Order))
         {
             if (converter.IsApplicable(content) && await converter.CreateContentItemAsync(content) is { } contentItem)
             {
@@ -76,7 +93,7 @@ public class OrchardExportToRecipeConverter(
         }
 
         return _contentTypes.Contains(content.Name.LocalName)
-            ? await contentManager.NewAsync(content.Name.LocalName)
+            ? await _contentManager.NewAsync(content.Name.LocalName)
             : null;
     }
 }

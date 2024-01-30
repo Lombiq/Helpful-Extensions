@@ -9,18 +9,23 @@ using static Lombiq.HelpfulExtensions.Extensions.Widgets.WidgetTypes;
 
 namespace Lombiq.HelpfulExtensions.Extensions.Widgets;
 
-public class Migrations(IContentDefinitionManager contentDefinitionManager) : DataMigration
+public class Migrations : DataMigration
 {
+    private readonly IContentDefinitionManager _contentDefinitionManager;
+
+    public Migrations(IContentDefinitionManager contentDefinitionManager) =>
+        _contentDefinitionManager = contentDefinitionManager;
+
     public async Task<int> CreateAsync()
     {
-        await contentDefinitionManager.AlterTypeDefinitionAsync(ContainerWidget, builder => builder
+        await _contentDefinitionManager.AlterTypeDefinitionAsync(ContainerWidget, builder => builder
             .Securable()
             .Stereotype(CommonStereotypes.Widget)
             .WithPart("TitlePart", part => part.WithPosition("0"))
             .WithPart("FlowPart", part => part.WithPosition("1"))
         );
 
-        await contentDefinitionManager.AlterTypeDefinitionAsync(HtmlWidget, builder => builder
+        await _contentDefinitionManager.AlterTypeDefinitionAsync(HtmlWidget, builder => builder
             .Securable()
             .Stereotype(CommonStereotypes.Widget)
             .WithPart("HtmlBodyPart", part => part
@@ -32,7 +37,7 @@ public class Migrations(IContentDefinitionManager contentDefinitionManager) : Da
             )
         );
 
-        await contentDefinitionManager.AlterTypeDefinitionAsync(LiquidWidget, builder => builder
+        await _contentDefinitionManager.AlterTypeDefinitionAsync(LiquidWidget, builder => builder
             .Securable()
             .Stereotype(CommonStereotypes.Widget)
             .WithPart("LiquidPart", part => part
@@ -40,12 +45,12 @@ public class Migrations(IContentDefinitionManager contentDefinitionManager) : Da
             )
         );
 
-        await contentDefinitionManager.AlterTypeDefinitionAsync(MenuWidget, builder => builder
+        await _contentDefinitionManager.AlterTypeDefinitionAsync(MenuWidget, builder => builder
             .Securable()
             .Stereotype(CommonStereotypes.Widget)
         );
 
-        await contentDefinitionManager.AlterTypeDefinitionAsync(MarkdownWidget, builder => builder
+        await _contentDefinitionManager.AlterTypeDefinitionAsync(MarkdownWidget, builder => builder
             .Securable()
             .Stereotype(CommonStereotypes.Widget)
             .WithPart("MarkdownBodyPart", part => part
@@ -53,7 +58,7 @@ public class Migrations(IContentDefinitionManager contentDefinitionManager) : Da
             )
         );
 
-        var contentItemWidgetPartName = await contentDefinitionManager.AlterPartDefinitionAsync<ContentItemWidget>(builder => builder
+        var contentItemWidgetPartName = await _contentDefinitionManager.AlterPartDefinitionAsync<ContentItemWidget>(builder => builder
             .WithField(part => part.ContentToDisplay, field => field
                 .WithDisplayName("Content to display")
                 .WithSettings(new ContentPickerFieldSettings
@@ -65,7 +70,7 @@ public class Migrations(IContentDefinitionManager contentDefinitionManager) : Da
             .WithField(part => part.GroupId, field => field.WithDisplayName("Group ID"))
         );
 
-        await contentDefinitionManager.AlterTypeDefinitionAsync(WidgetTypes.ContentItemWidget, builder => builder
+        await _contentDefinitionManager.AlterTypeDefinitionAsync(WidgetTypes.ContentItemWidget, builder => builder
             .Securable()
             .Stereotype(CommonStereotypes.Widget)
             .WithPart(contentItemWidgetPartName)
@@ -76,7 +81,7 @@ public class Migrations(IContentDefinitionManager contentDefinitionManager) : Da
 
     public async Task<int> UpdateFrom1Async()
     {
-        await contentDefinitionManager.AlterTypeDefinitionAsync(ContainerWidget, builder => builder
+        await _contentDefinitionManager.AlterTypeDefinitionAsync(ContainerWidget, builder => builder
             .WithPart("TitlePart", part => part.WithPosition("0"))
             .WithPart("FlowPart", part => part.WithPosition("1"))
         );
@@ -86,7 +91,7 @@ public class Migrations(IContentDefinitionManager contentDefinitionManager) : Da
 
     public async Task<int> UpdateFrom2Async()
     {
-        await contentDefinitionManager.AlterTypeDefinitionAsync(MenuWidget, builder => builder
+        await _contentDefinitionManager.AlterTypeDefinitionAsync(MenuWidget, builder => builder
             .Securable()
             .Stereotype(CommonStereotypes.Widget)
         );
@@ -96,7 +101,7 @@ public class Migrations(IContentDefinitionManager contentDefinitionManager) : Da
 
     public async Task<int> UpdateFrom3Async()
     {
-        await contentDefinitionManager.AlterTypeDefinitionAsync(MarkdownWidget, builder => builder
+        await _contentDefinitionManager.AlterTypeDefinitionAsync(MarkdownWidget, builder => builder
             .Securable()
             .Stereotype(CommonStereotypes.Widget)
             .WithPart("MarkdownBodyPart", part => part
@@ -109,13 +114,13 @@ public class Migrations(IContentDefinitionManager contentDefinitionManager) : Da
 
     public async Task<int> UpdateFrom4Async()
     {
-        var contentItemWidgetPartName = await contentDefinitionManager.AlterPartDefinitionAsync<ContentItemWidget>(builder => builder
+        var contentItemWidgetPartName = await _contentDefinitionManager.AlterPartDefinitionAsync<ContentItemWidget>(builder => builder
             .WithField(part => part.ContentToDisplay, field => field.WithDisplayName("Content to display"))
             .WithField(part => part.DisplayType, field => field.WithDisplayName("Display type"))
             .WithField(part => part.GroupId, field => field.WithDisplayName("Group ID"))
         );
 
-        await contentDefinitionManager.AlterTypeDefinitionAsync(WidgetTypes.ContentItemWidget, builder => builder
+        await _contentDefinitionManager.AlterTypeDefinitionAsync(WidgetTypes.ContentItemWidget, builder => builder
             .Securable()
             .Stereotype(CommonStereotypes.Widget)
             .WithPart(contentItemWidgetPartName)

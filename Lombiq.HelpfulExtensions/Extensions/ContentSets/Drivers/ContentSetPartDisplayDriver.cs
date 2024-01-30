@@ -14,22 +14,33 @@ using System.Threading.Tasks;
 
 namespace Lombiq.HelpfulExtensions.Extensions.ContentSets.Drivers;
 
-public class ContentSetPartDisplayDriver(
-    IContentSetManager contentSetManager,
-    IIdGenerator idGenerator,
-    IEnumerable<IContentSetEventHandler> contentSetEventHandlers,
-    IStringLocalizer<ContentSetPart> stringLocalizer) : ContentPartDisplayDriver<ContentSetPart>
+public class ContentSetPartDisplayDriver : ContentPartDisplayDriver<ContentSetPart>
 {
     private const string ShapeType = $"{nameof(ContentSetPart)}_{CommonContentDisplayTypes.SummaryAdmin}";
 
-    private readonly IStringLocalizer T = stringLocalizer;
+    private readonly IContentSetManager _contentSetManager;
+    private readonly IIdGenerator _idGenerator;
+    private readonly IEnumerable<IContentSetEventHandler> _contentSetEventHandlers;
+    private readonly IStringLocalizer<ContentSetPart> T;
+
+    public ContentSetPartDisplayDriver(
+        IContentSetManager contentSetManager,
+        IIdGenerator idGenerator,
+        IEnumerable<IContentSetEventHandler> contentSetEventHandlers,
+        IStringLocalizer<ContentSetPart> stringLocalizer)
+    {
+        _contentSetManager = contentSetManager;
+        _idGenerator = idGenerator;
+        _contentSetEventHandlers = contentSetEventHandlers;
+        T = stringLocalizer;
+    }
 
     public override IDisplayResult Display(ContentSetPart part, BuildPartDisplayContext context)
     {
         ValueTask InitializeAsync(ContentSetPartViewModel model) =>
             model.InitializeAsync(
-                contentSetManager,
-                contentSetEventHandlers,
+                _contentSetManager,
+                _contentSetEventHandlers,
                 T,
                 part,
                 context.TypePartDefinition,
@@ -45,8 +56,8 @@ public class ContentSetPartDisplayDriver(
 
     public override IDisplayResult Edit(ContentSetPart part, BuildPartEditorContext context) =>
         Initialize<ContentSetPartViewModel>($"{nameof(ContentSetPart)}_Edit", model => model.InitializeAsync(
-                contentSetManager,
-                contentSetEventHandlers,
+                _contentSetManager,
+                _contentSetEventHandlers,
                 T,
                 part,
                 context.TypePartDefinition,
@@ -68,7 +79,7 @@ public class ContentSetPartDisplayDriver(
             // item has not been saved yet.
             if (string.IsNullOrEmpty(part.ContentSet))
             {
-                part.ContentSet = idGenerator.GenerateUniqueId();
+                part.ContentSet = _idGenerator.GenerateUniqueId();
             }
         }
 

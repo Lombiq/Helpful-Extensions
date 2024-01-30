@@ -8,8 +8,13 @@ using System.Threading.Tasks;
 
 namespace Lombiq.HelpfulExtensions.Extensions.Widgets.Drivers;
 
-public class MvcConditionEvaluatorDriver(IHttpContextAccessor hca) : ContentDisplayDriver, IConditionEvaluator
+public class MvcConditionEvaluatorDriver : ContentDisplayDriver, IConditionEvaluator
 {
+    private readonly IHttpContextAccessor _hca;
+
+    public MvcConditionEvaluatorDriver(IHttpContextAccessor hca) =>
+        _hca = hca;
+
     public ValueTask<bool> EvaluateAsync(Condition condition) => new(Evaluate((MvcCondition)condition));
 
     private bool Evaluate(MvcCondition condition) =>
@@ -23,7 +28,7 @@ public class MvcConditionEvaluatorDriver(IHttpContextAccessor hca) : ContentDisp
         // Ignore this match operation if the target value is not set.
         if (string.IsNullOrWhiteSpace(value)) return true;
 
-        return hca.HttpContext?.Request.RouteValues.TryGetValue(name, out var routeValue) == true &&
+        return _hca.HttpContext?.Request.RouteValues.TryGetValue(name, out var routeValue) == true &&
                value.EqualsOrdinalIgnoreCase(routeValue?.ToString());
     }
 }

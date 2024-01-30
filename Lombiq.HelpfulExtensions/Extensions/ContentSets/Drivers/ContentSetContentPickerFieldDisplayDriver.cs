@@ -4,6 +4,7 @@ using Lombiq.HelpfulExtensions.Extensions.ContentSets.Services;
 using Lombiq.HelpfulExtensions.Extensions.ContentSets.ViewModels;
 using Lombiq.HelpfulLibraries.OrchardCore.Contents;
 using Microsoft.Extensions.Localization;
+using Newtonsoft.Json.Linq;
 using OrchardCore.ContentManagement;
 using OrchardCore.ContentManagement.Display.ContentDisplay;
 using OrchardCore.ContentManagement.Display.Models;
@@ -14,13 +15,24 @@ using System.Collections.Generic;
 
 namespace Lombiq.HelpfulExtensions.Extensions.ContentSets.Drivers;
 
-public class ContentSetContentPickerFieldDisplayDriver(
-    IContentDefinitionManager contentDefinitionManager,
-    IContentSetManager contentSetManager,
-    IEnumerable<IContentSetEventHandler> contentSetEventHandlers,
-    IStringLocalizer<ContentSetPart> stringLocalizer) : ContentFieldDisplayDriver<ContentSetContentPickerField>
+public class ContentSetContentPickerFieldDisplayDriver : ContentFieldDisplayDriver<ContentSetContentPickerField>
 {
-    private readonly IStringLocalizer T = stringLocalizer;
+    private readonly IContentDefinitionManager _contentDefinitionManager;
+    private readonly IContentSetManager _contentSetManager;
+    private readonly IEnumerable<IContentSetEventHandler> _contentSetEventHandlers;
+    private readonly IStringLocalizer<ContentSetPart> T;
+
+    public ContentSetContentPickerFieldDisplayDriver(
+        IContentDefinitionManager contentDefinitionManager,
+        IContentSetManager contentSetManager,
+        IEnumerable<IContentSetEventHandler> contentSetEventHandlers,
+        IStringLocalizer<ContentSetPart> stringLocalizer)
+    {
+        _contentDefinitionManager = contentDefinitionManager;
+        _contentSetManager = contentSetManager;
+        _contentSetEventHandlers = contentSetEventHandlers;
+        T = stringLocalizer;
+    }
 
     public override IDisplayResult Display(
         ContentSetContentPickerField field,
@@ -33,14 +45,14 @@ public class ContentSetContentPickerFieldDisplayDriver(
             {
                 model.PartFieldDefinition = fieldDisplayContext.PartFieldDefinition;
                 await model.InitializeAsync(
-                    contentSetManager,
-                    contentSetEventHandlers,
+                    _contentSetManager,
+                    _contentSetEventHandlers,
                     T,
                     part,
                     new ContentTypePartDefinition(
                         name,
-                        await contentDefinitionManager.GetPartDefinitionAsync(nameof(ContentSetPart)),
-                        []),
+                        await _contentDefinitionManager.GetPartDefinitionAsync(nameof(ContentSetPart)),
+                        new JObject()),
                     isNew: false);
             })
             .Location(CommonContentDisplayTypes.Detail, CommonLocationNames.Content)

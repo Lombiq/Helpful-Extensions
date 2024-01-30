@@ -12,10 +12,12 @@ using System.Text;
 
 namespace Lombiq.HelpfulExtensions.Extensions.CodeGeneration;
 
-public class CodeGenerationDisplayDriver(IStringLocalizer<CodeGenerationDisplayDriver> stringLocalizer)
-    : ContentTypeDefinitionDisplayDriver
+public class CodeGenerationDisplayDriver : ContentTypeDefinitionDisplayDriver
 {
-    private readonly IStringLocalizer T = stringLocalizer;
+    private readonly IStringLocalizer T;
+
+    public CodeGenerationDisplayDriver(IStringLocalizer<CodeGenerationDisplayDriver> stringLocalizer) =>
+        T = stringLocalizer;
 
     public override IDisplayResult Edit(ContentTypeDefinition model) =>
         Initialize<ContentTypeMigrationsViewModel>(

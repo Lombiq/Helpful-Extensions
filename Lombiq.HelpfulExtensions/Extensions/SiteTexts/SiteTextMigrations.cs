@@ -10,11 +10,16 @@ using static Lombiq.HelpfulLibraries.OrchardCore.Contents.ContentFieldEditorEnum
 
 namespace Lombiq.HelpfulExtensions.Extensions.SiteTexts;
 
-public class SiteTextMigrations(IContentDefinitionManager contentDefinitionManager) : DataMigration
+public class SiteTextMigrations : DataMigration
 {
+    private readonly IContentDefinitionManager _contentDefinitionManager;
+
+    public SiteTextMigrations(IContentDefinitionManager contentDefinitionManager) =>
+        _contentDefinitionManager = contentDefinitionManager;
+
     public async Task<int> CreateAsync()
     {
-        await contentDefinitionManager.AlterTypeDefinitionAsync(SiteText, builder => builder
+        await _contentDefinitionManager.AlterTypeDefinitionAsync(SiteText, builder => builder
             .SetAbilities(
                 creatable: true,
                 securable: true,

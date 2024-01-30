@@ -27,14 +27,21 @@ public class ContentSetIndex : MapIndex
         };
 }
 
-public class ContentSetIndexProvider(IServiceProvider provider) : IndexProvider<ContentItem>
+public class ContentSetIndexProvider : IndexProvider<ContentItem>
 {
+    private readonly IServiceProvider _provider;
+
+    // We can't inject Lazy<IContentDefinitionManager> because it will throw a "Cannot resolve scoped service
+    // 'OrchardCore.ContentManagement.Metadata.IContentDefinitionManager' from root provider." exception.
+    public ContentSetIndexProvider(IServiceProvider provider) =>
+        _provider = provider;
+
     public override void Describe(DescribeContext<ContentItem> context) =>
         context.For<ContentSetIndex>().Map(async contentItem =>
         {
             if (!contentItem.Latest) return Enumerable.Empty<ContentSetIndex>();
 
-            using var scope = provider.CreateScope();
+            using var scope = _provider.CreateScope();
             var contentDefinitionManager = scope.ServiceProvider.GetRequiredService<IContentDefinitionManager>();
 
             return (await contentDefinitionManager.GetTypeDefinitionAsync(contentItem.ContentType))

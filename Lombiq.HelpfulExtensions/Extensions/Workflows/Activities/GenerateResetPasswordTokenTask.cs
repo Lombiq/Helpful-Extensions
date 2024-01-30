@@ -16,14 +16,13 @@ using System.Threading.Tasks;
 
 namespace Lombiq.HelpfulExtensions.Extensions.Workflows.Activities;
 
-public class GenerateResetPasswordTokenTask(
-    IStringLocalizer<GenerateResetPasswordTokenTask> localizer,
-    LinkGenerator linkGenerator,
-    IHttpContextAccessor hca,
-    UserManager<IUser> userManager,
-    IWorkflowScriptEvaluator workflowScriptEvaluator) : TaskActivity
+public class GenerateResetPasswordTokenTask : TaskActivity
 {
-    private readonly IStringLocalizer T = localizer;
+    private readonly IStringLocalizer<GenerateResetPasswordTokenTask> T;
+    private readonly LinkGenerator _linkGenerator;
+    private readonly IHttpContextAccessor _hca;
+    private readonly UserManager<IUser> _userManager;
+    private readonly IWorkflowScriptEvaluator _workflowScriptEvaluator;
 
     public override string Name => nameof(GenerateResetPasswordTokenTask);
     public override LocalizedString DisplayText => T["Generate reset password token"];
@@ -47,6 +46,20 @@ public class GenerateResetPasswordTokenTask(
         set => SetProperty(value);
     }
 
+    public GenerateResetPasswordTokenTask(
+        IStringLocalizer<GenerateResetPasswordTokenTask> localizer,
+        LinkGenerator linkGenerator,
+        IHttpContextAccessor hca,
+        UserManager<IUser> userManager,
+        IWorkflowScriptEvaluator workflowScriptEvaluator)
+    {
+        T = localizer;
+        _linkGenerator = linkGenerator;
+        _hca = hca;
+        _userManager = userManager;
+        _workflowScriptEvaluator = workflowScriptEvaluator;
+    }
+
     public override IEnumerable<Outcome> GetPossibleOutcomes(
         WorkflowExecutionContext workflowContext,
         ActivityContext activityContext) =>
@@ -56,14 +69,14 @@ public class GenerateResetPasswordTokenTask(
         WorkflowExecutionContext workflowContext,
         ActivityContext activityContext)
     {
-        var user = await workflowScriptEvaluator.EvaluateAsync(User, workflowContext);
+        var user = await _workflowScriptEvaluator.EvaluateAsync(User, workflowContext);
 
         if (user == null) return Outcomes("Error");
 
-        var generatedToken = await userManager.GeneratePasswordResetTokenAsync(user);
+        var generatedToken = await _userManager.GeneratePasswordResetTokenAsync(user);
         user.ResetToken = Convert.ToBase64String(Encoding.UTF8.GetBytes(generatedToken));
-        var resetPasswordUrl = linkGenerator.GetUriByAction(
-            hca.HttpContext,
+        var resetPasswordUrl = _linkGenerator.GetUriByAction(
+            _hca.HttpContext,
             "ResetPassword",
             "ResetPassword",
             new { area = "OrchardCore.Users", code = user.ResetToken });
