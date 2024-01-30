@@ -14,8 +14,13 @@ using System.Threading.Tasks;
 namespace Lombiq.HelpfulExtensions.Extensions.Security.Services;
 
 [RequireFeatures(FeatureIds.Security)]
-public class StrictSecurityPermissionAuthorizationHandler(IContentDefinitionManager contentDefinitionManager) : AuthorizationHandler<PermissionRequirement>
+public class StrictSecurityPermissionAuthorizationHandler : AuthorizationHandler<PermissionRequirement>
 {
+    private readonly IContentDefinitionManager _contentDefinitionManager;
+
+    public StrictSecurityPermissionAuthorizationHandler(IContentDefinitionManager contentDefinitionManager) =>
+        _contentDefinitionManager = contentDefinitionManager;
+
     private static readonly Dictionary<string, IList<string>> _permissionTemplates = ContentTypePermissionsHelper
         .PermissionTemplates
         .ToDictionary(
@@ -26,7 +31,7 @@ public class StrictSecurityPermissionAuthorizationHandler(IContentDefinitionMana
     {
         if ((context.Resource as IContent)?.ContentItem is not { } contentItem ||
             !_permissionTemplates.TryGetValue(requirement.Permission.Name, out var claims) ||
-            await contentDefinitionManager.GetTypeDefinitionAsync(contentItem.ContentType) is not { } definition ||
+            await _contentDefinitionManager.GetTypeDefinitionAsync(contentItem.ContentType) is not { } definition ||
             definition.GetSettings<StrictSecuritySettings>()?.Enabled != true)
         {
             return;
