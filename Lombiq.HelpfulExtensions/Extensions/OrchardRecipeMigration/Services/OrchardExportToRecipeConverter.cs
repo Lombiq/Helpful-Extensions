@@ -20,7 +20,7 @@ public class OrchardExportToRecipeConverter : IOrchardExportToRecipeConverter
     private readonly IEnumerable<IOrchardContentConverter> _contentConverters;
     private readonly IEnumerable<IOrchardUserConverter> _userConverters;
 
-    private readonly ICollection<string> _contentTypes;
+    private readonly List<string> _contentTypes;
 
     public OrchardExportToRecipeConverter(
         IContentDefinitionManager contentDefinitionManager,

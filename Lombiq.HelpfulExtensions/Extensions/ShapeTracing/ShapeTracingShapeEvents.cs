@@ -37,7 +37,7 @@ internal sealed class ShapeTracingShapeEvents : IShapeDisplayEvents
             }
         }
 
-        if (shapeMetadata.Alternates.Any())
+        if (shapeMetadata.Alternates.Count != 0)
         {
             builder.AppendHtml("Alternates: ");
             builder.AppendHtmlLine(string.Join(", ", shapeMetadata.Alternates));
@@ -49,7 +49,7 @@ internal sealed class ShapeTracingShapeEvents : IShapeDisplayEvents
             builder.AppendHtmlLine(string.Join(", ", shapeMetadata.BindingSources));
         }
 
-        if (shapeMetadata.Wrappers.Any())
+        if (shapeMetadata.Wrappers.Count != 0)
         {
             builder.AppendHtml("Wrappers: ");
             builder.AppendHtmlLine(string.Join(", ", shapeMetadata.Wrappers));

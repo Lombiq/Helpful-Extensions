@@ -4,7 +4,6 @@ using Lombiq.HelpfulExtensions.Extensions.ContentSets.Services;
 using Lombiq.HelpfulExtensions.Extensions.ContentSets.ViewModels;
 using Lombiq.HelpfulLibraries.OrchardCore.Contents;
 using Microsoft.Extensions.Localization;
-using Newtonsoft.Json.Linq;
 using OrchardCore.ContentManagement;
 using OrchardCore.ContentManagement.Display.ContentDisplay;
 using OrchardCore.ContentManagement.Display.Models;
@@ -52,7 +51,7 @@ public class ContentSetContentPickerFieldDisplayDriver : ContentFieldDisplayDriv
                     new ContentTypePartDefinition(
                         name,
                         await _contentDefinitionManager.GetPartDefinitionAsync(nameof(ContentSetPart)),
-                        new JObject()),
+                        []),
                     isNew: false);
             })
             .Location(CommonContentDisplayTypes.Detail, CommonLocationNames.Content)
