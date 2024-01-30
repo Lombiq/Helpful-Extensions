@@ -16,16 +16,16 @@ namespace Lombiq.HelpfulExtensions.Extensions.Security.Services;
 [RequireFeatures(FeatureIds.Security)]
 public class StrictSecurityPermissionAuthorizationHandler : AuthorizationHandler<PermissionRequirement>
 {
-    private readonly IContentDefinitionManager _contentDefinitionManager;
-
-    public StrictSecurityPermissionAuthorizationHandler(IContentDefinitionManager contentDefinitionManager) =>
-        _contentDefinitionManager = contentDefinitionManager;
-
     private static readonly Dictionary<string, IList<string>> _permissionTemplates = ContentTypePermissionsHelper
         .PermissionTemplates
         .ToDictionary(
             pair => pair.Key,
             pair => GetPermissionTemplates(pair.Value, new List<string>()));
+
+    private readonly IContentDefinitionManager _contentDefinitionManager;
+
+    public StrictSecurityPermissionAuthorizationHandler(IContentDefinitionManager contentDefinitionManager) =>
+        _contentDefinitionManager = contentDefinitionManager;
 
     protected override async Task HandleRequirementAsync(AuthorizationHandlerContext context, PermissionRequirement requirement)
     {
