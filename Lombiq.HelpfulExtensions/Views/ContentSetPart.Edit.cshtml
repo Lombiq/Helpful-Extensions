@@ -1,4 +1,4 @@
-﻿@model Lombiq.HelpfulExtensions.Extensions.ContentSets.ViewModels.ContentSetPartViewModel
+@model Lombiq.HelpfulExtensions.Extensions.ContentSets.ViewModels.ContentSetPartViewModel
 
 <p>@T["Information about the \"{0}\" content set part.", Model.Definition.Name]</p>
 
@@ -7,7 +7,7 @@
 @if (!Model.IsNew)
 {
     <fieldset class="form-group mb-3 col-xl-6">
-        <label>@T["Other members of this content set"]</label>
+        <label class="form-label">@T["Other members of this content set"]</label>
         <ul>
             @foreach (var link in Model.MemberLinks)
             {

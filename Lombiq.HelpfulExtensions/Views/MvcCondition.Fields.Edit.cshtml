@@ -17,7 +17,7 @@
 <fieldset asp-for="Action" label="@T["Action"]"></fieldset>
 
 <fieldset class="form-group mb-3 col-xl-6">
-    <label>@T["Other route values"]</label>
+    <label class="form-label">@T["Other route values"]</label>
     <table class="mvcConditionOther table" 
            data-model="@JsonConvert.SerializeObject(other)"
            data-form-name="@Html.NameFor(model => model.OtherRouteNames)"
