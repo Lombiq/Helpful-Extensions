@@ -8,6 +8,7 @@ using OrchardCore.Modules;
 using OrchardCore.ResourceManagement;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Linq;
 
@@ -78,11 +79,20 @@ public class ResourceManagerDecorator(
 
     public void RenderMeta(TextWriter writer) => resourceManager.RenderMeta(writer);
 
+    // Apart from the marked sections, this does the same as the method in OC's ResourceManager. This needs to be kept
+    // up-to-date with Orchard upgrades.
+    [SuppressMessage(
+        "StyleCop.CSharp.ReadabilityRules",
+        "SA1123:Do not place regions within elements",
+        Justification = "Needed for easier Orchard upgrades.")]
     public void RenderStylesheet(TextWriter writer)
     {
+        #region CustomCode
+        var displayedTheme = themeManager.GetThemeAsync().GetAwaiter().GetResult();
+        #endregion
+
         var first = true;
 
-        var displayedTheme = themeManager.GetThemeAsync().GetAwaiter().GetResult();
         var styleSheets = GetRequiredResources("stylesheet").ToList();
 
         foreach (var context in styleSheets)
@@ -92,6 +102,7 @@ public class ResourceManagerDecorator(
                 continue;
             }
 
+            #region CustomCode
             var resourceName = context.Resource.Name;
             var contextIsBootstrap = resourceName.EqualsOrdinalIgnoreCase("bootstrap");
 
@@ -99,6 +110,7 @@ public class ResourceManagerDecorator(
             {
                 continue;
             }
+            #endregion
 
             if (!first)
             {
