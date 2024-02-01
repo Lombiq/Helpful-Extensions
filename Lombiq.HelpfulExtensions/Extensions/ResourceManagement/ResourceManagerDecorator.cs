@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Razor.TagHelpers;
 using Microsoft.Extensions.Options;
 using OrchardCore.DisplayManagement.Manifest;
 using OrchardCore.DisplayManagement.Theming;
-using OrchardCore.Environment.Extensions;
 using OrchardCore.Modules;
 using OrchardCore.ResourceManagement;
 using System;
@@ -89,6 +88,8 @@ public class ResourceManagerDecorator(
     {
         #region CustomCode
         var displayedTheme = themeManager.GetThemeAsync().GetAwaiter().GetResult();
+        var currentThemeUsesLombiqBaseTheme = displayedTheme?.Id == "Lombiq.BaseTheme" ||
+            displayedTheme?.Manifest.ModuleInfo is ThemeAttribute { BaseTheme: "Lombiq.BaseTheme" };
         #endregion
 
         var first = true;
@@ -103,10 +104,7 @@ public class ResourceManagerDecorator(
             }
 
             #region CustomCode
-            var resourceName = context.Resource.Name;
-            var contextIsBootstrap = resourceName.EqualsOrdinalIgnoreCase("bootstrap");
-
-            if (contextIsBootstrap && IsCurrentTheme(displayedTheme))
+            if (context.Resource.Name.EqualsOrdinalIgnoreCase("bootstrap") && currentThemeUsesLombiqBaseTheme)
             {
                 continue;
             }
@@ -136,8 +134,4 @@ public class ResourceManagerDecorator(
             context.WriteTo(writer, NullHtmlEncoder.Default);
         }
     }
-
-    private static bool IsCurrentTheme(IExtensionInfo currentSiteTheme) =>
-        currentSiteTheme?.Id == "Lombiq.BaseTheme" ||
-        currentSiteTheme?.Manifest.ModuleInfo is ThemeAttribute { BaseTheme: "Lombiq.BaseTheme" };
 }
