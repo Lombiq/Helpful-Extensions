@@ -19,5 +19,4 @@ public static class FeatureIds
     public const string Workflows = FeatureIdPrefix + nameof(Workflows);
     public const string Trumbowyg = FeatureIdPrefix + nameof(Trumbowyg);
     public const string ResetPasswordActivity = Workflows + "." + nameof(ResetPasswordActivity);
-    public const string ResourceManagement = FeatureIdPrefix + nameof(ResourceManagement);
 }

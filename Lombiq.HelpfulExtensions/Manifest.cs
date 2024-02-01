@@ -145,10 +145,3 @@ using static Lombiq.HelpfulExtensions.FeatureIds;
     Category = "Content",
     Description = "Adds option for inserting code snippets in Trumbowyg editor."
 )]
-
-[assembly: Feature(
-    Id = ResourceManagement,
-    Name = "Lombiq Helpful Extensions - Resource Management",
-    Category = "ResourceManagement",
-    Description = "Adds a decorated version of IResourceManager"
-)]
