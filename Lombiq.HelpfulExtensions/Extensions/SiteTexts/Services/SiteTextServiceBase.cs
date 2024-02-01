@@ -36,7 +36,7 @@ public abstract class SiteTextServiceBase : ISiteTextService
 
         // If it's a single-line expression, then it's presumably inline so don't wrap it in a <p> element.
         if (doc.Body is { ChildElementCount: 1, FirstElementChild: { } first } &&
-            first.TagName.Equals("P", StringComparison.OrdinalIgnoreCase))
+            first.TagName.EqualsOrdinalIgnoreCase("P"))
         {
             html = first.InnerHtml.Trim();
         }
