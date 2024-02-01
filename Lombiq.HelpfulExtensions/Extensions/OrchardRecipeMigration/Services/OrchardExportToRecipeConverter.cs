@@ -19,8 +19,7 @@ public class OrchardExportToRecipeConverter : IOrchardExportToRecipeConverter
     private readonly IEnumerable<IOrchardExportConverter> _exportConverters;
     private readonly IEnumerable<IOrchardContentConverter> _contentConverters;
     private readonly IEnumerable<IOrchardUserConverter> _userConverters;
-
-    private readonly List<string> _contentTypes;
+    private readonly IContentDefinitionManager _contentDefinitionManager;
 
     public OrchardExportToRecipeConverter(
         IContentDefinitionManager contentDefinitionManager,
@@ -35,23 +34,20 @@ public class OrchardExportToRecipeConverter : IOrchardExportToRecipeConverter
         _exportConverters = exportConverters;
         _contentConverters = contentConverters;
         _userConverters = userConverters;
-
-        _contentTypes = contentDefinitionManager
-            .ListTypeDefinitionsAsync()
-            .GetAwaiter()
-            .GetResult()
-            .Select(definition => definition.Name)
-            .ToList();
+        _contentDefinitionManager = contentDefinitionManager;
     }
 
     public async Task<string> ConvertAsync(XDocument export)
     {
         var contentItems = new List<ContentItem>();
         var contents = export.XPathSelectElement("//Content")?.Elements() ?? Enumerable.Empty<XElement>();
+        var contentTypes = (await _contentDefinitionManager.ListTypeDefinitionsAsync())
+            .Select(definition => definition.Name)
+            .ToList();
 
         foreach (var content in contents)
         {
-            if (await CreateContentItemAsync(content) is { } contentItem)
+            if (await CreateContentItemAsync(content, contentTypes) is { } contentItem)
             {
                 contentItem.ContentItemId ??= _idGenerator.GenerateUniqueId();
                 contentItem.ContentItemVersionId ??= _idGenerator.GenerateUniqueId();
@@ -82,7 +78,7 @@ public class OrchardExportToRecipeConverter : IOrchardExportToRecipeConverter
         return recipe.ToString();
     }
 
-    private async Task<ContentItem> CreateContentItemAsync(XElement content)
+    private async Task<ContentItem> CreateContentItemAsync(XElement content, List<string> contentTypes)
     {
         foreach (var converter in _contentConverters.OrderBy(converter => converter.Order))
         {
@@ -92,7 +88,7 @@ public class OrchardExportToRecipeConverter : IOrchardExportToRecipeConverter
             }
         }
 
-        return _contentTypes.Contains(content.Name.LocalName)
+        return contentTypes.Contains(content.Name.LocalName)
             ? await _contentManager.NewAsync(content.Name.LocalName)
             : null;
     }
