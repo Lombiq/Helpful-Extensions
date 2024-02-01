@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Html;
 using OrchardCore.ContentManagement;
 using OrchardCore.Markdown.Models;
 using OrchardCore.Markdown.Services;
-using OrchardCore.Modules;
 using System;
 using System.Threading.Tasks;
 
