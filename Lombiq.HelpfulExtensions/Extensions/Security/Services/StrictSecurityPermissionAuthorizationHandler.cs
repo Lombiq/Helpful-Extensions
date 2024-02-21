@@ -27,20 +27,20 @@ public class StrictSecurityPermissionAuthorizationHandler : AuthorizationHandler
     public StrictSecurityPermissionAuthorizationHandler(IContentDefinitionManager contentDefinitionManager) =>
         _contentDefinitionManager = contentDefinitionManager;
 
-    protected override Task HandleRequirementAsync(AuthorizationHandlerContext context, PermissionRequirement requirement)
+    protected override async Task HandleRequirementAsync(AuthorizationHandlerContext context, PermissionRequirement requirement)
     {
         if ((context.Resource as IContent)?.ContentItem is not { } contentItem ||
             !_permissionTemplates.TryGetValue(requirement.Permission.Name, out var claims) ||
-            _contentDefinitionManager.GetTypeDefinition(contentItem.ContentType) is not { } definition ||
+            await _contentDefinitionManager.GetTypeDefinitionAsync(contentItem.ContentType) is not { } definition ||
             definition.GetSettings<StrictSecuritySettings>()?.Enabled != true)
         {
-            return Task.CompletedTask;
+            return;
         }
 
         if (!context.User.Identity.IsAuthenticated)
         {
             context.Fail();
-            return Task.CompletedTask;
+            return;
         }
 
         var contentType = contentItem.ContentType;
@@ -54,7 +54,6 @@ public class StrictSecurityPermissionAuthorizationHandler : AuthorizationHandler
             .Select(claim => claim.Value);
 
         if (!permissionNames.Any(claims.Contains)) context.Fail();
-        return Task.CompletedTask;
     }
 
     private static IList<string> GetPermissionTemplates(Permission permission, IList<string> templates)

@@ -1,4 +1,4 @@
-﻿using Lombiq.HelpfulExtensions.Extensions.ContentSets.Models;
+using Lombiq.HelpfulExtensions.Extensions.ContentSets.Models;
 using Microsoft.Extensions.DependencyInjection;
 using OrchardCore.ContentManagement;
 using OrchardCore.ContentManagement.Metadata;
@@ -37,15 +37,14 @@ public class ContentSetIndexProvider : IndexProvider<ContentItem>
         _provider = provider;
 
     public override void Describe(DescribeContext<ContentItem> context) =>
-        context.For<ContentSetIndex>().Map(contentItem =>
+        context.For<ContentSetIndex>().Map(async contentItem =>
         {
             if (!contentItem.Latest) return Enumerable.Empty<ContentSetIndex>();
 
             using var scope = _provider.CreateScope();
             var contentDefinitionManager = scope.ServiceProvider.GetRequiredService<IContentDefinitionManager>();
 
-            return contentDefinitionManager
-                .GetTypeDefinition(contentItem.ContentType)
+            return (await contentDefinitionManager.GetTypeDefinitionAsync(contentItem.ContentType))
                 .Parts
                 .Where(part => part.PartDefinition.Name == nameof(ContentSetPart))
                 .Select(part => new { Part = contentItem.Get<ContentSetPart>(part.Name), part.Name })

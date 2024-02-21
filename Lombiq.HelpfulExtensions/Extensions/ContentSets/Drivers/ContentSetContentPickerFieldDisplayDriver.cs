@@ -1,10 +1,9 @@
-﻿using Lombiq.HelpfulExtensions.Extensions.ContentSets.Events;
+using Lombiq.HelpfulExtensions.Extensions.ContentSets.Events;
 using Lombiq.HelpfulExtensions.Extensions.ContentSets.Models;
 using Lombiq.HelpfulExtensions.Extensions.ContentSets.Services;
 using Lombiq.HelpfulExtensions.Extensions.ContentSets.ViewModels;
 using Lombiq.HelpfulLibraries.OrchardCore.Contents;
 using Microsoft.Extensions.Localization;
-using Newtonsoft.Json.Linq;
 using OrchardCore.ContentManagement;
 using OrchardCore.ContentManagement.Display.ContentDisplay;
 using OrchardCore.ContentManagement.Display.Models;
@@ -41,18 +40,18 @@ public class ContentSetContentPickerFieldDisplayDriver : ContentFieldDisplayDriv
         var name = fieldDisplayContext.PartFieldDefinition.Name;
         if (field.ContentItem.Get<ContentSetPart>(name) is not { } part) return null;
 
-        return Initialize<ContentSetContentPickerFieldViewModel>(GetDisplayShapeType(fieldDisplayContext), model =>
+        return Initialize<ContentSetContentPickerFieldViewModel>(GetDisplayShapeType(fieldDisplayContext), async model =>
             {
                 model.PartFieldDefinition = fieldDisplayContext.PartFieldDefinition;
-                return model.InitializeAsync(
+                await model.InitializeAsync(
                     _contentSetManager,
                     _contentSetEventHandlers,
                     T,
                     part,
                     new ContentTypePartDefinition(
                         name,
-                        _contentDefinitionManager.GetPartDefinition(nameof(ContentSetPart)),
-                        new JObject()),
+                        await _contentDefinitionManager.GetPartDefinitionAsync(nameof(ContentSetPart)),
+                        []),
                     isNew: false);
             })
             .Location(CommonContentDisplayTypes.Detail, CommonLocationNames.Content)

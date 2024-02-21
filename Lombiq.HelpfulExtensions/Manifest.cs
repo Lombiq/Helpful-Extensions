@@ -13,10 +13,10 @@ using static Lombiq.HelpfulExtensions.FeatureIds;
     Name = "Lombiq Helpful Extensions - Code Generation Helpful Extensions",
     Category = "Development",
     Description = "Generates migrations from content type definitions.",
-    Dependencies = new[]
-    {
+    Dependencies =
+    [
         "OrchardCore.Resources",
-    }
+    ]
 )]
 
 [assembly: Feature(
@@ -24,10 +24,10 @@ using static Lombiq.HelpfulExtensions.FeatureIds;
     Name = "Lombiq Helpful Extensions - Content Sets",
     Category = "Development",
     Description = "Create arbitrary collections of content items.",
-    Dependencies = new[]
-    {
+    Dependencies =
+    [
         "OrchardCore.ContentManagement",
-    }
+    ]
 )]
 
 [assembly: Feature(
@@ -35,10 +35,10 @@ using static Lombiq.HelpfulExtensions.FeatureIds;
     Name = "Lombiq Helpful Extensions - Flows Helpful Extensions",
     Category = "Content",
     Description = "Adds additional styling capabilities to Flow Part.",
-    Dependencies = new[]
-    {
+    Dependencies =
+    [
         "OrchardCore.Flows",
-    }
+    ]
 )]
 
 [assembly: Feature(
@@ -46,12 +46,12 @@ using static Lombiq.HelpfulExtensions.FeatureIds;
     Name = "Lombiq Helpful Extensions - Helpful Widgets",
     Category = "Content",
     Description = "Adds helpful widgets such as Container or Liquid widgets.",
-    Dependencies = new[]
-    {
+    Dependencies =
+    [
         "OrchardCore.Html",
         "OrchardCore.Liquid",
         "OrchardCore.Title",
-    }
+    ]
 )]
 
 [assembly: Feature(
@@ -59,12 +59,12 @@ using static Lombiq.HelpfulExtensions.FeatureIds;
     Name = "Lombiq Helpful Extensions - Helpful Content Types",
     Category = "Content",
     Description = "Adds helpful content types such as Page.",
-    Dependencies = new[]
-    {
+    Dependencies =
+    [
         "OrchardCore.Autoroute",
         "OrchardCore.Flows",
         "OrchardCore.Title",
-    }
+    ]
 )]
 
 [assembly: Feature(
@@ -86,10 +86,10 @@ using static Lombiq.HelpfulExtensions.FeatureIds;
     Name = "Lombiq Helpful Extensions - Emails",
     Category = "Messaging",
     Description = "Adds shape-based email template rendering and helpful email sending services.",
-    Dependencies = new[]
-    {
+    Dependencies =
+    [
         "OrchardCore.Email",
-    }
+    ]
 )]
 
 [assembly: Feature(
@@ -107,10 +107,10 @@ using static Lombiq.HelpfulExtensions.FeatureIds;
         "Adds a content type that lets the users with admin dashboard access customize string/HTML resources on the " +
         "site via Markdown. If OrchardCore.ContentLocalization is enabled, it also tries to retrieve the localized " +
         "version if available.",
-    Dependencies = new[]
-    {
+    Dependencies =
+    [
         "OrchardCore.Markdown",
-    }
+    ]
 )]
 
 [assembly: Feature(
@@ -121,10 +121,10 @@ using static Lombiq.HelpfulExtensions.FeatureIds;
         "Convert Orchard 1's export XML files into Orchard Core recipes. This feature contains the basics like " +
         "CommonPart and BodyPart (full list is in the Helpful Extensions repository readme), but can be extended " +
         "with additional converters that only have to handle more specialized export data.",
-    Dependencies = new[]
-    {
+    Dependencies =
+    [
         "OrchardCore.Contents",
-    }
+    ]
 )]
 
 [assembly: Feature(
@@ -132,11 +132,11 @@ using static Lombiq.HelpfulExtensions.FeatureIds;
     Name = "Lombiq Helpful Extensions - Reset password workflow activity",
     Category = "Security",
     Description = "Adds generate reset password token activity.",
-    Dependencies = new[]
-    {
+    Dependencies =
+    [
         "OrchardCore.Users.ResetPassword",
         "OrchardCore.Workflows",
-    }
+    ]
 )]
 
 [assembly: Feature(

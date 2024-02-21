@@ -1,8 +1,8 @@
-﻿using Lombiq.HelpfulExtensions.Extensions.Widgets.Models;
+using Lombiq.HelpfulExtensions.Extensions.Widgets.Models;
 using Microsoft.AspNetCore.Http;
 using OrchardCore.ContentManagement.Display.ContentDisplay;
+using OrchardCore.Modules;
 using OrchardCore.Rules;
-using System;
 using System.Linq;
 using System.Threading.Tasks;
 

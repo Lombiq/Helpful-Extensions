@@ -14,15 +14,13 @@ public class AdditionalStylingPartHandler : ContentHandlerBase
     public AdditionalStylingPartHandler(IContentDefinitionManager contentDefinitionManager) =>
         _contentDefinitionManager = contentDefinitionManager;
 
-    public override Task ActivatedAsync(ActivatedContentContext context)
+    public override async Task ActivatedAsync(ActivatedContentContext context)
     {
         if (!context.ContentItem.Has<AdditionalStylingPart>() &&
-            _contentDefinitionManager.GetTypeDefinition(context.ContentItem.ContentType)
+            (await _contentDefinitionManager.GetTypeDefinitionAsync(context.ContentItem.ContentType))
                 .GetSettings<ContentTypeSettings>().Stereotype == "Widget")
         {
             context.ContentItem.Weld<AdditionalStylingPart>();
         }
-
-        return Task.CompletedTask;
     }
 }

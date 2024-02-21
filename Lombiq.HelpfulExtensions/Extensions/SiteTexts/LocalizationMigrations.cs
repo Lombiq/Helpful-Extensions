@@ -1,6 +1,7 @@
-﻿using OrchardCore.ContentLocalization.Models;
+using OrchardCore.ContentLocalization.Models;
 using OrchardCore.ContentManagement.Metadata;
 using OrchardCore.Data.Migration;
+using System.Threading.Tasks;
 using static Lombiq.HelpfulExtensions.Extensions.SiteTexts.Constants.ContentTypes;
 
 namespace Lombiq.HelpfulExtensions.Extensions.SiteTexts;
@@ -12,9 +13,9 @@ public class LocalizationMigrations : DataMigration
     public LocalizationMigrations(IContentDefinitionManager contentDefinitionManager) =>
         _contentDefinitionManager = contentDefinitionManager;
 
-    public int Create()
+    public async Task<int> CreateAsync()
     {
-        _contentDefinitionManager.AlterTypeDefinition(SiteText, builder => builder
+        await _contentDefinitionManager.AlterTypeDefinitionAsync(SiteText, builder => builder
             .WithPart(nameof(LocalizationPart)));
 
         return 1;
