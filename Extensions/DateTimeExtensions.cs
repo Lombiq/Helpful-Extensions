@@ -110,8 +110,13 @@ namespace System
             this DateTime? dateTime,
             IDateLocalizationServices dateLocalizationServices) =>
             dateTime.HasValue
-                ? dateLocalizationServices.ConvertToSiteTimeZone(dateTime.Value).ConvertToUsaDateFormat()
+                ? dateTime.Value.DateTimeToSiteTimeZoneInUsaDateFormat(dateLocalizationServices)
                 : string.Empty;
+
+        public static string DateTimeToSiteTimeZoneInUsaDateFormat(
+            this DateTime dateTime,
+            IDateLocalizationServices dateLocalizationServices) =>
+            dateLocalizationServices.ConvertToSiteTimeZone(dateTime).ConvertToUsaDateFormat();
 
         public static string ConvertToUsaTimeFormat(this DateTime? time) =>
             time?.ConvertToUsaTimeFormat() ?? "";
