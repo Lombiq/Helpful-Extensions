@@ -1,5 +1,4 @@
 using Shouldly;
-using System;
 using System.Diagnostics.CodeAnalysis;
 
 namespace Lombiq.HelpfulExtensions.Tests.UI.Constants;
