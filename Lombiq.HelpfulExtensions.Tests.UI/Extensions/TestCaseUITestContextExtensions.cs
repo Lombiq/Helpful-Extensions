@@ -116,7 +116,8 @@ public static class TestCaseUITestContextExtensions
             {
                 await context.ClickReliablyOnAsync(By.ClassName("toggle-showing-generated-migration-code"));
 
-                context.Get(By.Id("generated-migration-code").OfAnyVisibility()).GetValue().ShouldBe(GeneratedMigrationCodes.Page);
+                GeneratedMigrationCodes.ShouldBePage(
+                    context.Get(By.Id("generated-migration-code").OfAnyVisibility()).GetValue());
 
                 // Making sure that the collapsible area is open.
                 context.Get(By.CssSelector("#generated-migration-code-container.collapse.show"));
