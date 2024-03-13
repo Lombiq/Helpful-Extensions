@@ -2,12 +2,13 @@
 @using OrchardCore
 @using OrchardCore.ContentManagement.Metadata.Settings
 @using OrchardCore.Mvc.Utilities
+@using System.Text.Json.Nodes
 
 @{
     var name = (Model.PartFieldDefinition.PartDefinition.Name + "-" + Model.PartFieldDefinition.Name).HtmlClassify();
 
-    var settings = Model.PartFieldDefinition.Settings.GetMaybe(nameof(ContentPartFieldSettings));
-    var displayName = settings?.ToObject<ContentPartFieldSettings>()?.DisplayName ?? Model.PartFieldDefinition.Name;
+    var settings = Model.PartFieldDefinition.Settings?.ToObject<ContentPartFieldSettings>();
+    var displayName = settings?.DisplayName ?? Model.PartFieldDefinition.Name;
 
     var links = Model
         .MemberLinks

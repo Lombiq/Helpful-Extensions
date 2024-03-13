@@ -4,8 +4,6 @@ using Lombiq.HelpfulExtensions.Extensions.ContentSets.ViewModels;
 using Lombiq.HelpfulExtensions.Extensions.ContentSets.Workflows.Activities;
 using Lombiq.HelpfulExtensions.Extensions.ContentSets.Workflows.Models;
 using Lombiq.HelpfulLibraries.OrchardCore.Workflow;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 using OrchardCore.ContentManagement;
 using OrchardCore.ContentManagement.Metadata.Models;
 using OrchardCore.Workflows.Models;
@@ -13,6 +11,8 @@ using OrchardCore.Workflows.Services;
 using System.Collections.Generic;
 using System.Dynamic;
 using System.Linq;
+using System.Text.Json;
+using System.Text.Json.Nodes;
 using System.Threading.Tasks;
 
 namespace Lombiq.HelpfulExtensions.Extensions.ContentSets.Workflows.Handlers;
@@ -54,14 +54,16 @@ public class WorkflowContentSetEventHandler : IContentSetEventHandler
                 case ContentSetLinkViewModel viewModel:
                     links.Add(viewModel);
                     break;
-                case IEnumerable<object> collection when collection.CastWhere<ExpandoObject>() is { } objects && objects.Any():
-                    links.AddRange(JToken.FromObject(objects).ToObject<IEnumerable<ContentSetLinkViewModel>>());
-                    break;
                 case ExpandoObject expandoObject:
-                    links.Add(JToken.FromObject(expandoObject).ToObject<ContentSetLinkViewModel>());
+                    links.Add(SerializeAndDeserialize<ContentSetLinkViewModel>(expandoObject));
+                    break;
+                case IEnumerable<object> collection when
+                    collection.CastWhere<ExpandoObject>().ToList() is { } objects &&
+                    objects.Count != 0:
+                    links.AddRange(SerializeAndDeserialize<IEnumerable<ContentSetLinkViewModel>>(objects));
                     break;
                 case string json when !string.IsNullOrWhiteSpace(json):
-                    links.AddRange(JsonConvert.DeserializeObject<List<ContentSetLinkViewModel>>(json));
+                    links.AddRange(JsonSerializer.Deserialize<List<ContentSetLinkViewModel>>(json));
                     break;
                 default: continue;
             }
@@ -79,4 +81,7 @@ public class WorkflowContentSetEventHandler : IContentSetEventHandler
             new CreatingContext(content, definition, contentSet, newKey),
             $"{nameof(WorkflowContentSetEventHandler)}.{nameof(CreatingAsync)}" +
             $"({content.ContentItemId}, {definition.Name}, {contentSet}, {newKey})");
+
+    private static T SerializeAndDeserialize<T>(object source) =>
+        JsonSerializer.SerializeToNode(source).ToObject<T>();
 }

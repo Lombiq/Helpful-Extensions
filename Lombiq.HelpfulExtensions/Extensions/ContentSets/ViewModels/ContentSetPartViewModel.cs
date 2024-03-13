@@ -8,6 +8,7 @@ using OrchardCore.ContentManagement.Metadata.Models;
 using OrchardCore.ContentManagement.Metadata.Settings;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.Json.Nodes;
 using System.Threading.Tasks;
 
 namespace Lombiq.HelpfulExtensions.Extensions.ContentSets.ViewModels;
@@ -33,8 +34,7 @@ public class ContentSetPartViewModel
     public string DisplayName =>
         Definition?
             .Settings?
-            .Property(nameof(ContentTypePartSettings))?
-            .Value
+            .GetMaybe(nameof(ContentTypePartSettings))?
             .ToObject<ContentTypePartSettings>()?
             .DisplayName ?? Definition?.Name;
 

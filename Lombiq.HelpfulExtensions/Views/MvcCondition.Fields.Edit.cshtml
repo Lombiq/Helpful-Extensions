@@ -1,4 +1,5 @@
-@using Newtonsoft.Json
+@using System.Text.Json
+@using Lombiq.HelpfulLibraries.OrchardCore.TagHelpers
 @model MvcConditionViewModel
 
 @{
@@ -19,7 +20,7 @@
 <fieldset class="form-group mb-3 col-xl-6">
     <label class="form-label">@T["Other route values"]</label>
     <table class="mvcConditionOther table" 
-           data-model="@JsonConvert.SerializeObject(other)"
+           data-model="@JsonSerializer.Serialize(other)"
            data-form-name="@Html.NameFor(model => model.OtherRouteNames)"
            data-form-value="@Html.NameFor(model => model.OtherRouteValues)">
         <thead>
