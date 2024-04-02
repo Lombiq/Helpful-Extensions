@@ -5,7 +5,7 @@ using OrchardCore.Recipes.Models;
 using OrchardCore.Users.Models;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text.Json;
+using System.Text.Json.Nodes;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 using System.Xml.XPath;
@@ -72,8 +72,8 @@ public class OrchardExportToRecipeConverter : IOrchardExportToRecipeConverter
             await converter.UpdateContentItemsAsync(export, contentItems);
         }
 
-        var recipe = JsonSerializer.SerializeToNode(new RecipeDescriptor())!;
-        recipe["steps"] = JsonSerializer.SerializeToNode(new[] { new { name = "content", data = contentItems } });
+        var recipe = JObject.FromObject(new RecipeDescriptor())!;
+        recipe["steps"] = JObject.FromObject(new[] { new { name = "content", data = contentItems } });
 
         return recipe.ToString();
     }
