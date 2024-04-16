@@ -10,7 +10,7 @@
                 // eslint-disable-next-line no-script-url
                 !links[i].href.startsWith('javascript:') &&
                 !links[i].href.startsWith('mailto:') &&
-                links[i].href.length > 0) {
+                links[i].href) {
                 links[i].setAttribute('target', '_blank');
             }
         }
