@@ -83,5 +83,5 @@ public class WorkflowContentSetEventHandler : IContentSetEventHandler
             $"({content.ContentItemId}, {definition.Name}, {contentSet}, {newKey})");
 
     private static T SerializeAndDeserialize<T>(object source) =>
-        JObject.FromObject(source).ToObject<T>();
+        JNode.FromObject(source).ToObject<T>();
 }
