@@ -26,7 +26,7 @@ public class Startup : StartupBase
 
         services
             .AddScoped<IDisplayDriver<Condition>, MvcConditionDisplayDriver>()
-            .AddCondition<MvcCondition, MvcConditionEvaluatorDriver, ConditionFactory<MvcCondition>>()
+            .AddRuleCondition<MvcCondition, MvcConditionEvaluatorDriver, ConditionFactory<MvcCondition>>()
             .AddScoped(sp => (IContentDisplayDriver)sp.GetRequiredService<MvcConditionEvaluatorDriver>());
 
         services.AddTagHelpers<EditorFieldSetTagHelper>();
