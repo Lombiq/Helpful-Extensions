@@ -167,11 +167,11 @@ public class CodeGenerationDisplayDriver : ContentTypeDefinitionDisplayDriver
         return stringArrayCodeBuilder.ToString();
     }
 
-    private string ConvertJsonObject(JsonObject jObject, int indentationDepth)
+    private string ConvertJsonObject(JsonObject jsonObject, int indentationDepth)
     {
         var braceIndentation = new string(' ', indentationDepth);
         var propertyIndentation = new string(' ', indentationDepth + IndentationDepth);
-        if (jObject["name"] is { } name && jObject["value"] is { } value)
+        if (jsonObject["name"] is { } name && jsonObject["value"] is { } value)
         {
             var objectCodeBuilder = new StringBuilder();
             objectCodeBuilder.AppendLine(CultureInfo.InvariantCulture, $"{braceIndentation}new ListValueOption");
@@ -184,7 +184,7 @@ public class CodeGenerationDisplayDriver : ContentTypeDefinitionDisplayDriver
         }
 
         // Using a quoted string so it doesn't mess up the syntax highlighting of the rest of the code.
-        return T["\"FIX ME! Couldn't determine the actual type to instantiate.\" {0}", jObject.ToString()];
+        return T["\"FIX ME! Couldn't determine the actual type to instantiate.\" {0}", jsonObject.ToString()];
     }
 
     private void AddSettingsWithout<T>(StringBuilder codeBuilder, JsonObject settings, int indentationDepth = IndentationDepth)
