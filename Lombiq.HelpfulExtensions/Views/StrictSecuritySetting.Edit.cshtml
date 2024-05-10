@@ -14,7 +14,7 @@
 <script at="Foot" depends-on="jQuery">
 jQuery(function ($) {
      $('#ContentTypeDefinition_Securable').change(function () {
-         var strict = document.getElementById(@Html.IdFor(model => model.Enabled).JsonHtmlContent());
+         const strict = document.getElementById(@Html.IdFor(model => model.Enabled).JsonHtmlContent());
 
          strict.disabled = !this.checked;
          if (!this.checked) strict.checked = false;
