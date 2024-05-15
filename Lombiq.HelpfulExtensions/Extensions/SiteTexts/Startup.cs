@@ -21,7 +21,7 @@ public class ContentLocalizationStartup : StartupBase
 {
     public override void ConfigureServices(IServiceCollection services)
     {
-        services.RemoveImplementations<ISiteTextService>();
+        services.RemoveImplementationsOf<ISiteTextService>();
         services.AddScoped<ISiteTextService, ContentLocalizationSiteTextService>();
     }
 }

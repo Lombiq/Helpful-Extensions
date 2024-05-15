@@ -1,5 +1,4 @@
 using Microsoft.Extensions.Localization;
-using Newtonsoft.Json.Linq;
 using OrchardCore.ContentManagement.Metadata.Models;
 using OrchardCore.ContentManagement.Metadata.Settings;
 using OrchardCore.ContentTypes.Editors;
@@ -9,11 +8,15 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Text;
+using System.Text.Json.Nodes;
 
 namespace Lombiq.HelpfulExtensions.Extensions.CodeGeneration;
 
 public class CodeGenerationDisplayDriver : ContentTypeDefinitionDisplayDriver
 {
+    private const int IndentationDepth = 4;
+    private const string EmptyString = "\"\"";
+
     private readonly IStringLocalizer T;
 
     public CodeGenerationDisplayDriver(IStringLocalizer<CodeGenerationDisplayDriver> stringLocalizer) =>
@@ -37,7 +40,7 @@ public class CodeGenerationDisplayDriver : ContentTypeDefinitionDisplayDriver
                 codeBuilder.AppendLine(CultureInfo.InvariantCulture, $"    .DisplayedAs(\"{model.DisplayName}\")");
 
                 GenerateCodeForSettings(codeBuilder, model.GetSettings<ContentTypeSettings>());
-                AddSettingsWithout<ContentTypeSettings>(codeBuilder, model.Settings, 4);
+                AddSettingsWithout<ContentTypeSettings>(codeBuilder, model.Settings);
                 GenerateCodeForParts(codeBuilder, model.Parts);
                 codeBuilder.AppendLine(");");
 
@@ -63,7 +66,7 @@ public class CodeGenerationDisplayDriver : ContentTypeDefinitionDisplayDriver
             AddWithLine(codeBuilder, nameof(partSettings.DisplayMode), partSettings.DisplayMode);
             AddWithLine(codeBuilder, nameof(partSettings.Editor), partSettings.Editor);
 
-            AddSettingsWithout<ContentTypePartSettings>(codeBuilder, part.Settings, 8);
+            AddSettingsWithout<ContentTypePartSettings>(codeBuilder, part.Settings, 2 * IndentationDepth);
 
             // Checking if anything was added to the part's settings.
             if (codeBuilder.Length == partStartingLength)
@@ -102,7 +105,7 @@ public class CodeGenerationDisplayDriver : ContentTypeDefinitionDisplayDriver
             AddWithLine(codeBuilder, nameof(partSettings.Description), partSettings.Description);
             AddWithLine(codeBuilder, nameof(partSettings.DefaultPosition), partSettings.DefaultPosition);
 
-            AddSettingsWithout<ContentPartSettings>(codeBuilder, part.Settings, 4);
+            AddSettingsWithout<ContentPartSettings>(codeBuilder, part.Settings);
 
             foreach (var field in part.Fields)
             {
@@ -116,7 +119,7 @@ public class CodeGenerationDisplayDriver : ContentTypeDefinitionDisplayDriver
                 AddWithLine(codeBuilder, nameof(fieldSettings.DisplayMode), fieldSettings.DisplayMode);
                 AddWithLine(codeBuilder, nameof(fieldSettings.Position), fieldSettings.Position);
 
-                AddSettingsWithout<ContentPartFieldSettings>(codeBuilder, field.Settings, 8);
+                AddSettingsWithout<ContentPartFieldSettings>(codeBuilder, field.Settings, 2 * IndentationDepth);
 
                 codeBuilder.AppendLine("    )");
             }
@@ -125,32 +128,20 @@ public class CodeGenerationDisplayDriver : ContentTypeDefinitionDisplayDriver
         }
     }
 
-    private string ConvertJToken(JToken jToken, int indentationDepth)
-    {
-        switch (jToken)
+    private string ConvertNode(JsonNode node, int indentationDepth) =>
+        node switch
         {
-            case JValue jValue:
-                var value = jValue.Value;
-                return value switch
-                {
-                    bool boolValue => boolValue ? "true" : "false",
-                    string => $"\"{value}\"",
-                    _ => value?.ToString()?.Replace(',', '.'), // Replace decimal commas.
-                };
-            case JArray jArray:
-                return ConvertJArray(jArray, indentationDepth);
-            case JObject jObject:
-                return ConvertJObject(jObject, indentationDepth);
-            default:
-                throw new NotSupportedException($"Settings values of type {jToken.GetType()} are not supported.");
-        }
-    }
+            JsonValue jsonValue => jsonValue.ToString(),
+            JsonArray jsonArray => ConvertJsonArray(jsonArray, indentationDepth),
+            JsonObject jsonObject => ConvertJsonObject(jsonObject, indentationDepth),
+            _ => throw new NotSupportedException($"Settings values of type {node.GetType()} are not supported."),
+        };
 
-    private string ConvertJArray(JArray jArray, int indentationDepth)
+    private string ConvertJsonArray(JsonArray jArray, int indentationDepth)
     {
-        var indentation = new string(' ', indentationDepth + 4);
+        var indentation = new string(' ', indentationDepth + IndentationDepth);
 
-        var items = jArray.Select(item => ConvertJToken(item, indentationDepth + 8)).ToList();
+        var items = jArray.Select(item => ConvertNode(item, indentationDepth + (2 * IndentationDepth))).ToList();
 
         // If the items are formatted (for ListValueOption) then don't inject line-by-line formatting.
         if (items.Exists(item => item.ContainsOrdinalIgnoreCase(Environment.NewLine)))
@@ -164,7 +155,7 @@ public class CodeGenerationDisplayDriver : ContentTypeDefinitionDisplayDriver
         stringArrayCodeBuilder.AppendLine();
         stringArrayCodeBuilder.AppendLine(CultureInfo.InvariantCulture, $"{indentation}{{");
 
-        var itemIndentation = new string(' ', indentationDepth + 8);
+        var itemIndentation = new string(' ', indentationDepth + (2 * IndentationDepth));
 
         foreach (var item in items)
         {
@@ -176,53 +167,46 @@ public class CodeGenerationDisplayDriver : ContentTypeDefinitionDisplayDriver
         return stringArrayCodeBuilder.ToString();
     }
 
-    private string ConvertJObject(JObject jObject, int indentationDepth)
+    private string ConvertJsonObject(JsonObject jsonObject, int indentationDepth)
     {
         var braceIndentation = new string(' ', indentationDepth);
-        var propertyIndentation = new string(' ', indentationDepth + 4);
-        if (jObject["name"] != null && jObject["value"] != null)
+        var propertyIndentation = new string(' ', indentationDepth + IndentationDepth);
+        if (jsonObject["name"] is { } name && jsonObject["value"] is { } value)
         {
             var objectCodeBuilder = new StringBuilder();
             objectCodeBuilder.AppendLine(CultureInfo.InvariantCulture, $"{braceIndentation}new ListValueOption");
             objectCodeBuilder.AppendLine(CultureInfo.InvariantCulture, $"{braceIndentation}{{");
-            objectCodeBuilder.AppendLine(CultureInfo.InvariantCulture, $"{propertyIndentation}Name = \"{jObject["name"]}\",");
-            objectCodeBuilder.AppendLine(CultureInfo.InvariantCulture, $"{propertyIndentation}Value = \"{jObject["value"]}\",");
+            objectCodeBuilder.AppendLine(CultureInfo.InvariantCulture, $"{propertyIndentation}Name = \"{name}\",");
+            objectCodeBuilder.AppendLine(CultureInfo.InvariantCulture, $"{propertyIndentation}Value = \"{value}\",");
             objectCodeBuilder.AppendLine(CultureInfo.InvariantCulture, $"{braceIndentation}}},");
 
             return objectCodeBuilder.ToString();
         }
 
         // Using a quoted string so it doesn't mess up the syntax highlighting of the rest of the code.
-        return T["\"FIX ME! Couldn't determine the actual type to instantiate.\" {0}", jObject.ToString()];
+        return T["\"FIX ME! Couldn't determine the actual type to instantiate.\" {0}", jsonObject.ToString()];
     }
 
-    private void AddSettingsWithout<T>(StringBuilder codeBuilder, JObject settings, int indentationDepth)
+    private void AddSettingsWithout<T>(StringBuilder codeBuilder, JsonObject settings, int indentationDepth = IndentationDepth)
     {
         var indentation = new string(' ', indentationDepth);
 
-        var filteredSettings = ((IEnumerable<KeyValuePair<string, JToken>>)settings)
-            .Where(setting => setting.Key != typeof(T).Name);
+        var filteredSettings = settings
+            .Where(pair => pair.Key != typeof(T).Name && pair.Value is JsonObject)
+            .Select(pair => (pair.Key, (JsonObject)pair.Value));
 
-        foreach (var setting in filteredSettings)
+        foreach (var (typeName, properties) in filteredSettings)
         {
-            var properties = setting.Value.Where(property => property is JProperty).Cast<JProperty>().ToArray();
+            if (properties.Count == 0) continue;
 
-            if (properties.Length == 0) continue;
-
-            codeBuilder.AppendLine(CultureInfo.InvariantCulture, $"{indentation}.WithSettings(new {setting.Key}");
+            codeBuilder.AppendLine(CultureInfo.InvariantCulture, $"{indentation}.WithSettings(new {typeName}");
             codeBuilder.AppendLine(indentation + "{");
 
-            // This doesn't support multi-level object hierarchies for settings but come on, who uses complex settings
-            // objects?
-            for (int i = 0; i < properties.Length; i++)
+            foreach (var (name, value) in properties)
             {
-                var property = properties[i];
-
-                var propertyValue = ConvertJToken(property.Value, indentationDepth);
-
-                propertyValue ??= "\"\"";
-
-                codeBuilder.AppendLine(CultureInfo.InvariantCulture, $"{indentation}    {property.Name} = {propertyValue},");
+                codeBuilder.AppendLine(
+                    CultureInfo.InvariantCulture,
+                    $"{indentation}    {name} = {ConvertNode(value, indentationDepth) ?? EmptyString},");
             }
 
             codeBuilder.AppendLine(indentation + "})");

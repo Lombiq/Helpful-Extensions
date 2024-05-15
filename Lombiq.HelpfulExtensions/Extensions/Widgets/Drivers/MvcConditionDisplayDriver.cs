@@ -3,10 +3,10 @@ using Lombiq.HelpfulExtensions.Extensions.Widgets.ViewModels;
 using Microsoft.AspNetCore.Html;
 using Microsoft.AspNetCore.Mvc.Localization;
 using Microsoft.Extensions.Localization;
-using Newtonsoft.Json;
 using OrchardCore.DisplayManagement.ModelBinding;
 using OrchardCore.DisplayManagement.Views;
 using System.Linq;
+using System.Text.Json;
 using System.Threading.Tasks;
 
 namespace Lombiq.HelpfulExtensions.Extensions.Widgets.Drivers;
@@ -77,7 +77,7 @@ public class MvcConditionDisplayDriver : ConditionDisplayDriver<MvcCondition>
         if (condition.OtherRouteValues.Any())
         {
             summaryHint = summaryHint.AppendHtml(
-                H["Other route values: {0}", JsonConvert.SerializeObject(condition.OtherRouteValues)]);
+                H["Other route values: {0}", JsonSerializer.Serialize(condition.OtherRouteValues)]);
         }
 
         return new ConditionViewModel
