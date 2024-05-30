@@ -36,18 +36,18 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="OrchardCore.Autoroute" Version="2.0.0-preview-18222" />
-    <PackageReference Include="OrchardCore.ContentFields" Version="2.0.0-preview-18222" />
-    <PackageReference Include="OrchardCore.Contents" Version="2.0.0-preview-18222" />
-    <PackageReference Include="OrchardCore.Flows" Version="2.0.0-preview-18222" />
-    <PackageReference Include="OrchardCore.Html" Version="2.0.0-preview-18222" />
-    <PackageReference Include="OrchardCore.Lists" Version="2.0.0-preview-18222" />
-    <PackageReference Include="OrchardCore.Liquid.Abstractions" Version="2.0.0-preview-18222" />
-    <PackageReference Include="OrchardCore.Markdown" Version="2.0.0-preview-18222" />
-    <PackageReference Include="OrchardCore.MetaWeblog.Abstractions" Version="2.0.0-preview-18222" />
-    <PackageReference Include="OrchardCore.Module.Targets" Version="2.0.0-preview-18222" />
-    <PackageReference Include="OrchardCore.Rules.Abstractions" Version="2.0.0-preview-18222" />
-    <PackageReference Include="OrchardCore.Workflows" Version="2.0.0-preview-18222" />
+    <PackageReference Include="OrchardCore.Autoroute" Version="2.0.0-preview-18226" />
+    <PackageReference Include="OrchardCore.ContentFields" Version="2.0.0-preview-18226" />
+    <PackageReference Include="OrchardCore.Contents" Version="2.0.0-preview-18226" />
+    <PackageReference Include="OrchardCore.Flows" Version="2.0.0-preview-18226" />
+    <PackageReference Include="OrchardCore.Html" Version="2.0.0-preview-18226" />
+    <PackageReference Include="OrchardCore.Lists" Version="2.0.0-preview-18226" />
+    <PackageReference Include="OrchardCore.Liquid.Abstractions" Version="2.0.0-preview-18226" />
+    <PackageReference Include="OrchardCore.Markdown" Version="2.0.0-preview-18226" />
+    <PackageReference Include="OrchardCore.MetaWeblog.Abstractions" Version="2.0.0-preview-18226" />
+    <PackageReference Include="OrchardCore.Module.Targets" Version="2.0.0-preview-18226" />
+    <PackageReference Include="OrchardCore.Rules.Abstractions" Version="2.0.0-preview-18226" />
+    <PackageReference Include="OrchardCore.Workflows" Version="2.0.0-preview-18226" />
     <PackageReference Include="Scrutor" Version="4.2.2" />
   </ItemGroup>
 
