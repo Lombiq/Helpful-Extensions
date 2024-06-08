@@ -40,7 +40,7 @@ public class OrchardExportToRecipeConverter : IOrchardExportToRecipeConverter
     public async Task<string> ConvertAsync(XDocument export)
     {
         var contentItems = new List<ContentItem>();
-        var contents = export.XPathSelectElement("//Content")?.Elements() ?? Enumerable.Empty<XElement>();
+        var contents = export.XPathSelectElement("//Content")?.Elements() ?? [];
         var contentTypes = (await _contentDefinitionManager.ListTypeDefinitionsAsync())
             .Select(definition => definition.Name)
             .ToList();

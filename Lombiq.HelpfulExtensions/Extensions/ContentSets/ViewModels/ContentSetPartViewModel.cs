@@ -24,7 +24,7 @@ public class ContentSetPartViewModel
     public ContentSetPart ContentSetPart { get; set; }
 
     [BindNever]
-    public IEnumerable<ContentSetLinkViewModel> MemberLinks { get; set; } = Enumerable.Empty<ContentSetLinkViewModel>();
+    public IEnumerable<ContentSetLinkViewModel> MemberLinks { get; set; } = [];
 
     [BindNever]
     public bool IsNew { get; set; }
