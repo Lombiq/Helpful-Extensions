@@ -1,4 +1,4 @@
-﻿using Lombiq.HelpfulExtensions.Extensions.ContentSets.Events;
+using Lombiq.HelpfulExtensions.Extensions.ContentSets.Events;
 using Lombiq.HelpfulExtensions.Extensions.ContentSets.Models;
 using Lombiq.HelpfulExtensions.Extensions.ContentSets.Services;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
@@ -84,13 +84,12 @@ public class ContentSetPartViewModel
                 pair.Key));
         options.AddRange(inapplicableSetMembers, link => link.Key);
 
-        MemberLinks = options
+        MemberLinks = [.. options
             .Values
             .Where(link => link.Key != Key && link.ContentItemId != part.ContentItem.ContentItemId)
             .OrderBy(link => string.IsNullOrEmpty(link.ContentItemId) ? 1 : 0)
             .ThenBy(link => link.IsDeleted ? 1 : 0)
-            .ThenBy(link => link.DisplayText)
-            .ToList();
+            .ThenBy(link => link.DisplayText)];
     }
 }
 
