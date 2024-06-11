@@ -1,6 +1,5 @@
-﻿using OrchardCore.Navigation;
+using OrchardCore.Navigation;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace Lombiq.HelpfulExtensions.Extensions.Widgets.ViewModels;
 
@@ -13,14 +12,14 @@ public class MenuWidgetViewModel
     public string HtmlClasses { get; set; } = string.Empty;
 
     public MenuWidgetViewModel()
-        : this(noWrapper: false, menuItems: Enumerable.Empty<MenuItem>())
+        : this(noWrapper: false, menuItems: [])
     {
     }
 
     public MenuWidgetViewModel(bool noWrapper, IEnumerable<MenuItem> menuItems)
     {
         NoWrapper = noWrapper;
-        MenuItems = menuItems ?? Enumerable.Empty<MenuItem>();
+        MenuItems = menuItems ?? [];
     }
 
     public MenuWidgetViewModel(dynamic model)

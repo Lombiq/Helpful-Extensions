@@ -1,4 +1,4 @@
-﻿using Lombiq.HelpfulExtensions.Extensions.ContentSets.Events;
+using Lombiq.HelpfulExtensions.Extensions.ContentSets.Events;
 using Lombiq.HelpfulExtensions.Extensions.ContentSets.Models;
 using Lombiq.HelpfulExtensions.Extensions.ContentSets.Services;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
@@ -24,7 +24,7 @@ public class ContentSetPartViewModel
     public ContentSetPart ContentSetPart { get; set; }
 
     [BindNever]
-    public IEnumerable<ContentSetLinkViewModel> MemberLinks { get; set; } = Enumerable.Empty<ContentSetLinkViewModel>();
+    public IEnumerable<ContentSetLinkViewModel> MemberLinks { get; set; } = [];
 
     [BindNever]
     public bool IsNew { get; set; }
@@ -84,6 +84,8 @@ public class ContentSetPartViewModel
                 pair.Key));
         options.AddRange(inapplicableSetMembers, link => link.Key);
 
+        // Using collection expression greatly reduces readability.
+#pragma warning disable IDE0305 // Simplify collection initialization
         MemberLinks = options
             .Values
             .Where(link => link.Key != Key && link.ContentItemId != part.ContentItem.ContentItemId)
@@ -91,6 +93,7 @@ public class ContentSetPartViewModel
             .ThenBy(link => link.IsDeleted ? 1 : 0)
             .ThenBy(link => link.DisplayText)
             .ToList();
+#pragma warning restore IDE0305 // Simplify collection initialization
     }
 }
 
