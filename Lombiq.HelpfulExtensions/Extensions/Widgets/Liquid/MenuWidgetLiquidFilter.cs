@@ -1,4 +1,4 @@
-﻿using Fluid;
+using Fluid;
 using Fluid.Values;
 using Lombiq.HelpfulExtensions.Extensions.Widgets.ViewModels;
 using Lombiq.HelpfulLibraries.OrchardCore.Liquid;
@@ -55,9 +55,9 @@ public class MenuWidgetLiquidFilter : ILiquidFilter
             FluidValues.Object => input!.ToObjectValue() switch
             {
                 IEnumerable<MenuItem> enumerable => enumerable.AsList(),
-                MenuItem single => new[] { single },
+                MenuItem single => [single],
                 JsonArray jsonArray => jsonArray.ToObject<IList<MenuItem>>(serializerOptions),
-                JsonObject jsonObject => new[] { jsonObject.ToObject<MenuItem>(serializerOptions) },
+                JsonObject jsonObject => [jsonObject.ToObject<MenuItem>(serializerOptions)],
                 _ => null,
             },
             _ => null,
@@ -70,7 +70,7 @@ public class MenuWidgetLiquidFilter : ILiquidFilter
             model =>
             {
                 model.NoWrapper = noWrapper;
-                model.MenuItems = menuItems ?? Array.Empty<MenuItem>();
+                model.MenuItems = menuItems ?? [];
                 model.HtmlClasses = classes;
             });
     }
