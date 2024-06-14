@@ -1,4 +1,4 @@
-﻿using Lombiq.HelpfulExtensions.Extensions.ContentSets.Services;
+using Lombiq.HelpfulExtensions.Extensions.ContentSets.Services;
 using Microsoft.AspNetCore.Mvc;
 using OrchardCore;
 using OrchardCore.Modules;
@@ -18,8 +18,12 @@ public class ContentSetController : Controller
         _orchardHelper = orchardHelper;
     }
 
-    public async Task<IActionResult> Create(string fromContentItemId, string fromPartName, string newKey) =>
-        await _contentSetManager.CloneContentItemAsync(fromContentItemId, fromPartName, newKey) is { } content
+    public async Task<IActionResult> Create(string fromContentItemId, string fromPartName, string newKey)
+    {
+        if (!ModelState.IsValid) return BadRequest(ModelState);
+
+        return await _contentSetManager.CloneContentItemAsync(fromContentItemId, fromPartName, newKey) is { } content
             ? Redirect(_orchardHelper.GetItemEditUrl(content))
             : NotFound();
+    }
 }

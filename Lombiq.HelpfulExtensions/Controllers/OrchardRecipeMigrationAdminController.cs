@@ -37,6 +37,8 @@ public class OrchardRecipeMigrationAdminController : Controller
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> Convert(IFormFile file)
     {
+        if (!ModelState.IsValid) return BadRequest(ModelState);
+
         Stream stream;
         string json;
 

@@ -20,7 +20,7 @@ public class StrictSecurityPermissionAuthorizationHandler : AuthorizationHandler
         .PermissionTemplates
         .ToDictionary(
             pair => pair.Key,
-            pair => GetPermissionTemplates(pair.Value, new List<string>()));
+            pair => GetPermissionTemplates(pair.Value, []));
 
     private readonly IContentDefinitionManager _contentDefinitionManager;
 

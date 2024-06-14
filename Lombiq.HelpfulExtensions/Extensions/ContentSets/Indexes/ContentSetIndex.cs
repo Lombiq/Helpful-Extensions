@@ -39,7 +39,7 @@ public class ContentSetIndexProvider : IndexProvider<ContentItem>
     public override void Describe(DescribeContext<ContentItem> context) =>
         context.For<ContentSetIndex>().Map(async contentItem =>
         {
-            if (!contentItem.Latest) return Enumerable.Empty<ContentSetIndex>();
+            if (!contentItem.Latest) return [];
 
             using var scope = _provider.CreateScope();
             var contentDefinitionManager = scope.ServiceProvider.GetRequiredService<IContentDefinitionManager>();
