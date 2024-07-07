@@ -22,6 +22,15 @@ internal sealed class ShapeTracingShapeEvents : IShapeDisplayEvents
         var builder = new HtmlContentBuilder(6);
         var shapeMetadata = context.Shape.Metadata;
 
+        var isPageTitle = shapeMetadata.Type == "PageTitle";
+
+        // This is needed to have the shape info as a comment, otherwise it would be put in the title.
+        if (isPageTitle)
+        {
+            builder.AppendHtml(context.ChildContent);
+            builder.AppendHtmlLine("</title>");
+        }
+
         builder.AppendLine();
         builder.AppendHtmlLine("<!-- ");
         builder.AppendHtmlLine(shapeMetadata.Type);
@@ -68,7 +77,10 @@ internal sealed class ShapeTracingShapeEvents : IShapeDisplayEvents
 
         builder.AppendHtmlLine("-->");
 
-        builder.AppendHtml(context.ChildContent);
+        if (!isPageTitle)
+        {
+            builder.AppendHtml(context.ChildContent);
+        }
 
         context.ChildContent = builder;
 
