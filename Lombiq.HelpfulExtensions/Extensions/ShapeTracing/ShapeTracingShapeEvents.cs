@@ -80,6 +80,7 @@ internal sealed class ShapeTracingShapeEvents : IShapeDisplayEvents
 
         builder.AppendHtmlLine("-->");
 
+        // This is needed to have the shape info as a comment, otherwise it would be put in the title.
         if (isPageTitle)
         {
             var log = string.Empty;
