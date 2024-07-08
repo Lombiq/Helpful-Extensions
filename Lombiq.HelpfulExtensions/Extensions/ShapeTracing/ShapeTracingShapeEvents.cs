@@ -1,8 +1,10 @@
 using Microsoft.AspNetCore.Html;
 using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Logging;
 using OrchardCore.DisplayManagement.Implementation;
 using OrchardCore.DisplayManagement.Shapes;
 using System.Linq;
+using System.Text.Encodings.Web;
 using System.Threading.Tasks;
 
 namespace Lombiq.HelpfulExtensions.Extensions.ShapeTracing;
@@ -10,8 +12,13 @@ namespace Lombiq.HelpfulExtensions.Extensions.ShapeTracing;
 internal sealed class ShapeTracingShapeEvents : IShapeDisplayEvents
 {
     private readonly IHttpContextAccessor _hca;
+    private readonly ILogger<ShapeTracingShapeEvents> _logger;
 
-    public ShapeTracingShapeEvents(IHttpContextAccessor hca) => _hca = hca;
+    public ShapeTracingShapeEvents(IHttpContextAccessor hca, ILogger<ShapeTracingShapeEvents> logger)
+    {
+        _hca = hca;
+        _logger = logger;
+    }
 
     public Task DisplayedAsync(ShapeDisplayContext context)
     {
@@ -20,48 +27,42 @@ internal sealed class ShapeTracingShapeEvents : IShapeDisplayEvents
         // We could also use _orchardHelper.ConsoleLog(context.Shape) here but that causes an OutOfMemoryException.
 
         var builder = new HtmlContentBuilder(6);
+        var builderShapeInfo = new HtmlContentBuilder(6);
         var shapeMetadata = context.Shape.Metadata;
 
-        var isPageTitle = shapeMetadata.Type == "PageTitle";
-
-        // This is needed to have the shape info as a comment, otherwise it would be put in the title.
-        if (isPageTitle)
-        {
-            builder.AppendHtml(context.ChildContent);
-            builder.AppendHtmlLine("</title>");
-        }
+        var isPageTitle = shapeMetadata.Type == nameof(PageTitleShapes.PageTitle);
 
         builder.AppendLine();
         builder.AppendHtmlLine("<!-- ");
-        builder.AppendHtmlLine(shapeMetadata.Type);
-        builder.AppendLine();
+        builderShapeInfo.AppendHtmlLine(shapeMetadata.Type);
+        builderShapeInfo.AppendLine();
 
         void AddIfNotNullOrEmpty(string name, string value)
         {
             if (!string.IsNullOrEmpty(value))
             {
-                builder.AppendHtml(name);
-                builder.AppendHtml(": ");
-                builder.AppendHtmlLine(value);
+                builderShapeInfo.AppendHtml(name);
+                builderShapeInfo.AppendHtml(": ");
+                builderShapeInfo.AppendHtmlLine(value);
             }
         }
 
         if (shapeMetadata.Alternates.Count != 0)
         {
-            builder.AppendHtml("Alternates: ");
-            builder.AppendHtmlLine(string.Join(", ", shapeMetadata.Alternates));
+            builderShapeInfo.AppendHtml("Alternates: ");
+            builderShapeInfo.AppendHtmlLine(string.Join(", ", shapeMetadata.Alternates));
         }
 
         if (shapeMetadata.BindingSources.Any())
         {
-            builder.AppendHtml("Binding sources: ");
-            builder.AppendHtmlLine(string.Join(", ", shapeMetadata.BindingSources));
+            builderShapeInfo.AppendHtml("Binding sources: ");
+            builderShapeInfo.AppendHtmlLine(string.Join(", ", shapeMetadata.BindingSources));
         }
 
         if (shapeMetadata.Wrappers.Count != 0)
         {
-            builder.AppendHtml("Wrappers: ");
-            builder.AppendHtmlLine(string.Join(", ", shapeMetadata.Wrappers));
+            builderShapeInfo.AppendHtml("Wrappers: ");
+            builderShapeInfo.AppendHtmlLine(string.Join(", ", shapeMetadata.Wrappers));
         }
 
         AddIfNotNullOrEmpty(nameof(ShapeMetadata.Card), shapeMetadata.Card);
@@ -75,14 +76,27 @@ internal sealed class ShapeTracingShapeEvents : IShapeDisplayEvents
         AddIfNotNullOrEmpty(nameof(ShapeMetadata.Prefix), shapeMetadata.Prefix);
         AddIfNotNullOrEmpty(nameof(ShapeMetadata.Tab), shapeMetadata.Tab);
 
+        builder.AppendHtml(builderShapeInfo);
+
         builder.AppendHtmlLine("-->");
 
-        if (!isPageTitle)
+        if (isPageTitle)
+        {
+            var log = string.Empty;
+
+            using (var writer = new System.IO.StringWriter())
+            {
+                builderShapeInfo.WriteTo(writer, HtmlEncoder.Default);
+                log = writer.ToString();
+            }
+
+            _logger.LogInformation("PageTitle Shape information:\n{ShapeInformation}", log);
+        }
+        else
         {
             builder.AppendHtml(context.ChildContent);
+            context.ChildContent = builder;
         }
-
-        context.ChildContent = builder;
 
         return Task.CompletedTask;
     }
