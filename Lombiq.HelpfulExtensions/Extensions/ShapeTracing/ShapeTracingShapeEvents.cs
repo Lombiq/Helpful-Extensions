@@ -1,10 +1,10 @@
 using Microsoft.AspNetCore.Html;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc.Localization;
 using Microsoft.Extensions.Logging;
 using OrchardCore.DisplayManagement.Implementation;
 using OrchardCore.DisplayManagement.Shapes;
 using System.Linq;
-using System.Text.Encodings.Web;
 using System.Threading.Tasks;
 
 namespace Lombiq.HelpfulExtensions.Extensions.ShapeTracing;
@@ -76,24 +76,14 @@ internal sealed class ShapeTracingShapeEvents : IShapeDisplayEvents
         AddIfNotNullOrEmpty(nameof(ShapeMetadata.Prefix), shapeMetadata.Prefix);
         AddIfNotNullOrEmpty(nameof(ShapeMetadata.Tab), shapeMetadata.Tab);
 
+        _logger.LogInformation("Shape information:\n{ShapeInformation}", builderShapeInfo.Html());
+
         builder.AppendHtml(builderShapeInfo);
 
         builder.AppendHtmlLine("-->");
 
-        // This is needed to have the shape info as a comment, otherwise it would be put in the title.
-        if (isPageTitle)
-        {
-            var log = string.Empty;
-
-            using (var writer = new System.IO.StringWriter())
-            {
-                builderShapeInfo.WriteTo(writer, HtmlEncoder.Default);
-                log = writer.ToString();
-            }
-
-            _logger.LogInformation("PageTitle Shape information:\n{ShapeInformation}", log);
-        }
-        else
+        // We are skipping the PageTitle shape, otherwise the shape information would be put in the title.
+        if (!isPageTitle)
         {
             builder.AppendHtml(context.ChildContent);
             context.ChildContent = builder;
