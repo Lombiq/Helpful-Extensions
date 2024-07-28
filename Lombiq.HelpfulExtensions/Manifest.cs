@@ -89,6 +89,7 @@ using static Lombiq.HelpfulExtensions.FeatureIds;
     Dependencies =
     [
         "OrchardCore.Email",
+        "OrchardCore.Email.Smtp",
     ]
 )]
 
