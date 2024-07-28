@@ -3,6 +3,7 @@ using Lombiq.HelpfulExtensions.Extensions.Security.ViewModels;
 using OrchardCore.ContentManagement.Metadata.Models;
 using OrchardCore.ContentManagement.Metadata.Settings;
 using OrchardCore.ContentTypes.Editors;
+using OrchardCore.DisplayManagement.Handlers;
 using OrchardCore.DisplayManagement.Views;
 using System.Threading.Tasks;
 
@@ -20,15 +21,12 @@ public class StrictSecuritySettingsDisplayDriver : ContentTypeDefinitionDisplayD
 
     public override async Task<IDisplayResult> UpdateAsync(ContentTypeDefinition model, UpdateTypeEditorContext context)
     {
-        var viewModel = new StrictSecuritySettingsViewModel();
+        var viewModel = await context.CreateModelMaybeAsync<StrictSecuritySettingsViewModel>(Prefix);
 
-        if (await context.Updater.TryUpdateModelAsync(viewModel, Prefix))
-        {
-            // Securable must be enabled for Strict Securable to make sense. Also checked on the client side too.
-            if (model.GetSettings<ContentTypeSettings>()?.Securable != true) viewModel.Enabled = false;
+        // Securable must be enabled for Strict Securable to make sense. Also checked on the client side too.
+        if (model.GetSettings<ContentTypeSettings>()?.Securable != true) viewModel.Enabled = false;
 
-            context.Builder.MergeSettings<StrictSecuritySettings>(settings => settings.Enabled = viewModel.Enabled);
-        }
+        context.Builder.MergeSettings<StrictSecuritySettings>(settings => settings.Enabled = viewModel.Enabled);
 
         return Edit(model);
     }
