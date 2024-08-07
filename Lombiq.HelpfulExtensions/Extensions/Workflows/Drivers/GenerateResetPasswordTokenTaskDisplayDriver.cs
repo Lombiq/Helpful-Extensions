@@ -1,11 +1,9 @@
 using Lombiq.HelpfulExtensions.Extensions.Workflows.Activities;
 using Lombiq.HelpfulExtensions.Extensions.Workflows.ViewModels;
 using Microsoft.Extensions.Localization;
-using OrchardCore.DisplayManagement.ModelBinding;
+using OrchardCore.DisplayManagement.Handlers;
 using OrchardCore.DisplayManagement.Views;
-using OrchardCore.Users.Models;
 using OrchardCore.Workflows.Display;
-using OrchardCore.Workflows.Models;
 using System.Threading.Tasks;
 
 namespace Lombiq.HelpfulExtensions.Extensions.Workflows.Drivers;
@@ -26,16 +24,15 @@ public class GenerateResetPasswordTokenTaskDisplayDriver : ActivityDisplayDriver
         model.ResetPasswordUrlPropertyKey = activity.ResetPasswordUrlPropertyKey;
     }
 
-    public override async Task<IDisplayResult> UpdateAsync(GenerateResetPasswordTokenTask model, IUpdateModel updater)
+    public override async Task<IDisplayResult> UpdateAsync(GenerateResetPasswordTokenTask activity, UpdateEditorContext context)
     {
         var viewModel = new GenerateResetPasswordTokenTaskViewModel();
-        if (await updater.TryUpdateModelAsync(viewModel, Prefix))
-        {
-            model.User = new WorkflowExpression<User>(viewModel.UserExpression);
-            model.ResetPasswordTokenPropertyKey = viewModel.ResetPasswordTokenPropertyKey;
-            model.ResetPasswordUrlPropertyKey = viewModel.ResetPasswordUrlPropertyKey;
-        }
+        await context.Updater.TryUpdateModelAsync(viewModel, Prefix);
 
-        return Edit(model);
+        activity.User = new(viewModel.UserExpression);
+        activity.ResetPasswordTokenPropertyKey = viewModel.ResetPasswordTokenPropertyKey;
+        activity.ResetPasswordUrlPropertyKey = viewModel.ResetPasswordUrlPropertyKey;
+
+        return await EditAsync(activity, context);
     }
 }

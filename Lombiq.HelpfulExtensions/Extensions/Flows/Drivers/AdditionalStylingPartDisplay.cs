@@ -1,7 +1,7 @@
 using Lombiq.HelpfulExtensions.Extensions.Flows.Models;
 using OrchardCore.ContentManagement;
 using OrchardCore.ContentManagement.Display.ContentDisplay;
-using OrchardCore.DisplayManagement.ModelBinding;
+using OrchardCore.DisplayManagement.Handlers;
 using OrchardCore.DisplayManagement.Views;
 using System.Threading.Tasks;
 
@@ -9,13 +9,13 @@ namespace Lombiq.HelpfulExtensions.Extensions.Flows.Drivers;
 
 public class AdditionalStylingPartDisplay : ContentDisplayDriver
 {
-    public override IDisplayResult Edit(ContentItem model, IUpdateModel updater) =>
+    public override IDisplayResult Edit(ContentItem model, BuildEditorContext context) =>
         Initialize<AdditionalStylingPart>(
                 $"{nameof(AdditionalStylingPart)}_Edit",
                 viewModel => PopulateViewModel(model, viewModel))
             .PlaceInZone("Footer", 3);
 
-    public override async Task<IDisplayResult> UpdateAsync(ContentItem model, IUpdateModel updater)
+    public override async Task<IDisplayResult> UpdateAsync(ContentItem model, UpdateEditorContext context)
     {
         var additionalStylingPart = model.As<AdditionalStylingPart>();
 
@@ -24,9 +24,9 @@ public class AdditionalStylingPartDisplay : ContentDisplayDriver
             return null;
         }
 
-        await model.AlterAsync<AdditionalStylingPart>(model => updater.TryUpdateModelAsync(model, Prefix));
+        await model.AlterAsync<AdditionalStylingPart>(model => context.Updater.TryUpdateModelAsync(model, Prefix));
 
-        return await EditAsync(model, updater);
+        return await EditAsync(model, context);
     }
 
     private static void PopulateViewModel(ContentItem model, AdditionalStylingPart viewModel)
