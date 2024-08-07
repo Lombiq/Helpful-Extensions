@@ -26,8 +26,7 @@ public class GenerateResetPasswordTokenTaskDisplayDriver : ActivityDisplayDriver
 
     public override async Task<IDisplayResult> UpdateAsync(GenerateResetPasswordTokenTask activity, UpdateEditorContext context)
     {
-        var viewModel = new GenerateResetPasswordTokenTaskViewModel();
-        await context.Updater.TryUpdateModelAsync(viewModel, Prefix);
+        var viewModel = await context.CreateModelAsync<GenerateResetPasswordTokenTaskViewModel>(Prefix);
 
         activity.User = new(viewModel.UserExpression);
         activity.ResetPasswordTokenPropertyKey = viewModel.ResetPasswordTokenPropertyKey;

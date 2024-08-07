@@ -6,6 +6,7 @@ using Lombiq.HelpfulLibraries.OrchardCore.Contents;
 using Microsoft.Extensions.Localization;
 using OrchardCore.ContentManagement.Display.ContentDisplay;
 using OrchardCore.ContentManagement.Display.Models;
+using OrchardCore.DisplayManagement.Handlers;
 using OrchardCore.DisplayManagement.ModelBinding;
 using OrchardCore.DisplayManagement.Views;
 using OrchardCore.Entities;
@@ -69,18 +70,15 @@ public class ContentSetPartDisplayDriver : ContentPartDisplayDriver<ContentSetPa
         IUpdateModel updater,
         UpdatePartEditorContext context)
     {
-        var viewModel = new ContentSetPartViewModel();
+        var viewModel = await context.CreateModelAsync<ContentSetPartViewModel>(Prefix);
 
-        if (await updater.TryUpdateModelAsync(viewModel, Prefix))
+        part.Key = viewModel.Key;
+
+        // Need to do this here to support displaying the message to save before adding when the item has not been saved
+        // yet.
+        if (string.IsNullOrEmpty(part.ContentSet))
         {
-            part.Key = viewModel.Key;
-
-            // Need to do this here to support displaying the message to save before adding when the
-            // item has not been saved yet.
-            if (string.IsNullOrEmpty(part.ContentSet))
-            {
-                part.ContentSet = _idGenerator.GenerateUniqueId();
-            }
+            part.ContentSet = _idGenerator.GenerateUniqueId();
         }
 
         return await EditAsync(part, context);
