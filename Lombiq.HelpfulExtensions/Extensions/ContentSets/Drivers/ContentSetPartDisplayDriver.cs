@@ -7,7 +7,6 @@ using Microsoft.Extensions.Localization;
 using OrchardCore.ContentManagement.Display.ContentDisplay;
 using OrchardCore.ContentManagement.Display.Models;
 using OrchardCore.DisplayManagement.Handlers;
-using OrchardCore.DisplayManagement.ModelBinding;
 using OrchardCore.DisplayManagement.Views;
 using OrchardCore.Entities;
 using System.Collections.Generic;
@@ -65,10 +64,7 @@ public class ContentSetPartDisplayDriver : ContentPartDisplayDriver<ContentSetPa
                 context.IsNew))
             .Location($"Parts:0%{context.TypePartDefinition.Name};0");
 
-    public override async Task<IDisplayResult> UpdateAsync(
-        ContentSetPart part,
-        IUpdateModel updater,
-        UpdatePartEditorContext context)
+    public override async Task<IDisplayResult> UpdateAsync(ContentSetPart part, UpdatePartEditorContext context)
     {
         var viewModel = await context.CreateModelAsync<ContentSetPartViewModel>(Prefix);
 
