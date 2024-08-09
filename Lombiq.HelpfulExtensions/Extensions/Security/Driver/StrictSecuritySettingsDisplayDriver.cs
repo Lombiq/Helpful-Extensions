@@ -11,7 +11,7 @@ namespace Lombiq.HelpfulExtensions.Extensions.Security.Driver;
 
 public class StrictSecuritySettingsDisplayDriver : ContentTypeDefinitionDisplayDriver
 {
-    public override IDisplayResult Edit(ContentTypeDefinition model) =>
+    public override IDisplayResult Edit(ContentTypeDefinition model, BuildEditorContext context) =>
         Initialize<StrictSecuritySettingsViewModel>("StrictSecuritySetting_Edit", viewModel =>
         {
             var settings = model.GetSettings<StrictSecuritySettings>();
@@ -21,13 +21,13 @@ public class StrictSecuritySettingsDisplayDriver : ContentTypeDefinitionDisplayD
 
     public override async Task<IDisplayResult> UpdateAsync(ContentTypeDefinition model, UpdateTypeEditorContext context)
     {
-        var viewModel = await context.CreateModelMaybeAsync<StrictSecuritySettingsViewModel>(Prefix);
+        var viewModel = await context.CreateModelAsync<StrictSecuritySettingsViewModel>(Prefix);
 
         // Securable must be enabled for Strict Securable to make sense. Also checked on the client side too.
         if (model.GetSettings<ContentTypeSettings>()?.Securable != true) viewModel.Enabled = false;
 
         context.Builder.MergeSettings<StrictSecuritySettings>(settings => settings.Enabled = viewModel.Enabled);
 
-        return Edit(model);
+        return await EditAsync(model, context);
     }
 }

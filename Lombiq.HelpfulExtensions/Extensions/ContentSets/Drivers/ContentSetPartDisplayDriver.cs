@@ -6,7 +6,7 @@ using Lombiq.HelpfulLibraries.OrchardCore.Contents;
 using Microsoft.Extensions.Localization;
 using OrchardCore.ContentManagement.Display.ContentDisplay;
 using OrchardCore.ContentManagement.Display.Models;
-using OrchardCore.DisplayManagement.ModelBinding;
+using OrchardCore.DisplayManagement.Handlers;
 using OrchardCore.DisplayManagement.Views;
 using OrchardCore.Entities;
 using System.Collections.Generic;
@@ -64,23 +64,17 @@ public class ContentSetPartDisplayDriver : ContentPartDisplayDriver<ContentSetPa
                 context.IsNew))
             .Location($"Parts:0%{context.TypePartDefinition.Name};0");
 
-    public override async Task<IDisplayResult> UpdateAsync(
-        ContentSetPart part,
-        IUpdateModel updater,
-        UpdatePartEditorContext context)
+    public override async Task<IDisplayResult> UpdateAsync(ContentSetPart part, UpdatePartEditorContext context)
     {
-        var viewModel = new ContentSetPartViewModel();
+        var viewModel = await context.CreateModelAsync<ContentSetPartViewModel>(Prefix);
 
-        if (await updater.TryUpdateModelAsync(viewModel, Prefix))
+        part.Key = viewModel.Key;
+
+        // Need to do this here to support displaying the message to save before adding when the item has not been saved
+        // yet.
+        if (string.IsNullOrEmpty(part.ContentSet))
         {
-            part.Key = viewModel.Key;
-
-            // Need to do this here to support displaying the message to save before adding when the
-            // item has not been saved yet.
-            if (string.IsNullOrEmpty(part.ContentSet))
-            {
-                part.ContentSet = _idGenerator.GenerateUniqueId();
-            }
+            part.ContentSet = _idGenerator.GenerateUniqueId();
         }
 
         return await EditAsync(part, context);
