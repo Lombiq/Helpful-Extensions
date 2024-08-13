@@ -2,6 +2,7 @@ using Microsoft.Extensions.Localization;
 using OrchardCore.ContentManagement.Metadata.Models;
 using OrchardCore.ContentManagement.Metadata.Settings;
 using OrchardCore.ContentTypes.Editors;
+using OrchardCore.DisplayManagement.Handlers;
 using OrchardCore.DisplayManagement.Views;
 using System;
 using System.Collections.Generic;
@@ -22,7 +23,7 @@ public class CodeGenerationDisplayDriver : ContentTypeDefinitionDisplayDriver
     public CodeGenerationDisplayDriver(IStringLocalizer<CodeGenerationDisplayDriver> stringLocalizer) =>
         T = stringLocalizer;
 
-    public override IDisplayResult Edit(ContentTypeDefinition model) =>
+    public override IDisplayResult Edit(ContentTypeDefinition model, BuildEditorContext context) =>
         Initialize<ContentTypeMigrationsViewModel>(
             "ContentTypeMigrations_Edit",
             viewModel => viewModel.MigrationCodeLazy = new Lazy<string>(() =>
