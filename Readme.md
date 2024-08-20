@@ -222,6 +222,12 @@ builder.WhenContentTypeEditor("BlogPost").RegisterFootScript(Lombiq.HelpfulExten
 builder.WhenContentTypeEditor("BlogPost").RegisterStylesheet(Lombiq.HelpfulExtensions.Constants.ResourceNames.TrumbowygHighlight);
 ```
 
+### Google Tag
+
+Adds a shape along with Razor and Liquid tag helpers for Google Analytics, using <https://tagmanager.google.com/>.
+
+You can use `<google-tag property-id="..." cookie-domain="auto">` Razor tag helper in cshtml files or the `{% google_tag property_id: "...", cookie_domain: "auto" %}` parser tag in Liquid. 
+
 ## Contributing and support
 
 Bug reports, feature requests, comments, questions, code contributions and love letters are warmly welcome. You can send them to us via GitHub issues and pull requests. Please adhere to our [open-source guidelines](https://lombiq.com/open-source-guidelines) while doing so.
