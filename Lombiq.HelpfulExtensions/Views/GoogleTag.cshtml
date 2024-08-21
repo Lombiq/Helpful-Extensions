@@ -11,7 +11,7 @@
     var trackingConsentFeature = ViewContext.HttpContext.Features.Get<ITrackingConsentFeature>();
 }
 
-@if (HostEnvironment.IsProduction() && (trackingConsentFeature is null || trackingConsentFeature.CanTrack))
+@if (HostEnvironment.IsProduction() && trackingConsentFeature is not { CanTrack: false })
 {
     GoogleAnalyticsContentSecurityPolicyProvider.EnableForCurrentRequest(Context);
 
