@@ -1,0 +1,38 @@
+@model dynamic
+
+@using Lombiq.HelpfulLibraries.OrchardCore.Security
+@using Microsoft.AspNetCore.Http.Features;
+@using Microsoft.Extensions.Hosting;
+@using Lombiq.HelpfulExtensions.Extensions.GoogleTag
+
+@inject IHostEnvironment HostEnvironment
+
+@{
+    var trackingConsentFeature = ViewContext.HttpContext.Features.Get<ITrackingConsentFeature>();
+}
+
+@if (HostEnvironment.IsProduction() && trackingConsentFeature is not { CanTrack: false })
+{
+    GoogleAnalyticsContentSecurityPolicyProvider.EnableForCurrentRequest(Context);
+
+    var viewModel = Model as GoogleTagViewModel ?? new GoogleTagViewModel
+    {
+        GoogleTagPropertyId = Model.GoogleTagPropertyId,
+        CookieDomain = Model.CookieDomain,
+    };
+    var cookieDomain = string.Empty;
+
+    if (!string.IsNullOrEmpty(viewModel.CookieDomain))
+    {
+        cookieDomain = $", {{'cookie_domain': '{viewModel.CookieDomain}' }}";
+    }
+
+    <script async src="https://www.googletagmanager.com/gtag/js?id=@viewModel.GoogleTagPropertyId"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', '@viewModel.GoogleTagPropertyId'@Html.Raw(cookieDomain))
+    </script>
+}
