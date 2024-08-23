@@ -13,7 +13,7 @@
 <li>
     @if (!string.IsNullOrEmpty(link.ContentItemId))
     {
-        var url = Orchard.Action<AdminController>(controller => controller.Edit(link.ContentItemId, null));
+        var url = Orchard.Action<AdminController>(controller => controller.Edit(link.ContentItemId));
         <a class="dropdown-item btn-sm" href="@url" title="@T["Edit {0}", link.DisplayText]">
             <i class="fa-solid fa-edit" aria-hidden="true"></i> @link.DisplayText
         </a>
