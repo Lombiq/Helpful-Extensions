@@ -19,9 +19,9 @@ public class AdminMenu : INavigationProvider
         T = stringLocalizer;
     }
 
-    public Task BuildNavigationAsync(string name, NavigationBuilder builder)
+    public ValueTask BuildNavigationAsync(string name, NavigationBuilder builder)
     {
-        if (!name.EqualsOrdinalIgnoreCase("admin")) return Task.CompletedTask;
+        if (!name.EqualsOrdinalIgnoreCase("admin")) return ValueTask.CompletedTask;
 
         builder.Add(T["Configuration"], configuration => configuration
             .Add(T["Import/Export"], importExport => importExport
@@ -30,6 +30,6 @@ public class AdminMenu : INavigationProvider
                     .LocalNav()
                 )));
 
-        return Task.CompletedTask;
+        return ValueTask.CompletedTask;
     }
 }
