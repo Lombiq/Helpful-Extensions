@@ -23,7 +23,7 @@
     <shape type="EmailTemplate_LayoutInjections" prop-layoutModel="@Model"></shape>
 </head>
 <body>
-    @if (Model.Preheader != null)
+    @if (Model.PreHeader != null)
     {
     <span class="preHeader">
         @await RenderSectionAsync("PreHeader", required: false)
