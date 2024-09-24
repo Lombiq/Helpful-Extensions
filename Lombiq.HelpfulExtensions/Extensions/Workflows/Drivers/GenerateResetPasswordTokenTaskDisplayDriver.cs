@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Lombiq.HelpfulExtensions.Extensions.Workflows.Drivers;
 
-public class GenerateResetPasswordTokenTaskDisplayDriver : ActivityDisplayDriver<
+public sealed class GenerateResetPasswordTokenTaskDisplayDriver : ActivityDisplayDriver<
     GenerateResetPasswordTokenTask,
     GenerateResetPasswordTokenTaskViewModel>
 {

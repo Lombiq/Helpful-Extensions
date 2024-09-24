@@ -14,7 +14,7 @@ using System.Collections.Generic;
 
 namespace Lombiq.HelpfulExtensions.Extensions.ContentSets.Drivers;
 
-public class ContentSetContentPickerFieldDisplayDriver : ContentFieldDisplayDriver<ContentSetContentPickerField>
+public sealed class ContentSetContentPickerFieldDisplayDriver : ContentFieldDisplayDriver<ContentSetContentPickerField>
 {
     private readonly IContentDefinitionManager _contentDefinitionManager;
     private readonly IContentSetManager _contentSetManager;

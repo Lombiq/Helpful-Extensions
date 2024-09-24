@@ -7,7 +7,7 @@ using OrchardCore.Navigation;
 namespace Lombiq.HelpfulExtensions.Extensions.OrchardRecipeMigration;
 
 [Feature(FeatureIds.OrchardRecipeMigration)]
-public class Startup : StartupBase
+public sealed class Startup : StartupBase
 {
     public override void ConfigureServices(IServiceCollection services)
     {

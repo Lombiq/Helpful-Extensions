@@ -14,7 +14,7 @@ using System.Threading.Tasks;
 
 namespace Lombiq.HelpfulExtensions.Extensions.ContentSets.Drivers;
 
-public class ContentSetPartDisplayDriver : ContentPartDisplayDriver<ContentSetPart>
+public sealed class ContentSetPartDisplayDriver : ContentPartDisplayDriver<ContentSetPart>
 {
     private const string ShapeType = $"{nameof(ContentSetPart)}_{CommonContentDisplayTypes.SummaryAdmin}";
 

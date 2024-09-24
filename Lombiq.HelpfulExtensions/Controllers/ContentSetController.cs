@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace Lombiq.HelpfulExtensions.Extensions.ContentSets.Controllers;
 
 [Feature(FeatureIds.ContentSets)]
-public class ContentSetController : Controller
+public sealed class ContentSetController : Controller
 {
     private readonly IContentSetManager _contentSetManager;
     private readonly IOrchardHelper _orchardHelper;

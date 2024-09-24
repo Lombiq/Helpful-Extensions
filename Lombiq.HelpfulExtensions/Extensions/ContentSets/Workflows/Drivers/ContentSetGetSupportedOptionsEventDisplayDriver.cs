@@ -12,7 +12,7 @@ using System.Collections.Generic;
 
 namespace Lombiq.HelpfulExtensions.Extensions.ContentSets.Workflows.Drivers;
 
-public class ContentSetGetSupportedOptionsEventDisplayDriver :
+public sealed class ContentSetGetSupportedOptionsEventDisplayDriver :
     DocumentedEventActivityDisplayDriverBase<ContentSetGetSupportedOptionsEvent>
 {
     private readonly IHtmlLocalizer<ContentSetGetSupportedOptionsEventDisplayDriver> H;

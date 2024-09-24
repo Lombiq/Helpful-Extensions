@@ -13,7 +13,7 @@ using System.Text.Json.Nodes;
 
 namespace Lombiq.HelpfulExtensions.Extensions.CodeGeneration;
 
-public class CodeGenerationDisplayDriver : ContentTypeDefinitionDisplayDriver
+public sealed class CodeGenerationDisplayDriver : ContentTypeDefinitionDisplayDriver
 {
     private const int IndentationDepth = 4;
     private const string EmptyString = "\"\"";

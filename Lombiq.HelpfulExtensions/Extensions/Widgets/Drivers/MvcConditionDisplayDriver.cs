@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace Lombiq.HelpfulExtensions.Extensions.Widgets.Drivers;
 
-public class MvcConditionDisplayDriver : ConditionDisplayDriver<MvcCondition>
+public sealed class MvcConditionDisplayDriver : ConditionDisplayDriver<MvcCondition>
 {
     private readonly IHtmlLocalizer<MvcConditionDisplayDriver> H;
     private readonly IStringLocalizer<MvcConditionDisplayDriver> T;

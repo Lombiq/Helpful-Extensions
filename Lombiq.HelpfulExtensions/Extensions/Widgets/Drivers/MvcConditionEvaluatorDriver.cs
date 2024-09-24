@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Lombiq.HelpfulExtensions.Extensions.Widgets.Drivers;
 
-public class MvcConditionEvaluatorDriver : ContentDisplayDriver, IConditionEvaluator
+public sealed class MvcConditionEvaluatorDriver : ContentDisplayDriver, IConditionEvaluator
 {
     private readonly IHttpContextAccessor _hca;
 

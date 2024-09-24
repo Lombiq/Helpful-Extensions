@@ -16,7 +16,7 @@ namespace Lombiq.HelpfulExtensions.Extensions.OrchardRecipeMigration.Controllers
 
 [Admin]
 [Feature(FeatureIds.OrchardRecipeMigration)]
-public class OrchardRecipeMigrationAdminController : Controller
+public sealed class OrchardRecipeMigrationAdminController : Controller
 {
     private readonly INotifier _notifier;
     private readonly IOrchardExportToRecipeConverter _converter;

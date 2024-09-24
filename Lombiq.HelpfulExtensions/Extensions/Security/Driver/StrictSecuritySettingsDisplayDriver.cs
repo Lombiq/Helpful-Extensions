@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Lombiq.HelpfulExtensions.Extensions.Security.Driver;
 
-public class StrictSecuritySettingsDisplayDriver : ContentTypeDefinitionDisplayDriver
+public sealed class StrictSecuritySettingsDisplayDriver : ContentTypeDefinitionDisplayDriver
 {
     public override IDisplayResult Edit(ContentTypeDefinition model, BuildEditorContext context) =>
         Initialize<StrictSecuritySettingsViewModel>("StrictSecuritySetting_Edit", viewModel =>

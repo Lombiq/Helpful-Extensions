@@ -13,7 +13,7 @@ using System;
 namespace Lombiq.HelpfulExtensions.Extensions.ContentSets;
 
 [Feature(FeatureIds.ContentSets)]
-public class Startup : StartupBase
+public sealed class Startup : StartupBase
 {
     public override void ConfigureServices(IServiceCollection services)
     {

@@ -18,7 +18,7 @@ using System;
 namespace Lombiq.HelpfulExtensions.Extensions.Widgets;
 
 [Feature(FeatureIds.Widgets)]
-public class Startup : StartupBase
+public sealed class Startup : StartupBase
 {
     public override void ConfigureServices(IServiceCollection services)
     {

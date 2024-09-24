@@ -9,7 +9,7 @@ using OrchardCore.Workflows.Helpers;
 namespace Lombiq.HelpfulExtensions.Extensions.Workflows;
 
 [Feature(FeatureIds.ResetPasswordActivity)]
-public class Startup : StartupBase
+public sealed class Startup : StartupBase
 {
     public override void ConfigureServices(IServiceCollection services)
     {

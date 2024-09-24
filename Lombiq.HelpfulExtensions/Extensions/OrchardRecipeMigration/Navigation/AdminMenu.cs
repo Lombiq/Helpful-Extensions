@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Lombiq.HelpfulExtensions.Extensions.OrchardRecipeMigration.Navigation;
 
-public class AdminMenu : INavigationProvider
+public sealed class AdminMenu : INavigationProvider
 {
     private readonly IHttpContextAccessor _hca;
     private readonly IStringLocalizer T;

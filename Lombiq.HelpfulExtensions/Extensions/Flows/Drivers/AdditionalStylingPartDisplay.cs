@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Lombiq.HelpfulExtensions.Extensions.Flows.Drivers;
 
-public class AdditionalStylingPartDisplay : ContentDisplayDriver
+public sealed class AdditionalStylingPartDisplay : ContentDisplayDriver
 {
     public override IDisplayResult Edit(ContentItem model, BuildEditorContext context) =>
         Initialize<AdditionalStylingPart>(
