@@ -1,5 +1,4 @@
 using Microsoft.Extensions.Options;
-using OrchardCore.Modules;
 using OrchardCore.ResourceManagement;
 using static Lombiq.HelpfulExtensions.Constants.ResourceNames;
 
