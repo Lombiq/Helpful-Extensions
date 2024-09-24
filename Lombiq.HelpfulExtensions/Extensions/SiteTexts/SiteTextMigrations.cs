@@ -10,7 +10,7 @@ using static Lombiq.HelpfulLibraries.OrchardCore.Contents.ContentFieldEditorEnum
 
 namespace Lombiq.HelpfulExtensions.Extensions.SiteTexts;
 
-public class SiteTextMigrations : DataMigration
+public sealed class SiteTextMigrations : DataMigration
 {
     private readonly IContentDefinitionManager _contentDefinitionManager;
 
