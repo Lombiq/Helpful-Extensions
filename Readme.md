@@ -38,7 +38,7 @@ The module consists of the following independent extensions (all in their own fe
 - [Security Extensions](Lombiq.HelpfulExtensions/Extensions/Security/Readme.md)
 - [Emails and Email Templates](Lombiq.HelpfulExtensions/Extensions/Emails/Readme.md)
 - [Target blank](Lombiq.HelpfulExtensions/Extensions/TargetBlank/Readme.md)
-- [Reset Password activity](Lombiq.HelpfulExtensions/Extensions/Workflows/Activities/Readme.md)
+- [Reset Password activity](Lombiq.HelpfulExtensions/Extensions/Workflows/Readme.md)
 - [Trumbowyg code-snippet](Lombiq.HelpfulExtensions/Extensions/Trumbowyg/Readme.md)
 
 ## Contributing and support
