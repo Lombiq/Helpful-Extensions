@@ -17,6 +17,6 @@ public class Startup : StartupBase
         services.AddScoped<IOrchardExportConverter, ListPartOrchardExportConverter>();
         services.AddScoped<IOrchardUserConverter, UserOrchardContentConverter>();
 
-        services.AddScoped<INavigationProvider, AdminMenu>();
+        services.AddNavigationProvider<AdminMenu>();
     }
 }
