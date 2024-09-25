@@ -9,7 +9,7 @@ using YesSql.Sql;
 
 namespace Lombiq.HelpfulExtensions.Extensions.ContentSets;
 
-public class Migrations : DataMigration
+public sealed class Migrations : DataMigration
 {
     private readonly IContentDefinitionManager _contentDefinitionManager;
 

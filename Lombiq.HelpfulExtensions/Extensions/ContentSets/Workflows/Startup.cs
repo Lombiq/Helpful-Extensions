@@ -10,7 +10,7 @@ namespace Lombiq.HelpfulExtensions.Extensions.ContentSets.Workflows;
 
 [Feature(FeatureIds.ContentSets)]
 [RequireFeatures("OrchardCore.Workflows")]
-public class Startup : StartupBase
+public sealed class Startup : StartupBase
 {
     public override void ConfigureServices(IServiceCollection services)
     {

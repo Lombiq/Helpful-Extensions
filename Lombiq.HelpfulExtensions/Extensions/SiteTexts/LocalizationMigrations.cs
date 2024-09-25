@@ -6,7 +6,7 @@ using static Lombiq.HelpfulExtensions.Extensions.SiteTexts.Constants.ContentType
 
 namespace Lombiq.HelpfulExtensions.Extensions.SiteTexts;
 
-public class LocalizationMigrations : DataMigration
+public sealed class LocalizationMigrations : DataMigration
 {
     private readonly IContentDefinitionManager _contentDefinitionManager;
 

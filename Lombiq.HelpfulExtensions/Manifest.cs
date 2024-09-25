@@ -89,6 +89,7 @@ using static Lombiq.HelpfulExtensions.FeatureIds;
     Dependencies =
     [
         "OrchardCore.Email",
+        "OrchardCore.Email.Smtp",
     ]
 )]
 
@@ -144,4 +145,11 @@ using static Lombiq.HelpfulExtensions.FeatureIds;
     Name = "Lombiq Helpful Extensions - Trumbowyg code-snippet",
     Category = "Content",
     Description = "Adds option for inserting code snippets in Trumbowyg editor."
+)]
+
+[assembly: Feature(
+    Id = GoogleTag,
+    Name = "Lombiq Helpful Extensions - Google Tag",
+    Category = "Content",
+    Description = "Adds a shape along with Razor and Liquid tag helpers for Google Analytics."
 )]

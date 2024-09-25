@@ -9,7 +9,7 @@ using System;
 namespace Lombiq.HelpfulExtensions.Extensions.Emails;
 
 [Feature(FeatureIds.Emails)]
-public class Startup : StartupBase
+public sealed class Startup : StartupBase
 {
     public override void ConfigureServices(IServiceCollection services)
     {

@@ -7,7 +7,7 @@ using static Lombiq.HelpfulExtensions.Extensions.ContentTypes.ContentTypes;
 
 namespace Lombiq.HelpfulExtensions.Extensions.ContentTypes;
 
-public class Migrations : DataMigration
+public sealed class Migrations : DataMigration
 {
     private readonly IContentDefinitionManager _contentDefinitionManager;
 

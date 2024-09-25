@@ -9,7 +9,7 @@ using OrchardCore.Modules;
 namespace Lombiq.HelpfulExtensions.Extensions.Security;
 
 [Feature(FeatureIds.Security)]
-public class Startup : StartupBase
+public sealed class Startup : StartupBase
 {
     public override void ConfigureServices(IServiceCollection services)
     {

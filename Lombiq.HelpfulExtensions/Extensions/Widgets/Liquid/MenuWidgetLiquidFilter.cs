@@ -6,13 +6,14 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Microsoft.AspNetCore.Mvc.Routing;
 using Microsoft.Extensions.Localization;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 using OrchardCore.Liquid;
 using OrchardCore.Navigation;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
+using System.Text.Json;
+using System.Text.Json.Nodes;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace Lombiq.HelpfulExtensions.Extensions.Widgets.Liquid;
@@ -45,23 +46,18 @@ public class MenuWidgetLiquidFilter : ILiquidFilter
         localNav = arguments[nameof(localNav)].ToBooleanValue();
         classes = arguments[nameof(classes)].ToStringValue();
 
-        var converter = new LocalizedStringJsonConverter(T);
-        var serializer = new JsonSerializer();
-        serializer.Converters.Add(converter);
-        var serializerSettings = new JsonSerializerSettings();
-        serializerSettings.Converters.Add(converter);
-
+        var serializerOptions = LocalizedStringJsonConverter.Add(T);
         var menuItems = input?.Type switch
         {
-            FluidValues.String => JsonConvert.DeserializeObject<IList<MenuItem>>(
+            FluidValues.String => JsonSerializer.Deserialize<IList<MenuItem>>(
                 input!.ToStringValue(),
-                serializerSettings),
+                serializerOptions),
             FluidValues.Object => input!.ToObjectValue() switch
             {
                 IEnumerable<MenuItem> enumerable => enumerable.AsList(),
                 MenuItem single => [single],
-                JArray jArray => jArray.ToObject<IList<MenuItem>>(serializer),
-                JObject jObject => [jObject.ToObject<MenuItem>(serializer)],
+                JsonArray jsonArray => jsonArray.ToObject<IList<MenuItem>>(serializerOptions),
+                JsonObject jsonObject => [jsonObject.ToObject<MenuItem>(serializerOptions)],
                 _ => null,
             },
             _ => null,
@@ -102,32 +98,36 @@ public class MenuWidgetLiquidFilter : ILiquidFilter
     {
         private readonly IStringLocalizer T;
 
-        public LocalizedStringJsonConverter(IStringLocalizer stringLocalizer) =>
+        private LocalizedStringJsonConverter(IStringLocalizer stringLocalizer) =>
             T = stringLocalizer;
 
-        public override void WriteJson(JsonWriter writer, LocalizedString value, JsonSerializer serializer) =>
-            writer.WriteValue(value?.Value);
+        public override void Write(Utf8JsonWriter writer, LocalizedString value, JsonSerializerOptions options) =>
+            writer.WriteStringValue(value?.Value);
 
         [SuppressMessage("Style", "IDE0010:Add missing cases", Justification = "We don't want to handle other token types.")]
-        public override LocalizedString ReadJson(
-            JsonReader reader,
-            Type objectType,
-            LocalizedString existingValue,
-            bool hasExistingValue,
-            JsonSerializer serializer)
+        public override LocalizedString Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
         {
             switch (reader.TokenType)
             {
-                case JsonToken.String:
-                    return JToken.ReadFrom(reader).ToObject<string>() is { } text ? T[text] : null;
-                case JsonToken.StartObject:
+                case JsonTokenType.String:
+                    return JsonSerializer.Deserialize<string>(ref reader, options) is { } text ? T[text] : null;
+                case JsonTokenType.StartObject:
                     var data = new Dictionary<string, string>(
-                        JToken.ReadFrom(reader).ToObject<Dictionary<string, string>>(),
+                        JsonSerializer.Deserialize<Dictionary<string, string>>(ref reader, options),
                         StringComparer.OrdinalIgnoreCase);
                     return new LocalizedString(data[nameof(LocalizedString.Name)], data[nameof(LocalizedString.Value)]);
                 default:
                     throw new InvalidOperationException("Unable to parse JSON!");
             }
+        }
+
+        public static JsonSerializerOptions Add(IStringLocalizer stringLocalizer, JsonSerializerOptions options = null)
+        {
+            options ??= new JsonSerializerOptions(JsonSerializerOptions.Default);
+            options.Converters.RemoveAll(converter => converter is JsonConverter<LocalizedString>);
+            options.Converters.Add(new LocalizedStringJsonConverter(stringLocalizer));
+
+            return options;
         }
     }
 }

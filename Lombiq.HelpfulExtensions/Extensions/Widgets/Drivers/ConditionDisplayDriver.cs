@@ -10,12 +10,12 @@ namespace Lombiq.HelpfulExtensions.Extensions.Widgets.Drivers;
 public abstract class ConditionDisplayDriver<TCondition> : DisplayDriver<Condition, TCondition>
     where TCondition : Condition
 {
-    public override IDisplayResult Display(TCondition model) =>
+    public override IDisplayResult Display(TCondition model, BuildDisplayContext context) =>
         Combine(
             InitializeDisplayType(CommonContentDisplayTypes.Summary, model),
             InitializeDisplayType(CommonContentDisplayTypes.Thumbnail, model));
 
-    public override IDisplayResult Edit(TCondition model) =>
+    public override IDisplayResult Edit(TCondition model, BuildEditorContext context) =>
         Combine(
             InitializeDisplayType(CommonContentDisplayTypes.Detail, model, "Title"),
             GetEditor(model));

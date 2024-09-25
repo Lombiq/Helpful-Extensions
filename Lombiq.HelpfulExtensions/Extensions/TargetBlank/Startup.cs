@@ -11,7 +11,7 @@ using System;
 namespace Lombiq.HelpfulExtensions.Extensions.TargetBlank;
 
 [Feature(FeatureIds.TargetBlank)]
-public class Startup : StartupBase
+public sealed class Startup : StartupBase
 {
     public override void ConfigureServices(IServiceCollection services)
     {
