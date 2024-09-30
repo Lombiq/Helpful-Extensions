@@ -18,7 +18,7 @@ using System;
 namespace Lombiq.HelpfulExtensions.Extensions.Widgets;
 
 [Feature(FeatureIds.Widgets)]
-public class Startup : StartupBase
+public sealed class Startup : StartupBase
 {
     public override void ConfigureServices(IServiceCollection services)
     {
@@ -26,7 +26,7 @@ public class Startup : StartupBase
 
         services
             .AddScoped<IDisplayDriver<Condition>, MvcConditionDisplayDriver>()
-            .AddCondition<MvcCondition, MvcConditionEvaluatorDriver, ConditionFactory<MvcCondition>>()
+            .AddRuleCondition<MvcCondition, MvcConditionEvaluatorDriver, ConditionFactory<MvcCondition>>()
             .AddScoped(sp => (IContentDisplayDriver)sp.GetRequiredService<MvcConditionEvaluatorDriver>());
 
         services.AddTagHelpers<EditorFieldSetTagHelper>();

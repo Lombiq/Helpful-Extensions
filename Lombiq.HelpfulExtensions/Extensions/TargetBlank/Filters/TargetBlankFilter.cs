@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Lombiq.HelpfulExtensions.Extensions.TargetBlank.Filters;
 
-public class TargetBlankFilter : IAsyncResultFilter
+public sealed class TargetBlankFilter : IAsyncResultFilter
 {
     private readonly IResourceManager _resourceManager;
 

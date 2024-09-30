@@ -8,7 +8,7 @@ using System;
 namespace Lombiq.HelpfulExtensions.Extensions.ContentTypes;
 
 [Feature(FeatureIds.ContentTypes)]
-public class Startup : StartupBase
+public sealed class Startup : StartupBase
 {
     public override void ConfigureServices(IServiceCollection services) => services.AddDataMigration<Migrations>();
 

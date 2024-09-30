@@ -18,8 +18,8 @@ public static class EmailSenderShellScopeExtensions
     public static void SendEmailDeferred(this ShellScope shellScope, EmailParameters parameters) =>
         shellScope.AddDeferredTask(async scope =>
         {
-            var smtpService = scope.ServiceProvider.GetRequiredService<ISmtpService>();
-            var result = await smtpService.SendAsync(new MailMessage
+            var emailService = scope.ServiceProvider.GetRequiredService<IEmailService>();
+            var result = await emailService.SendAsync(new MailMessage
             {
                 Sender = parameters.Sender,
                 To = parameters.To?.Join(","),

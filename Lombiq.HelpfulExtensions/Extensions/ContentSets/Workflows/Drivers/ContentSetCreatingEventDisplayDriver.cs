@@ -10,7 +10,7 @@ using System.Collections.Generic;
 
 namespace Lombiq.HelpfulExtensions.Extensions.ContentSets.Workflows.Drivers;
 
-public class ContentSetCreatingEventDisplayDriver : DocumentedEventActivityDisplayDriverBase<ContentSetCreatingEvent>
+public sealed class ContentSetCreatingEventDisplayDriver : DocumentedEventActivityDisplayDriverBase<ContentSetCreatingEvent>
 {
     private readonly IHtmlLocalizer<ContentSetCreatingEventDisplayDriver> H;
 

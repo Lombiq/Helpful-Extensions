@@ -1,11 +1,9 @@
 using Microsoft.Extensions.Options;
-using OrchardCore.Modules;
 using OrchardCore.ResourceManagement;
 using static Lombiq.HelpfulExtensions.Constants.ResourceNames;
 
 namespace Lombiq.HelpfulExtensions.Extensions.Trumbowyg;
 
-[Feature(FeatureIds.Trumbowyg)]
 public class TrumbowygResourceManagementOptionsConfiguration : IConfigureOptions<ResourceManagementOptions>
 {
     private const string WwwRoot = "~/" + FeatureIds.Base + "/";

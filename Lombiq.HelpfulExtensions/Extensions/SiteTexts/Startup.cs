@@ -6,7 +6,7 @@ using OrchardCore.Modules;
 namespace Lombiq.HelpfulExtensions.Extensions.SiteTexts;
 
 [Feature(FeatureIds.SiteTexts)]
-public class Startup : StartupBase
+public sealed class Startup : StartupBase
 {
     public override void ConfigureServices(IServiceCollection services)
     {
@@ -17,11 +17,11 @@ public class Startup : StartupBase
 }
 
 [RequireFeatures("OrchardCore.ContentLocalization")]
-public class ContentLocalizationStartup : StartupBase
+public sealed class ContentLocalizationStartup : StartupBase
 {
     public override void ConfigureServices(IServiceCollection services)
     {
-        services.RemoveImplementations<ISiteTextService>();
+        services.RemoveImplementationsOf<ISiteTextService>();
         services.AddScoped<ISiteTextService, ContentLocalizationSiteTextService>();
     }
 }
