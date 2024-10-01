@@ -10,11 +10,11 @@ Works as a container for further widgets. It has a FlowPart attached to it so it
 
 Adds HTML editing and displaying capabilities using a WYSIWYG editor.
 
-# LiquidWidget
+## LiquidWidget
 
 Adds Liquid code editing and rendering capabilities.
 
-# MenuWidget ("Menu Navigation Provider Widget")
+## MenuWidget ("Menu Navigation Provider Widget")
 
 Renders a Bootstrap navigation menu as a widget using the provided `MenuItem`s.
 
