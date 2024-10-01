@@ -4,6 +4,7 @@ using OrchardCore.ContentFields.Settings;
 using OrchardCore.ContentManagement.Metadata;
 using OrchardCore.ContentManagement.Metadata.Settings;
 using OrchardCore.Data.Migration;
+using OrchardCore.Navigation;
 using System.Threading.Tasks;
 using static Lombiq.HelpfulExtensions.Extensions.Widgets.WidgetTypes;
 
@@ -48,6 +49,11 @@ public sealed class Migrations : DataMigration
         await _contentDefinitionManager.AlterTypeDefinitionAsync(MenuWidget, builder => builder
             .Securable()
             .Stereotype(CommonStereotypes.Widget)
+            .DisplayedAs("Menu Navigation Provider Widget")
+            .WithDescription(
+                $"Renders a menu whose contents are populated from {nameof(INavigationProvider)} implementations " +
+                $"that look for the \"menu\" name (as opposed to admin menu navigation providers that use the " +
+                $"\"admin\" name).")
         );
 
         await _contentDefinitionManager.AlterTypeDefinitionAsync(MarkdownWidget, builder => builder
@@ -76,7 +82,7 @@ public sealed class Migrations : DataMigration
             .WithPart(contentItemWidgetPartName)
         );
 
-        return 5;
+        return 6;
     }
 
     public async Task<int> UpdateFrom1Async()
@@ -127,5 +133,18 @@ public sealed class Migrations : DataMigration
         );
 
         return 5;
+    }
+
+    public async Task<int> UpdateFrom5Async()
+    {
+        await _contentDefinitionManager.AlterTypeDefinitionAsync(MenuWidget, builder => builder
+            .DisplayedAs("Menu Navigation Provider Widget")
+            .WithDescription(
+                $"Renders a menu whose contents are populated from {nameof(INavigationProvider)} implementations " +
+                $"that look for the \"menu\" name (as opposed to admin menu navigation providers that use the " +
+                $"\"admin\" name).")
+        );
+
+        return 6;
     }
 }
