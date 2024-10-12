@@ -44,4 +44,6 @@ builder.WhenContentType("BlogPost").RegisterFootScript(Lombiq.HelpfulExtensions.
 
 builder.WhenContentTypeEditor("BlogPost").RegisterFootScript(Lombiq.HelpfulExtensions.Constants.ResourceNames.TrumbowygHighlight);
 builder.WhenContentTypeEditor("BlogPost").RegisterStylesheet(Lombiq.HelpfulExtensions.Constants.ResourceNames.TrumbowygHighlight);
+builder.WhenContentTypeCreate("BlogPost").RegisterFootScript(Lombiq.HelpfulExtensions.Constants.ResourceNames.TrumbowygHighlight);
+builder.WhenContentTypeCreate("BlogPost").RegisterStylesheet(Lombiq.HelpfulExtensions.Constants.ResourceNames.TrumbowygHighlight);
 ```
