@@ -73,7 +73,7 @@ public class OrchardExportToRecipeConverter : IOrchardExportToRecipeConverter
         }
 
         var recipe = JObject.FromObject(new RecipeDescriptor())!;
-        recipe["steps"] = JObject.FromObject(new { steps = new[] { new { name = "content", data = contentItems } } });
+        recipe["steps"] = new JsonArray(JObject.FromObject(new { name = "content", data = contentItems }));
 
         return recipe.ToString();
     }
