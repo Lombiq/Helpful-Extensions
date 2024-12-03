@@ -1,4 +1,3 @@
-using AngleSharp.Io;
 using Lombiq.HelpfulExtensions.Extensions.OrchardRecipeMigration.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -8,6 +7,7 @@ using OrchardCore.DisplayManagement.Notify;
 using OrchardCore.Modules;
 using System;
 using System.IO;
+using System.Net.Mime;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
@@ -58,6 +58,6 @@ public sealed class OrchardRecipeMigrationAdminController : Controller
         }
 
         Response.Headers.Append("Content-Disposition", "attachment;filename=export.recipe.json");
-        return Content(json, MimeTypeNames.ApplicationJson, Encoding.UTF8);
+        return Content(json, MediaTypeNames.Application.Json, Encoding.UTF8);
     }
 }
