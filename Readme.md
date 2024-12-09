@@ -30,23 +30,18 @@ Note that this module has an Orchard 1 version in the [dev-orchard-1 branch](htt
 The module consists of the following independent extensions (all in their own features):
 
 - [Code Generation Helpful Extensions](Lombiq.HelpfulExtensions/Extensions/CodeGeneration/Readme.md)
-- [Orchard 1 Recipe Migration](Lombiq.HelpfulExtensions/Extensions/OrchardRecipeMigration/Readme.md)
 - [Content Sets](Lombiq.HelpfulExtensions/Extensions/ContentSets/Readme.md)
-- [Flows Helpful Extensions](Lombiq.HelpfulExtensions/Extensions/Flows/Readme.md)
-- [Helpful Widgets](Lombiq.HelpfulExtensions/Extensions/Widgets/Readme.md)
-- [Helpful Content Types](Lombiq.HelpfulExtensions/Extensions/ContentTypes/Readme.md)
-- [Shape Tracing Helpful Extensions](Lombiq.HelpfulExtensions/Extensions/ShapeTracing/Readme.md)
-- [Security Extensions](Lombiq.HelpfulExtensions/Extensions/Security/Readme.md)
 - [Emails and Email Templates](Lombiq.HelpfulExtensions/Extensions/Emails/Readme.md)
-- [Target blank](Lombiq.HelpfulExtensions/Extensions/TargetBlank/Readme.md)
+- [Flows Helpful Extensions](Lombiq.HelpfulExtensions/Extensions/Flows/Readme.md)
+- [Google Tag](Lombiq.HelpfulExtensions/Extensions/GoogleTag/Readme.md)
+- [Helpful Content Types](Lombiq.HelpfulExtensions/Extensions/ContentTypes/Readme.md)
+- [Helpful Widgets](Lombiq.HelpfulExtensions/Extensions/Widgets/Readme.md)
+- [Orchard 1 Recipe Migration](Lombiq.HelpfulExtensions/Extensions/OrchardRecipeMigration/Readme.md)
 - [Reset Password activity](Lombiq.HelpfulExtensions/Extensions/Workflows/Readme.md)
+- [Security Extensions](Lombiq.HelpfulExtensions/Extensions/Security/Readme.md)
+- [Shape Tracing Helpful Extensions](Lombiq.HelpfulExtensions/Extensions/ShapeTracing/Readme.md)
+- [Target blank](Lombiq.HelpfulExtensions/Extensions/TargetBlank/Readme.md)
 - [Trumbowyg code-snippet](Lombiq.HelpfulExtensions/Extensions/Trumbowyg/Readme.md)
-
-### Google Tag
-
-Adds a shape along with Razor and Liquid tag helpers for Google Analytics, using <https://tagmanager.google.com/>.
-
-You can use the `<google-tag property-id="..." cookie-domain="auto">` Razor tag helper in _cshtml_ files or the `{% google_tag property_id: "...", cookie_domain: "auto" %}` parser tag in Liquid.
 
 ## Contributing and support
 
