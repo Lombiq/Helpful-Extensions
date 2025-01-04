@@ -18,7 +18,7 @@ public static class TrumbowygBlogPostsTestCaseUITestContextExtensions
             context.Get(By.CssSelector("code.language-clike")).Text.ShouldStartWith("Console");
 
         await context.EnableFeatureDirectlyAsync(FeatureIds.TrumbowygBlogPosts);
-        await context.ExecuteRecipeDirectlyAsync("TrumbowygBlogPosts.Tests");
+        await context.ExecuteRecipeDirectlyAsync("Lombiq.HelpfulExtensions.Tests.UI.TrumbowygBlogPosts.Tests");
 
         await context.SignInDirectlyAndGoToDashboardAsync();
 
