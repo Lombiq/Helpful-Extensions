@@ -1,7 +1,8 @@
 {
   "private": true,
   "dependencies": {
-    "prismjs": "1.29.0"
+    "prismjs": "1.29.0",
+    "trumbowyg": "2.28.0"
   },
   "scripts": {
     "build": "npm explore nodejs-extensions -- pnpm build",
@@ -20,9 +21,10 @@
       },
       {
         "sources": [
-          "Assets/Vendors/Trumbowyg/plugins"
+          "node_modules/trumbowyg/dist/plugins/highlight",
+          "node_modules/trumbowyg/plugins/highlight/ui/icons/highlight.svg"
         ],
-        "target": "wwwroot/vendors/trumbowyg/plugins"
+        "target": "wwwroot/vendors/trumbowyg/plugins/highlight"
       }
     ],
     "styles": {

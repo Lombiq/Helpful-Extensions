@@ -5,7 +5,8 @@ using static Lombiq.HelpfulExtensions.Constants.ResourceNames;
 
 namespace Lombiq.HelpfulExtensions.Extensions.Trumbowyg;
 
-[ConstantFromJson("PrismVersion", "package.json", "prismjs")]
+[ConstantFromJson("PrismVersion", "package.json", "prismjs")] // #spell-check-ignore-line
+[ConstantFromJson("TrumbowygVersion", "package.json", "trumbowyg")]
 public partial class TrumbowygResourceManagementOptionsConfiguration : IConfigureOptions<ResourceManagementOptions>
 {
     private const string WwwRoot = "~/" + FeatureIds.Base + "/";
@@ -17,18 +18,21 @@ public partial class TrumbowygResourceManagementOptionsConfiguration : IConfigur
     {
         _manifest
             .DefineScript(Prism)
-            .SetUrl(Vendors + "prismjs/prism.js")
+            .SetUrl(Vendors + "prismjs/prism.js") // #spell-check-ignore-line
             .SetVersion(PrismVersion);
 
         _manifest
             .DefineStyle(Prism)
-            .SetUrl(Vendors + "prismjs/themes/prism.min.css", Vendors + "prismjs/themes/prism.css")
+            .SetUrl(Vendors + "prismjs/themes/prism.min.css", Vendors + "prismjs/themes/prism.css") // #spell-check-ignore-line
             .SetVersion(PrismVersion);
 
         _manifest
             .DefineScript(TrumbowygHighlight)
-            .SetUrl(Vendors + "trumbowyg/plugins/highlight/trumbowyg.highlight.js")
-            .SetDependencies("jQuery", "trumbowyg", Prism);
+            .SetUrl(
+                Vendors + "trumbowyg/plugins/highlight/trumbowyg.highlight.min.js",
+                Vendors + "trumbowyg/plugins/highlight/trumbowyg.highlight.js")
+            .SetDependencies("jQuery", "trumbowyg", Prism)
+            .SetVersion(TrumbowygVersion);
 
         _manifest
             .DefineStyle(TrumbowygHighlight)
