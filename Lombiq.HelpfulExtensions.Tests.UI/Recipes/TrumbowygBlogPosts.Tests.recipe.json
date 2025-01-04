@@ -1,0 +1,41 @@
+{
+  "name": "TrumbowygBlogPosts.Tests",
+  "displayName": "Lombiq Helpful Extensions - Trumbowyg code snippet - Blog Posts test recipe",
+  "description": "Test recipe to prepare the Blog Post content type for Lombiq Helpful Extensions - Trumbowyg code snippet - Blog Posts.",
+  "author": "Lombiq Technologies",
+  "website": "https://github.com/Lombiq/Helpful-Extensions",
+  "version": "1.0",
+  "issetuprecipe": false,
+  "categories": [],
+  "tags": [],
+  "steps": [
+    {
+      "name": "ContentDefinition",
+      "ContentParts": [
+        {
+          "Name": "BlogPost",
+          "Settings": {},
+          "ContentPartFieldDefinitionRecords": [
+            {
+              "FieldName": "HtmlField",
+              "Name": "TrumbowygTest",
+              "Settings": {
+                "ContentPartFieldSettings": {
+                  "DisplayName": "TrumbowygTest",
+                  "Editor": "Trumbowyg"
+                },
+                "HtmlFieldSettings": {
+                  "SanitizeHtml": true
+                },
+                "HtmlFieldTrumbowygEditorSettings": {
+                  "Options": "{\r\n    autogrow: true,\r\n    btns: [\r\n        [\u0022viewHTML\u0022],\r\n        [\u0022undo\u0022, \u0022redo\u0022],\r\n        [\u0022formatting\u0022],\r\n        [\u0022strong\u0022, \u0022em\u0022, \u0022del\u0022],\r\n        [\u0022foreColor\u0022, \u0022backColor\u0022],\r\n        [\u0022superscript\u0022, \u0022subscript\u0022],\r\n        [\u0022link\u0022],\r\n        [\u0022insertShortcode\u0022],\r\n        [\u0022image\u0022],\r\n        [\u0022align\u0022],\r\n        [\u0022unorderedList\u0022, \u0022orderedList\u0022],\r\n        [\u0022horizontalRule\u0022],\r\n        [\u0022removeformat\u0022],\r\n        [\u0022fullscreen\u0022],\r\n        [\u0027highlight\u0027]\r\n    ],\r\n    btnsDef: {\r\n        align: {\r\n            dropdown: [\u0022justifyLeft\u0022, \u0022justifyCenter\u0022, \u0022justifyRight\u0022, \u0022justifyFull\u0022],\r\n            ico: \u0022justifyLeft\u0022\r\n        },\r\n        image: {\r\n            dropdown: [\u0022insertImage\u0022, \u0022base64\u0022, \u0022noembed\u0022],\r\n            ico: \u0022insertImage\u0022\r\n        }\r\n    }\r\n}",
+                  "InsertMediaWithUrl": false
+                }
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

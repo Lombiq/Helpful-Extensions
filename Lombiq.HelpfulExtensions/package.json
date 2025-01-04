@@ -1,5 +1,8 @@
 {
   "private": true,
+  "dependencies": {
+    "prismjs": "1.29.0"
+  },
   "scripts": {
     "build": "npm explore nodejs-extensions -- pnpm build",
     "build:assets": "npm explore nodejs-extensions -- pnpm build:assets",
@@ -10,11 +13,15 @@
   "nodejsExtensions": {
     "assetsToCopy": [
       {
-        "sources": [ "Assets/Vendors/Prism" ],
-        "target": "wwwroot/vendors/prism"
+        "sources": [
+          "node_modules/prismjs/"
+        ],
+        "target": "wwwroot/vendors/prismjs"
       },
       {
-        "sources": [ "Assets/Vendors/Trumbowyg/plugins" ],
+        "sources": [
+          "Assets/Vendors/Trumbowyg/plugins"
+        ],
         "target": "wwwroot/vendors/trumbowyg/plugins"
       }
     ],

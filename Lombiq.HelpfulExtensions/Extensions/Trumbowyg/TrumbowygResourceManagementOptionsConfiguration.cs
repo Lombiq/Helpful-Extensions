@@ -1,10 +1,12 @@
+using Lombiq.HelpfulLibraries.Attributes;
 using Microsoft.Extensions.Options;
 using OrchardCore.ResourceManagement;
 using static Lombiq.HelpfulExtensions.Constants.ResourceNames;
 
 namespace Lombiq.HelpfulExtensions.Extensions.Trumbowyg;
 
-public class TrumbowygResourceManagementOptionsConfiguration : IConfigureOptions<ResourceManagementOptions>
+[ConstantFromJson("PrismVersion", "package.json", "prismjs")]
+public partial class TrumbowygResourceManagementOptionsConfiguration : IConfigureOptions<ResourceManagementOptions>
 {
     private const string WwwRoot = "~/" + FeatureIds.Base + "/";
     private const string Css = WwwRoot + "css/";
@@ -15,13 +17,13 @@ public class TrumbowygResourceManagementOptionsConfiguration : IConfigureOptions
     {
         _manifest
             .DefineScript(Prism)
-            .SetUrl(Vendors + "prism/Scripts/prism.js")
-            .SetVersion("1.29.0");
+            .SetUrl(Vendors + "prismjs/prism.js")
+            .SetVersion(PrismVersion);
 
         _manifest
             .DefineStyle(Prism)
-            .SetUrl(Vendors + "prism/Styles/prism.css")
-            .SetVersion("1.29.0");
+            .SetUrl(Vendors + "prismjs/themes/prism.min.css", Vendors + "prismjs/themes/prism.css")
+            .SetVersion(PrismVersion);
 
         _manifest
             .DefineScript(TrumbowygHighlight)
