@@ -23,7 +23,7 @@
     <None Remove="node_modules\**" />
     <None Remove="Tests\**" />
     <Content Include="Recipes\**">
-      <CopyToPublishDirectory>Never</CopyToPublishDirectory>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>  
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
