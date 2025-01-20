@@ -1,8 +1,8 @@
+using Lombiq.HelpfulExtensions.Constants;
 using Microsoft.Extensions.Options;
 using OrchardCore.ResourceManagement;
-using static Lombiq.HelpfulExtensions.Constants.ResourceNames;
 
-namespace Lombiq.HelpfulExtensions;
+namespace Lombiq.HelpfulExtensions.Extensions.TargetBlank;
 
 public class ResourceManagementOptionsConfiguration : IConfigureOptions<ResourceManagementOptions>
 {
@@ -12,7 +12,7 @@ public class ResourceManagementOptionsConfiguration : IConfigureOptions<Resource
 
     static ResourceManagementOptionsConfiguration() =>
         _manifest
-            .DefineScript(TargetBlank)
+            .DefineScript(ResourceNames.TargetBlank)
             .SetUrl(ScriptRoot + "target-blank.min.js", ScriptRoot + "target-blank.js")
             .SetVersion("1.0.0");
 

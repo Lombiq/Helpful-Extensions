@@ -20,14 +20,23 @@
     <PackageLicenseExpression>BSD-3-Clause</PackageLicenseExpression>
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(NuGetBuild)' != 'true'">
+    <SourceGeneratorLocation>$(SolutionDir)src\Libraries\Lombiq.HelpfulLibraries\Lombiq.HelpfulLibraries.SourceGenerators\bin\Debug\netstandard2.0\Lombiq.HelpfulLibraries.SourceGenerators.dll</SourceGeneratorLocation>
+    <SourceGeneratorLocation Condition=" '$(Configuration)' != 'Debug' ">
+      $(SolutionDir)src\Libraries\Lombiq.HelpfulLibraries\Lombiq.HelpfulLibraries.SourceGenerators\bin\Release\netstandard2.0\Lombiq.HelpfulLibraries.SourceGenerators.dll
+    </SourceGeneratorLocation>
+  </PropertyGroup>
+
+  <Target Name="CustomBeforeCompile" BeforeTargets="Compile" Condition="'$(NuGetBuild)' != 'true'">
+    <MSBuild Condition="!Exists('$(SourceGeneratorLocation)')" Projects="..\..\..\Libraries\Lombiq.HelpfulLibraries\Lombiq.HelpfulLibraries.SourceGenerators\Lombiq.HelpfulLibraries.SourceGenerators.csproj" />
+  </Target>
+  
   <ItemGroup>
     <None Include="..\Readme.md" />
     <None Include="NuGetIcon.png" Pack="true" PackagePath="" />
-  </ItemGroup>
-
-  <ItemGroup>
     <None Remove="node_modules\**" />
     <None Remove="Tests\**" />
+    <AdditionalFiles Include="package.json" />
   </ItemGroup>
 
   <ItemGroup>
@@ -53,11 +62,15 @@
   <ItemGroup Condition="'$(NuGetBuild)' != 'true'">
     <ProjectReference Include="..\..\..\Libraries\Lombiq.HelpfulLibraries\Lombiq.HelpfulLibraries.OrchardCore\Lombiq.HelpfulLibraries.OrchardCore.csproj" />
     <ProjectReference Include="..\..\..\Utilities\Lombiq.NodeJs.Extensions\Lombiq.NodeJs.Extensions\Lombiq.NodeJs.Extensions.csproj" />
+    <ProjectReference Include="..\..\..\Libraries\Lombiq.HelpfulLibraries\Lombiq.HelpfulLibraries.Attributes\Lombiq.HelpfulLibraries.Attributes.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="true" />
+    <ProjectReference Include="..\..\..\Libraries\Lombiq.HelpfulLibraries\Lombiq.HelpfulLibraries.SourceGenerators\Lombiq.HelpfulLibraries.SourceGenerators.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
   </ItemGroup>
 
   <ItemGroup Condition="'$(NuGetBuild)' == 'true'">
     <PackageReference Include="Lombiq.HelpfulLibraries.OrchardCore" Version="12.0.0" />
     <PackageReference Include="Lombiq.NodeJs.Extensions" Version="2.1.1" />
+    <PackageReference Include="Lombiq.HelpfulLibraries.SourceGenerators" Version="12.0.0" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
+    <PackageReference Include="Lombiq.HelpfulLibraries.Attributes" Version="12.0.0" OutputItemType="Analyzer" ReferenceOutputAssembly="true" />
   </ItemGroup>
 
   <Import Condition="'$(NuGetBuild)' != 'true'" Project="..\..\..\Utilities\Lombiq.NodeJs.Extensions\Lombiq.NodeJs.Extensions\Lombiq.NodeJs.Extensions.targets" />

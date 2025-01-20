@@ -142,9 +142,17 @@ using static Lombiq.HelpfulExtensions.FeatureIds;
 
 [assembly: Feature(
     Id = Trumbowyg,
-    Name = "Lombiq Helpful Extensions - Trumbowyg code-snippet",
+    Name = "Lombiq Helpful Extensions - Trumbowyg code snippet",
     Category = "Content",
-    Description = "Adds option for inserting code snippets in Trumbowyg editor."
+    Description = "Adds an option for inserting code snippets in the Trumbowyg editor."
+)]
+
+[assembly: Feature(
+    Id = TrumbowygBlogPosts,
+    Name = "Lombiq Helpful Extensions - Trumbowyg code snippet - Blog Posts",
+    Category = "Content",
+    Description = "Adds an option for inserting code snippets in the Trumbowyg editor of Blog Post content items.",
+    Dependencies = [Trumbowyg]
 )]
 
 [assembly: Feature(

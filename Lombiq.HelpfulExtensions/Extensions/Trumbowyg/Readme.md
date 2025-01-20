@@ -1,6 +1,6 @@
-# Trumbowyg code-snippet
+# Trumbowyg code snippet
 
-Adds prettified code-snippet inserting functionality to Trumbowyg editor by using a slightly modified version of [Trumbowyg highlight plugin](https://alex-d.github.io/Trumbowyg/documentation/plugins/#plugin-highlight). You need to add the highlight button to your Trumbowyg editor options to enable it.
+Adds prettified code snippet inserting functionality to Trumbowyg editor by using a slightly modified version of [Trumbowyg highlight plugin](https://alex-d.github.io/Trumbowyg/documentation/plugins/#plugin-highlight). You need to add the highlight button to your Trumbowyg editor options to enable it.
 
 ```text
 {
@@ -39,11 +39,16 @@ Adds prettified code-snippet inserting functionality to Trumbowyg editor by usin
 Then you need to link the Trumbowyg and Prism styles and scripts where you want it to be used. E.g. if you want to add it to BlogPost content type you can do it with the help of [Lombiq.HelpfulLibraries.OrchardCore](https://github.com/Lombiq/Helpful-Libraries/blob/dev/Lombiq.HelpfulLibraries.OrchardCore/Readme.md) in a IResourceFilterProvider:
 
 ```csharp
-builder.WhenContentType("BlogPost").RegisterStylesheet(Lombiq.HelpfulExtensions.Constants.ResourceNames.Prism);
-builder.WhenContentType("BlogPost").RegisterFootScript(Lombiq.HelpfulExtensions.Constants.ResourceNames.Prism);
+builder.WhenContentType("MyContentType").RegisterStylesheet(Lombiq.HelpfulExtensions.Constants.ResourceNames.Prism);
+builder.WhenContentType("MyContentType").RegisterFootScript(Lombiq.HelpfulExtensions.Constants.ResourceNames.Prism);
 
-builder.WhenContentTypeEditor("BlogPost").RegisterFootScript(Lombiq.HelpfulExtensions.Constants.ResourceNames.TrumbowygHighlight);
-builder.WhenContentTypeEditor("BlogPost").RegisterStylesheet(Lombiq.HelpfulExtensions.Constants.ResourceNames.TrumbowygHighlight);
-builder.WhenContentTypeCreate("BlogPost").RegisterFootScript(Lombiq.HelpfulExtensions.Constants.ResourceNames.TrumbowygHighlight);
-builder.WhenContentTypeCreate("BlogPost").RegisterStylesheet(Lombiq.HelpfulExtensions.Constants.ResourceNames.TrumbowygHighlight);
+builder.WhenContentTypeEditor("MyContentType").RegisterFootScript(Lombiq.HelpfulExtensions.Constants.ResourceNames.TrumbowygHighlight);
+builder.WhenContentTypeEditor("MyContentType").RegisterStylesheet(Lombiq.HelpfulExtensions.Constants.ResourceNames.TrumbowygHighlight);
+builder.WhenContentTypeCreate("MyContentType").RegisterFootScript(Lombiq.HelpfulExtensions.Constants.ResourceNames.TrumbowygHighlight);
+builder.WhenContentTypeCreate("MyContentType").RegisterStylesheet(Lombiq.HelpfulExtensions.Constants.ResourceNames.TrumbowygHighlight);
 ```
+
+<!-- textlint-disable doubled-spaces -->
+> [!TIP]
+> If you want to add this to the `BlogPost` content type, then just enable the ["Lombiq Helpful Extensions - Trumbowyg code snippet - Blog Posts" feature](../TrumbowygBlogPosts/Readme.md), since it configures all of the above. Note though, that the `BlogPost` content type provided by Orchard Core's Blog recipe doesn't have a part or field that uses Trumbowyg, so you'll need to add one (e.g. an Html Field, or Html Body Part) first.
+<!-- textlint-enable doubled-spaces -->

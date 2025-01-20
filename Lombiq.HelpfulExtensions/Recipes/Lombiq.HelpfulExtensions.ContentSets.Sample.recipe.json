@@ -16,6 +16,7 @@
     {
       "name": "feature",
       "enable": [
+        "OrchardCore.Workflows",
         "Lombiq.HelpfulExtensions.ContentSets"
       ]
     },

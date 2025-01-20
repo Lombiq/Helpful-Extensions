@@ -18,6 +18,7 @@ public static class FeatureIds
     public const string OrchardRecipeMigration = FeatureIdPrefix + nameof(OrchardRecipeMigration);
     public const string Workflows = FeatureIdPrefix + nameof(Workflows);
     public const string Trumbowyg = FeatureIdPrefix + nameof(Trumbowyg);
+    public const string TrumbowygBlogPosts = FeatureIdPrefix + nameof(TrumbowygBlogPosts);
     public const string ResetPasswordActivity = Workflows + "." + nameof(ResetPasswordActivity);
     public const string GoogleTag = FeatureIdPrefix + nameof(GoogleTag);
 }
