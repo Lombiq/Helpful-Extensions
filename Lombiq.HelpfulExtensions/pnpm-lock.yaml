@@ -3,3 +3,30 @@ lockfileVersion: '6.0'
 settings:
   autoInstallPeers: true
   excludeLinksFromLockfile: false
+
+dependencies:
+  prismjs:
+    specifier: 1.29.0
+    version: 1.29.0
+  trumbowyg:
+    specifier: 2.28.0
+    version: 2.28.0(jquery@3.7.1)
+
+packages:
+
+  /jquery@3.7.1:
+    resolution: {integrity: sha512-m4avr8yL8kmFN8psrbFFFmB/If14iN5o9nw/NgnnM+kybDJpRsAynV2BsfpTYrTRysYUdADVD7CkUUizgkpLfg==}
+    dev: false
+
+  /prismjs@1.29.0:
+    resolution: {integrity: sha512-Kx/1w86q/epKcmte75LNrEoT+lX8pBpavuAbvJWRXar7Hz8jrtF+e3vY751p0R8H9HdArwaCTNDDzHg/ScJK1Q==}
+    engines: {node: '>=6'}
+    dev: false
+
+  /trumbowyg@2.28.0(jquery@3.7.1):
+    resolution: {integrity: sha512-K4KX6psV+hUt03Y3RNdQM5Y+JLfZOUliNnCz5lm12Llfhwvx0P0geBsM0w9ZHeX5g8q7d2MC5X7sPOwGv0Q7Kw==}
+    peerDependencies:
+      jquery: '>=1.8'
+    dependencies:
+      jquery: 3.7.1
+    dev: false
