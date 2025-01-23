@@ -88,8 +88,7 @@ using static Lombiq.HelpfulExtensions.FeatureIds;
     Description = "Adds shape-based email template rendering and helpful email sending services.",
     Dependencies =
     [
-        "OrchardCore.Email",
-        "OrchardCore.Email.Smtp",
+        "OrchardCore.Email"
     ]
 )]
 
