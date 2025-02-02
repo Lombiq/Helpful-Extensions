@@ -1,4 +1,4 @@
-@using Lombiq.HelpfulExtensions.Extensions.Flows.Models
+﻿@using Lombiq.HelpfulExtensions.Extensions.Flows.Models
 @using OrchardCore.ContentManagement
 @using OrchardCore.ContentManagement.Display
 @using OrchardCore.Flows.Models
@@ -13,9 +13,6 @@
             widget, Model.BuildPartDisplayContext.Updater, Model.BuildPartDisplayContext.DisplayType, Model.BuildPartDisplayContext.GroupId);
         var flowMetadata = widget.As<FlowMetadata>();
 
-        // Introducing methods for sections of this code would needlessly complicate the template.
-        // Adding a #pragma warning restore after the if block breaks the build.
-#pragma warning disable S6966 // Refactor this code to not nest more than 3 control flow statements.
         if (flowMetadata != null)
         {
             var additionalStyling = widget.As<AdditionalStylingPart>();
