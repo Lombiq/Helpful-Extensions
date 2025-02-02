@@ -37,6 +37,11 @@
     @:<nav class="navbar navbar-expand-md @viewModel.HtmlClasses">
 }
 
+@{
+// Introducing methods for sections of this code would needlessly complicate the template.
+#pragma warning disable S6966 // Refactor this code to not nest more than 3 control flow statements.
+}
+
 <div class="container-fluid @(viewModel.NoWrapper ? viewModel.HtmlClasses : string.Empty)">
     <button class="navbar-toggler @togglerElementName"
             type="button"
