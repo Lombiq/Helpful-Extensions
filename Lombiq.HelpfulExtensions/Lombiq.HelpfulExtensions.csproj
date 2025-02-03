@@ -67,10 +67,10 @@
   </ItemGroup>
 
   <ItemGroup Condition="'$(NuGetBuild)' == 'true'">
-    <PackageReference Include="Lombiq.HelpfulLibraries.OrchardCore" Version="12.0.0" />
+    <PackageReference Include="Lombiq.HelpfulLibraries.OrchardCore" Version="12.1.0" />
     <PackageReference Include="Lombiq.NodeJs.Extensions" Version="2.1.1" />
-    <PackageReference Include="Lombiq.HelpfulLibraries.SourceGenerators" Version="12.0.0" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
-    <PackageReference Include="Lombiq.HelpfulLibraries.Attributes" Version="12.0.0" OutputItemType="Analyzer" ReferenceOutputAssembly="true" />
+    <PackageReference Include="Lombiq.HelpfulLibraries.SourceGenerators" Version="12.1.0" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
+    <PackageReference Include="Lombiq.HelpfulLibraries.Attributes" Version="12.1.0" OutputItemType="Analyzer" ReferenceOutputAssembly="true" />
   </ItemGroup>
 
   <Import Condition="'$(NuGetBuild)' != 'true'" Project="..\..\..\Utilities\Lombiq.NodeJs.Extensions\Lombiq.NodeJs.Extensions\Lombiq.NodeJs.Extensions.targets" />
