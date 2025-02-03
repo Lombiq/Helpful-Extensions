@@ -36,102 +36,103 @@
 {
     @:<nav class="navbar navbar-expand-md @viewModel.HtmlClasses">
 }
-    <div class="container-fluid @(viewModel.NoWrapper ? viewModel.HtmlClasses : string.Empty)">
-        <button class="navbar-toggler @togglerElementName"
-                type="button"
-                data-bs-toggle="collapse"
-                data-bs-target="#@contentIdName"
-                aria-controls="@contentIdName"
-                aria-expanded="false"
-                aria-label="@T["Toggle Navigation"]">
-            <span class="navbar-toggler-icon fas fa-bars"></span>
-        </button>
-        <div id="@contentIdName" class="collapse navbar-collapse @contentElementName">
-            <ul class="navbar-nav me-auto mb-lg-0">
-                @foreach (var menuItem in menuItems)
+
+<div class="container-fluid @(viewModel.NoWrapper ? viewModel.HtmlClasses : string.Empty)">
+    <button class="navbar-toggler @togglerElementName"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#@contentIdName"
+            aria-controls="@contentIdName"
+            aria-expanded="false"
+            aria-label="@T["Toggle Navigation"]">
+        <span class="navbar-toggler-icon fas fa-bars"></span>
+    </button>
+    <div id="@contentIdName" class="collapse navbar-collapse @contentElementName">
+        <ul class="navbar-nav me-auto mb-lg-0">
+            @foreach (var menuItem in menuItems)
+            {
+                var dropdownIdName = StringHelper.CreateInvariant($"{dropdownElementName}_{Guid.NewGuid()}");
+                @if (menuItem.Items.Any())
                 {
-                    var dropdownIdName = StringHelper.CreateInvariant($"{dropdownElementName}_{Guid.NewGuid()}");
-                    @if (menuItem.Items.Any())
-                    {
-                        var submenuItems = menuItem
-                            .Items
-                            .OrderBy(item => double.TryParse(item.Position, out var number) ? number : double.MaxValue)
-                            .ThenBy(item => item.Position);
-                        <li class="nav-item dropdown">
-                            <a id="@dropdownIdName"
-                               class="nav-link dropdown-toggle @dropdownElementName"
-                               href="#"
-                               data-bs-toggle="dropdown"
-                               aria-expanded="false">@menuItem.Text</a>
-                            <ul class="dropdown-menu" aria-labelledby="@dropdownIdName">
-                                @foreach (var submenu in submenuItems)
+                    var submenuItems = menuItem
+                        .Items
+                        .OrderBy(item => double.TryParse(item.Position, out var number) ? number : double.MaxValue)
+                        .ThenBy(item => item.Position);
+                    <li class="nav-item dropdown">
+                        <a id="@dropdownIdName"
+                            class="nav-link dropdown-toggle @dropdownElementName"
+                            href="#"
+                            data-bs-toggle="dropdown"
+                            aria-expanded="false">@menuItem.Text</a>
+                        <ul class="dropdown-menu" aria-labelledby="@dropdownIdName">
+                            @foreach (var submenu in submenuItems)
+                            {
+                                var uri = new Uri(baseUri, submenu.Href);
+                                var isActive = baseUri.AbsolutePath.EqualsOrdinalIgnoreCase(uri.AbsolutePath);
+                                var dropdownClasses = $"dropdown-item {(isActive ? "active" : string.Empty)} " +
+                                                        $"{submenu.Classes.Join()} {dropdownItemElementName}";
+                                if (IsDivider(submenu))
                                 {
-                                    var uri = new Uri(baseUri, submenu.Href);
-                                    var isActive = baseUri.AbsolutePath.EqualsOrdinalIgnoreCase(uri.AbsolutePath);
-                                    var dropdownClasses = $"dropdown-item {(isActive ? "active" : string.Empty)} " +
-                                                          $"{submenu.Classes.Join()} {dropdownItemElementName}";
-                                    if (IsDivider(submenu))
-                                    {
-                                        <li><hr class="dropdown-divider"></li>
-                                    }
-                                    else if (IsFormPost(uri))
-                                    {
-                                        <li>
-                                            <form method="post" action="@submenu.Href">
-                                                @Html.AntiForgeryToken()
-                                                <button class="@dropdownClasses" type="submit">@submenu.Text</button>
-                                            </form>
-                                        </li>
-                                    }
-                                    else
-                                    {
-                                        <li>
-                                            <a id="@submenu.Id"
-                                               class="@dropdownClasses"
-                                               @if (!submenu.LocalNav)
-                                               {
-                                                   <text>target="_blank"</text>
-                                               }
-                                               href="@submenu.Href">@submenu.Text</a>
-                                        </li>
-                                    }
+                                    <li><hr class="dropdown-divider"></li>
                                 }
-                            </ul>
-                        </li>
-                    }
-                    else if (IsDivider(menuItem))
-                    {
-                        <li><hr class="dropdown-divider"></li>
-                    }
-                    else
-                    {
-                        var uri = new Uri(baseUri, menuItem.Href);
-                        var isActive = baseUri.AbsolutePath.EqualsOrdinalIgnoreCase(uri.AbsolutePath);
-                        var linkClasses = $"nav-link {(isActive ? "active" : string.Empty)} {menuItem.Classes.Join()}";
-                        <li class="nav-item menuWidget__topLevel @(isActive ? "nav-item-link-active" : string.Empty)">
-                            @if (IsFormPost(uri))
-                            {
-                                <form method="post" action="@menuItem.Href">
-                                    @Html.AntiForgeryToken()
-                                    <button class="@linkClasses" type="submit">@menuItem.Text</button>
-                                </form>
+                                else if (IsFormPost(uri))
+                                {
+                                    <li>
+                                        <form method="post" action="@submenu.Href">
+                                            @Html.AntiForgeryToken()
+                                            <button class="@dropdownClasses" type="submit">@submenu.Text</button>
+                                        </form>
+                                    </li>
+                                }
+                                else
+                                {
+                                    <li>
+                                        <a id="@submenu.Id"
+                                            class="@dropdownClasses"
+                                            @if (!submenu.LocalNav)
+                                            {
+                                                <text>target="_blank"</text>
+                                            }
+                                            href="@submenu.Href">@submenu.Text</a>
+                                    </li>
+                                }
                             }
-                            else
-                            {
-                                <a id="@menuItem.Id"
-                                   class="@linkClasses"
-                                   @if (!menuItem.LocalNav)
-                                   {
-                                       <text>target="_blank"</text>
-                                   }
-                                   href="@(menuItem.Href ?? string.Empty)">@menuItem.Text</a>
-                            }
-                        </li>
-                    }
+                        </ul>
+                    </li>
                 }
-            </ul>
-        </div>
+                else if (IsDivider(menuItem))
+                {
+                    <li><hr class="dropdown-divider"></li>
+                }
+                else
+                {
+                    var uri = new Uri(baseUri, menuItem.Href);
+                    var isActive = baseUri.AbsolutePath.EqualsOrdinalIgnoreCase(uri.AbsolutePath);
+                    var linkClasses = $"nav-link {(isActive ? "active" : string.Empty)} {menuItem.Classes.Join()}";
+                    <li class="nav-item menuWidget__topLevel @(isActive ? "nav-item-link-active" : string.Empty)">
+                        @if (IsFormPost(uri))
+                        {
+                            <form method="post" action="@menuItem.Href">
+                                @Html.AntiForgeryToken()
+                                <button class="@linkClasses" type="submit">@menuItem.Text</button>
+                            </form>
+                        }
+                        else
+                        {
+                            <a id="@menuItem.Id"
+                                class="@linkClasses"
+                                @if (!menuItem.LocalNav)
+                                {
+                                    <text>target="_blank"</text>
+                                }
+                                href="@(menuItem.Href ?? string.Empty)">@menuItem.Text</a>
+                        }
+                    </li>
+                }
+            }
+        </ul>
     </div>
+</div>
 
 @if (!viewModel.NoWrapper)
 {
