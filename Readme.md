@@ -10,14 +10,14 @@ We at [Lombiq](https://lombiq.com/) also used this module for the following proj
 
 - The new [City of Santa Monica website](https://santamonica.gov/) when migrating it from Orchard 1 to Orchard Core ([see case study](https://lombiq.com/blog/helping-the-city-of-santa-monica-with-orchard-core-consulting)).
 - The new [Smithsonian Folkways Recordings website](https://folkways.si.edu/) when migrating it from Orchard 1 to Orchard Core ([see case study](https://lombiq.com/blog/smithsonian-folkways-recordings-now-upgraded-to-orchard-core)).
-- The new [Xero4PowerBI website](https://xero4powerbi.com/) ([see case study](https://dotnest.com/blog/xero4powerbi-website-case-study-migration-to-orchard-core)).<!-- #spell-check-ignore-line -->
+- The new [Xero4PowerBI website](https://xero4powerbi.com/) ([see case study](https://dotnest.com/blog/xero4powerbi-website-case-study-migration-to-orchard-core)).
 - The new [Lombiq website](https://lombiq.com/) when migrating it from Orchard 1 to Orchard Core ([see case study](https://lombiq.com/blog/how-we-renewed-and-migrated-lombiq-com-from-orchard-1-to-orchard-core)).
-- The new [Ik wil een taart website](https://ikwileentaart.nl/) ([see case study](https://dotnest.com/blog/revamping-ik-wil-een-taart-migrating-an-old-version-of-orchard-core-website-with-custom-theme-and-commerce-logic-to-dotnest)).<!-- #spell-check-ignore-line -->
+- The new [Ik wil een taart website](https://ikwileentaart.nl/) ([see case study](https://dotnest.com/blog/revamping-ik-wil-een-taart-migrating-an-old-version-of-orchard-core-website-with-custom-theme-and-commerce-logic-to-dotnest)).
 - The new client portal for [WTW](https://www.wtwco.com/) ([see case study](https://lombiq.com/blog/lombiq-s-journey-with-wtw-s-client-portal)).
-- The new [Show Orchard website](https://showorchard.com/) when migrating it from Orchard 1 DotNest to DotNest Core ([see case study](https://dotnest.com/blog/show-orchard-case-study-migrating-an-orchard-1-dotnest-site-to-orchard-core)).<!-- #spell-check-ignore-line -->
-- The new [Git-hg Mirror website](https://githgmirror.com/) when migrating it from Orchard 1 to Orchard Core ([see case study](https://lombiq.com/blog/git-hg-mirror-is-running-on-orchard-core)).<!-- #spell-check-ignore-line -->
-- The new [Hastlayer website](https://hastlayer.com/) when migrating it from Orchard 1 to Orchard Core ([see case study](https://lombiq.com/blog/modernization-and-orchard-core-migration-of-hastlayer-com)).<!-- #spell-check-ignore-line -->
-- The new [Orchard Dojo website](https://orcharddojo.net/) when migrating it from Orchard 1 to Orchard Core ([see case study](https://orcharddojo.net/blog/another-lombiq-site-was-improved-orchard-dojo)).<!-- #spell-check-ignore-line -->
+- The new [Show Orchard website](https://showorchard.com/) when migrating it from Orchard 1 DotNest to DotNest Core ([see case study](https://dotnest.com/blog/show-orchard-case-study-migrating-an-orchard-1-dotnest-site-to-orchard-core)).
+- The new [Git-hg Mirror website](https://githgmirror.com/) when migrating it from Orchard 1 to Orchard Core ([see case study](https://lombiq.com/blog/git-hg-mirror-is-running-on-orchard-core)).
+- The new [Hastlayer website](https://hastlayer.com/) when migrating it from Orchard 1 to Orchard Core ([see case study](https://lombiq.com/blog/modernization-and-orchard-core-migration-of-hastlayer-com)).
+- The new [Orchard Dojo website](https://orcharddojo.net/) when migrating it from Orchard 1 to Orchard Core ([see case study](https://orcharddojo.net/blog/another-lombiq-site-was-improved-orchard-dojo)).
 
 This module is also available on all sites of [DotNest, the Orchard Core SaaS](https://dotnest.com/).
 

@@ -5,7 +5,7 @@ using static Lombiq.HelpfulExtensions.Constants.ResourceNames;
 
 namespace Lombiq.HelpfulExtensions.Extensions.Trumbowyg;
 
-[ConstantFromJson("PrismVersion", "package.json", "prismjs")] // #spell-check-ignore-line
+[ConstantFromJson("PrismVersion", "package.json", "prismjs")]
 [ConstantFromJson("TrumbowygVersion", "package.json", "trumbowyg")]
 public partial class TrumbowygResourceManagementOptionsConfiguration : IConfigureOptions<ResourceManagementOptions>
 {
@@ -18,12 +18,12 @@ public partial class TrumbowygResourceManagementOptionsConfiguration : IConfigur
     {
         _manifest
             .DefineScript(Prism)
-            .SetUrl(Vendors + "prismjs/prism.js") // #spell-check-ignore-line
+            .SetUrl(Vendors + "prismjs/prism.js")
             .SetVersion(PrismVersion);
 
         _manifest
             .DefineStyle(Prism)
-            .SetUrl(Vendors + "prismjs/themes/prism.min.css", Vendors + "prismjs/themes/prism.css") // #spell-check-ignore-line
+            .SetUrl(Vendors + "prismjs/themes/prism.min.css", Vendors + "prismjs/themes/prism.css")
             .SetVersion(PrismVersion);
 
         _manifest
