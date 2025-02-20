@@ -63,8 +63,6 @@
             downloadFormData.append("__RequestVerificationToken", antiForgeryToken);
             downloadFormData.append("contentItemsJson", JSON.stringify(processedContentItems));
 
-            console.log(processedContentItems);
-
             const response = await fetch(`@Url.Action(nameof(OrchardRecipeMigrationAdminController.DownloadRecipe))`, {
                 method: "POST",
                 body: downloadFormData
