@@ -14,5 +14,5 @@ public interface IOrchardExportToRecipeConverter
     /// Returns a JSON string that contains an Orchard Core recipe file based on the provided Orchard 1 <paramref
     /// name="export"/> XML.
     /// </summary>
-    Task<object> ConvertAsync(XDocument export, int page = 1, int pageSize = 50);
+    Task<object> ConvertAsync(XDocument export, int page, int pageSize = 50);
 }

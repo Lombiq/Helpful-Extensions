@@ -42,7 +42,7 @@ public class OrchardExportToRecipeConverter : IOrchardExportToRecipeConverter
         _urlHelperFactory = urlHelperFactory;
     }
 
-    public async Task<object> ConvertAsync(XDocument export, int page = 1, int pageSize = 50)
+    public async Task<object> ConvertAsync(XDocument export, int page, int pageSize = 50)
     {
         var contents = export.XPathSelectElement("//Content")?.Elements() ?? [];
         var contentList = contents.ToList();
