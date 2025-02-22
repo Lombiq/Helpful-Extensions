@@ -1,4 +1,5 @@
 using Lombiq.HelpfulExtensions.Extensions.OrchardRecipeMigration.Controllers;
+using Lombiq.HelpfulExtensions.Extensions.OrchardRecipeMigration.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Microsoft.AspNetCore.Mvc.Routing;
@@ -46,7 +47,7 @@ public class OrchardExportToRecipeConverter : IOrchardExportToRecipeConverter
         _urlHelperFactory = urlHelperFactory;
     }
 
-    public async Task<object> ConvertAsync(XDocument export, int page)
+    public async Task<ConversionBatchResult> ConvertAsync(XDocument export, int page)
     {
         var contents = export.XPathSelectElement("//Content")?.Elements() ?? [];
         var contentList = contents.ToList();
@@ -91,7 +92,7 @@ public class OrchardExportToRecipeConverter : IOrchardExportToRecipeConverter
             new { page = page + 1 })
             : null;
 
-        return new
+        return new ConversionBatchResult
         {
             Processed = page * batchSize > totalItems ? totalItems : page * batchSize,
             Total = totalItems,
