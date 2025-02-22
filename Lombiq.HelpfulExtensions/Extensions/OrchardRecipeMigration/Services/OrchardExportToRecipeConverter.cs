@@ -1,9 +1,11 @@
+using Lombiq.HelpfulExtensions.Extensions.OrchardRecipeMigration.Controllers;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Microsoft.AspNetCore.Mvc.Routing;
 using OrchardCore.ContentManagement;
 using OrchardCore.ContentManagement.Metadata;
 using OrchardCore.Entities;
+using OrchardCore.Mvc.Core.Utilities;
 using OrchardCore.Users.Models;
 using System;
 using System.Collections.Generic;
@@ -16,6 +18,8 @@ namespace Lombiq.HelpfulExtensions.Extensions.OrchardRecipeMigration.Services;
 
 public class OrchardExportToRecipeConverter : IOrchardExportToRecipeConverter
 {
+    private readonly int batchSize = 50;
+
     private readonly IActionContextAccessor _actionContextAccessor;
     private readonly IContentManager _contentManager;
     private readonly IIdGenerator _idGenerator;
@@ -42,7 +46,7 @@ public class OrchardExportToRecipeConverter : IOrchardExportToRecipeConverter
         _urlHelperFactory = urlHelperFactory;
     }
 
-    public async Task<object> ConvertAsync(XDocument export, int page, int pageSize = 50)
+    public async Task<object> ConvertAsync(XDocument export, int page)
     {
         var contents = export.XPathSelectElement("//Content")?.Elements() ?? [];
         var contentList = contents.ToList();
@@ -50,10 +54,10 @@ public class OrchardExportToRecipeConverter : IOrchardExportToRecipeConverter
             .Select(definition => definition.Name)
             .ToList();
 
-        int totalItems = contentList.Count;
-        int totalPages = (int)Math.Ceiling((double)totalItems / pageSize);
+        var totalItems = contentList.Count;
+        var totalPages = (int)Math.Ceiling((double)totalItems / batchSize);
 
-        var batch = contentList.Skip((page - 1) * pageSize).Take(pageSize);
+        var batch = contentList.Skip((page - 1) * batchSize).Take(batchSize);
         var contentItems = new List<ContentItem>();
 
         foreach (var content in batch)
@@ -80,12 +84,16 @@ public class OrchardExportToRecipeConverter : IOrchardExportToRecipeConverter
 
         var urlHelper = _urlHelperFactory.GetUrlHelper(_actionContextAccessor.ActionContext!);
 
-        bool hasNextPage = page < totalPages;
-        string nextUrl = hasNextPage ? urlHelper.Action(nameof(Convert), "OrchardRecipeMigrationAdmin", new { page = page + 1 }) : null;
+        var hasNextPage = page < totalPages;
+        var nextUrl = hasNextPage ? urlHelper.Action(
+            nameof(Convert),
+            typeof(OrchardRecipeMigrationAdminController).ControllerName(),
+            new { page = page + 1 })
+            : null;
 
         return new
         {
-            Processed = page * pageSize > totalItems ? totalItems : page * pageSize,
+            Processed = page * batchSize > totalItems ? totalItems : page * batchSize,
             Total = totalItems,
             NextPage = nextUrl,
             ContentItems = contentItems,

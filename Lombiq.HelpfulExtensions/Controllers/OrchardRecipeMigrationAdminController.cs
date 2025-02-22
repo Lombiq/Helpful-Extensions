@@ -82,9 +82,9 @@ public sealed class OrchardRecipeMigrationAdminController : Controller
             using var stream = file.OpenReadStream();
             export = XDocument.Load(stream);
         }
-        catch (Exception)
+        catch (Exception ex)
         {
-            await _notifier.ErrorAsync(H["Failed to read the uploaded file."]);
+            await _notifier.ErrorAsync(H["Failed to read the uploaded file. The following exccpetion occured: " + ex]);
             return Redirect(nameof(Index));
         }
 
