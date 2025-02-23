@@ -1,11 +1,16 @@
+using Lombiq.HelpfulExtensions.Extensions.OrchardRecipeMigration.Controllers;
+using Lombiq.HelpfulExtensions.Extensions.OrchardRecipeMigration.Models;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Infrastructure;
+using Microsoft.AspNetCore.Mvc.Routing;
 using OrchardCore.ContentManagement;
 using OrchardCore.ContentManagement.Metadata;
 using OrchardCore.Entities;
-using OrchardCore.Recipes.Models;
+using OrchardCore.Mvc.Core.Utilities;
 using OrchardCore.Users.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text.Json.Nodes;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 using System.Xml.XPath;
@@ -14,38 +19,49 @@ namespace Lombiq.HelpfulExtensions.Extensions.OrchardRecipeMigration.Services;
 
 public class OrchardExportToRecipeConverter : IOrchardExportToRecipeConverter
 {
+    private readonly int batchSize = 50;
+
+    private readonly IActionContextAccessor _actionContextAccessor;
     private readonly IContentManager _contentManager;
     private readonly IIdGenerator _idGenerator;
-    private readonly IEnumerable<IOrchardExportConverter> _exportConverters;
     private readonly IEnumerable<IOrchardContentConverter> _contentConverters;
     private readonly IEnumerable<IOrchardUserConverter> _userConverters;
     private readonly IContentDefinitionManager _contentDefinitionManager;
+    private readonly IUrlHelperFactory _urlHelperFactory;
 
     public OrchardExportToRecipeConverter(
+        IActionContextAccessor actionContextAccessor,
         IContentDefinitionManager contentDefinitionManager,
         IContentManager contentManager,
         IIdGenerator idGenerator,
-        IEnumerable<IOrchardExportConverter> exportConverters,
         IEnumerable<IOrchardContentConverter> contentConverters,
-        IEnumerable<IOrchardUserConverter> userConverters)
+        IEnumerable<IOrchardUserConverter> userConverters,
+        IUrlHelperFactory urlHelperFactory)
     {
+        _actionContextAccessor = actionContextAccessor;
         _contentManager = contentManager;
         _idGenerator = idGenerator;
-        _exportConverters = exportConverters;
         _contentConverters = contentConverters;
         _userConverters = userConverters;
         _contentDefinitionManager = contentDefinitionManager;
+        _urlHelperFactory = urlHelperFactory;
     }
 
-    public async Task<string> ConvertAsync(XDocument export)
+    public async Task<ConversionBatchResult> ConvertAsync(XDocument export, int page)
     {
-        var contentItems = new List<ContentItem>();
         var contents = export.XPathSelectElement("//Content")?.Elements() ?? [];
+        var contentList = contents.ToList();
         var contentTypes = (await _contentDefinitionManager.ListTypeDefinitionsAsync())
             .Select(definition => definition.Name)
             .ToList();
 
-        foreach (var content in contents)
+        var totalItems = contentList.Count;
+        var totalPages = (int)Math.Ceiling((double)totalItems / batchSize);
+
+        var batch = contentList.Skip((page - 1) * batchSize).Take(batchSize);
+        var contentItems = new List<ContentItem>();
+
+        foreach (var content in batch)
         {
             if (await CreateContentItemAsync(content, contentTypes) is { } contentItem)
             {
@@ -67,15 +83,22 @@ public class OrchardExportToRecipeConverter : IOrchardExportToRecipeConverter
             }
         }
 
-        foreach (var converter in _exportConverters)
+        var urlHelper = _urlHelperFactory.GetUrlHelper(_actionContextAccessor.ActionContext!);
+
+        var hasNextPage = page < totalPages;
+        var nextUrl = hasNextPage ? urlHelper.Action(
+            nameof(Convert),
+            typeof(OrchardRecipeMigrationAdminController).ControllerName(),
+            new { page = page + 1 })
+            : null;
+
+        return new ConversionBatchResult
         {
-            await converter.UpdateContentItemsAsync(export, contentItems);
-        }
-
-        var recipe = JObject.FromObject(new RecipeDescriptor())!;
-        recipe["steps"] = new JsonArray(JObject.FromObject(new { name = "content", data = contentItems }));
-
-        return recipe.ToString();
+            Processed = page * batchSize > totalItems ? totalItems : page * batchSize,
+            Total = totalItems,
+            NextPage = nextUrl,
+            ContentItems = contentItems,
+        };
     }
 
     private async Task<ContentItem> CreateContentItemAsync(XElement content, List<string> contentTypes)

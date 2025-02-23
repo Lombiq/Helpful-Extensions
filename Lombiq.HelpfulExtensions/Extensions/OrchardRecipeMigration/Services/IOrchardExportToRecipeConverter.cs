@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+using Lombiq.HelpfulExtensions.Extensions.OrchardRecipeMigration.Models;
+using System.Threading.Tasks;
 using System.Xml.Linq;
 
 namespace Lombiq.HelpfulExtensions.Extensions.OrchardRecipeMigration.Services;
@@ -14,5 +15,5 @@ public interface IOrchardExportToRecipeConverter
     /// Returns a JSON string that contains an Orchard Core recipe file based on the provided Orchard 1 <paramref
     /// name="export"/> XML.
     /// </summary>
-    Task<string> ConvertAsync(XDocument export);
+    Task<ConversionBatchResult> ConvertAsync(XDocument export, int page);
 }

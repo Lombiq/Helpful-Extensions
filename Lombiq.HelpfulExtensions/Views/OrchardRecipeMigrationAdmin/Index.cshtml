@@ -2,7 +2,7 @@
 
 <h1>@T["Orchard 1 Recipe Migration"]</h1>
 
-<form action="@Url.Action(nameof(OrchardRecipeMigrationAdminController.Convert))"
+<form action="@Url.Action(nameof(OrchardRecipeMigrationAdminController.Convert))" id="converterForm"
       enctype="multipart/form-data"
       method="post">
 
@@ -26,3 +26,66 @@
     @Html.AntiForgeryToken()
 
 </form>
+
+<div id="progress-container" class="mt-3" style="display:none;">
+    <p>@T["Processing: "]<span id="progress-text">@T["0%"]</span></p>
+    <progress id="progress-bar" value="0" max="100"></progress>
+</div>
+
+<script>
+    let processedContentItems = [];
+    let antiForgeryToken = document.querySelector("input[name=__RequestVerificationToken]").value;
+
+    async function processPage(page = 1) {
+        const formData = new FormData();
+        formData.append("file", document.getElementById("file").files[0]);
+        formData.append("__RequestVerificationToken", antiForgeryToken);
+
+        let response = await fetch(`@Url.Action(nameof(OrchardRecipeMigrationAdminController.Convert))?page=${page}`, {
+            method: "POST",
+            body: formData
+        });
+
+        let data = await response.json();
+        processedContentItems.push(...data.contentItems);
+
+        if (data.total > 0) {
+            let percent = (data.processed / data.total) * 100;
+            document.getElementById("progress-text").innerText = percent.toFixed(2) + "%";
+            document.getElementById("progress-bar").value = percent;
+        }
+
+        if (data.nextPage) {
+            processPage(page + 1);
+        } else {
+            const downloadFormData = new FormData();
+            downloadFormData.append("file", document.getElementById("file").files[0]);
+            downloadFormData.append("__RequestVerificationToken", antiForgeryToken);
+            downloadFormData.append("contentItemsJson", JSON.stringify(processedContentItems));
+
+            const response = await fetch(`@Url.Action(nameof(OrchardRecipeMigrationAdminController.DownloadRecipe))`, {
+                method: "POST",
+                body: downloadFormData
+            });
+
+            processedContentItems = [];
+
+            const blob = await response.blob();
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement("a");
+            a.href = url;
+            a.download = "export.recipe.json";
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+
+            window.URL.revokeObjectURL(url);
+        }
+    }
+
+    document.querySelector("#converterForm").addEventListener("submit", function (event) {
+        event.preventDefault();
+        document.getElementById("progress-container").style.display = "block";
+        processPage();
+    });
+</script>
