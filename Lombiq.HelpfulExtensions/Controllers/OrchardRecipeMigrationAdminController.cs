@@ -84,7 +84,8 @@ public sealed class OrchardRecipeMigrationAdminController : Controller
         }
         catch (Exception ex)
         {
-            await _notifier.ErrorAsync(H["Failed to read the uploaded file. The following exccpetion occurred: " + ex]);
+            await _notifier
+                .ErrorAsync(H["Failed to read the uploaded file. The following exccpetion occurred: " + ex.Message]);
             return Redirect(nameof(Index));
         }
 
