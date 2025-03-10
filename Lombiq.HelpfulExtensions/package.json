@@ -1,7 +1,7 @@
 {
   "private": true,
   "dependencies": {
-    "prismjs": "1.29.0",
+    "prismjs": "1.30.0",
     "trumbowyg": "2.31.0"
   },
   "scripts": {
