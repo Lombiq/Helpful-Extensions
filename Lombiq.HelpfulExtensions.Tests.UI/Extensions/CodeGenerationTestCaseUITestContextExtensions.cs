@@ -50,7 +50,7 @@ public static class CodeGenerationTestCaseUITestContextExtensions
 
                 return true;
             }
-            catch (StaleElementReferenceException)
+            catch (WebDriverException ex) when (ex.IsStateElementLikeException())
             {
                 context.Refresh();
                 throw;
