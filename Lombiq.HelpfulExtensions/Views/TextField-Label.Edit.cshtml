@@ -10,10 +10,11 @@
 <div class="@Orchard.GetFieldWrapperClasses(Model.PartFieldDefinition)" id="@Html.IdFor(x => x.Text)_FieldWrapper">
     <label class="@Orchard.GetLabelClasses()">@Model.PartFieldDefinition.DisplayName()</label>
     <div class="@Orchard.GetEndClasses()">
+        <input hidden asp-for="Text" />
         <strong>@(Model.Text ?? T["<empty>"].Value)</strong>
         @if (!string.IsNullOrEmpty(settings.Hint))
         {
-        <span class="hint">@settings.Hint</span>
+            <span class="hint">@settings.Hint</span>
         }
     </div>
 </div>
