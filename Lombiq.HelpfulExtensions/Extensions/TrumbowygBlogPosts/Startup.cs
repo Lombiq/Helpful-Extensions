@@ -11,7 +11,7 @@ namespace Lombiq.HelpfulExtensions.Extensions.TrumbowygBlogPosts;
 public sealed class Startup : StartupBase
 {
     public override void ConfigureServices(IServiceCollection services) =>
-        services.AddScoped<IResourceFilterProvider, ResourceFilters>();
+        services.AddResourceFilter<ResourceFilters>();
 
     public override void Configure(IApplicationBuilder app, IEndpointRouteBuilder routes, IServiceProvider serviceProvider) =>
         app.UseResourceFilters();
