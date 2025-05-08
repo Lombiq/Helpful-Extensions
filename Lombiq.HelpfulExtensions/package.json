@@ -3,37 +3,5 @@
   "dependencies": {
     "prismjs": "1.30.0",
     "trumbowyg": "2.31.0"
-  },
-  "scripts": {
-    "build": "npm explore nodejs-extensions -- pnpm build",
-    "build:assets": "npm explore nodejs-extensions -- pnpm build:assets",
-    "build:scripts": "npm explore nodejs-extensions -- pnpm build:scripts",
-    "clean:scripts": "npm explore nodejs-extensions -- pnpm clean:scripts",
-    "watch:scripts": "npm explore nodejs-extensions -- pnpm watch:scripts"
-  },
-  "nodejsExtensions": {
-    "assetsToCopy": [
-      {
-        "sources": [
-          "node_modules/prismjs/"
-        ],
-        "target": "wwwroot/vendors/prismjs"
-      },
-      {
-        "sources": [
-          "node_modules/trumbowyg/dist/plugins/highlight",
-          "node_modules/trumbowyg/plugins/highlight/ui/icons/highlight.svg"
-        ],
-        "target": "wwwroot/vendors/trumbowyg/plugins/highlight"
-      }
-    ],
-    "styles": {
-      "source": "Assets/Styles",
-      "target": "wwwroot/css"
-    },
-    "scripts": {
-      "source": "Assets/Scripts",
-      "target": "wwwroot/js"
-    }
   }
 }

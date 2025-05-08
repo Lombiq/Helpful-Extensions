@@ -37,6 +37,14 @@
     <None Remove="node_modules\**" />
     <None Remove="Tests\**" />
     <AdditionalFiles Include="package.json" />
+    <Vendor Include="node_modules/prismjs">
+      <Subdirectory />
+    </Vendor>
+    <Vendor Include="node_modules/trumbowyg">
+      <CopyTo>trumbowyg/plugins/highlight</CopyTo>
+      <Subdirectory>dist/plugins/highlight</Subdirectory>
+      <Subdirectory>plugins/highlight/ui/icons</Subdirectory>
+    </Vendor>
   </ItemGroup>
 
   <ItemGroup>
@@ -69,7 +77,7 @@
     <PackageReference Include="Lombiq.HelpfulLibraries.Attributes" Version="12.2.1-alpha.0.occ-314" OutputItemType="Analyzer" ReferenceOutputAssembly="true" />
     <PackageReference Include="Lombiq.HelpfulLibraries.OrchardCore" Version="12.2.1-alpha.0.occ-314" />
     <PackageReference Include="Lombiq.HelpfulLibraries.SourceGenerators" Version="12.2.1-alpha.0.occ-314" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
-    <PackageReference Include="Lombiq.Npm.Targets" Version="1.4.1-alpha.0.osoe-1107" />
+    <PackageReference Include="Lombiq.Npm.Targets" Version="1.4.1-alpha.1.osoe-1107" />
   </ItemGroup>
 
   <Import Condition="'$(NuGetBuild)' != 'true'" Project="..\..\..\Utilities\Lombiq.Npm.Targets\Lombiq.Npm.Targets.targets" />
