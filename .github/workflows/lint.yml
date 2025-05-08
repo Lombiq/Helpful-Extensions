@@ -1,0 +1,15 @@
+name: Lint Scripts, Styles, and Texts
+
+# Runs for PRs opened for any branch, and pushes to the main branch.
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+
+jobs:
+  lint:
+    name: Lint Scripts, Styles, and Texts
+    uses: Lombiq/NodeJs-Extensions/.github/workflows/lint.yml@dev
+    with:
+      styles-css: Lombiq.HelpfulExtensions
