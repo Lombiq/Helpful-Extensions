@@ -12,4 +12,5 @@ jobs:
     name: Lint Scripts, Styles, and Texts
     uses: Lombiq/NodeJs-Extensions/.github/workflows/lint.yml@dev
     with:
+      scripts: Lombiq.HelpfulExtensions
       styles-css: Lombiq.HelpfulExtensions
