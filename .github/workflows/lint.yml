@@ -1,4 +1,4 @@
-name: Lint Scripts, Styles, and Texts
+name: Lint Assets
 
 # Runs for PRs opened for any branch, and pushes to the main branch.
 on:
@@ -9,7 +9,7 @@ on:
 
 jobs:
   lint:
-    name: Lint Scripts, Styles, and Texts
+    name: Lint Assets
     uses: Lombiq/NodeJs-Extensions/.github/workflows/lint.yml@dev
     with:
       scripts: Lombiq.HelpfulExtensions
