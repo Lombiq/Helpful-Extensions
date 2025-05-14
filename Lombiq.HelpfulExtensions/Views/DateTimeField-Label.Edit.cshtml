@@ -1,0 +1,24 @@
+@model OrchardCore.ContentFields.ViewModels.EditDateTimeFieldViewModel
+@using OrchardCore
+@using OrchardCore.ContentFields.Settings
+@using OrchardCore.ContentManagement.Metadata.Models
+@{
+    var settings = Model.PartFieldDefinition.GetSettings<DateTimeFieldSettings>();
+}
+<script asp-name="jQuery-ui-i18n" at="Foot"></script>
+<div class="@Orchard.GetFieldWrapperClasses(Model.PartFieldDefinition)" id="@Html.IdFor(x => x.LocalDateTime)_FieldWrapper">
+    <label class="@Orchard.GetLabelClasses(inputRequired: settings.Required)">@Model.PartFieldDefinition.DisplayName()</label>
+    <div class="@Orchard.GetEndClasses()">
+        <div class="@Orchard.GetLimitedWidthWrapperClasses()">
+            <div class="@Orchard.GetLimitedWidthClasses()">
+                <input hidden asp-for="LocalDateTime" />
+                <strong>@(Model.LocalDateTime.HasValue ? Model.LocalDateTime.Value : T["Not set."])</strong>
+            </div>
+        </div>
+
+        @if (!string.IsNullOrEmpty(settings.Hint))
+        {
+            <span class="hint">@settings.Hint</span>
+        }
+    </div>
+</div>
