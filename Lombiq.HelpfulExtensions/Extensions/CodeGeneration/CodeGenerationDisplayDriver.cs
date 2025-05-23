@@ -37,7 +37,9 @@ public sealed class CodeGenerationDisplayDriver : ContentTypeDefinitionDisplayDr
                 // StringBuilder.AppendInterpolatedStringHandler instance by hand (to be able to use pass on a
                 // FormattableString received from here to StringBuilder.AppendLine(IFormatProvider? provider, ref
                 // AppendInterpolatedStringHandler handler)) it won't work.
-                codeBuilder.AppendLine(CultureInfo.InvariantCulture, $"_contentDefinitionManager.AlterTypeDefinition(\"{name}\", type => type");
+                codeBuilder.AppendLine(
+                    CultureInfo.InvariantCulture,
+                    $"await _contentDefinitionManager.AlterTypeDefinitionAsync(\"{name}\", type => type");
                 codeBuilder.AppendLine(CultureInfo.InvariantCulture, $"    .DisplayedAs(\"{model.DisplayName}\")");
 
                 GenerateCodeForSettings(codeBuilder, model.GetSettings<ContentTypeSettings>());
@@ -96,7 +98,9 @@ public sealed class CodeGenerationDisplayDriver : ContentTypeDefinitionDisplayDr
         foreach (var part in partDefinitions)
         {
             codeBuilder.AppendLine();
-            codeBuilder.AppendLine(CultureInfo.InvariantCulture, $"_contentDefinitionManager.AlterPartDefinition(\"{part.Name}\", part => part");
+            codeBuilder.AppendLine(
+                CultureInfo.InvariantCulture,
+                $"await _contentDefinitionManager.AlterPartDefinitionAsync(\"{part.Name}\", part => part");
 
             var partSettings = part.GetSettings<ContentPartSettings>();
             if (partSettings.Attachable) codeBuilder.AppendLine("    .Attachable()");

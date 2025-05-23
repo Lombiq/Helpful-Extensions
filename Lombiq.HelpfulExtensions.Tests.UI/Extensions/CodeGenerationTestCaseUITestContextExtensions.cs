@@ -45,7 +45,7 @@ public static class CodeGenerationTestCaseUITestContextExtensions
 
                 // Checking the first line of the CodeMirror editor.
                 context.Get(By.CssSelector(".CodeMirror-line .cm-variable")).Text.ShouldBe("_contentDefinitionManager");
-                context.Get(By.CssSelector(".CodeMirror-line .cm-property")).Text.ShouldBe("AlterTypeDefinition");
+                context.Get(By.CssSelector(".CodeMirror-line .cm-property")).Text.ShouldBe("AlterTypeDefinitionAsync");
                 context.Get(By.CssSelector(".CodeMirror-line .cm-string")).Text.ShouldBe("\"Page\"");
 
                 return true;

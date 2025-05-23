@@ -11,7 +11,7 @@ internal static class GeneratedMigrationCodes
         Justification = "It's wrapped to prevent issues related to that.")]
     private const string Page =
         """
-        _contentDefinitionManager.AlterTypeDefinition("Page", type => type
+        await _contentDefinitionManager.AlterTypeDefinitionAsync("Page", type => type
             .DisplayedAs("Page")
             .Creatable()
             .Listable()

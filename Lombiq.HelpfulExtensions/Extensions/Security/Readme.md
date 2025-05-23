@@ -7,7 +7,7 @@ When applied to a content type definition, `StrictSecuritySetting` requires the 
 Make content type use strict security in migration:
 
 ```csharp
-_contentDefinitionManager.AlterTypeDefinition("Page", type => type
+await _contentDefinitionManager.AlterTypeDefinitionAsync("Page", type => type
     .Securable()
     .WithSettings(new StrictSecuritySettings { Enabled = true }));
 ```
