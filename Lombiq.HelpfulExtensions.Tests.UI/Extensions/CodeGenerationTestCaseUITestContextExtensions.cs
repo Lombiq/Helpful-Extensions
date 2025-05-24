@@ -1,3 +1,4 @@
+extern alias OCCMA;
 using Atata;
 using Lombiq.HelpfulExtensions.Tests.UI.Constants;
 using Lombiq.Tests.UI.Extensions;
@@ -5,6 +6,7 @@ using Lombiq.Tests.UI.Services;
 using OpenQA.Selenium;
 using Shouldly;
 using System.Threading.Tasks;
+using ContentDefinitionManagerExtensions = OCCMA::OrchardCore.ContentManagement.Metadata.ContentDefinitionManagerExtensions;
 
 namespace Lombiq.HelpfulExtensions.Tests.UI.Extensions;
 
@@ -45,7 +47,8 @@ public static class CodeGenerationTestCaseUITestContextExtensions
 
                 // Checking the first line of the CodeMirror editor.
                 context.Get(By.CssSelector(".CodeMirror-line .cm-variable")).Text.ShouldBe("_contentDefinitionManager");
-                context.Get(By.CssSelector(".CodeMirror-line .cm-property")).Text.ShouldBe("AlterTypeDefinitionAsync");
+                context.Get(By.CssSelector(".CodeMirror-line .cm-property")).Text
+                    .ShouldBe(nameof(ContentDefinitionManagerExtensions.AlterTypeDefinitionAsync));
                 context.Get(By.CssSelector(".CodeMirror-line .cm-string")).Text.ShouldBe("\"Page\"");
 
                 return true;
