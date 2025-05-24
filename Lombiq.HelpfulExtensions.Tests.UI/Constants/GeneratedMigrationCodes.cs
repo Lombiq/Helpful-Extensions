@@ -11,7 +11,7 @@ internal static class GeneratedMigrationCodes
         Justification = "It's wrapped to prevent issues related to that.")]
     private const string Page =
         """
-        _contentDefinitionManager.AlterTypeDefinition("Page", type => type
+        await _contentDefinitionManager.AlterTypeDefinitionAsync("Page", type => type
             .DisplayedAs("Page")
             .Creatable()
             .Listable()
@@ -26,7 +26,7 @@ internal static class GeneratedMigrationCodes
                 .WithSettings(new AutoroutePartSettings
                 {
                     AllowCustomPath = true,
-                    Pattern = {{ Model.ContentItem | display_text | slugify }},
+                    Pattern = "{{ Model.ContentItem | display_text | slugify }}",
                     ShowHomepageOption = true,
                     AllowUpdatePath = false,
                     AllowDisabled = false,
