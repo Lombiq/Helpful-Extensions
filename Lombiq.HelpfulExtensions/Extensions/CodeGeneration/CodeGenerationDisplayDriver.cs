@@ -136,7 +136,7 @@ public sealed class CodeGenerationDisplayDriver : ContentTypeDefinitionDisplayDr
     private string ConvertNode(JsonNode node, int indentationDepth) =>
         node switch
         {
-            JsonValue jsonValue => jsonValue.ToString(),
+            JsonValue jsonValue => jsonValue.ToJsonString(),
             JsonArray jsonArray => ConvertJsonArray(jsonArray, indentationDepth),
             JsonObject jsonObject => ConvertJsonObject(jsonObject, indentationDepth),
             _ => throw new NotSupportedException($"Settings values of type {node.GetType()} are not supported."),

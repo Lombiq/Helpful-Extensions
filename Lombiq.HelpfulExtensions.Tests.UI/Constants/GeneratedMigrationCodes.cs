@@ -26,7 +26,7 @@ internal static class GeneratedMigrationCodes
                 .WithSettings(new AutoroutePartSettings
                 {
                     AllowCustomPath = true,
-                    Pattern = {{ Model.ContentItem | display_text | slugify }},
+                    Pattern = "{{ Model.ContentItem | display_text | slugify }}",
                     ShowHomepageOption = true,
                     AllowUpdatePath = false,
                     AllowDisabled = false,
