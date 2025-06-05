@@ -1,3 +1,4 @@
+using Lombiq.HelpfulExtensions.Extensions.Widgets.Constants;
 using Lombiq.HelpfulExtensions.Extensions.Widgets.Models;
 using System;
 using System.Linq;
@@ -22,7 +23,7 @@ public static class MenuWidgetExtension
     }
 
     public static string GetMenuWidgetItemShapeName(this MenuItem menuItem, Uri baseUri) =>
-        "MenuWidgetItem__" + menuItem.GetMenuWidgetItemType(baseUri);
+        $"{ShapeTypes.MenuWidgetItem}__{menuItem.GetMenuWidgetItemType(baseUri)}";
 
     // We use LocalizedString.Name instead of Value intentionally, as this shouldn't be affected by localization.
     public static bool IsDivider(this MenuItem menuItem) =>

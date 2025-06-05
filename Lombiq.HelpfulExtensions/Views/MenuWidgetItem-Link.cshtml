@@ -5,7 +5,7 @@
 }
 
 <a id="@menu.Id"
-   class="@Model.Classes"
+   class="@string.Join(" ", Model.Classes)"
    @if (!menu.LocalNav)
    {
        <text>target="_blank"</text>

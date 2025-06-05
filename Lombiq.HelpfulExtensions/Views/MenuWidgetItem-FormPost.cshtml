@@ -6,5 +6,5 @@
 
 <form method="post" action="@menu.Href">
     @Html.AntiForgeryToken()
-    <button class="@Model.Classes" type="submit">@menu.Text</button>
+    <button class="@string.Join(" ", Model.Classes)" type="submit">@menu.Text</button>
 </form>

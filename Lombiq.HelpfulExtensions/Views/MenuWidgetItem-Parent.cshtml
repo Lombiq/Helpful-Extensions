@@ -3,7 +3,7 @@
 
 @{
     var menu = Model.Item as MenuItem ?? new MenuItem();
-    var submenuItems = Model.SubMenuItems as IEnumerable<MenuItem> ?? [];
+    var subMenuItems = Model.SubMenuItems as IEnumerable<MenuItem> ?? [];
 }
 
 <a id="@Model.Id"
@@ -12,19 +12,37 @@
    data-bs-toggle="dropdown"
    aria-expanded="false">@menu.Text</a>
 <ul class="dropdown-menu" aria-labelledby="@Model.Id">
-    @foreach (var submenu in submenuItems)
+    @foreach (var item in subMenuItems)
     {
         var baseUri = new Uri(Context.Request.GetDisplayUrl());
-        var isActive = baseUri.AbsolutePath.EqualsOrdinalIgnoreCase(new Uri(baseUri, submenu.Href).AbsolutePath);
-        var classes = $"dropdown-item {(isActive ? "active" : string.Empty)} {submenu.Classes.Join()} menuWidget__dropdownItem";
+        var isActive = baseUri.AbsolutePath.EqualsOrdinalIgnoreCase(new Uri(baseUri, item.Href).AbsolutePath);
+        var classes = $"dropdown-item {(isActive ? "active" : string.Empty)} {item.Classes.Join()} menuWidget__dropdownItem"
+            .Split(" ", StringSplitOptions.RemoveEmptyEntries);
+        var alternateName = item.GetMenuWidgetItemShapeName(baseUri);
 
         <li>
-            <shape type="MenuWidgetItem"
-                   prop-ViewModel="@Model.ViewModel"
-                   prop-Item="@submenu"
-                   prop-Parent="@menu"
-                   prop-Classes="@classes">
-                <add-alternate name="@submenu.GetMenuWidgetItemShapeName(baseUri))" />
+            <shape type="MenuWidgetItem" prop-ViewModel="@Model.ViewModel" prop-Item="@item" prop-Parent="@menu">
+                <metadata>
+                    <add-alternate name="@alternateName"/>
+
+                    @if (!string.IsNullOrWhiteSpace(item.Id))
+                    {
+                        <add-alternate name="@($"{alternateName}_{item.Id}")"/>
+                    }
+
+                    @foreach (var className in classes)
+                    {
+                        @if (!string.IsNullOrWhiteSpace(className))
+                        {
+                            @if (className != "dropdown-item")
+                            {
+                                <add-alternate name="@($"{alternateName}_{className}")"/>
+                            }
+
+                            <add-class name="@className" />
+                        }
+                    }
+                </metadata>
             </shape>
         </li>
     }

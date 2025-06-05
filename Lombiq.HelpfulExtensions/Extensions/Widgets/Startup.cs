@@ -1,3 +1,4 @@
+using Fluid;
 using Lombiq.HelpfulExtensions.Extensions.Widgets.Drivers;
 using Lombiq.HelpfulExtensions.Extensions.Widgets.Liquid;
 using Lombiq.HelpfulExtensions.Extensions.Widgets.Models;
@@ -12,6 +13,7 @@ using OrchardCore.Data.Migration;
 using OrchardCore.DisplayManagement.Handlers;
 using OrchardCore.Liquid;
 using OrchardCore.Modules;
+using OrchardCore.Navigation;
 using OrchardCore.Rules;
 using System;
 
@@ -36,6 +38,7 @@ public sealed class Startup : StartupBase
 
         services.AddScoped<ILiquidContentDisplayService, LiquidContentDisplayService>();
         services.AddLiquidFilter<MenuWidgetLiquidFilter>("menu");
+        services.Configure<TemplateOptions>(option => option.MemberAccessStrategy.Register<MenuItem>());
     }
 
     public override void Configure(IApplicationBuilder app, IEndpointRouteBuilder routes, IServiceProvider serviceProvider)

@@ -1,3 +1,5 @@
+@using Lombiq.HelpfulExtensions.Extensions.Widgets.Constants
+@using Lombiq.HelpfulExtensions.Extensions.Widgets.Models
 @using Lombiq.HelpfulLibraries.Common.Utilities;
 @using Microsoft.AspNetCore.Http.Extensions
 @using OrchardCore.Navigation
@@ -42,7 +44,8 @@
             {
                 var uri = new Uri(baseUri, menuItem.Href);
                 var isActive = !menuItem.IsDivider() && baseUri.AbsolutePath.EqualsOrdinalIgnoreCase(uri.AbsolutePath);
-                var classes = $"nav-link {(isActive ? "active" : string.Empty)} {menuItem.Classes.Join()}";
+                var classes = $"nav-link {(isActive ? "active" : string.Empty)} {menuItem.Classes.Join()}"
+                    .Split(" ", StringSplitOptions.RemoveEmptyEntries);
 
                 @if (menuItem.Items.Any())
                 {
@@ -56,20 +59,44 @@
                                prop-Id="@StringHelper.CreateInvariant($"{dropdownElementName}_{Guid.NewGuid()}")"
                                prop-ViewModel="@viewModel"
                                prop-Item="@menuItem"
-                               prop-SubMenuItems="@subMenuItems"
-                               prop-Classes="@classes">
-                            <add-alternate name="@menuItem.GetMenuWidgetItemShapeName(baseUri))" />
+                               prop-SubMenuItems="@subMenuItems">
+                            <metadata>
+                                <add-alternate name="@($"{ShapeTypes.MenuWidgetItem}__{MenuWidgetItemType.Parent}")" />
+
+                                @foreach (var className in classes)
+                                {
+                                    <add-class name="@className" />
+                                }
+                            </metadata>
                         </shape>
                     </li>
                 }
                 else
                 {
+                    var alternateName = menuItem.GetMenuWidgetItemShapeName(baseUri);
                     <li class="nav-item menuWidget__topLevel @(isActive ? "nav-item-link-active" : string.Empty)">
-                        <shape type="MenuWidgetItem"
-                               prop-ViewModel="@viewModel"
-                               prop-Item="@menuItem"
-                               prop-Classes="@classes">
-                            <add-alternate name="@menuItem.GetMenuWidgetItemShapeName(baseUri))" />
+                        <shape type="MenuWidgetItem" prop-ViewModel="@viewModel" prop-Item="@menuItem">
+                            <metadata>
+                                <add-alternate name="@alternateName"/>
+
+                                @if (!string.IsNullOrWhiteSpace(menuItem.Id))
+                                {
+                                    <add-alternate name="@($"{alternateName}_{menuItem.Id}")"/>
+                                }
+
+                                @foreach (var className in classes)
+                                {
+                                    @if (!string.IsNullOrWhiteSpace(className))
+                                    {
+                                        @if (className != "nav-link")
+                                        {
+                                            <add-alternate name="@($"{alternateName}_{className}")"/>
+                                        }
+
+                                        <add-class name="@className" />
+                                    }
+                                }
+                            </metadata>
                         </shape>
                     </li>
                 }
