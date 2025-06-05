@@ -1,0 +1,10 @@
+@using OrchardCore.Navigation
+
+@{
+    var menu = Model.Item as MenuItem ?? new MenuItem();
+}
+
+<form method="post" action="@menu.Href">
+    @Html.AntiForgeryToken()
+    <button class="@Model.Classes" type="submit">@menu.Text</button>
+</form>

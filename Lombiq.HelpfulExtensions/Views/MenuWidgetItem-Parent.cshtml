@@ -1,0 +1,31 @@
+@using Microsoft.AspNetCore.Http.Extensions
+@using OrchardCore.Navigation
+
+@{
+    var menu = Model.Item as MenuItem ?? new MenuItem();
+    var submenuItems = Model.SubMenuItems as IEnumerable<MenuItem> ?? [];
+}
+
+<a id="@Model.Id"
+   class="nav-link dropdown-toggle menuWidget__dropdown"
+   href="#"
+   data-bs-toggle="dropdown"
+   aria-expanded="false">@menu.Text</a>
+<ul class="dropdown-menu" aria-labelledby="@Model.Id">
+    @foreach (var submenu in submenuItems)
+    {
+        var baseUri = new Uri(Context.Request.GetDisplayUrl());
+        var isActive = baseUri.AbsolutePath.EqualsOrdinalIgnoreCase(new Uri(baseUri, submenu.Href).AbsolutePath);
+        var classes = $"dropdown-item {(isActive ? "active" : string.Empty)} {submenu.Classes.Join()} menuWidget__dropdownItem";
+
+        <li>
+            <shape type="MenuWidgetItem"
+                   prop-ViewModel="@Model.ViewModel"
+                   prop-Item="@submenu"
+                   prop-Parent="@menu"
+                   prop-Classes="@classes">
+                <add-alternate name="@submenu.GetMenuWidgetItemShapeName(baseUri))" />
+            </shape>
+        </li>
+    }
+</ul>

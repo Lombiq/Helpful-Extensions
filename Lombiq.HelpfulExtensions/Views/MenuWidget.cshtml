@@ -10,7 +10,6 @@
     const string contentElementName = blockName + "__content";
     const string togglerElementName = blockName + "__toggler";
     const string dropdownElementName = blockName + "__dropdown";
-    const string dropdownItemElementName = blockName + "__dropdownItem";
 
     var contentIdName = StringHelper.CreateInvariant($"{contentElementName}_{Guid.NewGuid()}");
 
@@ -20,16 +19,6 @@
         .MenuItems
         .OrderBy(item => double.TryParse(item.Position, out var number) ? number : double.MaxValue)
         .ThenBy(item => item.Position);
-
-    // We use LocalizedString.Name instead of Value intentionally, as this shouldn't be affected by localization.
-    bool IsDivider(MenuItem menuItem) =>
-        menuItem.Text.Name.Length >= 3 && menuItem.Text.Name.All(character => character == '-');
-
-    bool IsFormPost(Uri uri) => uri
-        .Query
-        .TrimStart('?')
-        .Split('&')
-        .Contains("Lombiq.MenuWidget.Post=true", StringComparer.OrdinalIgnoreCase);
 }
 
 @if (!viewModel.NoWrapper)
@@ -51,82 +40,37 @@
         <ul class="navbar-nav me-auto mb-lg-0">
             @foreach (var menuItem in menuItems)
             {
-                var dropdownIdName = StringHelper.CreateInvariant($"{dropdownElementName}_{Guid.NewGuid()}");
+                var uri = new Uri(baseUri, menuItem.Href);
+                var isActive = !menuItem.IsDivider() && baseUri.AbsolutePath.EqualsOrdinalIgnoreCase(uri.AbsolutePath);
+                var classes = $"nav-link {(isActive ? "active" : string.Empty)} {menuItem.Classes.Join()}";
+
                 @if (menuItem.Items.Any())
                 {
-                    var submenuItems = menuItem
+                    var subMenuItems = menuItem
                         .Items
                         .OrderBy(item => double.TryParse(item.Position, out var number) ? number : double.MaxValue)
                         .ThenBy(item => item.Position);
+
                     <li class="nav-item dropdown">
-                        <a id="@dropdownIdName"
-                            class="nav-link dropdown-toggle @dropdownElementName"
-                            href="#"
-                            data-bs-toggle="dropdown"
-                            aria-expanded="false">@menuItem.Text</a>
-                        <ul class="dropdown-menu" aria-labelledby="@dropdownIdName">
-                            @foreach (var submenu in submenuItems)
-                            {
-                                var uri = new Uri(baseUri, submenu.Href);
-                                var isActive = baseUri.AbsolutePath.EqualsOrdinalIgnoreCase(uri.AbsolutePath);
-                                var dropdownClasses = $"dropdown-item {(isActive ? "active" : string.Empty)} " +
-                                                        $"{submenu.Classes.Join()} {dropdownItemElementName}";
-                                if (IsDivider(submenu))
-                                {
-                                    <li><hr class="dropdown-divider"></li>
-                                }
-                                else if (IsFormPost(uri))
-                                {
-                                    <li>
-                                        <form method="post" action="@submenu.Href">
-                                            @Html.AntiForgeryToken()
-                                            <button class="@dropdownClasses" type="submit">@submenu.Text</button>
-                                        </form>
-                                    </li>
-                                }
-                                else
-                                {
-                                    <li>
-                                        <a id="@submenu.Id"
-                                            class="@dropdownClasses"
-                                            @if (!submenu.LocalNav)
-                                            {
-                                                <text>target="_blank"</text>
-                                            }
-                                            href="@submenu.Href">@submenu.Text</a>
-                                    </li>
-                                }
-                            }
-                        </ul>
+                        <shape type="MenuWidgetItem"
+                               prop-Id="@StringHelper.CreateInvariant($"{dropdownElementName}_{Guid.NewGuid()}")"
+                               prop-ViewModel="@viewModel"
+                               prop-Item="@menuItem"
+                               prop-SubMenuItems="@subMenuItems"
+                               prop-Classes="@classes">
+                            <add-alternate name="@menuItem.GetMenuWidgetItemShapeName(baseUri))" />
+                        </shape>
                     </li>
-                }
-                else if (IsDivider(menuItem))
-                {
-                    <li><hr class="dropdown-divider"></li>
                 }
                 else
                 {
-                    var uri = new Uri(baseUri, menuItem.Href);
-                    var isActive = baseUri.AbsolutePath.EqualsOrdinalIgnoreCase(uri.AbsolutePath);
-                    var linkClasses = $"nav-link {(isActive ? "active" : string.Empty)} {menuItem.Classes.Join()}";
                     <li class="nav-item menuWidget__topLevel @(isActive ? "nav-item-link-active" : string.Empty)">
-                        @if (IsFormPost(uri))
-                        {
-                            <form method="post" action="@menuItem.Href">
-                                @Html.AntiForgeryToken()
-                                <button class="@linkClasses" type="submit">@menuItem.Text</button>
-                            </form>
-                        }
-                        else
-                        {
-                            <a id="@menuItem.Id"
-                                class="@linkClasses"
-                                @if (!menuItem.LocalNav)
-                                {
-                                    <text>target="_blank"</text>
-                                }
-                                href="@(menuItem.Href ?? string.Empty)">@menuItem.Text</a>
-                        }
+                        <shape type="MenuWidgetItem"
+                               prop-ViewModel="@viewModel"
+                               prop-Item="@menuItem"
+                               prop-Classes="@classes">
+                            <add-alternate name="@menuItem.GetMenuWidgetItemShapeName(baseUri))" />
+                        </shape>
                     </li>
                 }
             }
