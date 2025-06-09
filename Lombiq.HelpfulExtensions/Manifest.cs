@@ -1,3 +1,4 @@
+using Lombiq.HelpfulExtensions;
 using OrchardCore.Modules.Manifest;
 using static Lombiq.HelpfulExtensions.FeatureIds;
 
@@ -79,6 +80,13 @@ using static Lombiq.HelpfulExtensions.FeatureIds;
     Name = "Lombiq Helpful Extensions - Shape Tracing Helpful Extensions",
     Category = "Development",
     Description = "Adds a dump of metadata to the output about every shape."
+)]
+
+[assembly: Feature(
+    Id = FeatureIds.Shortcodes,
+    Name = "Lombiq Helpful Extensions - Shortcode Extensions",
+    Category = "Development",
+    Description = "Adds new shortcodes which can be used in HTML and Markdown templates."
 )]
 
 [assembly: Feature(

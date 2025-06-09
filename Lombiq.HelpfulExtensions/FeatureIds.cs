@@ -15,6 +15,7 @@ public static class FeatureIds
     public const string ResetPasswordActivity = Workflows + "." + nameof(ResetPasswordActivity);
     public const string Security = FeatureIdPrefix + nameof(Security);
     public const string ShapeTracing = FeatureIdPrefix + nameof(ShapeTracing);
+    public const string Shortcodes = FeatureIdPrefix + nameof(Shortcodes);
     public const string SiteTexts = FeatureIdPrefix + nameof(SiteTexts);
     public const string TargetBlank = FeatureIdPrefix + nameof(TargetBlank);
     public const string Trumbowyg = FeatureIdPrefix + nameof(Trumbowyg);
