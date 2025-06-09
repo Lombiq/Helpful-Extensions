@@ -85,7 +85,7 @@ using static Lombiq.HelpfulExtensions.FeatureIds;
 [assembly: Feature(
     Id = FeatureIds.Shortcodes,
     Name = "Lombiq Helpful Extensions - Shortcode Extensions",
-    Category = "Development",
+    Category = "Content",
     Description = "Adds new shortcodes which can be used in HTML and Markdown templates."
 )]
 
