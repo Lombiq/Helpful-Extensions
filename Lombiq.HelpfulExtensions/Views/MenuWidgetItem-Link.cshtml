@@ -1,0 +1,13 @@
+@using OrchardCore.Navigation
+
+@{
+    var menu = Model.Item as MenuItem ?? new MenuItem();
+}
+
+<a id="@menu.Id"
+   class="@string.Join(" ", Model.Classes)"
+   @if (!menu.LocalNav)
+   {
+       <text>target="_blank"</text>
+   }
+   href="@menu.Href">@menu.Text</a>

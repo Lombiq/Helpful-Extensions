@@ -1,3 +1,4 @@
+using Lombiq.HelpfulExtensions;
 using OrchardCore.Modules.Manifest;
 using static Lombiq.HelpfulExtensions.FeatureIds;
 
@@ -68,6 +69,13 @@ using static Lombiq.HelpfulExtensions.FeatureIds;
 )]
 
 [assembly: Feature(
+    Id = Security,
+    Name = "Lombiq Helpful Extensions - Security Helpful Extensions",
+    Category = "Security",
+    Description = "Adds a content type definition setting and authorization handler for richer security options."
+)]
+
+[assembly: Feature(
     Id = ShapeTracing,
     Name = "Lombiq Helpful Extensions - Shape Tracing Helpful Extensions",
     Category = "Development",
@@ -75,10 +83,10 @@ using static Lombiq.HelpfulExtensions.FeatureIds;
 )]
 
 [assembly: Feature(
-    Id = Security,
-    Name = "Lombiq Helpful Extensions - Security Helpful Extensions",
-    Category = "Security",
-    Description = "Adds a content type definition setting and authorization handler for richer security options."
+    Id = FeatureIds.Shortcodes,
+    Name = "Lombiq Helpful Extensions - Shortcode Extensions",
+    Category = "Content",
+    Description = "Adds new shortcodes which can be used in HTML and Markdown templates."
 )]
 
 [assembly: Feature(
