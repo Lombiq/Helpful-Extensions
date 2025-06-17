@@ -1,35 +1,20 @@
 using Lombiq.HelpfulExtensions.Extensions.OrchardRecipeMigration.Controllers;
-using Lombiq.HelpfulLibraries.OrchardCore.Navigation;
-using Microsoft.AspNetCore.Http;
-using Microsoft.Extensions.Localization;
-using OrchardCore.Modules;
-using OrchardCore.Navigation;
-using System.Threading.Tasks;
 
 namespace Lombiq.HelpfulExtensions.Extensions.OrchardRecipeMigration.Navigation;
 
-public sealed class AdminMenu : INavigationProvider
+public sealed class AdminMenu : AdminMenuNavigationProviderBase
 {
-    private readonly IHttpContextAccessor _hca;
-    private readonly IStringLocalizer T;
 
     public AdminMenu(IHttpContextAccessor hca, IStringLocalizer<AdminMenu> stringLocalizer)
+        : base(hca, stringLocalizer)
     {
-        _hca = hca;
-        T = stringLocalizer;
     }
-
-    public ValueTask BuildNavigationAsync(string name, NavigationBuilder builder)
+    protected override void Build(NavigationBuilder builder)
     {
-        if (!name.EqualsOrdinalIgnoreCase("admin")) return ValueTask.CompletedTask;
-
-        builder.Add(T["Configuration"], configuration => configuration
-            .Add(T["Import/Export"], importExport => importExport
-                .Add(T["Orchard 1 Recipe Migration"], T["Orchard 1 Recipe Migration"], migration => migration
+        builder.Add(_t["Configuration"], config => config
+            .Add(_t["Import/Export"], section => section
+                .Add(_t["Orchard 1 Recipe Migration"], _t["Orchard 1 Recipe Migration"], item => item
                     .Action<OrchardRecipeMigrationAdminController>(_hca.HttpContext, controller => controller.Index())
-                    .LocalNav()
-                )));
-
-        return ValueTask.CompletedTask;
+                    .LocalNav())));
     }
 }
