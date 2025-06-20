@@ -81,6 +81,12 @@
     <PackageReference Include="Lombiq.Npm.Targets" Version="1.5.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Http.Abstractions" Version="2.2.0" />
+    <PackageReference Include="Microsoft.Extensions.Localization.Abstractions" Version="8.0.0" />
+    <PackageReference Include="OrchardCore.Navigation" Version="2.1.0" />
+  </ItemGroup>
+
   <Import Condition="'$(NuGetBuild)' != 'true'" Project="..\..\..\Utilities\Lombiq.Npm.Targets\Lombiq.Npm.Targets.targets" />
 
 </Project>
