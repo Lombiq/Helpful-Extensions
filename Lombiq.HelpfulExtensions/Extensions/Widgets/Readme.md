@@ -4,7 +4,13 @@ Adds multiple helpful widget content types. These are basic widgets that are add
 
 ## ContainerWidget
 
-Works as a container for further widgets. It has a FlowPart attached to it so it can contain additional widgets as well.
+Works as a container for further widgets. It has a `FlowPart` attached to it so it can contain additional widgets as well.
+
+It has a `TitlePart`, which doesn't get displayed on the front end. You can use it to make the admin editor more organized. This title is also added as a class and data-attribute to the widget's wrapper element. For example, if the title is "About this project", then the wrapper will look like this:
+
+```html
+<div class="widget widget-container-widget widget-align-justify widget-container-widget-title-about-this-project" data-title="About this project">
+```
 
 ## HtmlWidget
 

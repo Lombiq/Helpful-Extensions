@@ -4,7 +4,12 @@ using OrchardCore.ContentFields.Settings;
 using OrchardCore.ContentManagement.Metadata;
 using OrchardCore.ContentManagement.Metadata.Settings;
 using OrchardCore.Data.Migration;
+using OrchardCore.Flows.Models;
+using OrchardCore.Html.Models;
+using OrchardCore.Liquid.Models;
+using OrchardCore.Markdown.Models;
 using OrchardCore.Navigation;
+using OrchardCore.Title.Models;
 using System.Threading.Tasks;
 using static Lombiq.HelpfulExtensions.Extensions.Widgets.WidgetTypes;
 
@@ -22,18 +27,18 @@ public sealed class Migrations : DataMigration
         await _contentDefinitionManager.AlterTypeDefinitionAsync(ContainerWidget, builder => builder
             .Securable()
             .Stereotype(CommonStereotypes.Widget)
-            .WithPart("TitlePart", part => part.WithPosition("0"))
-            .WithPart("FlowPart", part => part.WithPosition("1"))
+            .WithPart<TitlePart>(part => part.WithPosition("0"))
+            .WithPart<FlowPart>(part => part.WithPosition("1"))
         );
 
         await _contentDefinitionManager.AlterTypeDefinitionAsync(HtmlWidget, builder => builder
             .Securable()
             .Stereotype(CommonStereotypes.Widget)
-            .WithPart("HtmlBodyPart", part => part
+            .WithPart<HtmlBodyPart>(part => part
                 .WithDisplayName("HTML Body")
                 .WithSettings(new ContentTypePartSettings
                 {
-                    Editor = "Trumbowyg",
+                    Editor = nameof(ContentFieldEditorEnums.HtmlFieldEditors.Trumbowyg),
                 })
             )
         );
@@ -41,7 +46,7 @@ public sealed class Migrations : DataMigration
         await _contentDefinitionManager.AlterTypeDefinitionAsync(LiquidWidget, builder => builder
             .Securable()
             .Stereotype(CommonStereotypes.Widget)
-            .WithPart("LiquidPart", part => part
+            .WithPart<LiquidPart>(part => part
                 .WithDisplayName("Liquid Part")
             )
         );
@@ -59,7 +64,7 @@ public sealed class Migrations : DataMigration
         await _contentDefinitionManager.AlterTypeDefinitionAsync(MarkdownWidget, builder => builder
             .Securable()
             .Stereotype(CommonStereotypes.Widget)
-            .WithPart("MarkdownBodyPart", part => part
+            .WithPart<MarkdownBodyPart>(part => part
                 .WithDisplayName("Markdown Part")
             )
         );
@@ -88,8 +93,8 @@ public sealed class Migrations : DataMigration
     public async Task<int> UpdateFrom1Async()
     {
         await _contentDefinitionManager.AlterTypeDefinitionAsync(ContainerWidget, builder => builder
-            .WithPart("TitlePart", part => part.WithPosition("0"))
-            .WithPart("FlowPart", part => part.WithPosition("1"))
+            .WithPart<TitlePart>(part => part.WithPosition("0"))
+            .WithPart<FlowPart>(part => part.WithPosition("1"))
         );
 
         return 2;
@@ -110,7 +115,7 @@ public sealed class Migrations : DataMigration
         await _contentDefinitionManager.AlterTypeDefinitionAsync(MarkdownWidget, builder => builder
             .Securable()
             .Stereotype(CommonStereotypes.Widget)
-            .WithPart("MarkdownBodyPart", part => part
+            .WithPart<MarkdownBodyPart>(part => part
                 .WithDisplayName("Markdown Part")
             )
         );
