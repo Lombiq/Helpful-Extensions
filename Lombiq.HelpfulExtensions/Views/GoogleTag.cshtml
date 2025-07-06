@@ -15,7 +15,7 @@
 {
     GoogleAnalyticsContentSecurityPolicyProvider.EnableForCurrentRequest(Context);
 
-    var viewModel = Model.ViewModel as GoogleTagViewModel ?? new GoogleTagViewModel
+    var viewModel = Model.GetType().GetProperty("ViewModel") as GoogleTagViewModel ?? new GoogleTagViewModel
     {
         GoogleTagPropertyId = Model.GoogleTagPropertyId,
         CookieDomain = Model.CookieDomain,
