@@ -54,7 +54,6 @@
   <ItemGroup>
     <PackageReference Include="OrchardCore.Autoroute" Version="2.1.0" />
     <PackageReference Include="OrchardCore.ContentFields" Version="2.1.0" />
-    <PackageReference Include="OrchardCore.ContentManagement.Abstractions" Version="2.1.7" />
     <PackageReference Include="OrchardCore.Contents" Version="2.1.0" />
     <PackageReference Include="OrchardCore.Flows" Version="2.1.0" />
     <PackageReference Include="OrchardCore.Html" Version="2.1.0" />
