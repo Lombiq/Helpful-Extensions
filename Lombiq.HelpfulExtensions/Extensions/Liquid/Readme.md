@@ -8,4 +8,4 @@ Adds various Liquid tags and filters. For more information about Liquid in Orcha
 
 ## Filters
 
-- `isnotempty`: Returns `true` if the input is not null and not empty. 
+- `isnotempty`: Returns `true` if the input is not null and not empty.
