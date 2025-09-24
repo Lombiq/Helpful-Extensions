@@ -30,7 +30,7 @@ public class IfNotEmptyParserBlock : ILiquidParserBlock
         return Completion.Normal;
     }
 
-    private async Task<bool> IsAnyArgumentNotNullOrWhiteSpaceAsync(
+    private static async Task<bool> IsAnyArgumentNotNullOrWhiteSpaceAsync(
         IReadOnlyList<FilterArgument> argumentsList,
         TemplateContext context)
     {
