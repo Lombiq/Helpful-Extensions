@@ -3,6 +3,7 @@ using Fluid.Ast;
 using Lombiq.HelpfulLibraries.OrchardCore.Liquid;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Text.Encodings.Web;
 using System.Threading.Tasks;
 
@@ -17,7 +18,7 @@ public class IfNotEmptyParserBlock : ILiquidParserBlock
         TextEncoder encoder,
         TemplateContext context)
     {
-        if (await IsAnyArgumentNotNullOrWhiteSpaceAsync(argumentsList, context))
+        if (await IsAnyArgumentNotNullOrWhiteSpaceAsync(argumentsList.Select(item => item.Expression), context))
         {
             foreach (var statement in statements)
             {
@@ -30,13 +31,13 @@ public class IfNotEmptyParserBlock : ILiquidParserBlock
         return Completion.Normal;
     }
 
-    private static async Task<bool> IsAnyArgumentNotNullOrWhiteSpaceAsync(
-        IReadOnlyList<FilterArgument> argumentsList,
+    internal static async Task<bool> IsAnyArgumentNotNullOrWhiteSpaceAsync(
+        IEnumerable<Expression> argumentExpressions,
         TemplateContext context)
     {
-        foreach (var argument in argumentsList)
+        foreach (var expression in argumentExpressions)
         {
-            var result = await argument.Expression.EvaluateAsync(context);
+            var result = await expression.EvaluateAsync(context);
             if (result.ToBooleanValue() && !string.IsNullOrWhiteSpace(result.ToStringValue())) return true;
         }
 
