@@ -168,3 +168,10 @@ using static Lombiq.HelpfulExtensions.FeatureIds;
     Category = "Content",
     Description = "Adds a shape along with Razor and Liquid tag helpers for Google Analytics."
 )]
+
+[assembly: Feature(
+    Id = Liquid,
+    Name = "Lombiq Helpful Extensions - Liquid Tags",
+    Category = "Liquid",
+    Description = "Adds various Liquid tags and filters."
+)]
