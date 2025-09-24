@@ -10,6 +10,20 @@ namespace System
 
         public static string ToIsoDateString(this DateTime dateTime) => dateTime.ToString("yyyy-MM-dd");
 
+        public static string ToIsoDateString(this DateTime? dateTime) => dateTime?.ToIsoDateString() ?? string.Empty;
+
+        public static string ToIsoTimeString(this DateTime dateTime) => dateTime.ToString("HH:mm:ss");
+
+        public static string ToIsoTimeString(this DateTime? dateTime) => dateTime?.ToIsoTimeString() ?? string.Empty;
+
+        public static string ToIsoDateInvariantString(this DateTime dateTime) => dateTime.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture);
+
+        public static string ToIsoDateInvariantString(this DateTime? dateTime) => dateTime?.ToIsoDateInvariantString() ?? string.Empty;
+
+        public static string ToIsoTimeInvariantString(this DateTime dateTime) => dateTime.ToString("HH:mm:ss", CultureInfo.InvariantCulture);
+
+        public static string ToIsoTimeInvariantString(this DateTime? dateTime) => dateTime?.ToIsoTimeInvariantString() ?? string.Empty;
+
         public static DateTime FirstDayOfMonth(this DateTime dateTime) =>
             new DateTime(dateTime.Year, dateTime.Month, 1, 0, 0, 0, dateTime.Kind);
 
@@ -96,8 +110,13 @@ namespace System
             this DateTime? dateTime,
             IDateLocalizationServices dateLocalizationServices) =>
             dateTime.HasValue
-                ? dateLocalizationServices.ConvertToSiteTimeZone(dateTime.Value).ConvertToUsaDateFormat()
+                ? dateTime.Value.DateTimeToSiteTimeZoneInUsaDateFormat(dateLocalizationServices)
                 : string.Empty;
+
+        public static string DateTimeToSiteTimeZoneInUsaDateFormat(
+            this DateTime dateTime,
+            IDateLocalizationServices dateLocalizationServices) =>
+            dateLocalizationServices.ConvertToSiteTimeZone(dateTime).ConvertToUsaDateFormat();
 
         public static string ConvertToUsaTimeFormat(this DateTime? time) =>
             time?.ConvertToUsaTimeFormat() ?? "";
