@@ -85,6 +85,17 @@ namespace Piedone.HelpfulExtensions
             return false;
         }
 
+        /// <summary>
+        /// Determines whether any value in the query string contains the specified technical name, ignoring case.
+        /// </summary>
+        /// <param name="queryString">The collection of query parameters.</param>
+        /// <param name="technicalName">The value to search for within the query string values.</param>
+        /// <returns>
+        /// <c>True</c> if any value in the query string contains the specified technical name (case-insensitive); otherwise, <c>false</c>.
+        /// </returns>
+        public static bool ContainsValue(this NameValueCollection queryString, string technicalName) =>
+            queryString.GetValues(name: null)?.ToList().Exists(queryStringValue => queryStringValue.ContainsIgnoreCase(technicalName)) == true;
+
         public static IEnumerable<string> GetQueryStringParameterValues(this NameValueCollection queryString, string technicalName) =>
             (IsQueryStringParameterPresent(queryString, technicalName)) ?
                 queryString[technicalName].Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries).ToList() : null;
