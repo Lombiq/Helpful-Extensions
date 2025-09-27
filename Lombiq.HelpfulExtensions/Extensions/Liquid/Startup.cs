@@ -11,5 +11,6 @@ public sealed class Startup : StartupBase
     {
         services.AddLiquidParserBlock<IfNotEmptyParserBlock>("ifnotempty");
         services.AddLiquidFilter<IsNotEmptyFilter>("isnotempty");
+        services.AddLiquidParserTag<AssignArrayParserBlock>("assignarray");
     }
 }

@@ -1,6 +1,7 @@
 using Fluid;
 using Fluid.Ast;
 using Fluid.Values;
+using Lombiq.HelpfulExtensions.Extensions.Liquid.Helpers;
 using OrchardCore.Liquid;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -21,7 +22,6 @@ public class IsNotEmptyFilter : ILiquidFilter
             argumentExpressions.Add(new LiteralExpression(arguments.At(i)));
         }
 
-        return BooleanValue.Create(
-            await IfNotEmptyParserBlock.IsAnyArgumentNotNullOrWhiteSpaceAsync(argumentExpressions, context));
+        return BooleanValue.Create(await LiquidParserHelpers.IsAnyNotNullOrWhiteSpaceAsync(argumentExpressions, context));
     }
 }
