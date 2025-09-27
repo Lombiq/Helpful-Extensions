@@ -11,3 +11,13 @@ Adds various Liquid tags and filters. For more information about Liquid in Orcha
 ## Filters
 
 - `is_not_empty`: Returns `true` if the input is not null and not empty.
+- `shapes_build_display: 'Summary'`: Behaves the same way as the built-in `shape_build_display` filter, except both the input and output are arrays for bulk operation (e.g. from queries).
+- `shapes_render`: Behaves the same way as the built-in `shape_render` filter, except both the input and output are arrays for bulk operation (e.g. from queries).
+
+### Array filter example
+
+You can use `shapes_build_display` and `shapes_render` to easily display items from a query. For example, using the query in the "blog" recipe:
+
+```liquid
+{{ Queries['RecentBlogPosts'] | query | shapes_build_display: 'Summary' | shapes_render }}
+```
