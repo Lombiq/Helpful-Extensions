@@ -10,7 +10,7 @@ public sealed class Startup : StartupBase
     public override void ConfigureServices(IServiceCollection services)
     {
         services.AddLiquidParserBlock<IfNotEmptyParserBlock>("ifnotempty");
-        services.AddLiquidFilter<IsNotEmptyFilter>("isnotempty");
-        services.AddLiquidParserTag<AssignArrayParserBlock>("assignarray");
+        services.AddLiquidFilter<IsNotEmptyFilter>("is_not_empty");
+        services.AddLiquidParserTag<AssignArrayParserBlock>("assign_array");
     }
 }
