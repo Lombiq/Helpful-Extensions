@@ -1,7 +1,6 @@
 using Fluid;
 using Fluid.Values;
 using Microsoft.AspNetCore.Html;
-using OrchardCore.DisplayManagement.Liquid;
 using OrchardCore.DisplayManagement.Liquid.Filters;
 using OrchardCore.Liquid;
 using System.Collections.Generic;
