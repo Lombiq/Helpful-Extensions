@@ -12,6 +12,7 @@ Adds various Liquid tags and filters. For more information about Liquid in Orcha
 - `is_not_empty`: Returns `true` if the input is not null and not empty.
 - `shapes_build_display: 'Summary'`: Behaves the same way as the built-in `shape_build_display` filter, except both the input and output are arrays for bulk operation (e.g. from queries).
 - `shapes_render`: Behaves the same way as the built-in `shape_render` filter, except both the input and output are arrays for bulk operation (e.g. from queries).
+- `shuffle`: If the input is an array, it returns a new array where the input's items are sorted in a random order.
 
 ### Array filter example
 

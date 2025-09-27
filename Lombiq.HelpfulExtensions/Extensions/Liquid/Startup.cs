@@ -15,5 +15,6 @@ public sealed class Startup : StartupBase
         services.AddLiquidParserTag<AssignArrayParserBlock>("assign_array");
         services.AddLiquidFilter<ShapesBuildDisplayFilter>("shapes_build_display");
         services.AddLiquidFilter<ShapesRenderFilter>("shapes_render");
+        services.AddLiquidFilter<ShuffleFilter>("shuffle");
     }
 }
