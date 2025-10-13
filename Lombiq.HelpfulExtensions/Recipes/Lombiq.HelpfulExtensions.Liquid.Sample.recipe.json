@@ -1,0 +1,83 @@
+{
+  "name": "Lombiq.HelpfulExtensions.Liquid.Sample",
+  "displayName": "Lombiq Helpful Extensions - Liquid - Sample",
+  "description": "Sample Page content items to test the Liquid feature.",
+  "author": "Lombiq Technologies",
+  "website": "https://github.com/Lombiq/Helpful-Extensions/",
+  "version": "1.0",
+  "issetuprecipe": false,
+  "categories": [
+    "test"
+  ],
+  "tags": [
+    "test"
+  ],
+  "steps": [
+    {
+      "name": "feature",
+      "enable": [
+        "Lombiq.HelpfulExtensions.Liquid"
+      ]
+    },
+    {
+      "name": "content",
+      "data": [
+        {
+          "ContentItemId": "liquiddemoifnotempty000000",
+          "ContentItemVersionId": "4rzgdta6w5j54zntybm6ahgs4p",
+          "ContentType": "Page",
+          "DisplayText": "Liquid Demo: ifnotempty",
+          "Latest": true,
+          "Published": true,
+          "ModifiedUtc": "2025-09-24T11:34:33.6433372Z",
+          "PublishedUtc": "2025-09-24T11:34:33.6505706Z",
+          "CreatedUtc": "2025-09-24T11:30:29.8819496Z",
+          "Owner": null,
+          "Author": "admin",
+          "TitlePart": {
+            "Title": "Liquid Demo: ifnotempty"
+          },
+          "AutoroutePart": {
+            "SetHomepage": false,
+            "Disabled": false,
+            "RouteContainedItems": false,
+            "Absolute": false,
+            "Path": "liquid-demo/ifnotempty"
+          },
+          "FlowPart": {
+            "Widgets": [
+              {
+                "ContentItemId": "468ndvpjrfxwa60kf2wmp8c5d6",
+                "ContentItemVersionId": null,
+                "ContentType": "LiquidWidget",
+                "DisplayText": null,
+                "Latest": false,
+                "Published": false,
+                "ModifiedUtc": "2025-09-24T11:34:33.6469974Z",
+                "PublishedUtc": null,
+                "CreatedUtc": null,
+                "Owner": null,
+                "Author": "admin",
+                "LiquidPart": {
+                  "Liquid": "<div id=\"demo-value\">HELLO![\r\n\r\n{% ifnotempty \"\" %}\r\nempty\r\n{% endifnotempty %}\r\n{% ifnotempty \"    \" %}\r\nwhitespace1\r\n{% endifnotempty %}\r\n{% ifnotempty \"  \\n \\n  \" %}\r\nwhitespace2\r\n{% endifnotempty %}\r\n{% ifnotempty \" foo \" %}\r\nFOO\r\n{% endifnotempty %}\r\n{% ifnotempty \" BAR \" %}\r\nBAR\r\n{% endifnotempty %}\r\n{% ifnotempty true %}\r\ntrue\r\n{% endifnotempty %}\r\n{% ifnotempty false %}\r\nfalse\r\n{% endifnotempty %}\r\n{% ifnotempty null %}\r\nnull\r\n{% endifnotempty %}\r\n{% ifnotempty empty %}\r\nempty\r\n{% endifnotempty %}\r\n\r\n]</div>"
+                },
+                "AdditionalStylingPart": {
+                  "RemoveGridExtensionClasses": false,
+                  "CustomClasses": null
+                },
+                "@WeldedPartSettings": {
+                  "AdditionalStylingPart": {}
+                },
+                "FlowMetadata": {
+                  "Alignment": "Justify",
+                  "Size": 100
+                }
+              }
+            ]
+          },
+          "Page": {}
+        }
+      ]
+    }
+  ]
+}

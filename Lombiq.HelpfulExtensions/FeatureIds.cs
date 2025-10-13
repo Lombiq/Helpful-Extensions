@@ -11,6 +11,7 @@ public static class FeatureIds
     public const string Emails = FeatureIdPrefix + nameof(Emails);
     public const string Flows = FeatureIdPrefix + nameof(Flows);
     public const string GoogleTag = FeatureIdPrefix + nameof(GoogleTag);
+    public const string Liquid = FeatureIdPrefix + nameof(Liquid);
     public const string OrchardRecipeMigration = FeatureIdPrefix + nameof(OrchardRecipeMigration);
     public const string ResetPasswordActivity = Workflows + "." + nameof(ResetPasswordActivity);
     public const string Security = FeatureIdPrefix + nameof(Security);
