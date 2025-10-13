@@ -120,6 +120,15 @@ namespace System
         }
 
         /// <summary>
+        /// Checks if the string contains a substring in a case-insensitive manner.
+        /// </summary>
+        /// <param name="source">The source string.</param>
+        /// <param name="value">The substring to search for.</param>
+        /// <returns>Returns <see langword="true"/> if the source string contains the substring (case-insensitive), otherwise <see langword="false"/>.</returns>
+        public static bool ContainsIgnoreCase(this string source, string value) => 
+            source?.IndexOf(value, StringComparison.OrdinalIgnoreCase) >= 0;
+
+        /// <summary>
         /// Splits a string into a set of integers using the provided separator. Optional whitespace in the input is
         /// handled gracefully.
         /// </summary>
