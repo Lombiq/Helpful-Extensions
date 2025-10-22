@@ -10,7 +10,7 @@
             value = Model.OtherRouteValues[index],
         })
         .OrderBy(item => item.name);
-        
+
 }
 
 <fieldset asp-for="Area" label="@T["Area"]" hint="@T["Usually the module's name."]"></fieldset>
@@ -19,7 +19,7 @@
 
 <fieldset class="form-group mb-3 col-xl-6">
     <label class="form-label">@T["Other route values"]</label>
-    <table class="mvcConditionOther table" 
+    <table class="mvcConditionOther table"
            data-model="@JsonSerializer.Serialize(other)"
            data-form-name="@Html.NameFor(model => model.OtherRouteNames)"
            data-form-value="@Html.NameFor(model => model.OtherRouteValues)">
@@ -30,7 +30,7 @@
             <th>@T["Action"]</th>
         </tr>
         </thead>
-            
+
         <tbody>
         <tr v-for="(item, index) in routeValues" :key="">
             <td>
@@ -44,7 +44,7 @@
             </td>
         </tr>
         </tbody>
-        
+
         <tfoot>
         <tr>
             <td colspan="3">
@@ -55,8 +55,8 @@
     </table>
 </fieldset>
 
-<script asp-name="vuejs" at="Head"></script>
-<script asp-name="MvcConditionOtherRouteValues" at="Foot" depends-on="vuejs">
+<script asp-name="vuejs:2" at="Head"></script>
+<script asp-name="MvcConditionOtherRouteValues" at="Foot" depends-on="vuejs:2">
 Array.from(document.querySelectorAll('.mvcConditionOther'))
     .forEach((element) => {
         new Vue({
