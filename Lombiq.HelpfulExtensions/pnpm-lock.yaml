@@ -1,32 +1,40 @@
-lockfileVersion: '6.0'
+lockfileVersion: '9.0'
 
 settings:
   autoInstallPeers: true
   excludeLinksFromLockfile: false
 
-dependencies:
-  prismjs:
-    specifier: 1.30.0
-    version: 1.30.0
-  trumbowyg:
-    specifier: 2.31.0
-    version: 2.31.0(jquery@3.7.1)
+importers:
+
+  .:
+    dependencies:
+      prismjs:
+        specifier: 1.30.0
+        version: 1.30.0
+      trumbowyg:
+        specifier: 2.31.0
+        version: 2.31.0(jquery@3.7.1)
 
 packages:
 
-  /jquery@3.7.1:
+  jquery@3.7.1:
     resolution: {integrity: sha512-m4avr8yL8kmFN8psrbFFFmB/If14iN5o9nw/NgnnM+kybDJpRsAynV2BsfpTYrTRysYUdADVD7CkUUizgkpLfg==}
-    dev: false
 
-  /prismjs@1.30.0:
+  prismjs@1.30.0:
     resolution: {integrity: sha512-DEvV2ZF2r2/63V+tK8hQvrR2ZGn10srHbXviTlcv7Kpzw8jWiNTqbVgjO3IY8RxrrOUF8VPMQQFysYYYv0YZxw==}
     engines: {node: '>=6'}
-    dev: false
 
-  /trumbowyg@2.31.0(jquery@3.7.1):
+  trumbowyg@2.31.0:
     resolution: {integrity: sha512-I+DMiluTpLDx3yn6LR0TIVR7xIOjgtBQmpEE6Ofd+2yl5ruzY63q/yA/DfBuRVxdK7yDYSBe9FXpVjM1P2NdtA==}
     peerDependencies:
       jquery: '>=1.8'
+
+snapshots:
+
+  jquery@3.7.1: {}
+
+  prismjs@1.30.0: {}
+
+  trumbowyg@2.31.0(jquery@3.7.1):
     dependencies:
       jquery: 3.7.1
-    dev: false
