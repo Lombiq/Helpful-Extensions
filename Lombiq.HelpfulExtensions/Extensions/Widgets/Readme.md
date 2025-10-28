@@ -24,4 +24,5 @@ Adds Liquid code editing and rendering capabilities.
 
 Renders a Bootstrap navigation menu as a widget using the provided `MenuItem`s.
 
-> ℹ️ The menu is populated from `INavigationProvider` implementations that create the menu items programmatically. If you use [Lombiq Base Theme for Orchard Core](https://github.com/Lombiq/Orchard-Base-Theme), it has [`MainMenuNavigationProvider`](https://github.com/Lombiq/Orchard-Base-Theme/blob/dev/Lombiq.BaseTheme/Services/MainMenuNavigationProvider.cs). This automatically translates an existing content item with a `MenuItemsListPart` and the `main-menu` alias into compatible navigation, so you can edit menu items from the content editor.
+> [!NOTE]
+> The menu is populated from `INavigationProvider` implementations that create the menu items programmatically. If you use [Lombiq Base Theme for Orchard Core](https://github.com/Lombiq/Orchard-Base-Theme), it has [`MainMenuNavigationProvider`](https://github.com/Lombiq/Orchard-Base-Theme/blob/dev/Lombiq.BaseTheme.Core/Services/MainMenuNavigationProvider.cs). This automatically translates an existing content item with a `MenuItemsListPart` and the `main-menu` alias into compatible navigation, so you can edit menu items from the content editor.
