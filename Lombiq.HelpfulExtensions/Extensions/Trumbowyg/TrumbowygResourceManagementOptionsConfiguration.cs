@@ -5,8 +5,7 @@ using static Lombiq.HelpfulExtensions.Constants.ResourceNames;
 
 namespace Lombiq.HelpfulExtensions.Extensions.Trumbowyg;
 
-[ConstantFromJson("PrismVersion", "package.json", "prismjs")]
-[ConstantFromJson("TrumbowygVersion", "package.json", "trumbowyg")]
+[LibManVersions]
 public partial class TrumbowygResourceManagementOptionsConfiguration : IConfigureOptions<ResourceManagementOptions>
 {
     private const string WwwRoot = "~/" + FeatureIds.Base + "/";
@@ -19,12 +18,12 @@ public partial class TrumbowygResourceManagementOptionsConfiguration : IConfigur
         _manifest
             .DefineScript(Prism)
             .SetUrl(Vendors + "prismjs/prism.js")
-            .SetVersion(PrismVersion);
+            .SetVersion(LibMan_prismjs);
 
         _manifest
             .DefineStyle(Prism)
             .SetUrl(Vendors + "prismjs/themes/prism.min.css", Vendors + "prismjs/themes/prism.css")
-            .SetVersion(PrismVersion);
+            .SetVersion(LibMan_prismjs);
 
         _manifest
             .DefineScript(TrumbowygHighlight)
@@ -32,7 +31,7 @@ public partial class TrumbowygResourceManagementOptionsConfiguration : IConfigur
                 Vendors + "trumbowyg/plugins/highlight/trumbowyg.highlight.min.js",
                 Vendors + "trumbowyg/plugins/highlight/trumbowyg.highlight.js")
             .SetDependencies("jQuery", "trumbowyg", Prism)
-            .SetVersion(TrumbowygVersion);
+            .SetVersion(LibMan_trumbowyg);
 
         _manifest
             .DefineStyle(TrumbowygHighlight)
