@@ -1,14 +1,13 @@
 {
   "version": "3.0",
   "defaultProvider": "jsdelivr",
+  "defaultDestination": "wwwroot/vendors/[Name]",
   "libraries": [
     {
-      "library": "prismjs@1.30.0",
-      "destination": "wwwroot/vendors/prismjs"
+      "library": "prismjs@1.30.0"
     },
     {
       "library": "trumbowyg@2.31.0",
-      "destination": "wwwroot/vendors/trumbowyg",
       "files": [ "dist/**/*" ]
     }
   ]
