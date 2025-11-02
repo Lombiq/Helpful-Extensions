@@ -18,12 +18,12 @@ public partial class TrumbowygResourceManagementOptionsConfiguration : IConfigur
         _manifest
             .DefineScript(Prism)
             .SetUrl(Vendors + "prismjs/prism.js")
-            .SetVersion(LibMan_prismjs);
+            .SetVersion(LibManVersions.Prismjs);
 
         _manifest
             .DefineStyle(Prism)
             .SetUrl(Vendors + "prismjs/themes/prism.min.css", Vendors + "prismjs/themes/prism.css")
-            .SetVersion(LibMan_prismjs);
+            .SetVersion(LibManVersions.Prismjs);
 
         _manifest
             .DefineScript(TrumbowygHighlight)
@@ -31,7 +31,7 @@ public partial class TrumbowygResourceManagementOptionsConfiguration : IConfigur
                 Vendors + "trumbowyg/plugins/highlight/trumbowyg.highlight.min.js",
                 Vendors + "trumbowyg/plugins/highlight/trumbowyg.highlight.js")
             .SetDependencies("jQuery", "trumbowyg", Prism)
-            .SetVersion(LibMan_trumbowyg);
+            .SetVersion(LibManVersions.Trumbowyg);
 
         _manifest
             .DefineStyle(TrumbowygHighlight)
