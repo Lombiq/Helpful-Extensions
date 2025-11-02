@@ -8,7 +8,7 @@
     },
     {
       "library": "trumbowyg@2.31.0",
-      "files": [ "dist/**/*" ]
+      "files": [ "dist/**/*", "plugins/**/*" ]
     }
   ]
 }
