@@ -1,6 +1,7 @@
 using Lombiq.HelpfulLibraries.Attributes;
 using Microsoft.Extensions.Options;
 using OrchardCore.ResourceManagement;
+using System;
 using static Lombiq.HelpfulExtensions.Constants.ResourceNames;
 
 namespace Lombiq.HelpfulExtensions.Extensions.Trumbowyg;
@@ -8,6 +9,12 @@ namespace Lombiq.HelpfulExtensions.Extensions.Trumbowyg;
 [LibManVersions]
 public partial class TrumbowygResourceManagementOptionsConfiguration : IConfigureOptions<ResourceManagementOptions>
 {
+    [Obsolete($"Use the values in {nameof(LibManVersions)}.")]
+    public const string PrismVersion = LibManVersions.Prismjs;
+
+    [Obsolete($"Use the values in {nameof(LibManVersions)}.")]
+    public const string TrumbowygVersion = LibManVersions.Trumbowyg;
+
     private const string WwwRoot = "~/" + FeatureIds.Base + "/";
     private const string Css = WwwRoot + "css/";
     private const string Vendors = WwwRoot + "vendors/";
