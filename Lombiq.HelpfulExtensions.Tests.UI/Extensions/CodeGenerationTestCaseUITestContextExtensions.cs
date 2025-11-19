@@ -55,7 +55,7 @@ public static class CodeGenerationTestCaseUITestContextExtensions
             }
             catch (WebDriverException ex) when (ex.IsStateElementLikeException())
             {
-                context.Refresh();
+                await context.RefreshAsync();
                 throw;
             }
         });
