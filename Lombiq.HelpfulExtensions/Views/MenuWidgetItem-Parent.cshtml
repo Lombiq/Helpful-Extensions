@@ -11,7 +11,7 @@
    href="#"
    data-bs-toggle="dropdown"
    aria-expanded="false">@menu.Text</a>
-<ul class="dropdown-menu" aria-labelledby="@Model.Id">
+<ul class="dropdown-menu">
     @foreach (var item in subMenuItems)
     {
         var baseUri = new Uri(Context.Request.GetDisplayUrl());
