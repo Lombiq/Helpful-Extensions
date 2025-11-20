@@ -63,9 +63,9 @@
   </ItemGroup>
 
   <ItemGroup Condition="'$(NuGetBuild)' == 'true'">
-    <PackageReference Include="Lombiq.HelpfulLibraries.Attributes" Version="12.4.1-alpha.1.osoe-1185" OutputItemType="Analyzer" ReferenceOutputAssembly="true" />
-    <PackageReference Include="Lombiq.HelpfulLibraries.OrchardCore" Version="12.4.1-alpha.1.osoe-1185" />
-    <PackageReference Include="Lombiq.HelpfulLibraries.SourceGenerators" Version="12.4.1-alpha.1.osoe-1185" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
+    <PackageReference Include="Lombiq.HelpfulLibraries.Attributes" Version="12.4.1-alpha.2.osoe-1185" OutputItemType="Analyzer" ReferenceOutputAssembly="true" />
+    <PackageReference Include="Lombiq.HelpfulLibraries.OrchardCore" Version="12.4.1-alpha.2.osoe-1185" />
+    <PackageReference Include="Lombiq.HelpfulLibraries.SourceGenerators" Version="12.4.1-alpha.2.osoe-1185" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
   </ItemGroup>
 
 </Project>
