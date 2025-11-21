@@ -1,14 +1,20 @@
 using Lombiq.HelpfulLibraries.Attributes;
 using Microsoft.Extensions.Options;
 using OrchardCore.ResourceManagement;
+using System;
 using static Lombiq.HelpfulExtensions.Constants.ResourceNames;
 
 namespace Lombiq.HelpfulExtensions.Extensions.Trumbowyg;
 
-[ConstantFromJson("PrismVersion", "package.json", "prismjs")]
-[ConstantFromJson("TrumbowygVersion", "package.json", "trumbowyg")]
+[LibManVersions]
 public partial class TrumbowygResourceManagementOptionsConfiguration : IConfigureOptions<ResourceManagementOptions>
 {
+    [Obsolete($"Use the values in {nameof(LibManVersions)}.")]
+    public const string PrismVersion = LibManVersions.Prismjs;
+
+    [Obsolete($"Use the values in {nameof(LibManVersions)}.")]
+    public const string TrumbowygVersion = LibManVersions.Trumbowyg;
+
     private const string WwwRoot = "~/" + FeatureIds.Base + "/";
     private const string Css = WwwRoot + "css/";
     private const string Vendors = WwwRoot + "vendors/";
@@ -19,12 +25,12 @@ public partial class TrumbowygResourceManagementOptionsConfiguration : IConfigur
         _manifest
             .DefineScript(Prism)
             .SetUrl(Vendors + "prismjs/prism.js")
-            .SetVersion(PrismVersion);
+            .SetVersion(LibManVersions.Prismjs);
 
         _manifest
             .DefineStyle(Prism)
             .SetUrl(Vendors + "prismjs/themes/prism.min.css", Vendors + "prismjs/themes/prism.css")
-            .SetVersion(PrismVersion);
+            .SetVersion(LibManVersions.Prismjs);
 
         _manifest
             .DefineScript(TrumbowygHighlight)
@@ -32,7 +38,7 @@ public partial class TrumbowygResourceManagementOptionsConfiguration : IConfigur
                 Vendors + "trumbowyg/plugins/highlight/trumbowyg.highlight.min.js",
                 Vendors + "trumbowyg/plugins/highlight/trumbowyg.highlight.js")
             .SetDependencies("jQuery", "trumbowyg", Prism)
-            .SetVersion(TrumbowygVersion);
+            .SetVersion(LibManVersions.Trumbowyg);
 
         _manifest
             .DefineStyle(TrumbowygHighlight)

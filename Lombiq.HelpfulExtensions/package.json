@@ -1,8 +1,0 @@
-{
-  "private": true,
-  "dependencies": {
-    "prismjs": "1.30.0",
-    "trumbowyg": "2.31.0"
-  },
-  "packageManager": "pnpm@9.15.9"
-}
