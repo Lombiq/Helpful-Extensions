@@ -32,7 +32,6 @@
   <ItemGroup>
     <None Include="..\Readme.md" />
     <None Include="NuGetIcon.png" Pack="true" PackagePath="" />
-    <AdditionalFiles Include="libman.json" />
   </ItemGroup>
 
   <ItemGroup>
