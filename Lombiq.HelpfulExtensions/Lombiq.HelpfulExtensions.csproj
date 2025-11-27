@@ -24,11 +24,6 @@
   </Target>
 
   <ItemGroup>
-    <None Include="..\Readme.md" />
-    <None Include="NuGetIcon.png" Pack="true" PackagePath="" />
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="OrchardCore.Autoroute" Version="2.1.0" />
     <PackageReference Include="OrchardCore.ContentFields" Version="2.1.0" />
     <PackageReference Include="OrchardCore.Contents" Version="2.1.0" />
