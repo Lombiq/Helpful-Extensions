@@ -1,6 +1,6 @@
 <Project Sdk="Microsoft.NET.Sdk.Razor">
 
-  <Import Project="../../../../tools/Lombiq.MSBuild.Targets/Lombiq.MSBuild.LibMan.Targets/Lombiq.MSBuild.LibMan.Targets.props"
+  <Import Project="../../../Utilities/Lombiq.MSBuild.Targets/Lombiq.MSBuild.LibMan.Targets/Lombiq.MSBuild.LibMan.Targets.props"
           Condition="'$(NuGetBuild)' != 'true' "/>
 
   <PropertyGroup>
@@ -12,29 +12,18 @@
     <PackageProjectUrl>https://github.com/Lombiq/Helpful-Extensions</PackageProjectUrl>
   </PropertyGroup>
 
-  <PropertyGroup Condition="'$(NuGetBuild)' != 'true'">
-    <SourceGeneratorLocation>$(SolutionDir)src\Libraries\Lombiq.HelpfulLibraries\Lombiq.HelpfulLibraries.SourceGenerators\bin\Debug\netstandard2.0\Lombiq.HelpfulLibraries.SourceGenerators.dll</SourceGeneratorLocation>
-    <SourceGeneratorLocation Condition=" '$(Configuration)' != 'Debug' ">
-      $(SolutionDir)src\Libraries\Lombiq.HelpfulLibraries\Lombiq.HelpfulLibraries.SourceGenerators\bin\Release\netstandard2.0\Lombiq.HelpfulLibraries.SourceGenerators.dll
-    </SourceGeneratorLocation>
-  </PropertyGroup>
-
-  <Target Name="CustomBeforeCompile" BeforeTargets="Compile" Condition="'$(NuGetBuild)' != 'true'">
-    <MSBuild Condition="!Exists('$(SourceGeneratorLocation)')" Projects="..\..\..\Libraries\Lombiq.HelpfulLibraries\Lombiq.HelpfulLibraries.SourceGenerators\Lombiq.HelpfulLibraries.SourceGenerators.csproj" />
-  </Target>
-
   <ItemGroup>
-    <PackageReference Include="OrchardCore.Autoroute" Version="2.1.0" />
-    <PackageReference Include="OrchardCore.ContentFields" Version="2.1.0" />
-    <PackageReference Include="OrchardCore.Contents" Version="2.1.0" />
-    <PackageReference Include="OrchardCore.Flows" Version="2.1.0" />
-    <PackageReference Include="OrchardCore.Html" Version="2.1.0" />
-    <PackageReference Include="OrchardCore.Lists" Version="2.1.0" />
-    <PackageReference Include="OrchardCore.Liquid" Version="2.1.0" />
-    <PackageReference Include="OrchardCore.Markdown" Version="2.1.0" />
-    <PackageReference Include="OrchardCore.MetaWeblog.Abstractions" Version="2.1.0" />
-    <PackageReference Include="OrchardCore.Rules.Abstractions" Version="2.1.0" />
-    <PackageReference Include="OrchardCore.Workflows" Version="2.1.0" />
+    <PackageReference Include="OrchardCore.Autoroute" Version="$(OrchardCoreVersion)" />
+    <PackageReference Include="OrchardCore.ContentFields" Version="$(OrchardCoreVersion)" />
+    <PackageReference Include="OrchardCore.Contents" Version="$(OrchardCoreVersion)" />
+    <PackageReference Include="OrchardCore.Flows" Version="$(OrchardCoreVersion)" />
+    <PackageReference Include="OrchardCore.Html" Version="$(OrchardCoreVersion)" />
+    <PackageReference Include="OrchardCore.Lists" Version="$(OrchardCoreVersion)" />
+    <PackageReference Include="OrchardCore.Liquid" Version="$(OrchardCoreVersion)" />
+    <PackageReference Include="OrchardCore.Markdown" Version="$(OrchardCoreVersion)" />
+    <PackageReference Include="OrchardCore.MetaWeblog.Abstractions" Version="$(OrchardCoreVersion)" />
+    <PackageReference Include="OrchardCore.Rules.Abstractions" Version="$(OrchardCoreVersion)" />
+    <PackageReference Include="OrchardCore.Workflows" Version="$(OrchardCoreVersion)" />
     <PackageReference Include="Scrutor" Version="6.1.0" />
   </ItemGroup>
 
@@ -50,7 +39,7 @@
     <PackageReference Include="Lombiq.HelpfulLibraries.SourceGenerators" Version="12.5.0" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
   </ItemGroup>
 
-  <Import Project="../../../../tools/Lombiq.MSBuild.Targets/Lombiq.MSBuild.LibMan.Targets/Lombiq.MSBuild.LibMan.Targets.targets"
+  <Import Project="../../../Utilities/Lombiq.MSBuild.Targets/Lombiq.MSBuild.LibMan.Targets/Lombiq.MSBuild.LibMan.Targets.targets"
           Condition="'$(NuGetBuild)' != 'true' "/>
 
 </Project>
