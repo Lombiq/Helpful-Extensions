@@ -1,25 +1,17 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <TargetFramework>net8.0</TargetFramework>
-    <DefaultItemExcludes>$(DefaultItemExcludes);.git*</DefaultItemExcludes>
-  </PropertyGroup>
+  <Import Project="..\..\..\Utilities\Lombiq.MSBuild.Targets\Lombiq.MSBuild.Core.Targets\Lombiq.MSBuild.Core.Targets.props" />
 
   <PropertyGroup>
     <Title>Lombiq Helpful Extensions for Orchard Core - UI Test Extensions</Title>
-    <Authors>Lombiq Technologies</Authors>
     <Copyright>Copyright © 2013, Lombiq Technologies Ltd.</Copyright>
     <Description>Lombiq Helpful Extensions for Orchard Core - UI Test Extensions: Extension methods that test various features in Lombiq Helpful Extensions for Orchard Core.</Description>
-    <PackageIcon>NuGetIcon.png</PackageIcon>
     <PackageTags>OrchardCore;Lombiq;AspNetCore;CodeGeneration;ShapeTracing;Widgets</PackageTags>
     <RepositoryUrl>https://github.com/Lombiq/Helpful-Extensions</RepositoryUrl>
     <PackageProjectUrl>https://github.com/Lombiq/Helpful-Extensions/tree/dev/Lombiq.HelpfulExtensions.Tests.UI</PackageProjectUrl>
-    <PackageLicenseExpression>BSD-3-Clause</PackageLicenseExpression>
   </PropertyGroup>
 
   <ItemGroup>
-    <None Include="Readme.md" />
-    <None Include="NuGetIcon.png" Pack="true" PackagePath="" />
     <Content Include="Recipes\**">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <PackageCopyToOutput>true</PackageCopyToOutput>
@@ -27,7 +19,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="OrchardCore.ContentManagement.Abstractions" Version="2.1.0">
+    <PackageReference Include="OrchardCore.ContentManagement.Abstractions" Version="$(OrchardCoreVersion)">
       <Aliases>OCCMA</Aliases>
     </PackageReference>
   </ItemGroup>
