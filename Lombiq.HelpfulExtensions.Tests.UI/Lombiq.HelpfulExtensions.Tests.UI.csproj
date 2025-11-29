@@ -1,6 +1,6 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
-  <Import Project="..\..\..\Utilities\Lombiq.MSBuild.Targets\Lombiq.MSBuild.Core.Targets\Lombiq.MSBuild.Core.Targets.props" />
+  <Import Project="../../../Utilities/Lombiq.MSBuild.Targets/Lombiq.MSBuild.Tests.UI.Targets/Lombiq.MSBuild.Tests.UI.Targets.props" />
 
   <PropertyGroup>
     <Title>Lombiq Helpful Extensions for Orchard Core - UI Test Extensions</Title>
@@ -26,14 +26,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Lombiq.HelpfulExtensions\Lombiq.HelpfulExtensions.csproj" />
-  </ItemGroup>
-
-  <ItemGroup Condition="'$(NuGetBuild)' != 'true'">
-    <ProjectReference Include="..\..\..\..\test\Lombiq.UITestingToolbox\Lombiq.Tests.UI\Lombiq.Tests.UI.csproj" />
-  </ItemGroup>
-
-  <ItemGroup Condition="'$(NuGetBuild)' == 'true'">
-    <PackageReference Include="Lombiq.Tests.UI" Version="14.2.0" />
   </ItemGroup>
 
 </Project>
