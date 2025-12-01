@@ -1,5 +1,8 @@
 <Project Sdk="Microsoft.NET.Sdk.Razor">
 
+  <Import Project="../../../Utilities/Lombiq.MSBuild.Targets/Lombiq.MSBuild.LibMan.Targets/Lombiq.MSBuild.LibMan.Targets.props"
+          Condition="'$(NuGetBuild)' != 'true'"/>
+
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
     <AddRazorSupportForMvc>true</AddRazorSupportForMvc>
@@ -18,21 +21,9 @@
     <PackageLicenseExpression>BSD-3-Clause</PackageLicenseExpression>
   </PropertyGroup>
 
-  <PropertyGroup Condition="'$(NuGetBuild)' != 'true'">
-    <SourceGeneratorLocation>$(SolutionDir)src\Libraries\Lombiq.HelpfulLibraries\Lombiq.HelpfulLibraries.SourceGenerators\bin\Debug\netstandard2.0\Lombiq.HelpfulLibraries.SourceGenerators.dll</SourceGeneratorLocation>
-    <SourceGeneratorLocation Condition=" '$(Configuration)' != 'Debug' ">
-      $(SolutionDir)src\Libraries\Lombiq.HelpfulLibraries\Lombiq.HelpfulLibraries.SourceGenerators\bin\Release\netstandard2.0\Lombiq.HelpfulLibraries.SourceGenerators.dll
-    </SourceGeneratorLocation>
-  </PropertyGroup>
-
-  <Target Name="CustomBeforeCompile" BeforeTargets="Compile" Condition="'$(NuGetBuild)' != 'true'">
-    <MSBuild Condition="!Exists('$(SourceGeneratorLocation)')" Projects="..\..\..\Libraries\Lombiq.HelpfulLibraries\Lombiq.HelpfulLibraries.SourceGenerators\Lombiq.HelpfulLibraries.SourceGenerators.csproj" />
-  </Target>
-
   <ItemGroup>
     <None Include="..\Readme.md" />
     <None Include="NuGetIcon.png" Pack="true" PackagePath="" />
-    <AdditionalFiles Include="libman.json" />
   </ItemGroup>
 
   <ItemGroup>
@@ -40,7 +31,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.Web.LibraryManager.Build" Version="3.0.71" />
     <PackageReference Include="OrchardCore.Autoroute" Version="2.1.0" />
     <PackageReference Include="OrchardCore.ContentFields" Version="2.1.0" />
     <PackageReference Include="OrchardCore.Contents" Version="2.1.0" />
@@ -57,15 +47,14 @@
   </ItemGroup>
 
   <ItemGroup Condition="'$(NuGetBuild)' != 'true'">
-    <ProjectReference Include="..\..\..\Libraries\Lombiq.HelpfulLibraries\Lombiq.HelpfulLibraries.Attributes\Lombiq.HelpfulLibraries.Attributes.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="true" />
     <ProjectReference Include="..\..\..\Libraries\Lombiq.HelpfulLibraries\Lombiq.HelpfulLibraries.OrchardCore\Lombiq.HelpfulLibraries.OrchardCore.csproj" />
-    <ProjectReference Include="..\..\..\Libraries\Lombiq.HelpfulLibraries\Lombiq.HelpfulLibraries.SourceGenerators\Lombiq.HelpfulLibraries.SourceGenerators.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
   </ItemGroup>
 
   <ItemGroup Condition="'$(NuGetBuild)' == 'true'">
-    <PackageReference Include="Lombiq.HelpfulLibraries.Attributes" Version="12.5.0" OutputItemType="Analyzer" ReferenceOutputAssembly="true" />
     <PackageReference Include="Lombiq.HelpfulLibraries.OrchardCore" Version="12.5.0" />
-    <PackageReference Include="Lombiq.HelpfulLibraries.SourceGenerators" Version="12.5.0" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
   </ItemGroup>
+
+  <Import Project="../../../Utilities/Lombiq.MSBuild.Targets/Lombiq.MSBuild.LibMan.Targets/Lombiq.MSBuild.LibMan.Targets.targets"
+          Condition="'$(NuGetBuild)' != 'true'"/>
 
 </Project>
