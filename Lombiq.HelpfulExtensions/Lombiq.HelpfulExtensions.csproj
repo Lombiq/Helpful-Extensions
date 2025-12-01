@@ -52,6 +52,7 @@
 
   <ItemGroup Condition="'$(NuGetBuild)' == 'true'">
     <PackageReference Include="Lombiq.HelpfulLibraries.OrchardCore" Version="12.5.0" />
+    <PackageReference Include="Lombiq.MSBuild.LibMan.Targets" Version="1.0.0-alpha.3.nest-643" />
   </ItemGroup>
 
   <Import Project="../../../Utilities/Lombiq.MSBuild.Targets/Lombiq.MSBuild.LibMan.Targets/Lombiq.MSBuild.LibMan.Targets.targets"
