@@ -31,6 +31,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.Web.LibraryManager.Build" Version="3.0.71" />
     <PackageReference Include="OrchardCore.Autoroute" Version="2.1.0" />
     <PackageReference Include="OrchardCore.ContentFields" Version="2.1.0" />
     <PackageReference Include="OrchardCore.Contents" Version="2.1.0" />
@@ -40,7 +41,7 @@
     <PackageReference Include="OrchardCore.Liquid" Version="2.1.0" />
     <PackageReference Include="OrchardCore.Markdown" Version="2.1.0" />
     <PackageReference Include="OrchardCore.MetaWeblog.Abstractions" Version="2.1.0" />
-    <PackageReference Include="OrchardCore.Module.Targets" Version="2.1.0" />
+    <PackageReference Include="OrchardCore.Module.Targets" Version="2.1.0" GeneratePathProperty="true" />
     <PackageReference Include="OrchardCore.Rules.Abstractions" Version="2.1.0" />
     <PackageReference Include="OrchardCore.Workflows" Version="2.1.0" />
     <PackageReference Include="Scrutor" Version="6.1.0" />
@@ -52,8 +53,7 @@
 
   <ItemGroup Condition="'$(NuGetBuild)' == 'true'">
     <PackageReference Include="Lombiq.HelpfulLibraries.OrchardCore" Version="12.5.0" />
-    <PackageReference Include="Microsoft.Web.LibraryManager.Build" Version="3.0.71" />
-    <PackageReference Include="Lombiq.MSBuild.LibMan.Targets" Version="1.0.0-alpha.6.nest-643" />
+    <PackageReference Include="Lombiq.MSBuild.LibMan.Targets" Version="1.0.0-alpha.11.nest-643" />
     <PackageReference Include="Lombiq.HelpfulLibraries.Attributes" Version="12.5.0" OutputItemType="Analyzer" ReferenceOutputAssembly="true" />
     <PackageReference Include="Lombiq.HelpfulLibraries.SourceGenerators" Version="12.5.0" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
   </ItemGroup>
