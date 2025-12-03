@@ -53,7 +53,7 @@
 
   <ItemGroup Condition="'$(NuGetBuild)' == 'true'">
     <PackageReference Include="Lombiq.HelpfulLibraries.OrchardCore" Version="12.5.0" />
-    <PackageReference Include="Lombiq.MSBuild.LibMan.Targets" Version="1.0.0-alpha.11.nest-643" />
+    <PackageReference Include="Lombiq.MSBuild.LibMan.Targets" Version="1.0.0-alpha.12.nest-643" />
     <PackageReference Include="Lombiq.HelpfulLibraries.Attributes" Version="12.5.0" OutputItemType="Analyzer" ReferenceOutputAssembly="true" />
     <PackageReference Include="Lombiq.HelpfulLibraries.SourceGenerators" Version="12.5.0" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
   </ItemGroup>
