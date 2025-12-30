@@ -148,6 +148,17 @@ using static Lombiq.HelpfulExtensions.FeatureIds;
 )]
 
 [assembly: Feature(
+    Id = Authorize,
+    Name = "Lombiq Helpful Extensions - Authorize workflow",
+    Category = "Security",
+    Description = "Adds a workflow trigger which is used by an authorization handler.",
+    Dependencies =
+    [
+        "OrchardCore.Workflows",
+    ]
+)]
+
+[assembly: Feature(
     Id = Trumbowyg,
     Name = "Lombiq Helpful Extensions - Trumbowyg code snippet",
     Category = "Content",

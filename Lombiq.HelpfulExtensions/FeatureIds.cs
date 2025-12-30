@@ -23,4 +23,5 @@ public static class FeatureIds
     public const string TrumbowygBlogPosts = FeatureIdPrefix + nameof(TrumbowygBlogPosts);
     public const string Widgets = FeatureIdPrefix + nameof(Widgets);
     public const string Workflows = FeatureIdPrefix + nameof(Workflows);
+    public const string Authorize = Workflows + "." + nameof(Authorize);
 }
