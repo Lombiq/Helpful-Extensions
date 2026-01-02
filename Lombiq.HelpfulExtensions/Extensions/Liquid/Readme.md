@@ -6,6 +6,12 @@ Adds various Liquid tags and filters. For more information about Liquid in Orcha
 
 - `{% ifnotempty condition %)...{% endifnotempty %}`: Evaluates `condition` and if it's not a falsey value, converts the result to string. The statements inside this block are evaluated if the aforementioned string result is not `null`, empty or whitespace.
 - `{% assign_array 'name', 'value1', 'value2', 'etc' %}`: Assigns a new array type variable with the provided name and arbitrary initial values. You can also type `{% assign_array 'name' %}` to create an empty array that you can fill up using a loop.
+- `{% ifauthorized permission: 'View', contentItem: 'content item ID' %)...{% endifauthorized %}`: Uses `IAuthorizationService` to perform authorization on the current user. It has the arguments listed below.
+  - permission: The required permission's technical name. Case-insensitive.
+  - contentItem: If specified, the permission is checked for the content item with the provided ID.
+  - user: If specified, the user with this name is looked up instead of the current user.
+  - email: If specified, the user with this e-mail is looked up instead of the current user.
+  - invert: If the `true` value is specified, then the contents of the tag are evaluated only if the authorization fails.
 
 ## Filters
 

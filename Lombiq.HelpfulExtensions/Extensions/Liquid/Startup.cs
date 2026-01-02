@@ -16,5 +16,6 @@ public sealed class Startup : StartupBase
         services.AddLiquidFilter<ShapesBuildDisplayFilter>("shapes_build_display");
         services.AddLiquidFilter<ShapesRenderFilter>("shapes_render");
         services.AddLiquidFilter<ShuffleFilter>("shuffle");
+        services.AddLiquidParserBlock<IfAuthorizedParserBlock>("ifauthorized");
     }
 }
