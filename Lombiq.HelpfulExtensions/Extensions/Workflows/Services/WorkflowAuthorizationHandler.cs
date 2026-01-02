@@ -2,7 +2,9 @@
 
 using Lombiq.HelpfulExtensions.Extensions.Workflows.Activities;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.Extensions.Localization;
 using OrchardCore.ContentManagement;
+using OrchardCore.Security;
 using OrchardCore.Workflows.Models;
 using OrchardCore.Workflows.Services;
 using System;
@@ -18,18 +20,23 @@ public class WorkflowAuthorizationHandler : IAuthorizationHandler
 
     private readonly IWorkflowManager _workflowManager;
     private readonly IWorkflowTypeStore _workflowTypeStore;
+    private readonly IStringLocalizer<AuthorizationEvent> _eventStringLocalizer;
 
-    public WorkflowAuthorizationHandler(IWorkflowManager workflowManager, IWorkflowTypeStore workflowTypeStore)
+    public WorkflowAuthorizationHandler(
+        IWorkflowManager workflowManager,
+        IWorkflowTypeStore workflowTypeStore,
+        IStringLocalizer<AuthorizationEvent> eventStringLocalizer)
     {
         _workflowManager = workflowManager;
         _workflowTypeStore = workflowTypeStore;
+        _eventStringLocalizer = eventStringLocalizer;
     }
 
     public async Task HandleAsync(AuthorizationHandlerContext context)
     {
         if (context.HasFailed ||
             context.Resource is not ContentItem contentItem ||
-            context.Requirements.FirstOrDefault() is not { } requirement)
+            context.Requirements.CastWhere<PermissionRequirement>().ToList() is not { Count: > 0 } requirements)
         {
             return;
         }
@@ -50,14 +57,23 @@ public class WorkflowAuthorizationHandler : IAuthorizationHandler
         var contexts = await workflowTypesToStart
             .SelectMany(workflowType => workflowType
                 .Activities
-                .Where(activity => activity.IsStart)
-                .Select(activity => (Type: workflowType, Activity: activity)))
-            .AwaitEachAsync(pair => _workflowManager.StartWorkflowAsync(pair.Type, pair.Activity, values));
+                .Where(activity => activity.IsStart && activity.Name == nameof(AuthorizationEvent))
+                .Select(activity => new
+                {
+                    Type = workflowType,
+                    Activity = activity,
+                    Event = AuthorizationEvent.FromActivityRecord(activity, _eventStringLocalizer),
+                }))
+                .Where(workflow =>
+                    workflow.Event.ContentTypes.Contains(contentItem.ContentType) &&
+                    (!workflow.Event.Permissions.Any() ||
+                     requirements.Any(requirement => workflow.Event.Permissions.Contains(requirement.Permission.Name))))
+            .AwaitEachAsync(workflow => _workflowManager.StartWorkflowAsync(workflow.Type, workflow.Activity, values));
 
         var authorizationResult = contexts.Select(GetBoolean).FirstOrDefault(result => result.HasValue);
         if (authorizationResult == true)
         {
-            context.Succeed(requirement);
+            requirements.ForEach(context.Succeed);
         }
         else if (authorizationResult == false)
         {
