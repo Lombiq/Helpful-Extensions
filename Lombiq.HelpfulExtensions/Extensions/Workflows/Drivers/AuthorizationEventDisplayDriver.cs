@@ -5,7 +5,6 @@ using Lombiq.HelpfulExtensions.Extensions.Workflows.Services;
 using Lombiq.HelpfulExtensions.Extensions.Workflows.ViewModels;
 using Lombiq.HelpfulLibraries.OrchardCore.Workflow;
 using Microsoft.AspNetCore.Mvc.Localization;
-using Microsoft.Extensions.Localization;
 using OrchardCore.DisplayManagement.Handlers;
 using OrchardCore.DisplayManagement.Notify;
 using OrchardCore.DisplayManagement.Views;
