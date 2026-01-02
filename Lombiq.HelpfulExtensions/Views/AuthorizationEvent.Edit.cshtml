@@ -1,0 +1,70 @@
+@using Lombiq.HelpfulExtensions.Extensions.Workflows.Activities
+@using Lombiq.HelpfulExtensions.Extensions.Workflows.ViewModels
+@using OrchardCore.ContentManagement.Metadata
+@using OrchardCore.DisplayManagement
+@using OrchardCore.Security.Permissions
+
+@inject IContentDefinitionManager ContentDefinitionManager
+@inject IEnumerable<IPermissionProvider> PermissionProviders
+
+@{
+    var items = Model.Content.Items as IEnumerable<IPositioned>;
+    var viewModel = items.CastWhere<AuthorizationEventViewModel>().First();
+    var contentTypes = viewModel.ContentTypes?.AsList() ?? [];
+    var permissions = viewModel.Permissions?.AsList() ?? [];
+
+    var contentTypeDefinitions = await ContentDefinitionManager.ListTypeDefinitionsAsync();
+    var permissionDefinitions = (await PermissionProviders.AwaitEachAsync(provider => provider.GetPermissionsAsync()))
+        .SelectMany(results => results);
+    
+    const string ContentTypesId = $"{nameof(AuthorizationEvent)}_{nameof(AuthorizationEvent.ContentTypes)}";
+    const string ContentTypesName = $"{nameof(AuthorizationEvent)}.{nameof(AuthorizationEvent.ContentTypes)}";
+    const string PermissionsId = $"{nameof(AuthorizationEvent)}_{nameof(AuthorizationEvent.Permissions)}";
+    const string PermissionsName = $"{nameof(AuthorizationEvent)}.{nameof(AuthorizationEvent.Permissions)}";
+}
+
+<div class="mb-3">
+    <label class="form-label">@T["Content Types"]</label>
+    @foreach (var definition in contentTypeDefinitions)
+    {
+        <div class="form-check">
+            <input type="checkbox"
+                   class="form-check-input"
+                   name="@ContentTypesName"
+                   id="@ContentTypesId"
+                   value="@definition.Name"
+                   checked="@contentTypes.Contains(definition.Name)" />
+            <label class="form-label form-check-label" for="@ContentTypesId">@definition.DisplayName</label>
+        </div>
+    }
+    <span class="hint">@T["The content types which are validated by this event."]</span>
+</div>
+
+<div class="mb-3">
+    <label class="form-label">@T["Permissions"]</label>
+    @foreach (var group in permissionDefinitions.GroupBy(permission => permission.Category).OrderBy(group => group.Key))
+    {
+        @if (string.IsNullOrEmpty(group.Key))
+        {
+            <div class="mb-2">@T["Ungrouped"]</div>
+        }
+        else
+        {
+            <div class="mb-2">@(group.Key)</div>
+        }
+        
+        @foreach (var permission in group.OrderBy(permission => permission.Name))
+        {
+            <div class="form-check ms-2">
+                <input type="checkbox"
+                       class="form-check-input"
+                       name="@PermissionsName"
+                       id="@PermissionsId"
+                       value="@permission.Name"
+                       checked="@permissions.Contains(permission.Name)" />
+                <label class="form-label form-check-label" for="@PermissionsId"><strong>@permission.Name</strong>: @permission.Description</label>
+            </div>
+        }
+    }
+    <span class="hint">@T["Permissions which are validated by this event. If none are selected, then any permission is applicable."]</span>
+</div>
