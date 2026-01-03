@@ -98,18 +98,14 @@ public class IfAuthorizedParserBlock : ILiquidParserBlock
         return Completion.Normal;
     }
 
-    private async Task<Permission?> GetPermissionAsync(string? name)
+    private ValueTask<Permission?> GetPermissionAsync(string? name)
     {
-        if (string.IsNullOrWhiteSpace(name)) return null;
+        if (string.IsNullOrWhiteSpace(name)) return new(result: null);
 
-        foreach (var provider in _permissionProviders)
-        {
-            var result = (await provider.GetPermissionsAsync())?
-                .FirstOrDefault(permission => name.EqualsOrdinalIgnoreCase(permission.Name));
+        var permissions = _permissionProviders
+            .GetAllPermissionsAsync(_hca.HttpContext?.RequestAborted ?? default)
+            .Where(permission => name.EqualsOrdinalIgnoreCase(permission.Name));
 
-            if (result != null) return result;
-        }
-
-        return null;
+        return permissions.FirstOrDefaultAsync(_hca.HttpContext?.RequestAborted ?? default);
     }
 }
