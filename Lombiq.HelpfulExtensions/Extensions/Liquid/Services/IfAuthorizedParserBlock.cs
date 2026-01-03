@@ -56,10 +56,11 @@ public class IfAuthorizedParserBlock : ILiquidParserBlock
                 ? (await expression.EvaluateAsync(context)).ToStringValue()
                 : null;
 
-        if (await GetPermissionAsync(await EvaluateAsync(GetArgument("permission"))) is not { } permission)
-        {
-            return Completion.Normal;
-        }
+        var permission = await _permissionProviders.GetPermissionAsync(
+            await EvaluateAsync(GetArgument("permission")),
+            _hca.HttpContext?.RequestAborted ?? default);
+
+        if (permission == null) return Completion.Normal;
 
         var expected = GetArgument("invert") is not { } invertArgument ||
             !(await invertArgument.Expression.EvaluateAsync(context)).ToBooleanValue();
@@ -96,16 +97,5 @@ public class IfAuthorizedParserBlock : ILiquidParserBlock
         }
 
         return Completion.Normal;
-    }
-
-    private ValueTask<Permission?> GetPermissionAsync(string? name)
-    {
-        if (string.IsNullOrWhiteSpace(name)) return new(result: null);
-
-        var permissions = _permissionProviders
-            .GetAllPermissionsAsync(_hca.HttpContext?.RequestAborted ?? default)
-            .Where(permission => name.EqualsOrdinalIgnoreCase(permission.Name));
-
-        return permissions.FirstOrDefaultAsync(_hca.HttpContext?.RequestAborted ?? default);
     }
 }
