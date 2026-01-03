@@ -13,6 +13,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Net.Http;
 using System.Security.Claims;
 using System.Text.Encodings.Web;
 using System.Threading.Tasks;
@@ -58,7 +59,7 @@ public class IfAuthorizedParserBlock : ILiquidParserBlock
 
         var permission = await _permissionProviders.GetPermissionAsync(
             await EvaluateAsync(GetArgument("permission")),
-            _hca.HttpContext?.RequestAborted ?? default);
+            _hca.GetCancellation());
 
         if (permission == null) return Completion.Normal;
 
