@@ -72,7 +72,7 @@ public class MenuWidgetLiquidFilter : ILiquidFilter
             });
     }
 
-    private void UpdateMenuItems(IEnumerable<MenuItem> menuItems, bool localNav, IUrlHelper urlHelper)
+    private static void UpdateMenuItems(IEnumerable<MenuItem> menuItems, bool localNav, IUrlHelper urlHelper)
     {
         if (menuItems == null) return;
 

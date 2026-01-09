@@ -4,7 +4,6 @@ using Microsoft.AspNetCore.Mvc.Localization;
 using Microsoft.Extensions.Logging;
 using OrchardCore.DisplayManagement.Implementation;
 using OrchardCore.DisplayManagement.Shapes;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace Lombiq.HelpfulExtensions.Extensions.ShapeTracing;
