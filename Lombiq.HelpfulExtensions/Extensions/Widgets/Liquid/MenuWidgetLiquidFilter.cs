@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Microsoft.AspNetCore.Mvc.Routing;
 using Microsoft.Extensions.Localization;
+using OrchardCore;
 using OrchardCore.Liquid;
 using OrchardCore.Navigation;
 using System;
@@ -25,15 +26,13 @@ public class MenuWidgetLiquidFilter : ILiquidFilter
     private readonly IStringLocalizer<MenuWidgetLiquidFilter> T;
 
     public MenuWidgetLiquidFilter(
-        IActionContextAccessor actionContextAccessor,
         ILiquidContentDisplayService liquidContentDisplayService,
-        IStringLocalizer<MenuWidgetLiquidFilter> stringLocalizer,
-        IUrlHelperFactory urlHelperFactory)
+        IOrchardHelper orchardHelper,
+        IStringLocalizer<MenuWidgetLiquidFilter> stringLocalizer)
     {
         _liquidContentDisplayService = liquidContentDisplayService;
 
-        _urlHelperLazy = new Lazy<IUrlHelper>(() =>
-            urlHelperFactory.GetUrlHelper(actionContextAccessor.ActionContext!));
+        _urlHelperLazy = new Lazy<IUrlHelper>(orchardHelper.GetUrlHelper);
 
         T = stringLocalizer;
     }

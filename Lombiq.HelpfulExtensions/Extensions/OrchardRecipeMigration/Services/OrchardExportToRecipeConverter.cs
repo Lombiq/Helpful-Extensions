@@ -1,8 +1,7 @@
 using Lombiq.HelpfulExtensions.Extensions.OrchardRecipeMigration.Controllers;
 using Lombiq.HelpfulExtensions.Extensions.OrchardRecipeMigration.Models;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Infrastructure;
-using Microsoft.AspNetCore.Mvc.Routing;
+using OrchardCore;
 using OrchardCore.ContentManagement;
 using OrchardCore.ContentManagement.Metadata;
 using OrchardCore.Entities;
@@ -21,30 +20,27 @@ public class OrchardExportToRecipeConverter : IOrchardExportToRecipeConverter
 {
     private readonly int batchSize = 50;
 
-    private readonly IActionContextAccessor _actionContextAccessor;
     private readonly IContentManager _contentManager;
     private readonly IIdGenerator _idGenerator;
     private readonly IEnumerable<IOrchardContentConverter> _contentConverters;
+    private readonly IOrchardHelper _orchardHelper;
     private readonly IEnumerable<IOrchardUserConverter> _userConverters;
     private readonly IContentDefinitionManager _contentDefinitionManager;
-    private readonly IUrlHelperFactory _urlHelperFactory;
 
     public OrchardExportToRecipeConverter(
-        IActionContextAccessor actionContextAccessor,
         IContentDefinitionManager contentDefinitionManager,
         IContentManager contentManager,
         IIdGenerator idGenerator,
         IEnumerable<IOrchardContentConverter> contentConverters,
-        IEnumerable<IOrchardUserConverter> userConverters,
-        IUrlHelperFactory urlHelperFactory)
+        IOrchardHelper orchardHelper,
+        IEnumerable<IOrchardUserConverter> userConverters)
     {
-        _actionContextAccessor = actionContextAccessor;
         _contentManager = contentManager;
         _idGenerator = idGenerator;
         _contentConverters = contentConverters;
+        _orchardHelper = orchardHelper;
         _userConverters = userConverters;
         _contentDefinitionManager = contentDefinitionManager;
-        _urlHelperFactory = urlHelperFactory;
     }
 
     public async Task<ConversionBatchResult> ConvertAsync(XDocument export, int page)
@@ -83,7 +79,7 @@ public class OrchardExportToRecipeConverter : IOrchardExportToRecipeConverter
             }
         }
 
-        var urlHelper = _urlHelperFactory.GetUrlHelper(_actionContextAccessor.ActionContext!);
+        var urlHelper = _orchardHelper.GetUrlHelper();
 
         var hasNextPage = page < totalPages;
         var nextUrl = hasNextPage ? urlHelper.Action(
