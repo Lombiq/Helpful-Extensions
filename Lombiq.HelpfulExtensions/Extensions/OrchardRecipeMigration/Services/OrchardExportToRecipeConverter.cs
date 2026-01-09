@@ -79,7 +79,7 @@ public class OrchardExportToRecipeConverter : IOrchardExportToRecipeConverter
             }
         }
 
-        var urlHelper = _orchardHelper.GetUrlHelper();
+        var urlHelper = await _orchardHelper.GetUrlHelperAsync();
 
         var hasNextPage = page < totalPages;
         var nextUrl = hasNextPage ? urlHelper.Action(

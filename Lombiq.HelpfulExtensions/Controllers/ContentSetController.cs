@@ -23,7 +23,7 @@ public sealed class ContentSetController : Controller
         if (!ModelState.IsValid) return BadRequest(ModelState);
 
         return await _contentSetManager.CloneContentItemAsync(fromContentItemId, fromPartName, newKey) is { } content
-            ? Redirect(_orchardHelper.GetItemEditUrl(content))
+            ? Redirect(await _orchardHelper.GetItemEditUrlAsync(content))
             : NotFound();
     }
 }

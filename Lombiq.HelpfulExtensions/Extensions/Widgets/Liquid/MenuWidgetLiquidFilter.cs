@@ -3,8 +3,6 @@ using Fluid.Values;
 using Lombiq.HelpfulExtensions.Extensions.Widgets.ViewModels;
 using Lombiq.HelpfulLibraries.OrchardCore.Liquid;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Infrastructure;
-using Microsoft.AspNetCore.Mvc.Routing;
 using Microsoft.Extensions.Localization;
 using OrchardCore;
 using OrchardCore.Liquid;
@@ -22,7 +20,7 @@ namespace Lombiq.HelpfulExtensions.Extensions.Widgets.Liquid;
 public class MenuWidgetLiquidFilter : ILiquidFilter
 {
     private readonly ILiquidContentDisplayService _liquidContentDisplayService;
-    private readonly Lazy<IUrlHelper> _urlHelperLazy;
+    private readonly IOrchardHelper _orchardHelper;
     private readonly IStringLocalizer<MenuWidgetLiquidFilter> T;
 
     public MenuWidgetLiquidFilter(
@@ -31,13 +29,12 @@ public class MenuWidgetLiquidFilter : ILiquidFilter
         IStringLocalizer<MenuWidgetLiquidFilter> stringLocalizer)
     {
         _liquidContentDisplayService = liquidContentDisplayService;
-
-        _urlHelperLazy = new Lazy<IUrlHelper>(orchardHelper.GetUrlHelper);
+        _orchardHelper = orchardHelper;
 
         T = stringLocalizer;
     }
 
-    public ValueTask<FluidValue> ProcessAsync(FluidValue input, FilterArguments arguments, LiquidTemplateContext context)
+    public async ValueTask<FluidValue> ProcessAsync(FluidValue input, FilterArguments arguments, LiquidTemplateContext context)
     {
         bool noWrapper, localNav;
         string classes;
@@ -62,9 +59,10 @@ public class MenuWidgetLiquidFilter : ILiquidFilter
             _ => null,
         };
 
-        UpdateMenuItems(menuItems, localNav);
+        var urlHelper = await _orchardHelper.GetUrlHelperAsync();
+        UpdateMenuItems(menuItems, localNav, urlHelper);
 
-        return _liquidContentDisplayService.DisplayNewAsync<MenuWidgetViewModel>(
+        return await _liquidContentDisplayService.DisplayNewAsync<MenuWidgetViewModel>(
             WidgetTypes.MenuWidget,
             model =>
             {
@@ -74,7 +72,7 @@ public class MenuWidgetLiquidFilter : ILiquidFilter
             });
     }
 
-    private void UpdateMenuItems(IEnumerable<MenuItem> menuItems, bool localNav)
+    private void UpdateMenuItems(IEnumerable<MenuItem> menuItems, bool localNav, IUrlHelper urlHelper)
     {
         if (menuItems == null) return;
 
@@ -82,14 +80,14 @@ public class MenuWidgetLiquidFilter : ILiquidFilter
         {
             if (!string.IsNullOrEmpty(item.Url))
             {
-                var finalUrl = _urlHelperLazy.Value.Content(item.Url);
+                var finalUrl = urlHelper.Content(item.Url);
                 item.Url = finalUrl;
                 item.Href = finalUrl;
             }
 
             item.LocalNav = localNav || item.LocalNav;
 
-            UpdateMenuItems(item.Items, localNav);
+            UpdateMenuItems(item.Items, localNav, urlHelper);
         }
     }
 
