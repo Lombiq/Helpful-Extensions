@@ -39,13 +39,22 @@ Adds prettified code snippet inserting functionality to Trumbowyg editor by usin
 Then you need to link the Trumbowyg and Prism styles and scripts where you want it to be used. E.g. if you want to add it to BlogPost content type you can do it with the help of [Lombiq.HelpfulLibraries.OrchardCore](https://github.com/Lombiq/Helpful-Libraries/blob/dev/Lombiq.HelpfulLibraries.OrchardCore/Readme.md) in a IResourceFilterProvider:
 
 ```csharp
-builder.WhenContentType("MyContentType").RegisterStylesheet(Lombiq.HelpfulExtensions.Constants.ResourceNames.Prism);
-builder.WhenContentType("MyContentType").RegisterFootScript(Lombiq.HelpfulExtensions.Constants.ResourceNames.Prism);
+using static Lombiq.HelpfulExtensions.Constants.ResourceNames;
 
-builder.WhenContentTypeEditor("MyContentType").RegisterFootScript(Lombiq.HelpfulExtensions.Constants.ResourceNames.TrumbowygHighlight);
-builder.WhenContentTypeEditor("MyContentType").RegisterStylesheet(Lombiq.HelpfulExtensions.Constants.ResourceNames.TrumbowygHighlight);
-builder.WhenContentTypeCreate("MyContentType").RegisterFootScript(Lombiq.HelpfulExtensions.Constants.ResourceNames.TrumbowygHighlight);
-builder.WhenContentTypeCreate("MyContentType").RegisterStylesheet(Lombiq.HelpfulExtensions.Constants.ResourceNames.TrumbowygHighlight);
+const string MyContentType = "MyContentType";
+
+var resourceFilters = new[]
+    {
+        builder.WhenContentType(MyContentType),
+        builder.WhenContentTypeEditor(MyContentType),
+        builder.WhenContentTypeCreate(MyContentType),
+    };
+
+foreach (var resourceFilter in resourceFilters)
+{
+    resourceFilter.RegisterStylesheet(Prism, PrismLineHighlight, TrumbowygHighlight);
+    resourceFilter.RegisterFootScript(Prism, PrismLineHighlight, TrumbowygHighlight);
+}
 ```
 
 <!-- textlint-disable doubled-spaces -->

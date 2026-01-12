@@ -9,12 +9,17 @@ public class ResourceFilters : IResourceFilterProvider
     {
         const string BlogPost = "BlogPost";
 
-        builder.WhenContentType(BlogPost).RegisterStylesheet(Prism);
-        builder.WhenContentType(BlogPost).RegisterFootScript(Prism);
+        var resourceFilters = new[]
+            {
+                builder.WhenContentType(BlogPost),
+                builder.WhenContentTypeEditor(BlogPost),
+                builder.WhenContentTypeCreate(BlogPost),
+            };
 
-        builder.WhenContentTypeEditor(BlogPost).RegisterFootScript(TrumbowygHighlight);
-        builder.WhenContentTypeEditor(BlogPost).RegisterStylesheet(TrumbowygHighlight);
-        builder.WhenContentTypeCreate(BlogPost).RegisterFootScript(TrumbowygHighlight);
-        builder.WhenContentTypeCreate(BlogPost).RegisterStylesheet(TrumbowygHighlight);
+        foreach (var resourceFilter in resourceFilters)
+        {
+            resourceFilter.RegisterStylesheet(Prism, PrismLineHighlight, TrumbowygHighlight);
+            resourceFilter.RegisterFootScript(Prism, PrismLineHighlight, TrumbowygHighlight);
+        }
     }
 }

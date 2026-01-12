@@ -23,13 +23,29 @@ public partial class TrumbowygResourceManagementOptionsConfiguration : IConfigur
     static TrumbowygResourceManagementOptionsConfiguration()
     {
         _manifest
+            .DefineStyle(Prism)
+            .SetUrl(Vendors + "prismjs/themes/prism.min.css", Vendors + "prismjs/themes/prism.css")
+            .SetVersion(LibManVersions.Prismjs);
+
+        _manifest
+            .DefineStyle(PrismLineHighlight)
+            .SetUrl(
+                Vendors + "prismjs/plugins/line-highlight/prism-line-highlight.min.css",
+                Vendors + "prismjs/plugins/line-highlight/prism-line-highlight.min.css")
+            .SetVersion(LibManVersions.Prismjs);
+
+        _manifest
+            .DefineStyle(TrumbowygHighlight)
+            .SetUrl(Css + "trumbowyg.highlight.css");
+
+        _manifest
             .DefineScript(Prism)
             .SetUrl(Vendors + "prismjs/prism.js")
             .SetVersion(LibManVersions.Prismjs);
 
         _manifest
-            .DefineStyle(Prism)
-            .SetUrl(Vendors + "prismjs/themes/prism.min.css", Vendors + "prismjs/themes/prism.css")
+            .DefineScript(PrismLineHighlight)
+            .SetUrl(Vendors + "prismjs/plugins/line-highlight/prism-line-highlight.js")
             .SetVersion(LibManVersions.Prismjs);
 
         _manifest
@@ -39,10 +55,6 @@ public partial class TrumbowygResourceManagementOptionsConfiguration : IConfigur
                 Vendors + "trumbowyg/plugins/highlight/trumbowyg.highlight.js")
             .SetDependencies("jQuery", "trumbowyg", Prism)
             .SetVersion(LibManVersions.Trumbowyg);
-
-        _manifest
-            .DefineStyle(TrumbowygHighlight)
-            .SetUrl(Css + "trumbowyg.highlight.css");
     }
 
     public void Configure(ResourceManagementOptions options) => options.ResourceManifests.Add(_manifest);
