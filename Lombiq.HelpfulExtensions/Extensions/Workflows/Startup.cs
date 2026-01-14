@@ -28,5 +28,7 @@ public sealed class AuthorizeStartup : StartupBase
     {
         services.AddScoped<IAuthorizationHandler, WorkflowAuthorizationHandler>();
         services.AddActivity<AuthorizationEvent, AuthorizationEventDisplayDriver>();
+        services.AddActivity<IfElseAuthorizationTask, IfElseAuthorizationTaskDisplayDriver>();
+        services.AddScoped<IfElseAuthorizationTask>();
     }
 }

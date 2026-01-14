@@ -1,5 +1,3 @@
-@using Lombiq.HelpfulExtensions.Extensions.Workflows.Activities
-@using Lombiq.HelpfulExtensions.Extensions.Workflows.ViewModels
 @using OrchardCore.ContentManagement.Metadata
 @using OrchardCore.DisplayManagement
 @using OrchardCore.Security.Permissions
@@ -14,8 +12,9 @@
     var permissions = viewModel.Permissions?.AsList() ?? [];
 
     var contentTypeDefinitions = await ContentDefinitionManager.ListTypeDefinitionsAsync();
-    var permissionDefinitions = (await PermissionProviders.AwaitEachAsync(provider => provider.GetPermissionsAsync()))
-        .SelectMany(results => results);
+    var permissionDefinitions = await PermissionProviders
+        .GetAllPermissionsAsync(Context.RequestAborted)
+        .ToListAsync(Context.RequestAborted);
     
     const string ContentTypesId = $"{nameof(AuthorizationEvent)}_{nameof(AuthorizationEvent.ContentTypes)}";
     const string ContentTypesName = $"{nameof(AuthorizationEvent)}.{nameof(AuthorizationEvent.ContentTypes)}";

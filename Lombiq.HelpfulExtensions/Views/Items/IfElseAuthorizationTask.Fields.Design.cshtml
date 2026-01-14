@@ -1,0 +1,7 @@
+@using OrchardCore.Workflows.Helpers
+@model ActivityViewModel<IfElseAuthorizationTask>
+
+<header>
+    <h4><i class="fa-solid fa-diamond" aria-hidden="true"></i>@Model.Activity.GetTitleOrDefault(() => T["Authorize"])</h4>
+</header>
+<span>@T["Evaluate <em>{0}</em> on <em>{1}</em>.", Model.Activity.Permission, Model.Activity.ContentItemId]</span>

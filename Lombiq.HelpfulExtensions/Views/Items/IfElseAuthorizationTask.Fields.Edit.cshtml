@@ -1,0 +1,36 @@
+@model IfElseAuthorizationTaskViewModel
+
+@using OrchardCore.Security.Permissions
+
+@inject IEnumerable<IPermissionProvider> PermissionProviders
+
+@{
+    var permissionDefinitions = await PermissionProviders.GetAllPermissionsGroupedByCategory(Context.RequestAborted);
+    var permissionOptions = permissionDefinitions
+        .SelectMany<KeyValuePair<string,IList<Permission>>, SelectListItem>(group => [
+            new SelectListItem(
+                string.IsNullOrEmpty(group.Key) ? @T["Ungrouped"].Value : group.Key,
+                value: null,
+                selected: false,
+                disabled: true),
+            ..group.Value.Select(permission => new SelectListItem(
+                $"{permission.Name}: {permission.Description}",
+                permission.Name,
+                permission.Name == Model.Permission))
+        ])
+        .ToList();
+}
+
+<div class="mb-3" asp-validation-class-for="Permission">
+    <label asp-for="Permission" class="form-label">@T["Permission"]</label>
+    <select asp-for="Permission" asp-items="@permissionOptions" class="form-control"></select>
+    <span asp-validation-for="Permission"></span>
+    <span class="hint">@T["The permission checked against the current user."]</span>
+</div>
+
+<div class="mb-3" asp-validation-class-for="ContentItemIdExpression">
+    <label asp-for="ContentItemIdExpression" class="form-label">@T["Content Item ID Expression"]</label>
+    <input type="text" asp-for="ContentItemIdExpression" class="form-control code" />
+    <span asp-validation-for="ContentItemIdExpression"></span>
+    <span class="hint">@T["A JavaScript expression that evaluates to the Content Item ID or <code>null</code>."]</span>
+</div>
