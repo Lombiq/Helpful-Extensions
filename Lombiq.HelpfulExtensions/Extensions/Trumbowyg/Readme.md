@@ -39,23 +39,48 @@ Adds prettified code snippet inserting functionality to Trumbowyg editor by usin
 Then you need to link the Trumbowyg and Prism styles and scripts where you want it to be used. E.g. if you want to add it to BlogPost content type you can do it with the help of [Lombiq.HelpfulLibraries.OrchardCore](https://github.com/Lombiq/Helpful-Libraries/blob/dev/Lombiq.HelpfulLibraries.OrchardCore/Readme.md) in a IResourceFilterProvider:
 
 ```csharp
-using static Lombiq.HelpfulExtensions.Constants.ResourceNames;
+using Lombiq.HelpfulLibraries.OrchardCore.ResourceManagement;
+using static Lombiq.HelpfulExtensions.Extensions.Trumbowyg.Constants.PrismLanguageNames;
+using static Lombiq.HelpfulExtensions.Extensions.Trumbowyg.Constants.ResourceNames;
 
-const string MyContentType = "MyContentType";
-
-var resourceFilters = new[]
-    {
-        builder.WhenContentType(MyContentType),
-        builder.WhenContentTypeEditor(MyContentType),
-        builder.WhenContentTypeCreate(MyContentType),
-    };
-
-foreach (var resourceFilter in resourceFilters)
+public class ResourceFilters : IResourceFilterProvider
 {
-    resourceFilter.RegisterStylesheet(Prism, PrismLineHighlight, TrumbowygHighlight);
-    resourceFilter.RegisterFootScript(Prism, PrismLineHighlight, TrumbowygHighlight);
+    public void AddResourceFilter(ResourceFilterBuilder builder)
+    {
+        const string MyContentType = "MyContentType";
+
+        var resourceFilters = new[]
+            {
+                builder.WhenContentType(MyContentType),
+                builder.WhenContentTypeEditor(MyContentType),
+                builder.WhenContentTypeCreate(MyContentType),
+                builder.WhenContentTypePreview(MyContentType),
+            };
+
+        foreach (var resourceFilter in resourceFilters)
+        {
+            resourceFilter.RegisterStylesheet(Prism, PrismLineHighlight, TrumbowygHighlight);
+            resourceFilter.RegisterFootScript(Prism, PrismLineHighlight, TrumbowygHighlight, TrumbowygHighlightExtension);
+            foreach (var language in AllLanguage)
+            {
+                resourceFilter.RegisterFootScript(language);
+            }
+        }
+    }
 }
 ```
+
+This will add the required styles and scripts to the editor and display views of the specified content type. Make sure to replace `MyContentType` with the actual content type name where you want to use this feature. The following languages will be included beyond the base Prism languages:
+- C#
+- Docker
+- Json
+- Markdown
+- Sql
+- Liquid
+- Regex
+- Powershell
+
+You can use the Coy Prism theme by registering the `Lombiq.HelpfulExtensions.Extensions.Trumbowyg.Constants.ResourceNames.PrismCoyTheme` as a stylesheet.
 
 <!-- textlint-disable doubled-spaces -->
 > [!TIP]
