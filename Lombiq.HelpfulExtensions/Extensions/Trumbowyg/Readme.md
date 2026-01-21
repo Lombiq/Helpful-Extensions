@@ -71,6 +71,7 @@ public class ResourceFilters : IResourceFilterProvider
 ```
 
 This will add the required styles and scripts to the editor and display views of the specified content type. Make sure to replace `MyContentType` with the actual content type name where you want to use this feature. The following languages will be included beyond the base Prism languages:
+
 - C#
 - Docker
 - Json
