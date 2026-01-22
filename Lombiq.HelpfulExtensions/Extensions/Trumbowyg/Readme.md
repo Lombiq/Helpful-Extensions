@@ -81,7 +81,18 @@ This will add the required styles and scripts to the editor and display views of
 - Regex
 - Powershell
 
-You can use the Coy Prism theme by registering the `Lombiq.HelpfulExtensions.Extensions.Trumbowyg.Constants.ResourceNames.PrismCoyTheme` as a stylesheet.
+You can add a new language by registering a resource and including that in a ResourceFilter. It might be dependent on other languages, you can check the dependency by ticking your language [here](https://prismjs.com/download) and looking for other language selected automatically or by checking the language script directly. E.g.:
+
+```
+_manifest
+.DefineScript("LiquidLanguage")
+.SetUrl(
+    Vendors + $"prismjs/components/prism-liquid.min.js",
+    Vendors + $"prismjs/components/prism-liquid.js")
+.SetDependencies("markup-templating");
+```
+
+You can use the Coy Prism theme by registering the `Lombiq.HelpfulExtensions.Extensions.Trumbowyg.Constants.ResourceNames.PrismCoyTheme` as a stylesheet. The same way as adding new languages you can use any other Prism theme by registering the appropriate resource.
 
 <!-- textlint-disable doubled-spaces -->
 > [!TIP]
