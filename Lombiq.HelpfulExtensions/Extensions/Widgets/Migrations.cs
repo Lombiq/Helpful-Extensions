@@ -54,7 +54,7 @@ public sealed class Migrations : DataMigration
         await _contentDefinitionManager.AlterTypeDefinitionAsync(MenuWidget, builder => builder
             .Securable()
             .Stereotype(CommonStereotypes.Widget)
-            .DisplayedAs("Menu Navigation Provider Widget")
+            .WithDisplayName("Menu Navigation Provider Widget")
             .WithDescription(
                 $"Renders a menu whose contents are populated from {nameof(INavigationProvider)} implementations " +
                 $"that look for the \"menu\" name (as opposed to admin menu navigation providers that use the " +
@@ -143,7 +143,7 @@ public sealed class Migrations : DataMigration
     public async Task<int> UpdateFrom5Async()
     {
         await _contentDefinitionManager.AlterTypeDefinitionAsync(MenuWidget, builder => builder
-            .DisplayedAs("Menu Navigation Provider Widget")
+            .WithDisplayName("Menu Navigation Provider Widget")
             .WithDescription(
                 $"Renders a menu whose contents are populated from {nameof(INavigationProvider)} implementations " +
                 $"that look for the \"menu\" name (as opposed to admin menu navigation providers that use the " +
