@@ -83,7 +83,7 @@ This will add the required styles and scripts to the editor and display views of
 
 You can add a new language by registering a resource and including that in a ResourceFilter. It might be dependent on other languages, you can check the dependency by ticking your language [here](https://prismjs.com/download) and looking for other language selected automatically or by checking the language script directly. E.g.:
 
-```
+```csharp
 _manifest
 .DefineScript("LiquidLanguage")
 .SetUrl(
