@@ -37,7 +37,7 @@ public partial class TrumbowygResourceManagementOptionsConfiguration : IConfigur
             .DefineStyle(PrismLineHighlight)
             .SetUrl(
                 Vendors + "prismjs/plugins/line-highlight/prism-line-highlight.min.css",
-                Vendors + "prismjs/plugins/line-highlight/prism-line-highlight.min.css")
+                Vendors + "prismjs/plugins/line-highlight/prism-line-highlight.css")
             .SetVersion(LibManVersions.Prismjs);
 
         _manifest
@@ -66,8 +66,7 @@ public partial class TrumbowygResourceManagementOptionsConfiguration : IConfigur
 
         _manifest
             .DefineScript(TrumbowygHighlightExtension)
-            .SetUrl(
-                WwwRoot + "js/trumbowyg.highlight.extension.js")
+            .SetUrl(WwwRoot + "js/trumbowyg.highlight.extension.js")
             .SetDependencies("jQuery", "trumbowyg", Prism)
             .SetVersion("1.0.0");
     }

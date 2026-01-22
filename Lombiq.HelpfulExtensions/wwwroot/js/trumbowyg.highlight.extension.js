@@ -1,7 +1,5 @@
-/* This is a Trumbowyg script copy mostly, used as an extension to handle some stuff.
-* 1. If the language value is set to null in the config that language should not be shown.
-* 2. New line after the inserted <code><pre></pre></code> without breaking in case of Coy theme.
-* These changes can be found at "Change #" comments. */
+// This is a copy of the original Trumbowyg script with the same name, but with slight modifications to address some
+// issues, because Trumbowyg seems to be abandoned. Find those below marked with "Lombiq mod:" comments.
 
 /* globals Prism */
 (function ($, Prism) {
@@ -207,7 +205,7 @@
                 id: languageKey,
                 name: languageNames[languageKey]
             };
-        // Filter out languages with null name (Change #1).
+        // Lombiq mod: Don't show language names with null value to be able to filter out unnecessary duplicates.
         }).filter(function (language) {
             return language.name !== null;
         }).sort(function (a, b) {
@@ -255,7 +253,8 @@
                 $modal.on('tbwconfirm', function () {
                     trumbowyg.restoreRange();
 
-                    // Insert the highlighted code into the editor (Change #2).
+                    // Lombiq mod: Changing how the empty paragraph is inserted after a code block, which allows the user
+                    // to continue typing. Without this mod the Coy theme renders unnecessary styling below the code block.
                     trumbowyg.execCmd('insertHTML', highlightIt($code.val(), $language.val(), $lineHighlight.val()) + '<p><br></p>');
 
                     trumbowyg.closeModal();
