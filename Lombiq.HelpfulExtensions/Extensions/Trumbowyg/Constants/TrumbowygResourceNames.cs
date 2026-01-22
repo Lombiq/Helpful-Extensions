@@ -4,7 +4,7 @@ using System.Reflection;
 
 namespace Lombiq.HelpfulExtensions.Extensions.Trumbowyg.Constants;
 
-public static class ResourceNames
+public static class TrumbowygResourceNames
 {
     public const string Prism = nameof(Prism);
     public const string PrismCoyTheme = nameof(PrismCoyTheme);

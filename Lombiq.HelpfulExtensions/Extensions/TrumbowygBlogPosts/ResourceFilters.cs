@@ -1,6 +1,6 @@
 using Lombiq.HelpfulLibraries.OrchardCore.ResourceManagement;
 using static Lombiq.HelpfulExtensions.Extensions.Trumbowyg.Constants.PrismLanguageNames;
-using static Lombiq.HelpfulExtensions.Extensions.Trumbowyg.Constants.ResourceNames;
+using static Lombiq.HelpfulExtensions.Extensions.Trumbowyg.Constants.TrumbowygResourceNames;
 
 namespace Lombiq.HelpfulExtensions.Extensions.TrumbowygBlogPosts;
 
