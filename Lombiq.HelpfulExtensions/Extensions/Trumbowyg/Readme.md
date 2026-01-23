@@ -81,7 +81,7 @@ This will add the required styles and scripts to the editor and display views of
 - Regex
 - Powershell
 
-You can add a new language by registering a resource and including that in a ResourceFilter. It might be dependent on other languages, you can check the dependency by ticking your language [here](https://prismjs.com/download) and looking for other language selected automatically or by checking the language script directly. E.g.:
+You can add a new language by registering its script resource in a Resource Filter. Note that it might have dependencies you need to include, which you can find by inspecting the script, or checking which language gets automatically selected when you select your desired language in the [Prism JS download list](https://prismjs.com/download).
 
 ```csharp
 _manifest
@@ -92,7 +92,7 @@ _manifest
 .SetDependencies("markup-templating");
 ```
 
-You can use the Coy Prism theme by registering the `Lombiq.HelpfulExtensions.Extensions.Trumbowyg.Constants.ResourceNames.PrismCoyTheme` as a stylesheet. The same way as adding new languages you can use any other Prism theme by registering the appropriate resource.
+You can use any other Prism theme by registering their corresponding stylesheet, e.g. `Lombiq.HelpfulExtensions.Extensions.Trumbowyg.Constants.ResourceNames.PrismCoyTheme` for the Coy theme.
 
 <!-- textlint-disable doubled-spaces -->
 > [!TIP]
