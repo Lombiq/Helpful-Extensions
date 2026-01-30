@@ -12,7 +12,7 @@ internal static class GeneratedMigrationCodes
     private const string Page =
         """
         await _contentDefinitionManager.AlterTypeDefinitionAsync("Page", type => type
-            .DisplayedAs("Page")
+            .WithDisplayName("Page")
             .Creatable()
             .Listable()
             .Draftable()
