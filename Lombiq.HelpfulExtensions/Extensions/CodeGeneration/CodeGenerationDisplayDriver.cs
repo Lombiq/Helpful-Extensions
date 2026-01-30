@@ -40,7 +40,7 @@ public sealed class CodeGenerationDisplayDriver : ContentTypeDefinitionDisplayDr
                 codeBuilder.AppendLine(
                     CultureInfo.InvariantCulture,
                     $"await _contentDefinitionManager.AlterTypeDefinitionAsync(\"{name}\", type => type");
-                codeBuilder.AppendLine(CultureInfo.InvariantCulture, $"    .DisplayedAs(\"{model.DisplayName}\")");
+                codeBuilder.AppendLine(CultureInfo.InvariantCulture, $"    .WithDisplayName(\"{model.DisplayName}\")");
 
                 GenerateCodeForSettings(codeBuilder, model.GetSettings<ContentTypeSettings>());
                 AddSettingsWithout<ContentTypeSettings>(codeBuilder, model.Settings);
