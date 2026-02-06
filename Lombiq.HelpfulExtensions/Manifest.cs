@@ -49,7 +49,6 @@ using static Lombiq.HelpfulExtensions.FeatureIds;
     Description = "Adds helpful widgets such as Container or Liquid widgets.",
     Dependencies =
     [
-        "OrchardCore.DataLocalization", // Can be removed after https://github.com/OrchardCMS/OrchardCore/issues/18800 is resolved.
         "OrchardCore.Html",
         "OrchardCore.Liquid",
         "OrchardCore.Title",
