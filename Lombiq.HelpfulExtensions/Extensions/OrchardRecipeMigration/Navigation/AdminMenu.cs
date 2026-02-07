@@ -23,12 +23,11 @@ public sealed class AdminMenu : INavigationProvider
     {
         if (!name.EqualsOrdinalIgnoreCase("admin")) return ValueTask.CompletedTask;
 
-        builder.Add(T["Configuration"], configuration => configuration
-            .Add(T["Import/Export"], importExport => importExport
-                .Add(T["Orchard 1 Recipe Migration"], T["Orchard 1 Recipe Migration"], migration => migration
-                    .Action<OrchardRecipeMigrationAdminController>(_hca.HttpContext, controller => controller.Index())
-                    .LocalNav()
-                )));
+        builder.Add(T["Import/Export"], importExport => importExport
+            .Add(T["Orchard 1 Recipe Migration"], T["Orchard 1 Recipe Migration"], migration => migration
+                .Action<OrchardRecipeMigrationAdminController>(_hca.HttpContext, controller => controller.Index())
+                .LocalNav()
+            ));
 
         return ValueTask.CompletedTask;
     }
