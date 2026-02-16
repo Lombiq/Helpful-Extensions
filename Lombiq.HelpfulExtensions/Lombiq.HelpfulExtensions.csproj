@@ -32,18 +32,18 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.Web.LibraryManager.Build" Version="3.0.71" />
-    <PackageReference Include="OrchardCore.Autoroute" Version="3.0.0-preview-18908" />
-    <PackageReference Include="OrchardCore.ContentFields" Version="3.0.0-preview-18908" />
-    <PackageReference Include="OrchardCore.Contents" Version="3.0.0-preview-18908" />
-    <PackageReference Include="OrchardCore.Flows" Version="3.0.0-preview-18908" />
-    <PackageReference Include="OrchardCore.Html" Version="3.0.0-preview-18908" />
-    <PackageReference Include="OrchardCore.Lists" Version="3.0.0-preview-18908" />
-    <PackageReference Include="OrchardCore.Liquid" Version="3.0.0-preview-18908" />
-    <PackageReference Include="OrchardCore.Markdown" Version="3.0.0-preview-18908" />
-    <PackageReference Include="OrchardCore.MetaWeblog.Abstractions" Version="3.0.0-preview-18908" />
-    <PackageReference Include="OrchardCore.Module.Targets" Version="3.0.0-preview-18908" GeneratePathProperty="true" />
-    <PackageReference Include="OrchardCore.Rules.Abstractions" Version="3.0.0-preview-18908" />
-    <PackageReference Include="OrchardCore.Workflows" Version="3.0.0-preview-18908" />
+    <PackageReference Include="OrchardCore.Autoroute" Version="3.0.0-preview-18914" />
+    <PackageReference Include="OrchardCore.ContentFields" Version="3.0.0-preview-18914" />
+    <PackageReference Include="OrchardCore.Contents" Version="3.0.0-preview-18914" />
+    <PackageReference Include="OrchardCore.Flows" Version="3.0.0-preview-18914" />
+    <PackageReference Include="OrchardCore.Html" Version="3.0.0-preview-18914" />
+    <PackageReference Include="OrchardCore.Lists" Version="3.0.0-preview-18914" />
+    <PackageReference Include="OrchardCore.Liquid" Version="3.0.0-preview-18914" />
+    <PackageReference Include="OrchardCore.Markdown" Version="3.0.0-preview-18914" />
+    <PackageReference Include="OrchardCore.MetaWeblog.Abstractions" Version="3.0.0-preview-18914" />
+    <PackageReference Include="OrchardCore.Module.Targets" Version="3.0.0-preview-18914" GeneratePathProperty="true" />
+    <PackageReference Include="OrchardCore.Rules.Abstractions" Version="3.0.0-preview-18914" />
+    <PackageReference Include="OrchardCore.Workflows" Version="3.0.0-preview-18914" />
     <PackageReference Include="Scrutor" Version="7.0.0" />
   </ItemGroup>
 
