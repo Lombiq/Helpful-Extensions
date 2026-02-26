@@ -40,6 +40,7 @@ The module consists of the following independent extensions (all in their own fe
 - [Reset Password activity](Lombiq.HelpfulExtensions/Extensions/Workflows/Readme.md)
 - [Security Extensions](Lombiq.HelpfulExtensions/Extensions/Security/Readme.md)
 - [Shape Tracing Helpful Extensions](Lombiq.HelpfulExtensions/Extensions/ShapeTracing/Readme.md)
+- [Shortcode Extensions](Lombiq.HelpfulExtensions/Extensions/Shortcodes/Readme.md)
 - [Target blank](Lombiq.HelpfulExtensions/Extensions/TargetBlank/Readme.md)
 - [Trumbowyg code-snippet](Lombiq.HelpfulExtensions/Extensions/Trumbowyg/Readme.md)
 
