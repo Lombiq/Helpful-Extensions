@@ -1,0 +1,47 @@
+@model OrchardCore.ContentFields.ViewModels.EditTextFieldViewModel
+@using OrchardCore
+@using OrchardCore.ContentFields.Settings
+@using OrchardCore.ContentManagement.Metadata.Models
+@using static Lombiq.HelpfulExtensions.Constants.ResourceNames
+@{
+    var settings = Model.PartFieldDefinition.GetSettings<TextFieldSettings>();
+}
+
+<style asp-name="@LucideIconPicker" at="Head"></style>
+<script asp-name="@LucideIconPicker" at="Foot"></script>
+
+<div class="@Orchard.GetFieldWrapperClasses(Model.PartFieldDefinition)" id="@Html.IdFor(x => x.Text)_FieldWrapper">
+    <label asp-for="Text" class="@Orchard.GetLabelClasses(inputRequired: settings.Required)">@Model.PartFieldDefinition.DisplayName()</label>
+    <div class="@Orchard.GetEndClasses()">
+        <input type="hidden" asp-for="Text" data-lucide-value class="content-preview-text" />
+        <div class="lucide-icon-picker dropdown d-inline-block" data-lucide-icon-picker>
+            <div class="btn-group" role="group" aria-label="@T["Lucide icon picker"]">
+                <button
+                    type="button"
+                    class="btn btn-primary dropdown-toggle lucide-icon-picker__selected"
+                    data-bs-toggle="dropdown"
+                    data-bs-display="static"
+                    data-lucide-toggle
+                    aria-expanded="false"
+                    aria-label="@T["Open icon picker"]">
+                    <span class="lucide-icon-picker__preview" data-lucide-preview aria-hidden="true"></span>
+                    <span class="visually-hidden">@T["Open icon picker"]</span>
+                </button>
+                <div class="dropdown-menu p-3 shadow lucide-icon-picker__menu" data-lucide-menu>
+                    <div class="d-flex align-items-center gap-2 mb-2">
+                        <input type="search" class="form-control form-control-sm" placeholder="@T["Search icons..."]" data-lucide-search />
+                        <button type="button" class="btn btn-sm btn-outline-secondary" data-lucide-clear>@T["Clear"]</button>
+                    </div>
+                    <div class="lucide-icon-picker__grid" data-lucide-grid role="listbox" aria-label="@T["Lucide icons"]"></div>
+                    <p class="lucide-icon-picker__empty d-none m-0" data-lucide-empty>@T["No icons found."]</p>
+                </div>
+            </div>
+        </div>
+
+        <span asp-validation-for="Text"></span>
+        @if (!string.IsNullOrEmpty(settings.Hint))
+        {
+            <span class="hint">@settings.Hint</span>
+        }
+    </div>
+</div>
