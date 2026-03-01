@@ -57,8 +57,8 @@ public sealed class Migrations : DataMigration
             .DisplayedAs("Menu Navigation Provider Widget")
             .WithDescription(
                 $"Renders a menu whose contents are populated from {nameof(INavigationProvider)} implementations " +
-                $"that look for the \"menu\" name (as opposed to admin menu navigation providers that use the " +
-                $"\"admin\" name).")
+                "that look for the \"menu\" name (as opposed to admin menu navigation providers that use the " +
+                "\"admin\" name).")
         );
 
         await _contentDefinitionManager.AlterTypeDefinitionAsync(MarkdownWidget, builder => builder
@@ -146,8 +146,8 @@ public sealed class Migrations : DataMigration
             .DisplayedAs("Menu Navigation Provider Widget")
             .WithDescription(
                 $"Renders a menu whose contents are populated from {nameof(INavigationProvider)} implementations " +
-                $"that look for the \"menu\" name (as opposed to admin menu navigation providers that use the " +
-                $"\"admin\" name).")
+                "that look for the \"menu\" name (as opposed to admin menu navigation providers that use the " +
+                "\"admin\" name).")
         );
 
         return 6;

@@ -1,5 +1,6 @@
 using Lombiq.HelpfulLibraries.OrchardCore.ResourceManagement;
-using static Lombiq.HelpfulExtensions.Constants.ResourceNames;
+using static Lombiq.HelpfulExtensions.Extensions.Trumbowyg.Constants.PrismLanguageNames;
+using static Lombiq.HelpfulExtensions.Extensions.Trumbowyg.Constants.TrumbowygResourceNames;
 
 namespace Lombiq.HelpfulExtensions.Extensions.TrumbowygBlogPosts;
 
@@ -9,12 +10,22 @@ public class ResourceFilters : IResourceFilterProvider
     {
         const string BlogPost = "BlogPost";
 
-        builder.WhenContentType(BlogPost).RegisterStylesheet(Prism);
-        builder.WhenContentType(BlogPost).RegisterFootScript(Prism);
+        var resourceFilters = new[]
+            {
+                builder.WhenContentType(BlogPost),
+                builder.WhenContentTypeEditor(BlogPost),
+                builder.WhenContentTypeCreate(BlogPost),
+                builder.WhenContentTypePreview(BlogPost),
+            };
 
-        builder.WhenContentTypeEditor(BlogPost).RegisterFootScript(TrumbowygHighlight);
-        builder.WhenContentTypeEditor(BlogPost).RegisterStylesheet(TrumbowygHighlight);
-        builder.WhenContentTypeCreate(BlogPost).RegisterFootScript(TrumbowygHighlight);
-        builder.WhenContentTypeCreate(BlogPost).RegisterStylesheet(TrumbowygHighlight);
+        foreach (var resourceFilter in resourceFilters)
+        {
+            resourceFilter.RegisterStylesheet(Prism, PrismCoyTheme, PrismLineHighlight, TrumbowygHighlight);
+            resourceFilter.RegisterFootScript(Prism, PrismLineHighlight, TrumbowygHighlight, TrumbowygHighlightExtension);
+            foreach (var language in AllLanguage)
+            {
+                resourceFilter.RegisterFootScript(language);
+            }
+        }
     }
 }
