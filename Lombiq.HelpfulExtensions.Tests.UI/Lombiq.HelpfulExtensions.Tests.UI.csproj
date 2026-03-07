@@ -27,7 +27,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="OrchardCore.ContentManagement.Abstractions" Version="3.0.0-preview-18924">
+    <PackageReference Include="OrchardCore.ContentManagement.Abstractions" Version="3.0.0-preview-18937">
       <Aliases>OCCMA</Aliases>
     </PackageReference>
   </ItemGroup>
@@ -41,7 +41,7 @@
   </ItemGroup>
 
   <ItemGroup Condition="'$(NuGetBuild)' == 'true'">
-    <PackageReference Include="Lombiq.Tests.UI" Version="14.2.2-alpha.6.osoe-925" />
+    <PackageReference Include="Lombiq.Tests.UI" Version="14.2.2-alpha.7.osoe-925" />
   </ItemGroup>
 
 </Project>
