@@ -180,7 +180,7 @@ using static Lombiq.HelpfulExtensions.FeatureIds;
     Id = Lucide,
     Name = "Lombiq Helpful Extensions - Lucide",
     Category = "Content",
-    Description = "Adds Lucide icon library as a resource and a TextField editor for picking Lucide icons.",
+    Description = "Adds the Lucide icon library as a resource and a TextField editor for picking Lucide icons.",
     Dependencies =
     [
         "OrchardCore.ContentFields",
