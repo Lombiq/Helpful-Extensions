@@ -25,7 +25,9 @@ public static class LucideTestCaseUITestContextExtensions
         await context.ClickAndFillInWithRetriesAsync(By.CssSelector("[data-lucide-search]"), iconName);
         await context.ClickReliablyOnAsync(By.CssSelector($"[data-lucide-icon='{iconName}']"));
 
-        var selectedIcon = context.ExecuteScript("return document.querySelector(arguments[0])?.dataset.lucideIcon ?? '';", $"[data-lucide-icon='{iconName}'].active") as string;
+        var selectedIcon = context.ExecuteScript(
+            "return document.querySelector(arguments[0])?.dataset.lucideIcon ?? '';",
+            $"[data-lucide-icon='{iconName}'].active") as string;
         selectedIcon.ShouldBe(iconName);
         context.Get(By.CssSelector($"[data-lucide-preview] [data-lucide='{iconName}']"));
     }
