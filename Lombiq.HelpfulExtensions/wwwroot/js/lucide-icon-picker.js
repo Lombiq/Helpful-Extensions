@@ -74,13 +74,13 @@
         const hiddenInput = getHiddenInput(root);
 
         const optionsMarkup = iconEntries
-            .map(({ value }) => {
-                return '<button type="button" class="lucide-icon-picker__option" role="option" ' +
+            .map(({ value }) => (
+                '<button type="button" class="lucide-icon-picker__option" role="option" ' +
                     `data-lucide-icon="${value}" aria-label="${value}" aria-selected="false" title="${value}">` +
                     `<span class="lucide-icon-picker__icon" aria-hidden="true"><i data-lucide="${value}"></i></span>` +
                     `<span class="lucide-icon-picker__label">${value}</span>` +
-                    '</button>';
-            })
+                    '</button>'
+            ))
             .join('');
 
         grid.innerHTML = optionsMarkup;
