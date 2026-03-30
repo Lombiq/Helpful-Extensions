@@ -1,39 +1,22 @@
-<Project Sdk="Microsoft.NET.Sdk.Razor">
-
-  <Import Project="../../../Utilities/Lombiq.MSBuild.Targets/Lombiq.MSBuild.LibMan.Targets/Lombiq.MSBuild.LibMan.Targets.props"
-          Condition="'$(NuGetBuild)' != 'true'"/>
-
+<Project>
   <PropertyGroup>
     <TargetFramework>net10.0</TargetFramework>
-    <AddRazorSupportForMvc>true</AddRazorSupportForMvc>
-    <DefaultItemExcludes>$(DefaultItemExcludes);.git*</DefaultItemExcludes>
   </PropertyGroup>
+
+  <Import Condition="'$(NuGetBuild)' != 'true'" Project="../../../Utilities/Lombiq.MSBuild.Targets/Lombiq.MSBuild.OrchardCore.Module.Sdk/Sdk/Import.props" />
+  <Import Condition="'$(NuGetBuild)' == 'true'" Project="Sdk.props" Sdk="Lombiq.MSBuild.OrchardCore.Module.Sdk" Version="1.0.1-alpha.6.osoe-1208" />
 
   <PropertyGroup>
+    <IsLombiqProject>true</IsLombiqProject>
     <Title>Lombiq Helpful Extensions for Orchard Core</Title>
-    <Authors>Lombiq Technologies</Authors>
-    <Copyright>Copyright © 2013, Lombiq Technologies Ltd.</Copyright>
-    <Description>Lombiq Helpful Extensions for Orchard Core: Orchard Core module containing some handy extensions (e.g. useful content types and widgets). It's also available on all sites of DotNest, the Orchard SaaS. See the project website for detailed documentation.</Description>
-    <PackageIcon>NuGetIcon.png</PackageIcon>
+    <CopyrightYear>2013</CopyrightYear>
+    <DescriptionBody>Orchard Core module containing some handy extensions (e.g. useful content types and widgets). It's also available on all sites of DotNest, the Orchard SaaS. See the project website for detailed documentation.</DescriptionBody>
     <PackageTags>OrchardCore;Lombiq;AspNetCore;CodeGeneration;ShapeTracing;Widgets</PackageTags>
     <RepositoryUrl>https://github.com/Lombiq/Helpful-Extensions</RepositoryUrl>
-    <PackageProjectUrl>https://github.com/Lombiq/Helpful-Extensions</PackageProjectUrl>
-    <PackageLicenseExpression>BSD-3-Clause</PackageLicenseExpression>
   </PropertyGroup>
 
   <ItemGroup>
-    <None Include="..\Readme.md" />
-    <None Include="NuGetIcon.png" Pack="true" PackagePath="" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <FrameworkReference Include="Microsoft.AspNetCore.App" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <PackageReference Include="Microsoft.Web.LibraryManager.Build" Version="3.0.71" />
     <PackageReference Include="OrchardCore.Autoroute" Version="3.0.0-preview-18960" />
-    <PackageReference Include="OrchardCore.ContentFields" Version="3.0.0-preview-18960" />
     <PackageReference Include="OrchardCore.Contents" Version="3.0.0-preview-18960" />
     <PackageReference Include="OrchardCore.Flows" Version="3.0.0-preview-18960" />
     <PackageReference Include="OrchardCore.Html" Version="3.0.0-preview-18960" />
@@ -41,24 +24,11 @@
     <PackageReference Include="OrchardCore.Liquid" Version="3.0.0-preview-18960" />
     <PackageReference Include="OrchardCore.Markdown" Version="3.0.0-preview-18960" />
     <PackageReference Include="OrchardCore.MetaWeblog.Abstractions" Version="3.0.0-preview-18960" />
-    <PackageReference Include="OrchardCore.Module.Targets" Version="3.0.0-preview-18960" GeneratePathProperty="true" />
     <PackageReference Include="OrchardCore.Rules.Abstractions" Version="3.0.0-preview-18960" />
     <PackageReference Include="OrchardCore.Workflows" Version="3.0.0-preview-18960" />
     <PackageReference Include="Scrutor" Version="7.0.0" />
   </ItemGroup>
 
-  <ItemGroup Condition="'$(NuGetBuild)' != 'true'">
-    <ProjectReference Include="..\..\..\Libraries\Lombiq.HelpfulLibraries\Lombiq.HelpfulLibraries.OrchardCore\Lombiq.HelpfulLibraries.OrchardCore.csproj" />
-  </ItemGroup>
-
-  <ItemGroup Condition="'$(NuGetBuild)' == 'true'">
-    <PackageReference Include="Lombiq.HelpfulLibraries.OrchardCore" Version="12.6.1-alpha.5.osoe-925" />
-    <PackageReference Include="Lombiq.MSBuild.LibMan.Targets" Version="1.0.0-alpha.12.nest-643" />
-    <PackageReference Include="Lombiq.HelpfulLibraries.Attributes" Version="12.6.1-alpha.5.osoe-925" OutputItemType="Analyzer" ReferenceOutputAssembly="true" />
-    <PackageReference Include="Lombiq.HelpfulLibraries.SourceGenerators" Version="12.6.1-alpha.5.osoe-925" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
-  </ItemGroup>
-
-  <Import Project="../../../Utilities/Lombiq.MSBuild.Targets/Lombiq.MSBuild.LibMan.Targets/Lombiq.MSBuild.LibMan.Targets.targets"
-          Condition="'$(NuGetBuild)' != 'true'"/>
-
+  <Import Condition="'$(NuGetBuild)' != 'true'" Project="../../../Utilities/Lombiq.MSBuild.Targets/Lombiq.MSBuild.OrchardCore.Module.Sdk/Sdk/Import.targets" />
+  <Import Condition="'$(NuGetBuild)' == 'true'" Project="Sdk.targets" Sdk="Lombiq.MSBuild.OrchardCore.Module.Sdk" Version="1.0.1-alpha.6.osoe-1208" />
 </Project>
