@@ -9,4 +9,4 @@ on:
 jobs:
   validate-nuget-publish:
     name: Validate NuGet Publish
-    uses: Lombiq/GitHub-Actions/.github/workflows/validate-nuget-publish.yml@issue/OSOE-925
+    uses: Lombiq/GitHub-Actions/.github/workflows/validate-nuget-publish.yml@issue/OSOE-1199
