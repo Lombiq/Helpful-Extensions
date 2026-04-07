@@ -9,7 +9,7 @@
   <PropertyGroup>
     <Title>Lombiq Helpful Extensions for Orchard Core</Title>
     <CopyrightYear>2013</CopyrightYear>
-    <DescriptionBody>Orchard Core module containing some handy extensions (e.g. useful content types and widgets). It's also available on all sites of DotNest, the Orchard SaaS. See the project website for detailed documentation.</DescriptionBody>
+    <DescriptionBody>Orchard Core module containing some handy extensions (e.g. useful content types and widgets). It's also available on all sites of DotNest, the Orchard SaaS.</DescriptionBody>
     <PackageTags>OrchardCore;Lombiq;AspNetCore;CodeGeneration;ShapeTracing;Widgets</PackageTags>
     <RepositoryUrl>https://github.com/Lombiq/Helpful-Extensions</RepositoryUrl>
   </PropertyGroup>

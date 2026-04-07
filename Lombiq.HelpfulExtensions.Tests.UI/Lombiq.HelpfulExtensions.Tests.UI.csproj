@@ -10,7 +10,7 @@
     <Title>Lombiq Helpful Extensions for Orchard Core - UI Test Extensions</Title>
     <Authors>Lombiq Technologies</Authors>
     <CopyrightYear>2013</CopyrightYear>
-    <DescriptionBody>Extension methods that test various features in Lombiq Helpful Extensions for Orchard Core. See the project website for detailed documentation.</DescriptionBody>
+    <DescriptionBody>Extension methods that test various features in Lombiq Helpful Extensions for Orchard Core.</DescriptionBody>
     <PackageTags>OrchardCore;Lombiq;AspNetCore;CodeGeneration;ShapeTracing;Widgets</PackageTags>
     <RepositoryUrl>https://github.com/Lombiq/Helpful-Extensions</RepositoryUrl>
     <PackageProjectUrl>https://github.com/Lombiq/Helpful-Extensions/tree/dev/Lombiq.HelpfulExtensions.Tests.UI</PackageProjectUrl>
