@@ -1,0 +1,55 @@
+{
+  "name": "Lombiq.HelpfulExtensions.Tests.UI.Lucide.Tests",
+  "displayName": "Lombiq Helpful Extensions - Lucide test recipe",
+  "description": "Creates a simple content type for testing the Lucide icon picker editor.",
+  "author": "Lombiq Technologies",
+  "website": "https://github.com/Lombiq/Helpful-Extensions",
+  "version": "1.0",
+  "issetuprecipe": false,
+  "categories": [],
+  "tags": [],
+  "steps": [
+    {
+      "name": "ContentDefinition",
+      "ContentTypes": [
+        {
+          "Name": "LucidePickerTest",
+          "DisplayName": "Lucide Picker Test",
+          "Settings": {
+            "ContentTypeSettings": {
+              "Creatable": true,
+              "Listable": true,
+              "Draftable": true,
+              "Versionable": true
+            }
+          },
+          "ContentTypePartDefinitionRecords": [
+            {
+              "PartName": "LucidePickerTest",
+              "Name": "LucidePickerTest",
+              "Settings": {}
+            }
+          ]
+        }
+      ],
+      "ContentParts": [
+        {
+          "Name": "LucidePickerTest",
+          "Settings": {},
+          "ContentPartFieldDefinitionRecords": [
+            {
+              "FieldName": "TextField",
+              "Name": "Icon",
+              "Settings": {
+                "ContentPartFieldSettings": {
+                  "DisplayName": "Icon",
+                  "Editor": "LucideIconPicker"
+                }
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
