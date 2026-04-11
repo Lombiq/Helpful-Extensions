@@ -25,10 +25,10 @@ public class ContentLocalizationSiteTextService : SiteTextServiceBase
         var part = await GetSiteTextMarkdownBodyPartByIdAsync(contentItemId);
         var culture = CultureInfo.CurrentCulture.Name;
 
-        if (part.GetOrCreate<LocalizationPart>() is { Culture: { } partCulture, LocalizationSet: { } localizationSet } &&
+        if (part.GetMaybe<LocalizationPart>() is { Culture: { } partCulture, LocalizationSet: { } localizationSet } &&
             partCulture != culture &&
             await _contentLocalizationManager.GetContentItemAsync(localizationSet, culture) is { } contentItem &&
-            contentItem.GetOrCreate<MarkdownBodyPart>() is { } localizedPart)
+            contentItem.TryGet<MarkdownBodyPart>(out var localizedPart))
         {
             part = localizedPart;
         }

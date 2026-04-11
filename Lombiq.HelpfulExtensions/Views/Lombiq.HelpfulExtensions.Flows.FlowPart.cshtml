@@ -11,14 +11,11 @@
     {
         var widgetContent = await ContentItemDisplayManager.BuildDisplayAsync(
             widget, Model.BuildPartDisplayContext.Updater, Model.BuildPartDisplayContext.DisplayType, Model.BuildPartDisplayContext.GroupId);
-        var flowMetadata = widget.GetOrCreate<FlowMetadata>();
 
-        if (flowMetadata != null)
+        if (widget.TryGet<FlowMetadata>(out var flowMetadata))
         {
-            var additionalStyling = widget.GetOrCreate<AdditionalStylingPart>();
-
-            bool removeGridExtensionClasses = false;
-            if (additionalStyling != null)
+            var removeGridExtensionClasses = false;
+            if (widget.TryGet<AdditionalStylingPart>(out var additionalStyling))
             {
 
                 if (!string.IsNullOrEmpty(additionalStyling.CustomClasses))

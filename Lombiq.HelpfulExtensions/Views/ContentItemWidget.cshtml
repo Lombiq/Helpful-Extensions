@@ -8,9 +8,9 @@
 @inject IUpdateModelAccessor UpdateModelAccessor
 
 @{
-    if ((Model.ContentItem as ContentItem)?.GetOrCreate<ContentItemWidget>() is not { } part) { return; }
+    if ((Model.ContentItem as ContentItem)?.TryGet<ContentItemWidget>(out var part) != true) { return; }
 
-    var ids = part.ContentToDisplay?.ContentItemIds ?? Array.Empty<string>();
+    var ids = part.ContentToDisplay?.ContentItemIds ?? [];
     var contentItems = await ContentManager.GetAsync(ids);
     
     var updater = UpdateModelAccessor.ModelUpdater;

@@ -17,12 +17,7 @@ public sealed class AdditionalStylingPartDisplay : ContentDisplayDriver
 
     public override async Task<IDisplayResult> UpdateAsync(ContentItem model, UpdateEditorContext context)
     {
-        var additionalStylingPart = model.GetOrCreate<AdditionalStylingPart>();
-
-        if (additionalStylingPart == null)
-        {
-            return null;
-        }
+        if (!model.Has<AdditionalStylingPart>()) return null;
 
         await model.AlterAsync<AdditionalStylingPart>(model => context.Updater.TryUpdateModelAsync(model, Prefix));
 
@@ -31,12 +26,8 @@ public sealed class AdditionalStylingPartDisplay : ContentDisplayDriver
 
     private static void PopulateViewModel(ContentItem model, AdditionalStylingPart viewModel)
     {
-        var additionalStylingPart = model.GetOrCreate<AdditionalStylingPart>();
-
-        if (additionalStylingPart != null)
-        {
-            viewModel.CustomClasses = additionalStylingPart.CustomClasses;
-            viewModel.RemoveGridExtensionClasses = additionalStylingPart.RemoveGridExtensionClasses;
-        }
+        if (!model.TryGet<AdditionalStylingPart>(out var additionalStylingPart)) return;
+        viewModel.CustomClasses = additionalStylingPart.CustomClasses;
+        viewModel.RemoveGridExtensionClasses = additionalStylingPart.RemoveGridExtensionClasses;
     }
 }
