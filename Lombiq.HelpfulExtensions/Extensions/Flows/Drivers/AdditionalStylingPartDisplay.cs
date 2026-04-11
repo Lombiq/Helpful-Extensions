@@ -17,7 +17,7 @@ public sealed class AdditionalStylingPartDisplay : ContentDisplayDriver
 
     public override async Task<IDisplayResult> UpdateAsync(ContentItem model, UpdateEditorContext context)
     {
-        var additionalStylingPart = model.As<AdditionalStylingPart>();
+        var additionalStylingPart = model.GetOrCreate<AdditionalStylingPart>();
 
         if (additionalStylingPart == null)
         {
@@ -31,7 +31,7 @@ public sealed class AdditionalStylingPartDisplay : ContentDisplayDriver
 
     private static void PopulateViewModel(ContentItem model, AdditionalStylingPart viewModel)
     {
-        var additionalStylingPart = model.As<AdditionalStylingPart>();
+        var additionalStylingPart = model.GetOrCreate<AdditionalStylingPart>();
 
         if (additionalStylingPart != null)
         {

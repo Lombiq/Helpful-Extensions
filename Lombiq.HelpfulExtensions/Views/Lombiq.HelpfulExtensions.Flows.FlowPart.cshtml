@@ -11,11 +11,11 @@
     {
         var widgetContent = await ContentItemDisplayManager.BuildDisplayAsync(
             widget, Model.BuildPartDisplayContext.Updater, Model.BuildPartDisplayContext.DisplayType, Model.BuildPartDisplayContext.GroupId);
-        var flowMetadata = widget.As<FlowMetadata>();
+        var flowMetadata = widget.GetOrCreate<FlowMetadata>();
 
         if (flowMetadata != null)
         {
-            var additionalStyling = widget.As<AdditionalStylingPart>();
+            var additionalStyling = widget.GetOrCreate<AdditionalStylingPart>();
 
             bool removeGridExtensionClasses = false;
             if (additionalStyling != null)
