@@ -51,7 +51,7 @@ public abstract class SiteTextServiceBase : ISiteTextService
             throw new InvalidOperationException($"A content with the ID \"{contentItemId}\" does not exist.");
         }
 
-        if (contentItem.As<MarkdownBodyPart>() is not { } part)
+        if (!contentItem.TryGet<MarkdownBodyPart>(out var part))
         {
             throw new InvalidOperationException(
                 $"A content with the ID \"{contentItemId}\" does not have a {nameof(MarkdownBodyPart)}.");

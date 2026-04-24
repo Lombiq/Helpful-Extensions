@@ -9,6 +9,10 @@
     {
       "library": "trumbowyg@2.31.0",
       "files": [ "dist/**/*", "plugins/**/*" ]
+    },
+    {
+      "library": "lucide@0.542.0",
+      "files": [ "dist/umd/lucide.js", "dist/umd/lucide.min.js" ]
     }
   ]
 }

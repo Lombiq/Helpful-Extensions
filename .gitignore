@@ -4,7 +4,8 @@
 obj/
 bin/
 artifacts/
-wwwroot/
+# Ignore generated vendor assets, keep custom wwwroot source files trackable.
+Lombiq.HelpfulExtensions/wwwroot/vendors/*
 node_modules/
 *.user
 .pnpm-debug.log

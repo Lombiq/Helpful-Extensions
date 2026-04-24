@@ -18,18 +18,19 @@ public class ListPartOrchardExportConverter : IOrchardExportConverter
     public Task UpdateContentItemsAsync(XDocument document, IList<ContentItem> contentItems)
     {
         var itemsById = contentItems
-            .Where(item => !string.IsNullOrEmpty(item.As<OrchardIds>()?.ExportId))
-            .ToDictionary(item => item.As<OrchardIds>().ExportId);
+            .SelectWhere(
+                item => (Item: item, Ids: item.GetOrCreate<OrchardIds>()),
+                pair => !string.IsNullOrEmpty(pair.Ids.ExportId) && !string.IsNullOrEmpty(pair.Ids.Parent))
+            .ToDictionary(item => item.Ids.ExportId);
 
-        foreach (var item in itemsById.Values.Where(item => !string.IsNullOrEmpty(item.As<OrchardIds>().Parent)))
+        foreach (var (item, ids) in itemsById.Values)
         {
-            var parentId = item.As<OrchardIds>().Parent;
-            if (!itemsById.TryGetValue(parentId, out var parent) || !parent.Has<ListPart>()) continue;
+            if (!itemsById.TryGetValue(ids.Parent, out var parentPair) || !parentPair.Item.Has<ListPart>()) continue;
 
             item.Alter<ContainedPart>(part =>
             {
-                part.ListContentItemId = parent.ContentItemId;
-                part.ListContentType = parent.ContentType;
+                part.ListContentItemId = parentPair.Item.ContentItemId;
+                part.ListContentType = parentPair.Item.ContentType;
             });
         }
 
