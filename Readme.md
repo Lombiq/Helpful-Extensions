@@ -36,6 +36,7 @@ The module consists of the following independent extensions (all in their own fe
 - [Google Tag](Lombiq.HelpfulExtensions/Extensions/GoogleTag/Readme.md)
 - [Helpful Content Types](Lombiq.HelpfulExtensions/Extensions/ContentTypes/Readme.md)
 - [Helpful Widgets](Lombiq.HelpfulExtensions/Extensions/Widgets/Readme.md)
+- [Lucide](Lombiq.HelpfulExtensions/Extensions/Lucide/Readme.md)
 - [Orchard 1 Recipe Migration](Lombiq.HelpfulExtensions/Extensions/OrchardRecipeMigration/Readme.md)
 - [Reset Password activity](Lombiq.HelpfulExtensions/Extensions/Workflows/Readme.md)
 - [Security Extensions](Lombiq.HelpfulExtensions/Extensions/Security/Readme.md)

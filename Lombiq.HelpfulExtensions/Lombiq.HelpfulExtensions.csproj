@@ -4,30 +4,30 @@
   </PropertyGroup>
 
   <Import Condition="'$(NuGetBuild)' != 'true'" Project="../../../Utilities/Lombiq.MSBuild.Targets/Lombiq.MSBuild.OrchardCore.Module.Sdk/Sdk/Import.props" />
-  <Import Condition="'$(NuGetBuild)' == 'true'" Project="Sdk.props" Sdk="Lombiq.MSBuild.OrchardCore.Module.Sdk" Version="1.0.1-alpha.7.osoe-1208" />
+  <Import Condition="'$(NuGetBuild)' == 'true'" Project="Sdk.props" Sdk="Lombiq.MSBuild.OrchardCore.Module.Sdk" Version="1.0.1-alpha.10.osoe-1208" />
 
   <PropertyGroup>
     <Title>Lombiq Helpful Extensions for Orchard Core</Title>
     <CopyrightYear>2013</CopyrightYear>
-    <DescriptionBody>Orchard Core module containing some handy extensions (e.g. useful content types and widgets). It's also available on all sites of DotNest, the Orchard SaaS. See the project website for detailed documentation.</DescriptionBody>
+    <DescriptionBody>Orchard Core module containing some handy extensions (e.g. useful content types and widgets). It's also available on all sites of DotNest, the Orchard SaaS.</DescriptionBody>
     <PackageTags>OrchardCore;Lombiq;AspNetCore;CodeGeneration;ShapeTracing;Widgets</PackageTags>
     <RepositoryUrl>https://github.com/Lombiq/Helpful-Extensions</RepositoryUrl>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="OrchardCore.Autoroute" Version="3.0.0-preview-18960" />
-    <PackageReference Include="OrchardCore.Contents" Version="3.0.0-preview-18960" />
-    <PackageReference Include="OrchardCore.Flows" Version="3.0.0-preview-18960" />
-    <PackageReference Include="OrchardCore.Html" Version="3.0.0-preview-18960" />
-    <PackageReference Include="OrchardCore.Lists" Version="3.0.0-preview-18960" />
-    <PackageReference Include="OrchardCore.Liquid" Version="3.0.0-preview-18960" />
-    <PackageReference Include="OrchardCore.Markdown" Version="3.0.0-preview-18960" />
-    <PackageReference Include="OrchardCore.MetaWeblog.Abstractions" Version="3.0.0-preview-18960" />
-    <PackageReference Include="OrchardCore.Rules.Abstractions" Version="3.0.0-preview-18960" />
-    <PackageReference Include="OrchardCore.Workflows" Version="3.0.0-preview-18960" />
+    <PackageReference Include="OrchardCore.Autoroute" Version="3.0.0-preview-18975" />
+    <PackageReference Include="OrchardCore.Contents" Version="3.0.0-preview-18975" />
+    <PackageReference Include="OrchardCore.Flows" Version="3.0.0-preview-18975" />
+    <PackageReference Include="OrchardCore.Html" Version="3.0.0-preview-18975" />
+    <PackageReference Include="OrchardCore.Lists" Version="3.0.0-preview-18975" />
+    <PackageReference Include="OrchardCore.Liquid" Version="3.0.0-preview-18975" />
+    <PackageReference Include="OrchardCore.Markdown" Version="3.0.0-preview-18975" />
+    <PackageReference Include="OrchardCore.MetaWeblog.Abstractions" Version="3.0.0-preview-18975" />
+    <PackageReference Include="OrchardCore.Rules.Abstractions" Version="3.0.0-preview-18975" />
+    <PackageReference Include="OrchardCore.Workflows" Version="3.0.0-preview-18975" />
     <PackageReference Include="Scrutor" Version="7.0.0" />
   </ItemGroup>
 
   <Import Condition="'$(NuGetBuild)' != 'true'" Project="../../../Utilities/Lombiq.MSBuild.Targets/Lombiq.MSBuild.OrchardCore.Module.Sdk/Sdk/Import.targets" />
-  <Import Condition="'$(NuGetBuild)' == 'true'" Project="Sdk.targets" Sdk="Lombiq.MSBuild.OrchardCore.Module.Sdk" Version="1.0.1-alpha.7.osoe-1208" />
+  <Import Condition="'$(NuGetBuild)' == 'true'" Project="Sdk.targets" Sdk="Lombiq.MSBuild.OrchardCore.Module.Sdk" Version="1.0.1-alpha.10.osoe-1208" />
 </Project>

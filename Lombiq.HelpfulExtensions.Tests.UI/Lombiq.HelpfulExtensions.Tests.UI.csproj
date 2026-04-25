@@ -4,13 +4,13 @@
   </PropertyGroup>
 
   <Import Condition="'$(NuGetBuild)' != 'true'" Project="../../../Utilities/Lombiq.MSBuild.Targets/Lombiq.MSBuild.OrchardCore.Tests.UI.Sdk/Sdk/Import.props" />
-  <Import Condition="'$(NuGetBuild)' == 'true'" Project="Sdk.props" Sdk="Lombiq.MSBuild.OrchardCore.Tests.UI.Sdk" Version="1.0.1-alpha.7.osoe-1208" />
+  <Import Condition="'$(NuGetBuild)' == 'true'" Project="Sdk.props" Sdk="Lombiq.MSBuild.OrchardCore.Tests.UI.Sdk" Version="1.0.1-alpha.10.osoe-1208" />
 
   <PropertyGroup>
     <Title>Lombiq Helpful Extensions for Orchard Core - UI Test Extensions</Title>
     <Authors>Lombiq Technologies</Authors>
     <CopyrightYear>2013</CopyrightYear>
-    <DescriptionBody>Extension methods that test various features in Lombiq Helpful Extensions for Orchard Core. See the project website for detailed documentation.</DescriptionBody>
+    <DescriptionBody>Extension methods that test various features in Lombiq Helpful Extensions for Orchard Core.</DescriptionBody>
     <PackageTags>OrchardCore;Lombiq;AspNetCore;CodeGeneration;ShapeTracing;Widgets</PackageTags>
     <RepositoryUrl>https://github.com/Lombiq/Helpful-Extensions</RepositoryUrl>
     <PackageProjectUrl>https://github.com/Lombiq/Helpful-Extensions/tree/dev/Lombiq.HelpfulExtensions.Tests.UI</PackageProjectUrl>
@@ -24,7 +24,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="OrchardCore.ContentManagement.Abstractions" Version="3.0.0-preview-18960">
+    <PackageReference Include="OrchardCore.ContentManagement.Abstractions" Version="3.0.0-preview-18975">
       <Aliases>OCCMA</Aliases>
     </PackageReference>
   </ItemGroup>
@@ -34,5 +34,5 @@
   </ItemGroup>
 
   <Import Condition="'$(NuGetBuild)' != 'true'" Project="../../../Utilities/Lombiq.MSBuild.Targets/Lombiq.MSBuild.OrchardCore.Tests.UI.Sdk/Sdk/Import.targets" />
-  <Import Condition="'$(NuGetBuild)' == 'true'" Project="Sdk.targets" Sdk="Lombiq.MSBuild.OrchardCore.Tests.UI.Sdk" Version="1.0.1-alpha.7.osoe-1208" />
+  <Import Condition="'$(NuGetBuild)' == 'true'" Project="Sdk.targets" Sdk="Lombiq.MSBuild.OrchardCore.Tests.UI.Sdk" Version="1.0.1-alpha.10.osoe-1208" />
 </Project>
