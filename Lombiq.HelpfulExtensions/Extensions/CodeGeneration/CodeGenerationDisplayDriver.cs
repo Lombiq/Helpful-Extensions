@@ -176,7 +176,9 @@ public sealed class CodeGenerationDisplayDriver : ContentTypeDefinitionDisplayDr
     {
         var braceIndentation = new string(' ', indentationDepth);
         var propertyIndentation = new string(' ', indentationDepth + IndentationDepth);
-        if (jsonObject["name"] is { } name && jsonObject["value"] is { } value)
+        var nameNode = jsonObject["name"];
+        var valueNode = jsonObject["value"];
+        if (nameNode is { } name && valueNode is { } value)
         {
             var objectCodeBuilder = new StringBuilder();
             objectCodeBuilder.AppendLine(CultureInfo.InvariantCulture, $"{braceIndentation}new ListValueOption");
