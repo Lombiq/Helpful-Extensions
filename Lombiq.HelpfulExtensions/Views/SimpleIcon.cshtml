@@ -1,0 +1,17 @@
+@using OrchardCore.Mvc.Utilities
+
+@{
+    var source = $"{Model.Source}".Trim();
+    if (string.IsNullOrEmpty(source))
+    {
+        return;
+    }
+
+    var size = Model.Size is int modelSize ? modelSize : 24;
+    var title = $"{Model.Source}".Trim();
+}
+
+<svg class="@Model.SvgClasses" viewBox="0 0 @size @size" aria-hidden="true">
+    <title>@T["{0} Icon", string.IsNullOrEmpty(title) ? title : source.ToPascalCase('-')]</title>
+    <use href="@Href($"~/Lombiq.HelpfulExtensions/vendors/simple-icons/{source}.svg")"></use>
+</svg>
