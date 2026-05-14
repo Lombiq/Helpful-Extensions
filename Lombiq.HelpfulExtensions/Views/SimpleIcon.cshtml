@@ -1,17 +1,22 @@
-@using OrchardCore.Mvc.Utilities
+@model OrchardCore.DisplayManagement.IShape
+
+@using Lombiq.HelpfulExtensions.Extensions.SimpleIcons
 
 @{
-    var source = $"{Model.Source}".Trim();
-    if (string.IsNullOrEmpty(source))
+    var viewModel = SimpleIconViewModel.FromShape(Model);
+    if (string.IsNullOrEmpty(viewModel.Source))
     {
         return;
     }
 
-    var size = Model.Size is int modelSize ? modelSize : 24;
-    var title = $"{Model.Source}".Trim();
+    var source = viewModel.Source.EndsWith(".svg")
+        ? viewModel.Source
+        : Href($"~/Lombiq.HelpfulExtensions/vendors/simple-icons/icons/{viewModel.Source}.svg");
 }
 
-<svg class="@Model.SvgClasses" viewBox="0 0 @size @size" aria-hidden="true">
-    <title>@T["{0} Icon", string.IsNullOrEmpty(title) ? title : source.ToPascalCase('-')]</title>
-    <use href="@Href($"~/Lombiq.HelpfulExtensions/vendors/simple-icons/{source}.svg")"></use>
-</svg>
+<img class="@viewModel.IconClasses" src="@source" alt="@viewModel.Title" title="@viewModel.Title" />
+
+@if (viewModel.ShowLabel)
+{
+    <span class="@viewModel.LabelClasses">@viewModel.Title</span>
+}
