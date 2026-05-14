@@ -11,7 +11,7 @@
       "files": [ "dist/**/*", "plugins/**/*" ]
     },
     {
-  "library": "lucide@1.8.0",
+  "library": "lucide@1.14.0",
       "files": [ "dist/umd/lucide.js", "dist/umd/lucide.min.js" ]
     }
   ]
