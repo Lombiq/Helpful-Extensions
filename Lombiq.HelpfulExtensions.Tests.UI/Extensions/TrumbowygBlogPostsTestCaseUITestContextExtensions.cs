@@ -22,7 +22,9 @@ public static class TrumbowygBlogPostsTestCaseUITestContextExtensions
 
         await context.SignInDirectlyAndGoToDashboardAsync();
 
-        await context.ClickReliablyOnByLinkTextAsync("Blog");
+        await context.GoToContentItemListAsync("Blog");
+        await context.ClickReliablyOnAsync(By.ClassName("view"));
+        context.SwitchToLastWindow();
         await context.ClickReliablyOnByLinkTextAsync("Man must explore, and this is exploration at its greatest");
 
         await context.ClickReliablyOnAsync(By.ClassName("trumbowyg-highlight-button"));
