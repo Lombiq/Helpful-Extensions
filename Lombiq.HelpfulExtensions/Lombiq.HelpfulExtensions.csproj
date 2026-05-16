@@ -15,16 +15,16 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="OrchardCore.Autoroute" Version="3.0.0-preview-18991" />
-    <PackageReference Include="OrchardCore.Contents" Version="3.0.0-preview-18991" />
-    <PackageReference Include="OrchardCore.Flows" Version="3.0.0-preview-18991" />
-    <PackageReference Include="OrchardCore.Html" Version="3.0.0-preview-18991" />
-    <PackageReference Include="OrchardCore.Lists" Version="3.0.0-preview-18991" />
-    <PackageReference Include="OrchardCore.Liquid" Version="3.0.0-preview-18991" />
-    <PackageReference Include="OrchardCore.Markdown" Version="3.0.0-preview-18991" />
-    <PackageReference Include="OrchardCore.MetaWeblog.Abstractions" Version="3.0.0-preview-18991" />
-    <PackageReference Include="OrchardCore.Rules.Abstractions" Version="3.0.0-preview-18991" />
-    <PackageReference Include="OrchardCore.Workflows" Version="3.0.0-preview-18991" />
+    <PackageReference Include="OrchardCore.Autoroute" Version="3.0.0-preview-19009" />
+    <PackageReference Include="OrchardCore.Contents" Version="3.0.0-preview-19009" />
+    <PackageReference Include="OrchardCore.Flows" Version="3.0.0-preview-19009" />
+    <PackageReference Include="OrchardCore.Html" Version="3.0.0-preview-19009" />
+    <PackageReference Include="OrchardCore.Lists" Version="3.0.0-preview-19009" />
+    <PackageReference Include="OrchardCore.Liquid" Version="3.0.0-preview-19009" />
+    <PackageReference Include="OrchardCore.Markdown" Version="3.0.0-preview-19009" />
+    <PackageReference Include="OrchardCore.MetaWeblog.Abstractions" Version="3.0.0-preview-19009" />
+    <PackageReference Include="OrchardCore.Rules.Abstractions" Version="3.0.0-preview-19009" />
+    <PackageReference Include="OrchardCore.Workflows" Version="3.0.0-preview-19009" />
     <PackageReference Include="Scrutor" Version="7.0.0" />
   </ItemGroup>
 
