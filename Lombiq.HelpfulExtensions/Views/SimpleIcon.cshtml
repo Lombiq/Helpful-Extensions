@@ -1,0 +1,22 @@
+@model OrchardCore.DisplayManagement.IShape
+
+@using Lombiq.HelpfulExtensions.Extensions.SimpleIcons
+
+@{
+    var viewModel = SimpleIconViewModel.FromShape(Model);
+    if (string.IsNullOrEmpty(viewModel.Source))
+    {
+        return;
+    }
+
+    var source = viewModel.Source.EndsWith(".svg")
+        ? viewModel.Source
+        : Href($"~/Lombiq.HelpfulExtensions/vendors/simple-icons/icons/{viewModel.Source}.svg");
+}
+
+<img class="@viewModel.IconClasses" src="@source" alt="@viewModel.Title" title="@viewModel.Title" />
+
+@if (viewModel.ShowLabel)
+{
+    <span class="@viewModel.LabelClasses">@viewModel.Title</span>
+}
