@@ -24,7 +24,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="OrchardCore.ContentManagement.Abstractions" Version="3.0.0-preview-19009">
+    <PackageReference Include="OrchardCore.ContentManagement.Abstractions" Version="3.0.0-preview-19023">
       <Aliases>OCCMA</Aliases>
     </PackageReference>
   </ItemGroup>
