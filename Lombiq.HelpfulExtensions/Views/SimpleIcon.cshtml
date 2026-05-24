@@ -2,6 +2,8 @@
 
 @using Lombiq.HelpfulExtensions.Extensions.SimpleIcons
 
+@inject IFileVersionProvider FileVersionProvider
+
 @{
     var viewModel = SimpleIconViewModel.FromShape(Model);
     if (string.IsNullOrEmpty(viewModel.Source))
@@ -14,7 +16,12 @@
         : Href($"~/Lombiq.HelpfulExtensions/vendors/simple-icons/icons/{viewModel.Source}.svg");
 }
 
-<img class="@viewModel.IconClasses" src="@source" alt="@viewModel.Title" title="@viewModel.Title" />
+<img class="@viewModel.IconClasses"
+     src="@FileVersionProvider.AddFileVersionToPath(Orchard.HttpContext.Request.PathBase, source)"
+     alt="@viewModel.Title"
+     title="@viewModel.Title"
+     width="@viewModel.Size"
+     height="@viewModel.Size" />
 
 @if (viewModel.ShowLabel)
 {
