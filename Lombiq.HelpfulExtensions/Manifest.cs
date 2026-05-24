@@ -187,3 +187,14 @@ using static Lombiq.HelpfulExtensions.FeatureIds;
         "OrchardCore.Resources",
     ]
 )]
+
+[assembly: Feature(
+    Id = SimpleIcons,
+    Name = "Lombiq Helpful Extensions - Simple Icons",
+    Category = "Content",
+    Description = "Adds the Simple Icons icon library as a resource and the <simple-icon> tag helper.",
+    Dependencies =
+    [
+        "OrchardCore.DisplayManagement",
+    ]
+)]
