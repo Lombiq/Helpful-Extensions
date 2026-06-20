@@ -2,6 +2,7 @@ using Lombiq.HelpfulExtensions.Extensions.Liquid.Services;
 using Microsoft.Extensions.DependencyInjection;
 using OrchardCore.Liquid;
 using OrchardCore.Modules;
+using OrchardCore.Workflows.Services;
 
 namespace Lombiq.HelpfulExtensions.Extensions.Liquid;
 
@@ -17,4 +18,11 @@ public sealed class Startup : StartupBase
         services.AddLiquidFilter<ShapesRenderFilter>("shapes_render");
         services.AddLiquidFilter<ShuffleFilter>("shuffle");
     }
+}
+
+[Feature("OrchardCore.Workflows")]
+public sealed class WorkflowStartup : StartupBase
+{
+    public override void ConfigureServices(IServiceCollection services) => 
+        services.AddScoped<IWorkflowExecutionContextHandler, LiquidViewTemplateWorkflowExecutionContextHandler>();
 }
