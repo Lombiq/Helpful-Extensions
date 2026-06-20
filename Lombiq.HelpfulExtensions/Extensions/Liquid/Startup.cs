@@ -23,6 +23,6 @@ public sealed class Startup : StartupBase
 [Feature("OrchardCore.Workflows")]
 public sealed class WorkflowStartup : StartupBase
 {
-    public override void ConfigureServices(IServiceCollection services) => 
+    public override void ConfigureServices(IServiceCollection services) =>
         services.AddScoped<IWorkflowExecutionContextHandler, LiquidViewTemplateWorkflowExecutionContextHandler>();
 }
