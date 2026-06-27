@@ -21,7 +21,7 @@
       ]
     },
     {
-      "library": "simple-icons@16.22.0",
+      "library": "simple-icons@16.23.0",
       "files": [
         "icons/*.svg"
       ]
