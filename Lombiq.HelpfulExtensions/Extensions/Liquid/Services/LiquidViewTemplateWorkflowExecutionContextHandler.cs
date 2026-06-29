@@ -21,7 +21,8 @@ using TimeZoneConverter;
 namespace Lombiq.HelpfulExtensions.Extensions.Liquid.Services;
 
 /// <summary>
-/// A workaround until the next Orchard Core release that contains https://github.com/OrchardCMS/OrchardCore/pull/19400/.
+/// A workaround that can be deleted after upgrading to the next Orchard Core release that contains
+/// https://github.com/OrchardCMS/OrchardCore/pull/19400/.
 /// </summary>
 public class LiquidViewTemplateWorkflowExecutionContextHandler : WorkflowExecutionContextHandlerBase
 {
