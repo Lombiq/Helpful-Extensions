@@ -19,10 +19,3 @@ public sealed class Startup : StartupBase
         services.AddLiquidFilter<ShuffleFilter>("shuffle");
     }
 }
-
-[Feature("OrchardCore.Workflows")]
-public sealed class WorkflowStartup : StartupBase
-{
-    public override void ConfigureServices(IServiceCollection services) =>
-        services.AddScoped<IWorkflowExecutionContextHandler, LiquidViewTemplateWorkflowExecutionContextHandler>();
-}
