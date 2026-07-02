@@ -31,7 +31,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.Web.LibraryManager.Build" Version="3.0.71" />
+    <PackageReference Include="Microsoft.Web.LibraryManager.Build" Version="3.0.114" />
     <PackageReference Include="OrchardCore.Autoroute" Version="2.1.0" />
     <PackageReference Include="OrchardCore.ContentFields" Version="2.1.0" />
     <PackageReference Include="OrchardCore.Contents" Version="2.1.0" />
