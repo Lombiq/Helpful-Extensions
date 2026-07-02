@@ -30,7 +30,7 @@ public class ContentSetManager : IContentSetManager
         _session = session;
     }
 
-    public Task<IEnumerable<ContentSetIndex>> GetIndexAsync(string setId) =>
+    public Task<IReadOnlyList<ContentSetIndex>> GetIndexAsync(string setId) =>
         _session.QueryIndex<ContentSetIndex>(index => index.ContentSet == setId).ListAsync();
 
     public async Task<IEnumerable<ContentItem>> GetContentItemsAsync(string setId) =>
