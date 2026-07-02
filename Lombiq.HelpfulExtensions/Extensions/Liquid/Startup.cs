@@ -2,7 +2,6 @@ using Lombiq.HelpfulExtensions.Extensions.Liquid.Services;
 using Microsoft.Extensions.DependencyInjection;
 using OrchardCore.Liquid;
 using OrchardCore.Modules;
-using OrchardCore.Workflows.Services;
 
 namespace Lombiq.HelpfulExtensions.Extensions.Liquid;
 
