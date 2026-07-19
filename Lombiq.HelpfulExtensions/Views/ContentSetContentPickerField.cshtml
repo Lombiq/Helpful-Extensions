@@ -25,7 +25,7 @@
     @for (var i = 0; i < links.Count; i++)
     {
         var link = links[i];
-        var url = Orchard.GetItemDisplayUrl(link.ContentItemId);
+        var url = await Orchard.GetItemDisplayUrlAsync(link.ContentItemId);
         var separator = i < (links.Count - 1) ? ", " : string.Empty;
         <span class="value"><a href="@url">@link.DisplayText</a></span>@separator
     }

@@ -27,8 +27,7 @@ public static class EmailSenderShellScopeExtensions
                 Bcc = parameters.Bcc?.Join(","),
                 Subject = parameters.Subject,
                 ReplyTo = parameters.ReplyTo,
-                Body = parameters.Body,
-                IsHtmlBody = true,
+                HtmlBody = parameters.Body,
             });
 
             if (!result.Succeeded)

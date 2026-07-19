@@ -10,9 +10,9 @@
 <style asp-name="@LucideIconPicker"></style>
 <script asp-name="@LucideIconPicker" at="Foot"></script>
 
-<div class="@Orchard.GetFieldWrapperClasses(Model.PartFieldDefinition)" id="@Html.IdFor(x => x.Text)_FieldWrapper">
-    <label asp-for="Text" class="@Orchard.GetLabelClasses(inputRequired: settings.Required)">@Model.PartFieldDefinition.DisplayName()</label>
-    <div class="@Orchard.GetEndClasses()">
+<div class="ocat-wrapper @Model.PartFieldDefinition" id="@Html.IdFor(x => x.Text)_FieldWrapper">
+    <label asp-for="Text" class="@Orchard.GetLabelClasses(settings)">@Model.PartFieldDefinition.DisplayName()</label>
+    <div class="ocat-end">
         <input type="hidden" asp-for="Text" data-lucide-value class="content-preview-text" />
         <div class="lucide-icon-picker dropdown d-inline-block" data-lucide-icon-picker>
             <div class="btn-group" role="group" aria-label="@T["Lucide icon picker"]">

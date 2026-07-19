@@ -1,4 +1,3 @@
-@using OrchardCore
 @using OrchardCore.ContentFields.Settings
 @using OrchardCore.ContentManagement.Metadata.Models
 @model OrchardCore.ContentFields.ViewModels.EditTextFieldViewModel
@@ -7,9 +6,9 @@
     var settings = Model.PartFieldDefinition.GetSettings<TextFieldSettings>();
 }
 
-<div class="@Orchard.GetFieldWrapperClasses(Model.PartFieldDefinition)" id="@Html.IdFor(x => x.Text)_FieldWrapper">
-    <label class="@Orchard.GetLabelClasses()">@Model.PartFieldDefinition.DisplayName()</label>
-    <div class="@Orchard.GetEndClasses()">
+<div class="ocat-wrapper @Model.PartFieldDefinition" id="@Html.IdFor(x => x.Text)_FieldWrapper">
+    <label class="ocat-label">@Model.PartFieldDefinition.DisplayName()</label>
+    <div class="ocat-end">
         <input hidden asp-for="Text" />
         <strong>@(Model.Text ?? T["<empty>"].Value)</strong>
         @if (!string.IsNullOrEmpty(settings.Hint))

@@ -23,8 +23,8 @@ public sealed class AdminMenu : INavigationProvider
     {
         if (!name.EqualsOrdinalIgnoreCase("admin")) return ValueTask.CompletedTask;
 
-        builder.Add(T["Configuration"], configuration => configuration
-            .Add(T["Import/Export"], importExport => importExport
+        builder.Add(T["Tools"], tools => tools
+            .Add(T["Deployments"], deployments => deployments
                 .Add(T["Orchard 1 Recipe Migration"], T["Orchard 1 Recipe Migration"], migration => migration
                     .Action<OrchardRecipeMigrationAdminController>(_hca.HttpContext, controller => controller.Index())
                     .LocalNav()

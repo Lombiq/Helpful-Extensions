@@ -14,7 +14,7 @@ public interface IContentSetManager
     /// <summary>
     /// Returns all <see cref="ContentSetIndex"/> entries for the content set with the given <paramref name="setId"/>.
     /// </summary>
-    Task<IEnumerable<ContentSetIndex>> GetIndexAsync(string setId);
+    Task<IReadOnlyList<ContentSetIndex>> GetIndexAsync(string setId);
 
     /// <summary>
     /// Returns all content items in a content set with the given <paramref name="setId"/>.

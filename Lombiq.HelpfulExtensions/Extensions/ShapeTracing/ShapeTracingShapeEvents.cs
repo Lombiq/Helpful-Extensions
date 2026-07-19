@@ -4,7 +4,6 @@ using Microsoft.AspNetCore.Mvc.Localization;
 using Microsoft.Extensions.Logging;
 using OrchardCore.DisplayManagement.Implementation;
 using OrchardCore.DisplayManagement.Shapes;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace Lombiq.HelpfulExtensions.Extensions.ShapeTracing;
@@ -51,12 +50,6 @@ internal sealed class ShapeTracingShapeEvents : IShapeDisplayEvents
         {
             builderShapeInfo.AppendHtml("Alternates: ");
             builderShapeInfo.AppendHtmlLine(string.Join(", ", shapeMetadata.Alternates));
-        }
-
-        if (shapeMetadata.BindingSources.Any())
-        {
-            builderShapeInfo.AppendHtml("Binding sources: ");
-            builderShapeInfo.AppendHtmlLine(string.Join(", ", shapeMetadata.BindingSources));
         }
 
         if (shapeMetadata.Wrappers.Count != 0)

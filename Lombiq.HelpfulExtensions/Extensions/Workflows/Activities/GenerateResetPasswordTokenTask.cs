@@ -79,7 +79,7 @@ public class GenerateResetPasswordTokenTask : TaskActivity
             _hca.HttpContext,
             "ResetPassword",
             "ResetPassword",
-            new { area = "OrchardCore.Users", code = user.ResetToken });
+            new { area = UserConstants.Features.Users, code = user.ResetToken });
 
         workflowContext.LastResult = new GenerateResetPasswordTokenResult
         {
