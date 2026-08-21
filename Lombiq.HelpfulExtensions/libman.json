@@ -14,14 +14,14 @@
       ]
     },
     {
-      "library": "lucide@1.27.0",
+      "library": "lucide@1.28.0",
       "files": [
         "dist/umd/lucide.js",
         "dist/umd/lucide.min.js"
       ]
     },
     {
-      "library": "simple-icons@16.27.1",
+      "library": "simple-icons@16.28.0",
       "files": [
         "icons/*.svg"
       ]
