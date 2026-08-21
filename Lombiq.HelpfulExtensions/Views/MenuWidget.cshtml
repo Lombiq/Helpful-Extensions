@@ -1,8 +1,8 @@
 @using Lombiq.HelpfulExtensions.Extensions.Widgets.Constants
 @using Lombiq.HelpfulExtensions.Extensions.Widgets.Models
-@using Lombiq.HelpfulLibraries.Common.Utilities;
 @using Microsoft.AspNetCore.Http.Extensions
 @using OrchardCore.Navigation
+@using System.Globalization
 <style asp-name="font-awesome"></style>
 
 @{
@@ -13,7 +13,7 @@
     const string togglerElementName = blockName + "__toggler";
     const string dropdownElementName = blockName + "__dropdown";
 
-    var contentIdName = StringHelper.CreateInvariant($"{contentElementName}_{Guid.NewGuid()}");
+    var contentIdName = string.Create(CultureInfo.InvariantCulture, $"{contentElementName}_{Guid.NewGuid()}");
 
     var baseUri = new Uri(Context.Request.GetDisplayUrl());
 
@@ -56,7 +56,7 @@
 
                     <li class="nav-item dropdown">
                         <shape type="MenuWidgetItem"
-                               prop-Id="@StringHelper.CreateInvariant($"{dropdownElementName}_{Guid.NewGuid()}")"
+                               prop-Id="@string.Create(CultureInfo.InvariantCulture, $"{dropdownElementName}_{Guid.NewGuid()}")"
                                prop-ViewModel="@viewModel"
                                prop-Item="@menuItem"
                                prop-SubMenuItems="@subMenuItems">
