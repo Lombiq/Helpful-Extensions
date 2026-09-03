@@ -14,7 +14,7 @@
       ]
     },
     {
-      "library": "lucide@1.28.0",
+      "library": "lucide@1.33.0",
       "files": [
         "dist/umd/lucide.js",
         "dist/umd/lucide.min.js"
