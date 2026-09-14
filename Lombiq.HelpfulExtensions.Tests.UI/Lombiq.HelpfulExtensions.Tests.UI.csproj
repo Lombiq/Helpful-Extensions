@@ -1,12 +1,12 @@
-<Project>
+﻿<Project>
   <PropertyGroup>
     <TargetFramework>net10.0</TargetFramework>
     <PackageVersionLombiqHelpfulLibraries>13.0.1-alpha.1.nest-671</PackageVersionLombiqHelpfulLibraries>
     <PackageVersionLombiqTestsUI>15.0.1-alpha.0.nest-671</PackageVersionLombiqTestsUI>
   </PropertyGroup>
 
-  <Import Condition="'$(NuGetBuild)' != 'true'" Project="../../../Utilities/Lombiq.MSBuild.Targets/Lombiq.MSBuild.OrchardCore.Tests.UI.Sdk/Sdk/Import.props" />
-  <Import Condition="'$(NuGetBuild)' == 'true'" Project="Sdk.props" Sdk="Lombiq.MSBuild.OrchardCore.Tests.UI.Sdk" Version="2.0.1" />
+  <Import Condition="'$(NuGetBuild)' != 'true'" Project="../../../Utilities/Lombiq.MSBuild.Targets/Lombiq.MSBuild.OrchardCore.Tests.UI.Library.Sdk/Sdk/Import.props" />
+  <Import Condition="'$(NuGetBuild)' == 'true'" Project="Sdk.props" Sdk="Lombiq.MSBuild.OrchardCore.Tests.UI.Library.Sdk" Version="2.1.1-alpha.3.osoe-1308" />
 
   <PropertyGroup>
     <Title>Lombiq Helpful Extensions for Orchard Core - UI Test Extensions</Title>
@@ -35,6 +35,6 @@
     <ProjectReference Include="..\Lombiq.HelpfulExtensions\Lombiq.HelpfulExtensions.csproj" />
   </ItemGroup>
 
-  <Import Condition="'$(NuGetBuild)' != 'true'" Project="../../../Utilities/Lombiq.MSBuild.Targets/Lombiq.MSBuild.OrchardCore.Tests.UI.Sdk/Sdk/Import.targets" />
-  <Import Condition="'$(NuGetBuild)' == 'true'" Project="Sdk.targets" Sdk="Lombiq.MSBuild.OrchardCore.Tests.UI.Sdk" Version="2.0.1" />
+  <Import Condition="'$(NuGetBuild)' != 'true'" Project="../../../Utilities/Lombiq.MSBuild.Targets/Lombiq.MSBuild.OrchardCore.Tests.UI.Library.Sdk/Sdk/Import.targets" />
+  <Import Condition="'$(NuGetBuild)' == 'true'" Project="Sdk.targets" Sdk="Lombiq.MSBuild.OrchardCore.Tests.UI.Library.Sdk" Version="2.1.1-alpha.3.osoe-1308" />
 </Project>
