@@ -161,9 +161,9 @@ public sealed class CodeGenerationDisplayDriver : ContentTypeDefinitionDisplayDr
             return "[]";
         }
 
-        var stringArrayCodeBuilder = new StringBuilder("new[]");
+        var stringArrayCodeBuilder = new StringBuilder();
         stringArrayCodeBuilder.AppendLine();
-        stringArrayCodeBuilder.AppendLine(CultureInfo.InvariantCulture, $"{indentation}{{");
+        stringArrayCodeBuilder.AppendLine(CultureInfo.InvariantCulture, $"{indentation}[");
 
         var itemIndentation = new string(' ', indentationDepth + (2 * IndentationDepth));
 
@@ -172,7 +172,7 @@ public sealed class CodeGenerationDisplayDriver : ContentTypeDefinitionDisplayDr
             stringArrayCodeBuilder.AppendLine(CultureInfo.InvariantCulture, $"{itemIndentation}{item},");
         }
 
-        stringArrayCodeBuilder.Append(CultureInfo.InvariantCulture, $"{indentation}}}");
+        stringArrayCodeBuilder.Append(CultureInfo.InvariantCulture, $"{indentation}]");
 
         return stringArrayCodeBuilder.ToString();
     }
