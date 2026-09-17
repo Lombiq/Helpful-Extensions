@@ -14,7 +14,7 @@
       ]
     },
     {
-      "library": "lucide@1.34.0",
+      "library": "lucide@1.39.0",
       "files": [
         "dist/umd/lucide.js",
         "dist/umd/lucide.min.js",
@@ -22,7 +22,7 @@
       ]
     },
     {
-      "library": "simple-icons@16.28.0",
+      "library": "simple-icons@16.29.0",
       "files": [
         "icons/*.svg"
       ]
