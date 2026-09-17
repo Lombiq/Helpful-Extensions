@@ -152,7 +152,7 @@ public sealed class CodeGenerationDisplayDriver : ContentTypeDefinitionDisplayDr
         if (items.Exists(item => item.ContainsOrdinalIgnoreCase(Environment.NewLine)))
         {
             var token = string.Join(string.Empty, items);
-            return $"new[]\n{indentation}{{\n{token}{indentation}}}";
+            return $"\n{indentation}[\n{token}{indentation}]";
         }
 
         // Otherwise, make sure that we have proper formatting for string arrays.
