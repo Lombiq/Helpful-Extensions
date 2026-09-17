@@ -156,6 +156,11 @@ public sealed class CodeGenerationDisplayDriver : ContentTypeDefinitionDisplayDr
         }
 
         // Otherwise, make sure that we have proper formatting for string arrays.
+        if (items.Count == 0)
+        {
+            return "[]";
+        }
+
         var stringArrayCodeBuilder = new StringBuilder("new[]");
         stringArrayCodeBuilder.AppendLine();
         stringArrayCodeBuilder.AppendLine(CultureInfo.InvariantCulture, $"{indentation}{{");
