@@ -248,7 +248,7 @@ public sealed class CodeGenerationDisplayDriver : ContentTypeDefinitionDisplayDr
 
     private void AddSettings(StringBuilder codeBuilder, JsonObject settings, string typeName, int indentationDepth = IndentationDepth)
     {
-        var indentation = new string(' ', indentationDepth + IndentationDepth);
+        var indentation = new string(' ', indentationDepth);
 
         codeBuilder.AppendLine(CultureInfo.InvariantCulture, $"{indentation}.WithSettings(new {typeName}");
         codeBuilder.AppendLine(indentation + "{");
