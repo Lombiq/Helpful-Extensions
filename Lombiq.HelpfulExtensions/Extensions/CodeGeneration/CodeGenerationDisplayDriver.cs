@@ -205,8 +205,6 @@ public sealed class CodeGenerationDisplayDriver : ContentTypeDefinitionDisplayDr
 
     private void AddSettingsWithout<T>(StringBuilder codeBuilder, JsonObject settings, int indentationDepth = IndentationDepth)
     {
-        var indentation = new string(' ', indentationDepth);
-
         var filteredSettings = settings
             .Where(pair => pair.Key != typeof(T).Name && pair.Value is JsonObject)
             .Select(pair => (pair.Key, (JsonObject)pair.Value));
@@ -215,31 +213,54 @@ public sealed class CodeGenerationDisplayDriver : ContentTypeDefinitionDisplayDr
         {
             if (properties.Count == 0) continue;
 
-            codeBuilder.AppendLine(CultureInfo.InvariantCulture, $"{indentation}.WithSettings(new {typeName}");
-            codeBuilder.AppendLine(indentation + "{");
-
-            foreach (var (name, value) in properties)
-            {
-                codeBuilder.AppendLine(
-                    CultureInfo.InvariantCulture,
-                    $"{indentation}    {name} = {ConvertNode(value, indentationDepth) ?? EmptyString},");
-            }
-
-            codeBuilder.AppendLine(indentation + "})");
+            AddSettings(codeBuilder, properties, typeName, indentationDepth);
         }
     }
 
-    private static void GenerateCodeForSettings(StringBuilder codeBuilder, ContentTypeSettings contentTypeSettings)
+    private void GenerateCodeForSettings(StringBuilder codeBuilder, ContentTypeSettings contentTypeSettings)
     {
         if (contentTypeSettings.Creatable) codeBuilder.AppendLine("    .Creatable()");
         if (contentTypeSettings.Listable) codeBuilder.AppendLine("    .Listable()");
         if (contentTypeSettings.Draftable) codeBuilder.AppendLine("    .Draftable()");
         if (contentTypeSettings.Versionable) codeBuilder.AppendLine("    .Versionable()");
         if (contentTypeSettings.Securable) codeBuilder.AppendLine("    .Securable()");
+
         if (!string.IsNullOrEmpty(contentTypeSettings.Stereotype))
         {
             codeBuilder.AppendLine(CultureInfo.InvariantCulture, $"    .Stereotype(\"{contentTypeSettings.Stereotype}\")");
         }
+
+        var hasCategory = !string.IsNullOrEmpty(contentTypeSettings.Category);
+        var hasThumbnailPath = !string.IsNullOrEmpty(contentTypeSettings.ThumbnailPath);
+        var hasDescription = !string.IsNullOrEmpty(contentTypeSettings.Description);
+
+        if (hasCategory || hasThumbnailPath || hasDescription)
+        {
+            var json = new JsonObject();
+
+            if (hasCategory) json["Category"] = contentTypeSettings.Category;
+            if (hasThumbnailPath) json["ThumbnailPath"] = contentTypeSettings.ThumbnailPath;
+            if (hasDescription) json["Description"] = contentTypeSettings.Description;
+
+            AddSettings(codeBuilder, json, nameof(ContentTypeSettings));
+        }
+    }
+
+    private void AddSettings(StringBuilder codeBuilder, JsonObject settings, string typeName, int indentationDepth = IndentationDepth)
+    {
+        var indentation = new string(' ', indentationDepth + IndentationDepth);
+
+        codeBuilder.AppendLine(CultureInfo.InvariantCulture, $"{indentation}.WithSettings(new {typeName}");
+        codeBuilder.AppendLine(indentation + "{");
+
+        foreach (var (name, value) in settings)
+        {
+            codeBuilder.AppendLine(
+                CultureInfo.InvariantCulture,
+                $"{indentation}    {name} = {ConvertNode(value, indentationDepth) ?? EmptyString},");
+        }
+
+        codeBuilder.AppendLine(indentation + "})");
     }
 
     private static void AddWithLine(StringBuilder codeBuilder, string name, string value)
