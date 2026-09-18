@@ -59,7 +59,11 @@ public sealed class CodeGenerationDisplayDriver : ContentTypeDefinitionDisplayDr
         {
             var partSettings = part.GetSettings<ContentTypePartSettings>();
 
-            codeBuilder.AppendLine(CultureInfo.InvariantCulture, $"    .WithPart(\"{part.Name}\", part => part");
+            var firstLine = part.IsNamedPart()
+                ? $"    .WithPart(\"{part.Name}\", \"{part.PartDefinition.Name}\", part => part"
+                : $"    .WithPart(\"{part.Name}\", part => part";
+
+            codeBuilder.AppendLine(firstLine);
 
             var partStartingLength = codeBuilder.Length;
 
