@@ -219,17 +219,8 @@ public sealed class CodeGenerationDisplayDriver : ContentTypeDefinitionDisplayDr
 
     private void GenerateCodeForSettings(StringBuilder codeBuilder, ContentTypeSettings contentTypeSettings)
     {
-        if (contentTypeSettings.Creatable) codeBuilder.AppendLine("    .Creatable()");
-        if (contentTypeSettings.Listable) codeBuilder.AppendLine("    .Listable()");
-        if (contentTypeSettings.Draftable) codeBuilder.AppendLine("    .Draftable()");
-        if (contentTypeSettings.Versionable) codeBuilder.AppendLine("    .Versionable()");
-        if (contentTypeSettings.Securable) codeBuilder.AppendLine("    .Securable()");
-
-        if (!string.IsNullOrEmpty(contentTypeSettings.Stereotype))
-        {
-            codeBuilder.AppendLine(CultureInfo.InvariantCulture, $"    .Stereotype(\"{contentTypeSettings.Stereotype}\")");
-        }
-
+        // First handle those configs that are used via properties of ContentTypeSettings. Instantiating
+        // ContentTypeSettings would override the other configs set with their own methods, so those come below.
         var hasCategory = !string.IsNullOrEmpty(contentTypeSettings.Category);
         var hasThumbnailPath = !string.IsNullOrEmpty(contentTypeSettings.ThumbnailPath);
         var hasDescription = !string.IsNullOrEmpty(contentTypeSettings.Description);
@@ -243,6 +234,18 @@ public sealed class CodeGenerationDisplayDriver : ContentTypeDefinitionDisplayDr
             if (hasDescription) json["Description"] = contentTypeSettings.Description;
 
             AddSettings(codeBuilder, json, nameof(ContentTypeSettings));
+        }
+
+        // Next, handle those configs that have their own config methods.
+        if (contentTypeSettings.Creatable) codeBuilder.AppendLine("    .Creatable()");
+        if (contentTypeSettings.Listable) codeBuilder.AppendLine("    .Listable()");
+        if (contentTypeSettings.Draftable) codeBuilder.AppendLine("    .Draftable()");
+        if (contentTypeSettings.Versionable) codeBuilder.AppendLine("    .Versionable()");
+        if (contentTypeSettings.Securable) codeBuilder.AppendLine("    .Securable()");
+
+        if (!string.IsNullOrEmpty(contentTypeSettings.Stereotype))
+        {
+            codeBuilder.AppendLine(CultureInfo.InvariantCulture, $"    .Stereotype(\"{contentTypeSettings.Stereotype}\")");
         }
     }
 
