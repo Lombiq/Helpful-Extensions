@@ -20,7 +20,7 @@ public class GoogleTagLiquidParserTag : ILiquidParserTag
     {
         var arguments = new List<FilterArgument>
         {
-            new(null, new LiteralExpression(new StringValue(GoogleTagViewModel.ShapeType))),
+            new(name: null, new LiteralExpression(new StringValue(GoogleTagViewModel.ShapeType))),
         };
 
         foreach (var argument in argumentsList)
