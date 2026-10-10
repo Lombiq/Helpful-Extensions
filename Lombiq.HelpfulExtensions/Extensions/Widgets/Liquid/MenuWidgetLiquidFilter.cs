@@ -9,7 +9,6 @@ using OrchardCore.Liquid;
 using OrchardCore.Navigation;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
 using System.Text.Json;
 using System.Text.Json.Nodes;
 using System.Text.Json.Serialization;
@@ -101,7 +100,6 @@ public class MenuWidgetLiquidFilter : ILiquidFilter
         public override void Write(Utf8JsonWriter writer, LocalizedString value, JsonSerializerOptions options) =>
             writer.WriteStringValue(value?.Value);
 
-        [SuppressMessage("Style", "IDE0010:Add missing cases", Justification = "We don't want to handle other token types.")]
         public override LocalizedString Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
         {
             switch (reader.TokenType)
@@ -113,6 +111,16 @@ public class MenuWidgetLiquidFilter : ILiquidFilter
                         JsonSerializer.Deserialize<Dictionary<string, string>>(ref reader, options),
                         StringComparer.OrdinalIgnoreCase);
                     return new LocalizedString(data[nameof(LocalizedString.Name)], data[nameof(LocalizedString.Value)]);
+                case JsonTokenType.None:
+                case JsonTokenType.EndObject:
+                case JsonTokenType.StartArray:
+                case JsonTokenType.EndArray:
+                case JsonTokenType.PropertyName:
+                case JsonTokenType.Comment:
+                case JsonTokenType.Number:
+                case JsonTokenType.True:
+                case JsonTokenType.False:
+                case JsonTokenType.Null:
                 default:
                     throw new InvalidOperationException("Unable to parse JSON!");
             }

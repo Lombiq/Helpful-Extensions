@@ -84,16 +84,15 @@ public class ContentSetPartViewModel
                 pair.Key));
         options.AddRange(inapplicableSetMembers, link => link.Key);
 
-        // Using collection expression greatly reduces readability.
-#pragma warning disable IDE0305 // Simplify collection initialization
-        MemberLinks = options
-            .Values
-            .Where(link => link.Key != Key && link.ContentItemId != part.ContentItem.ContentItemId)
-            .OrderBy(link => string.IsNullOrEmpty(link.ContentItemId) ? 1 : 0)
-            .ThenBy(link => link.IsDeleted ? 1 : 0)
-            .ThenBy(link => link.DisplayText)
-            .ToList();
-#pragma warning restore IDE0305 // Simplify collection initialization
+        MemberLinks =
+        [
+            .. options
+                .Values
+                .Where(link => link.Key != Key && link.ContentItemId != part.ContentItem.ContentItemId)
+                .OrderBy(link => string.IsNullOrEmpty(link.ContentItemId) ? 1 : 0)
+                .ThenBy(link => link.IsDeleted ? 1 : 0)
+                .ThenBy(link => link.DisplayText)
+        ];
     }
 }
 
