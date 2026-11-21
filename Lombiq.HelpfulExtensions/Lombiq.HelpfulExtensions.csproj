@@ -28,6 +28,11 @@
     <PackageReference Include="Scrutor" Version="7.0.0" />
   </ItemGroup>
 
+  <!-- Security Updates for Orchard Core - make sure to check if these are still necessary -->
+  <ItemGroup Condition="'$(ManagePackageVersionsCentrally)' != 'true'">
+    <PackageReference Include="HtmlSanitizer" Version="9.2.1039" NoWarn="NU1510" />
+  </ItemGroup>
+
   <Import Condition="'$(NuGetBuild)' != 'true'" Project="../../../Utilities/Lombiq.MSBuild.Targets/Lombiq.MSBuild.OrchardCore.Module.Sdk/Sdk/Import.targets" />
   <Import Condition="'$(NuGetBuild)' == 'true'" Project="Sdk.targets" Sdk="Lombiq.MSBuild.OrchardCore.Module.Sdk" Version="2.1.1" />
 </Project>
